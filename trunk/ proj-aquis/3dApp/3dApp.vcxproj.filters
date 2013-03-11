@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{7bd1bbdc-52ce-4e86-9e1c-f75583adb37b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{ef09be03-48d9-4d21-8cc0-839434108d47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{2faf763e-c85b-4e2a-b716-233dcde40379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\D3D">
+      <UniqueIdentifier>{f8beb515-8783-47cd-b173-d20e5314f1aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\D3D\Models">
+      <UniqueIdentifier>{4b3b3e94-2ef0-4cfd-81a9-c604f0282657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\D3D\Utility">
+      <UniqueIdentifier>{8b32da89-9cdf-4531-9994-8fe03b6285d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Geometry">
+      <UniqueIdentifier>{cc117baa-b906-436a-b873-5f2d00aa1430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\D3D\Shaders">
+      <UniqueIdentifier>{18d5ef3d-e934-4a74-a004-a9c9f7a12d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\D3D\Models\Old">
+      <UniqueIdentifier>{a24c9af6-712f-426a-a9e9-c931296bb238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\D3D\Shaders\old">
+      <UniqueIdentifier>{790853c7-67cd-4434-9c35-64112aae6131}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Cameras">
+      <UniqueIdentifier>{2676f208-6c92-4d8f-a615-08204f949fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{f830d6d1-9422-4446-acde-babf3b55cac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Object">
+      <UniqueIdentifier>{671b0330-3f84-45b5-a4ad-fed451ee9045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Material">
+      <UniqueIdentifier>{5935e84f-7962-4852-a037-8ed3a323f1b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Light">
+      <UniqueIdentifier>{f7d47577-ec0c-4087-8fba-c722a5ee0718}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="C3DApp.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3DBase.cpp">
+      <Filter>Graphics\D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphics.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="WICTextureLoader.cpp">
+      <Filter>Graphics\D3D\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelCube.cpp">
+      <Filter>Graphics\D3D\Models\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelTriangle.cpp">
+      <Filter>Graphics\D3D\Models\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3DModel.cpp">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CGeometryGenerator.cpp">
+      <Filter>Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelBase.cpp">
+      <Filter>Graphics\D3D\Models\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3DShader.cpp">
+      <Filter>Graphics\D3D\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CColourShader.cpp">
+      <Filter>Graphics\D3D\Shaders\old</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3DEffect.cpp">
+      <Filter>Graphics\D3D\Shaders\old</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3DModelManager.cpp">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3DShaderManager.cpp">
+      <Filter>Graphics\D3D\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Graphics\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="CFPCamera.cpp">
+      <Filter>Graphics\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogic.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="win_platform.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimer.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="C3DApp.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3DBase.h">
+      <Filter>Graphics\D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="WICTextureLoader.h">
+      <Filter>Graphics\D3D\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GfxDefs.h">
+      <Filter>Graphics\D3D\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelCube.h">
+      <Filter>Graphics\D3D\Models\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelTriangle.h">
+      <Filter>Graphics\D3D\Models\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderParams.h">
+      <Filter>Graphics\D3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3DModel.h">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CGeometryGenerator.h">
+      <Filter>Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelBase.h">
+      <Filter>Graphics\D3D\Models\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3DShader.h">
+      <Filter>Graphics\D3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="IShader.h">
+      <Filter>Graphics\D3D\Shaders\old</Filter>
+    </ClInclude>
+    <ClInclude Include="CColourShader.h">
+      <Filter>Graphics\D3D\Shaders\old</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3DEffect.h">
+      <Filter>Graphics\D3D\Shaders\old</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3DModelManager.h">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3DShaderManager.h">
+      <Filter>Graphics\D3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Graphics\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="CFPCamera.h">
+      <Filter>Graphics\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="ILogic.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="CLogic.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
