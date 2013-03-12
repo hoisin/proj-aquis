@@ -18,7 +18,7 @@ C3DApp::~C3DApp(void)
 }
 
 
-bool C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
+BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 {
 	//Create class
 	WNDCLASSEX winClass;
@@ -39,7 +39,7 @@ bool C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 	if(!RegisterClassEx(&winClass))
 	{
 		throw std::runtime_error("Failed to register window");
-		return false;
+		return FALSE;
 	}
 
 	//Create and determine window size
@@ -69,7 +69,7 @@ bool C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 	if(_hwnd == 0)
 	{
 		throw std::runtime_error("Failed to create window");
-		return false;
+		return FALSE;
 	}
 
 	// Store a pointer to this object in the window
@@ -80,7 +80,7 @@ bool C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 
 	m_pRenderer->VInitialise(_hwnd, windowWidth, windowHeight, FALSE, FALSE, 100, 1);
 
-	return true;
+	return TRUE;
 }
 
 
@@ -159,7 +159,7 @@ void C3DApp::CalculateFrameStats(void)
 }
 
 
-bool C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
+BOOL C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	//mouse variables for allowing interaction with camera
 	POINT temp;
@@ -244,10 +244,10 @@ bool C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 
 	default:
-		return false;
+		return FALSE;
 	}
 
-	return true;
+	return TRUE;
 }
 
 

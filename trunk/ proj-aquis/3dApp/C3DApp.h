@@ -31,7 +31,7 @@ public:
 	~C3DApp(void);
 
 	//Performs window creation and other initialisation
-	bool Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight);
+	BOOL Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight);
 
 	//Main loop
 	void Run(void);
@@ -45,7 +45,7 @@ private:
 	void OnUpdate(float fTime);
 
 	//An event that needs capturing in here
-	bool OnEvent(UINT msg, WPARAM wParam, LPARAM lParam);
+	BOOL OnEvent(UINT msg, WPARAM wParam, LPARAM lParam);
 
 	void CalculateFrameStats(void);
 

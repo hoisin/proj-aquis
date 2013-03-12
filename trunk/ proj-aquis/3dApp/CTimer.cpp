@@ -28,7 +28,7 @@ float CTimer::Time(void) const
 
 float CTimer::DeltaTime(void) const
 {
-	return m_deltaTime;
+	return static_cast<float>(m_deltaTime);
 }
 
 

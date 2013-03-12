@@ -40,7 +40,7 @@ void CModelTriangle::VShutDown(void)
 {
 	if(!m_pModelVertices.empty())
 	{
-		for(int i = 0; i < m_pModelVertices.size(); i++)
+		for(int i = 0; i < static_cast<int>(m_pModelVertices.size()); i++)
 		{
 			delete m_pModelVertices[i];
 			m_pModelVertices[i] = NULL;
