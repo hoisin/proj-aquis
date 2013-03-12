@@ -65,17 +65,17 @@ public:
 	virtual ~CD3DBase(void);
 
 	// Performs D3DX initialisation and other sub systems
-	bool Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
+	int Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
 		float screenDepth, float screenNear);
 
-	bool CreateDeviceIndependentResources(void);		// Create resources required that are independent of device
-	bool CreateWindowSizeDependentResources(void);		// Allocate memory resources that change on window resize
-	bool CreateDeviceResources(void);					// Create resources that are dependent on device
+	int CreateDeviceIndependentResources(void);			// Create resources required that are independent of device
+	int CreateWindowSizeDependentResources(void);		// Allocate memory resources that change on window resize
+	int CreateDeviceResources(void);					// Create resources that are dependent on device
 
 	// Probably don't need since D3D11 does not have the lost device concept
 	void HandleDeviceLost();
 
-	void UpdateForWindowSizeChange(void);
+	int UpdateForWindowSizeChange(void);
 
 	// Clears screen & presents
     void BeginDraw(float red, float green, float blue, float alpha);

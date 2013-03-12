@@ -1,13 +1,15 @@
 #include "CTexture.h"
+#include "ErrorCodes.h"
 
 CTexture::CTexture(void) : m_pTexture(NULL)
 {
+	// Do nothing
 }
 
 
 CTexture::CTexture(const CTexture& other) : m_pTexture(NULL)
 {
-	// For now do nothing
+	// Do nothing
 }
 
 
@@ -17,19 +19,20 @@ CTexture::~CTexture(void)
 }
 
 
-bool CTexture::VInitialise(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string& fileTextureName)
+int CTexture::VInitialise(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string& fileTextureName)
 {
 	// Load the texture in.
 	std::wstring wFileTextureName = std::wstring(fileTextureName.begin(), fileTextureName.end());
 
+	// Create the texture resource
 	HRESULT result = CreateWICTextureFromFile(pDevice, pContext, wFileTextureName.c_str(), NULL, &m_pTexture);
 
 	if(FAILED(result))
 	{
-		return false;
+		return ERROR_GFX_WIC_CREATE_TEXTURE;
 	}
 
-	return true;
+	return ERROR_PASS;
 }
 
 

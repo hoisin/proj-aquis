@@ -14,7 +14,7 @@
 
 /*
 ==============================================
-	Old Vertex Structs (UNUSED)
+	Old Vertex Structs (UNUSED) TO BE REMOVED...
 ==============================================
 */
 
@@ -90,7 +90,7 @@ struct SVertexTypePNT : public SVertexType
 };
 
 
-// Helper method (not sure making this inline is a good idea)
+// Helper method
 inline int GetSizeOfVertexType(EVertexType type)
 {
 	switch(type)
@@ -112,15 +112,17 @@ inline int GetSizeOfVertexType(EVertexType type)
 		break;
 
 	default:
-		return 0;
+		return -1;
 	}
 
-	return 0;
+	// Should'nt reach here anyway
+	return -1;
 }
+
 
 /*
 ==============================================
-	Old Model Structs (UNUSED)
+	Old Model Structs (UNUSED) REMOVE PLS
 ==============================================
 */
 
@@ -155,6 +157,19 @@ struct MatrixBufferTypeWVP
 	DirectX::XMMATRIX projection;
 };
 
+
+/*
+==============================================
+	Light buffer
+==============================================
+*/
+
+struct LightBuffer
+{
+	DirectX::XMFLOAT4 lightColour;
+	DirectX::XMFLOAT3 lightDirection;
+	float lightIntensity;
+};
 
 
 /*

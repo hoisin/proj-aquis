@@ -1,4 +1,5 @@
 #include "CD3DBase.h"
+#include "ErrorCodes.h"
 
 CD3DBase::CD3DBase(void) :
 	m_pWICFactory(NULL),
@@ -27,7 +28,7 @@ CD3DBase::~CD3DBase(void)
 }
 
 
-bool CD3DBase::Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
+int CD3DBase::Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
 	float screenDepth, float screenNear)
 {
 	m_hwnd = hwnd;
@@ -36,23 +37,28 @@ bool CD3DBase::Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVS
 	m_renderTargetWidth = screenWidth;
 	m_renderTargetHeight = screenHeight;
 
-	if(!CreateDeviceIndependentResources())
-		return false;
+	int errorCode = ERROR_PASS;
 
-	if(!CreateDeviceResources())
-		return false;
+	errorCode = CreateDeviceIndependentResources();
+	if( !SUCCESS(errorCode) )
+		return errorCode;
 
-	if(!CreateWindowSizeDependentResources())
-		return false;
+	errorCode = CreateDeviceResources();
+	if( !SUCCESS(errorCode) )
+		return errorCode;
 
-	return true;
+	errorCode = CreateWindowSizeDependentResources();
+	if( !SUCCESS(errorCode) )
+		return errorCode;
+
+	return errorCode;
 }
 
 
 /*
 	Everything in here can be created without any dependence on the device.
 */
-bool CD3DBase::CreateDeviceIndependentResources(void)
+int CD3DBase::CreateDeviceIndependentResources(void)
 {
 	//Create matrix stack
 	m_pMatrixStack = new CD3DMatrixStack;
@@ -67,28 +73,28 @@ bool CD3DBase::CreateDeviceIndependentResources(void)
 		(LPVOID*)&m_pWICFactory);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_CREATE_INDEPEND_RES;
 
-	return true;
+	return ERROR_PASS;
 }
 
 
-bool CD3DBase::CreateWindowSizeDependentResources(void)
+int CD3DBase::CreateWindowSizeDependentResources(void)
 {
-	//Get current window 
+	// Get current window 
 	RECT winRect;
 	GetClientRect(m_hwnd, &winRect);
 
-	//Store the window bounds so the next time we get a SizeChanged event we can
-    //avoid rebuilding everything if the size is identical.
+	// Store the window bounds so the next time we get a SizeChanged event we can
+    // avoid rebuilding everything if the size is identical.
     m_windowBounds = winRect;
 
-	//For checking function return calls
+	// For checking function return calls
 	HRESULT result;
 
     if (m_pSwapChain != NULL)
     {
-        //If the swap chain already exists, resize it.
+        // If the swap chain already exists, resize it.
         HRESULT hr = m_pSwapChain->ResizeBuffers(2, 0, 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0);
 
         if (hr == DXGI_ERROR_DEVICE_REMOVED)
@@ -96,27 +102,27 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
             // If the device was removed for any reason, a new device and swapchain will need to be created.
             HandleDeviceLost();
 
-            //Everything is set up now. Do not continue execution of this method.
-            return true;
+            // Everything is set up now. Do not continue execution of this method.
+            return ERROR_PASS;
         }
         else
-			return false;
+			return ERROR_GFX_CREATE_WIN_DEPEND_RES;
     }
     else
     {
         // Otherwise, create a new one using the same adapter as the existing Direct3D device.
         DXGI_SWAP_CHAIN_DESC swapChainDesc = {0};
 
-		//Buffer description
-		swapChainDesc.BufferDesc.Width = (winRect.right - winRect.left);			//Same as window
+		// Buffer description
+		swapChainDesc.BufferDesc.Width = (winRect.right - winRect.left);			// Same as window
 		swapChainDesc.BufferDesc.Height = (winRect.bottom - winRect.top);
-        swapChainDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;				//This is the most common swap chain format.
-		swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;						//60Hz refresh rate
+        swapChainDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;				// This is the most common swap chain format.
+		swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;						// 60Hz refresh rate
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 		swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 		swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 
-		//Check m4xMsaa support
+		// Check m4xMsaa support
 		UINT m4xMsaaQuality;
 		m_pDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
 
@@ -128,7 +134,7 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 			swapChainDesc.SampleDesc.Count = 4;
 			swapChainDesc.SampleDesc.Quality = m4xMsaaQuality - 1;
 		}
-		else	//No MSAA
+		else	// No MSAA
 		{
 			swapChainDesc.SampleDesc.Count = 1;
 			swapChainDesc.SampleDesc.Quality = 0;
@@ -146,47 +152,47 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 		result = m_pDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)&pDxgiDevice);
 
 		if(FAILED(result))
-			return false;
+			return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
 		IDXGIAdapter* pDxgiAdapter = 0;
 
 		result = pDxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&pDxgiAdapter);
 
 		if(FAILED(result))
-			return false;
+			return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
 		IDXGIFactory* pDxgiFactory = 0;
 
 		result = pDxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&pDxgiFactory);
 
 		if(FAILED(result))
-			return false;
+			return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
-		//Create the swap chain
+		// Create the swap chain
 		result = pDxgiFactory->CreateSwapChain(m_pDevice, &swapChainDesc, &m_pSwapChain);
 
 		if(FAILED(result))
-			return false;
+			return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
-		//Release all acquired COM interfaces
+		// Release all acquired COM interfaces
 		pDxgiFactory->Release();
 		pDxgiAdapter->Release();
 		pDxgiDevice->Release();
     }
 
-    //Create a Direct3D render target view of the swap chain back buffer.
+    // Create a Direct3D render target view of the swap chain back buffer.
     ID3D11Texture2D* pBackBuffer = 0;
 	result = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&pBackBuffer));
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
 	result = m_pDevice->CreateRenderTargetView(pBackBuffer, 0 , &m_pD3dRenderTargetView);
 
 	if(FAILED(result))
 	{
 		pBackBuffer->Release();
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 	}
 
     // Cache the rendertarget dimensions in our helper class for convenient use.
@@ -195,10 +201,10 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
     m_renderTargetWidth  = static_cast<float>(backBufferDesc.Width);
     m_renderTargetHeight = static_cast<float>(backBufferDesc.Height);
 
-	//Release COM interface
+	// Release COM interface
 	pBackBuffer->Release();
 
-    //Create a depth stencil view for use with 3D rendering if needed.
+    // Create a depth stencil view for use with 3D rendering if needed.
     CD3D11_TEXTURE2D_DESC bufferDepthStencilDesc(
         DXGI_FORMAT_D24_UNORM_S8_UINT,
         backBufferDesc.Width,
@@ -208,6 +214,7 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
         D3D11_BIND_DEPTH_STENCIL
         );
 
+	// Create texture for depth stencil
 	result = m_pDevice->CreateTexture2D(
 		&bufferDepthStencilDesc,
 		nullptr,
@@ -217,7 +224,7 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 	if(FAILED(result))
 	{
 		m_pDepthStencilBuffer->Release();
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 	}
 
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
@@ -246,13 +253,16 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
+	// Create depth stencil state
 	result = m_pDevice->CreateDepthStencilState(&depthStencilDesc, &m_pDepthStencilState);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
+	// Set depth stencil state
 	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState,1);
 
+	// Create the depth stencil
 	result = m_pDevice->CreateDepthStencilView(
 		m_pDepthStencilBuffer,
 		NULL,
@@ -262,9 +272,10 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 	if(FAILED(result))
 	{
 		m_pDepthStencilBuffer->Release();
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 	}
 	
+	// Set render targets
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pD3dRenderTargetView, m_pD3dDepthStencilView);
 
 	// Create raster state for solid mode
@@ -289,7 +300,7 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 	m_vpRasterState.push_back(pRasterState);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
 	// Create ratester state for wireframe mode
 	rasterDesc.FillMode = D3D11_FILL_WIREFRAME;
@@ -299,7 +310,7 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 	m_vpRasterState.push_back(pRasterState);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 	
 	// Now set the rasterizer state using solid mode
 	m_pDeviceContext->RSSetState(m_vpRasterState[0]);
@@ -314,14 +325,14 @@ bool CD3DBase::CreateWindowSizeDependentResources(void)
 
     m_pDeviceContext->RSSetViewports(1, &viewport);
 
-	return true;
+	return ERROR_PASS;
 }
 	
 /*
 	Creation of device resources which require dependent on the device.
 	(i.e. Needs a instance of a device created)
 */
-bool CD3DBase::CreateDeviceResources(void)
+int CD3DBase::CreateDeviceResources(void)
 {
 	//This flag adds support for surfaces with a different color channel ordering
     //than the API default. It is required for compatibility with Direct2D.
@@ -364,16 +375,15 @@ bool CD3DBase::CreateDeviceResources(void)
             );
        
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
     if(m_pDevice == NULL)
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
 	if(m_pDeviceContext == NULL)
-		return false;
+		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
 
-
-	return true;
+	return ERROR_PASS;
 }
 
 
@@ -391,7 +401,7 @@ void CD3DBase::HandleDeviceLost(void)
 }
 
 
-void CD3DBase::UpdateForWindowSizeChange(void)
+int CD3DBase::UpdateForWindowSizeChange(void)
 {
 	//Get current window 
 	RECT winRect;
@@ -406,8 +416,15 @@ void CD3DBase::UpdateForWindowSizeChange(void)
 
 		m_bWindowSizeChangeInProgress = true;
 
-		CreateWindowSizeDependentResources();
+		int errorCode = ERROR_FAIL;
+
+		errorCode = CreateWindowSizeDependentResources();
+
+		if( !SUCCESS(errorCode) )
+			return errorCode;
 	}
+
+	return ERROR_PASS;
 }
 
 

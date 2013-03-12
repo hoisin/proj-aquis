@@ -184,6 +184,7 @@
     <ClInclude Include="CModelTriangle.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="ErrorCodes.h" />
     <ClInclude Include="IGraphics.h" />
     <ClInclude Include="GfxDefs.h" />
     <ClInclude Include="ILogic.h" />

@@ -32,7 +32,7 @@ public:
 	CD3DModel(const CD3DModel& other);
 	~CD3DModel(void);
 	
-	bool Initialise(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName = "NULL");
+	int Initialise(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName = "NULL");
 
 	void ShutDown(void);
 
@@ -46,7 +46,7 @@ public:
 	EVertexType GetVertexType(void);
 
 protected:
-	virtual bool VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData);
+	virtual int VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData);
 
 	// Releases buffers
 	virtual void VShutDownBuffers(void);
@@ -55,7 +55,7 @@ protected:
 	virtual void VRenderBuffers(ID3D11DeviceContext* pContext);
 
 	// Loads texture into shader resource
-	virtual bool VLoadTexture(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string fileTextureName);
+	virtual int VLoadTexture(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string fileTextureName);
 
 	// Frees loaded textures
 	virtual void VReleaseTexture(void);

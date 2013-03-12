@@ -20,7 +20,7 @@ C3DApp::~C3DApp(void)
 
 BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 {
-	//Create class
+	// Create class
 	WNDCLASSEX winClass;
 	memset(&winClass, 0, sizeof(WNDCLASSEX));
 	winClass.cbSize = sizeof(WNDCLASSEX);
@@ -35,14 +35,14 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 
 	m_windowName = windowName;
 
-	//Register class
+	// Register class
 	if(!RegisterClassEx(&winClass))
 	{
 		throw std::runtime_error("Failed to register window");
 		return FALSE;
 	}
 
-	//Create and determine window size
+	// Create and determine window size
 	RECT windowSize;
 	windowSize.left = 0;
 	windowSize.right = windowWidth;
@@ -52,12 +52,12 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 	AdjustWindowRectEx(&windowSize, WS_VISIBLE | WS_SYSMENU | WS_MINIMIZEBOX  |
 								WS_CLIPCHILDREN | WS_CLIPSIBLINGS, false, WS_EX_OVERLAPPEDWINDOW); 
 
-	//Create window
+	// Create window
 	_hwnd = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"3DApp", windowName, 
 		WS_VISIBLE | WS_SYSMENU | WS_MINIMIZEBOX | WS_CLIPCHILDREN | WS_CLIPSIBLINGS , 100, 100, 
 		(windowSize.right - windowSize.left), (windowSize.bottom - windowSize.top), 0, 0, 0, 0);
 
-	//Recalculate window to get client area to correct size
+	// Recalculate window to get client area to correct size
 	RECT rClient, rWindow;
 	POINT ptDiff;
 	GetClientRect(_hwnd, &rClient);
@@ -86,7 +86,7 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 
 void C3DApp::Run(void)
 {
-	//show window
+	// show window
 	ShowWindow(_hwnd,SW_SHOW);
 	UpdateWindow(_hwnd);
 
@@ -97,7 +97,7 @@ void C3DApp::Run(void)
 
 	m_timer.Start();
 
-	//Main app loop
+	// Main app loop
 	while(_bRun)
 	{
 		m_timer.Tick();
@@ -109,10 +109,10 @@ void C3DApp::Run(void)
 			DispatchMessage( &msg );
 		}
 	
-		//Update
+		// Update
 		OnUpdate(0.001f * ( timeGetTime() - startTime ) );
 
-		//Draw
+		// Draw
 		OnDraw();
 
 		CalculateFrameStats();
@@ -124,14 +124,14 @@ void C3DApp::Run(void)
 
 void C3DApp::OnDraw(void)
 {
-	//Draw something
+	// Draw something
 	m_pRenderer->VRenderScene();
 }
 
 
 void C3DApp::OnUpdate(float fTime)
 {
-	//Do some update here
+	// Do some update here
 }
 
 
@@ -161,7 +161,7 @@ void C3DApp::CalculateFrameStats(void)
 
 BOOL C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	//mouse variables for allowing interaction with camera
+	// mouse variables for allowing interaction with camera
 	POINT temp;
 	::GetCursorPos(&temp);
 	static float lastX = (float)temp.x;
@@ -193,16 +193,10 @@ BOOL C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			((CFPCamera*)(m_pRenderer->GetCamera()))->RotatePitch(y*0.5);
 			((CFPCamera*)(m_pRenderer->GetCamera()))->RotateYaw(x*0.5);
-			//g_firstPersonCam.RotateLeftRight(x*g_rotationAmt);
-			//g_firstPersonCam.RotateUpDown(y*g_rotationAmt);
 		}
 
 		lastX = (float)temp.x;
 		lastY = (float)temp.y;
-
-		
-
-		//std::cout << x << " " << y << std::endl;
 		break;
 
 	case WM_KEYDOWN:
@@ -272,7 +266,7 @@ LRESULT WINAPI C3DApp::WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	if(app->OnEvent(msg,wParam,lParam) == false)
+	if(app->OnEvent(msg,wParam,lParam) == FALSE)
 		return DefWindowProc( wnd, msg, wParam, lParam );
 
 	return 0;

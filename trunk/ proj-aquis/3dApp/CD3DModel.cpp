@@ -1,6 +1,7 @@
 #include "CD3DModel.h"
 #include "CD3DBase.h"
-#include <iostream>
+#include "ErrorCodes.h"
+
 CD3DModel::CD3DModel(void) :
 	m_vertexBuffer(NULL),
 	m_indexBuffer(NULL),
@@ -29,23 +30,29 @@ CD3DModel::~CD3DModel(void)
 	ShutDown();
 }
 
+
 /*
+	Inits stuff...
 */
-bool CD3DModel::Initialise(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName)
+int CD3DModel::Initialise(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName)
 {
 	// User friendly ID for reference
 	m_name = modelName;
 	m_vertType = pData->m_vertexType;
 
+	int errorCode = ERROR_FAIL;
+
 	// This is dependant on VLoadModel
-	if(!VInitialiseBuffers(pD3d->GetDevice(), pData))
-		return false;
+	errorCode = VInitialiseBuffers(pD3d->GetDevice(), pData);
+	if( !SUCCESS(errorCode) )
+		return errorCode;
 
 	// Called last as its independant to the other two calls
-	if(!VLoadTexture(pD3d->GetDevice(), pD3d->GetContext(), fileTextureName))
-		return false;
+	errorCode = VLoadTexture(pD3d->GetDevice(), pD3d->GetContext(), fileTextureName);
+	if( !SUCCESS(errorCode) )
+		return errorCode;
 
-	return true;
+	return ERROR_PASS;
 }
 
 
@@ -74,11 +81,13 @@ EVertexType CD3DModel::GetVertexType(void)
 }
 
 
-bool CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
+int CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 {
 	// If invalid data, return false
 	if((int)pData->m_pvVertices.size() <= 0 || (int)pData->m_indices.size() <= 0)
-		return false;
+	{
+		return ERROR_GFX_VERT_BUFFER_INIT;
+	}
 
 	SVertexType* vertices = NULL;
 	unsigned long* indices;
@@ -117,7 +126,9 @@ bool CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	// Now create the vertex buffer.
 	HRESULT result = pDevice->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
 	if(FAILED(result))
-		return false;
+	{
+		return ERROR_GFX_VERT_BUFFER_INIT;
+	}
 	
 	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -136,7 +147,7 @@ bool CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	result = pDevice->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer);
 	if(FAILED(result))
 	{
-		return false;
+		return ERROR_GFX_VERT_BUFFER_INIT;
 	}
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
@@ -146,7 +157,7 @@ bool CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	delete [] indices;
 	indices = 0;
 
-	return true;
+	return ERROR_PASS;
 }
 
 
@@ -185,17 +196,19 @@ void CD3DModel::VRenderBuffers(ID3D11DeviceContext* pContext)
 }
 
 
-bool CD3DModel::VLoadTexture(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string fileTextureName)
+int CD3DModel::VLoadTexture(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string fileTextureName)
 {
 	if(fileTextureName != "NULL")
 	{
 		m_pTexture = new CTexture;
 
 		if(!m_pTexture->VInitialise(pDevice, pContext, fileTextureName))
-			return false;
+			return ERROR_GFX_WIC_CREATE_TEXTURE;
+
+		return ERROR_PASS;
 	}
 
-	return true;
+	return ERROR_GFX_WIC_CREATE_TEXTURE;
 }
 
 

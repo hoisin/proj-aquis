@@ -20,9 +20,11 @@ protected:
 public:
 	CTexture(void);
 	CTexture(const CTexture& other);
+	void operator=(const CTexture& other);
+
 	virtual ~CTexture(void);
 
-	virtual bool VInitialise(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string& fileTextureName);
+	virtual int VInitialise(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string& fileTextureName);
 	virtual void VShutDown(void);
 
 	ID3D11ShaderResourceView* GetTexture(void);

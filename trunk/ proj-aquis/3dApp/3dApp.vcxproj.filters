@@ -50,6 +50,9 @@
     <Filter Include="Graphics\Light">
       <UniqueIdentifier>{f7d47577-ec0c-4087-8fba-c722a5ee0718}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Error">
+      <UniqueIdentifier>{ae3f5ea1-f595-4b38-8534-e7afa218730c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="CLogic.h">
       <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorCodes.h">
+      <Filter>Error</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

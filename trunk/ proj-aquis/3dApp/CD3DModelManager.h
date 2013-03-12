@@ -20,7 +20,7 @@ public:
 	CD3DModelManager(void);
 	~CD3DModelManager(void);
 
-	// Adds a model to the collection, returns an index to model
+	// Adds a model to the collection, returns an index to model (-2 if fails to add)
 	int AddD3DModel(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName);
 
 	// Remove functions only delete the model (freeing memory). The elements in the vector do not get removed
