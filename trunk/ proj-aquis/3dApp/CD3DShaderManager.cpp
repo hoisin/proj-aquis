@@ -1,4 +1,5 @@
 #include "CD3DShaderManager.h"
+#include "ErrorCodes.h"
 
 CD3DShaderManager::CD3DShaderManager(void)
 {
@@ -55,10 +56,10 @@ int CD3DShaderManager::AddD3DShader(ID3D11Device* pDevice, EVertexType vertexTyp
 }
 
 
-bool CD3DShaderManager::RemoveD3DShader(int index)
+int CD3DShaderManager::RemoveD3DShader(int index)
 {
 	if(index < 0 || index >= (int)m_vpShaders.size())
-		return false;
+		return ERROR_GFX_SHADER_REMOVE;
 
 	if(m_vpShaders[index])
 	{
@@ -66,7 +67,7 @@ bool CD3DShaderManager::RemoveD3DShader(int index)
 		m_vpShaders[index] = NULL;
 	}
 
-	return true;
+	return ERROR_PASS;
 }
 
 

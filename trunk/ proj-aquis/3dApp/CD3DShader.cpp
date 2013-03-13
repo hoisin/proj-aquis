@@ -1,4 +1,5 @@
 #include "CD3DShader.h"
+#include "ErrorCodes.h"
 
 CD3DShader::CD3DShader(void) : m_pVertexShader(NULL),
 	m_pPixelShader(NULL),
@@ -15,16 +16,16 @@ CD3DShader::~CD3DShader(void)
 }
 
 
-bool CD3DShader::Initialize(ID3D11Device* pDevice, EVertexType vertexType, const D3D11_SAMPLER_DESC& samplerDesc, const std::string& shaderName, const std::string& fileVertexShader, 
+int CD3DShader::Initialize(ID3D11Device* pDevice, EVertexType vertexType, const D3D11_SAMPLER_DESC& samplerDesc, const std::string& shaderName, const std::string& fileVertexShader, 
 		const std::string& vertexShaderEntry, const std::string& vertexShaderTarget, const std::string& filePixelShader, const std::string& pixelShaderEntry, const std::string& pixelShaderTarget)
 {
-	HRESULT result =  VInitializeShader(pDevice, vertexType, samplerDesc, fileVertexShader, vertexShaderEntry, vertexShaderTarget, filePixelShader, pixelShaderEntry, pixelShaderTarget);
 	m_name = shaderName;
+	int errorCode =  VInitializeShader(pDevice, vertexType, samplerDesc, fileVertexShader, vertexShaderEntry, vertexShaderTarget, filePixelShader, pixelShaderEntry, pixelShaderTarget);
+	
+	if( !SUCCESS(errorCode) )
+		return errorCode;
 
-	if(FAILED(result))
-		return false;
-
-	return true;
+	return ERROR_PASS;
 }
 
 
@@ -34,16 +35,20 @@ void CD3DShader::ShutDown()
 }
 
 
-bool CD3DShader::Render(ID3D11DeviceContext* pContext, int indexCount, ShaderBaseParams* pParams)
+int CD3DShader::Render(ID3D11DeviceContext* pContext, int indexCount, ShaderBaseParams* pParams)
 {
 	// Set the shader parameters that it will use for rendering.
-	if(!VSetShaderParameters(pContext, pParams))
-		return false;
+	int errorCode = ERROR_FAIL;
+
+	errorCode = VSetShaderParameters(pContext, pParams);
+
+	if( !SUCCESS(errorCode) )
+		return errorCode;
 
 	// Now render the prepared buffers with the shader.
 	VRenderShader(pContext, indexCount);
 
-	return true;
+	return ERROR_PASS;
 }
 
 
@@ -59,7 +64,7 @@ EVertexType CD3DShader::GetVertexType(void)
 }
 
 
-bool CD3DShader::VInitializeShader(ID3D11Device* pDevice, EVertexType vertexType, const D3D11_SAMPLER_DESC& samplerDesc, const std::string& fileVertexShader, 
+int CD3DShader::VInitializeShader(ID3D11Device* pDevice, EVertexType vertexType, const D3D11_SAMPLER_DESC& samplerDesc, const std::string& fileVertexShader, 
 		const std::string& vertexShaderEntry, const std::string& vertexShaderTarget, const std::string& filePixelShader, const std::string& pixelShaderEntry, const std::string& pixelShaderTarget)
 {
 	ID3DBlob* errorMessage = NULL;
@@ -92,7 +97,7 @@ bool CD3DShader::VInitializeShader(ID3D11Device* pDevice, EVertexType vertexType
 				       &vertexShaderBuffer, &errorMessage);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 	
 	std::wstring wFilePixelShader = std::wstring(filePixelShader.begin(), filePixelShader.end());
 
@@ -101,20 +106,20 @@ bool CD3DShader::VInitializeShader(ID3D11Device* pDevice, EVertexType vertexType
 				       &pixelShaderBuffer, &errorMessage);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 
 	// Create the vertex shader from the buffer.
 	result = pDevice->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &m_pVertexShader);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 	
 
 	// Create the pixel shader from the buffer.
 	result = pDevice->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &m_pPixelShader);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 	
 
 	// Now setup the layout of the data that goes into the shader.
@@ -128,7 +133,7 @@ bool CD3DShader::VInitializeShader(ID3D11Device* pDevice, EVertexType vertexType
 					   vertexShaderBuffer->GetBufferSize(), &m_pLayout);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 
 	if(pPolygonLayout)
 		delete [] pPolygonLayout;
@@ -152,15 +157,36 @@ bool CD3DShader::VInitializeShader(ID3D11Device* pDevice, EVertexType vertexType
 	result = pDevice->CreateBuffer(&matrixBufferDesc, NULL, &m_pMatrixBuffer);
 	
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 	
 	// Create the texture sampler state.
 	result = pDevice->CreateSamplerState(&samplerDesc, &m_sampleState);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_INIT;
 
-	return true;
+	//if(vertexType == eVertexPNT)
+	//{
+	//	D3D11_BUFFER_DESC lightBufferDesc;
+
+	//	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
+	//	// Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
+	//	lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	//	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
+	//	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	//	lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	//	lightBufferDesc.MiscFlags = 0;
+	//	lightBufferDesc.StructureByteStride = 0;
+
+	//	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
+	//	result = pDevice->CreateBuffer(&lightBufferDesc, NULL, &m_pLightBuffer);
+	//	if(FAILED(result))
+	//	{
+	//		return false;
+	//	}
+	//}
+
+	return ERROR_PASS;
 }
 
 
@@ -205,7 +231,7 @@ void CD3DShader::VShutDownShader()
 }
 
 
-bool CD3DShader::VSetShaderParameters(ID3D11DeviceContext* pContext, ShaderBaseParams* pParams)
+int CD3DShader::VSetShaderParameters(ID3D11DeviceContext* pContext, ShaderBaseParams* pParams)
 {
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferTypeWVP* dataPtr;
@@ -215,7 +241,7 @@ bool CD3DShader::VSetShaderParameters(ID3D11DeviceContext* pContext, ShaderBaseP
 	HRESULT result = pContext->Map(m_pMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	if(FAILED(result))
-		return false;
+		return ERROR_GFX_SHADER_PARAMSET;
 	
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferTypeWVP*)mappedResource.pData;
@@ -243,12 +269,45 @@ bool CD3DShader::VSetShaderParameters(ID3D11DeviceContext* pContext, ShaderBaseP
 		pContext->PSSetShaderResources(0, 1, &pShaderParams->pTexture);
 		break;
 
+	//case SHADERLIGHTTEXTURE:
+	//	LightBuffer* dataPtr2;
+	//	ShaderLightTextureParams* pShaderLighTextureParams;
+	//	pShaderLighTextureParams = (ShaderLightTextureParams*)pParams;
+
+	//	pContext->PSSetShaderResources(0, 1, &pShaderLighTextureParams->pTexture);
+
+	//	// Lock the light constant buffer so it can be written to.
+	//	result = pContext->Map(m_pLightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	//	if(FAILED(result))
+	//	{
+	//		return false;
+	//	}
+
+	//	// Get a pointer to the data in the constant buffer.
+	//	dataPtr2 = (LightBuffer*)mappedResource.pData;
+
+	//	// Copy the lighting variables into the constant buffer.
+	//	dataPtr2->lightColour = pShaderLighTextureParams->lightColour;
+	//	dataPtr2->lightDir = pShaderLighTextureParams->lightDirection;
+	//	dataPtr2->lightIntensity = pShaderLighTextureParams->lightIntensity;
+
+	//	// Unlock the constant buffer.
+	//	pContext->Unmap(m_pLightBuffer, 0);
+
+	//	// Set the position of the light constant buffer in the pixel shader.
+	//	bufferNumber = 0;
+
+	//	// Finally set the light constant buffer in the pixel shader with the updated values.
+	//	pContext->PSSetConstantBuffers(bufferNumber, 1, &m_pLightBuffer);
+	//	break;
+
 	default:
+		// Undefined parameter type
+		return ERROR_GFX_SHADER_PARAMSET;
 		break;
 	}
 
-	return true;
-
+	return ERROR_PASS;
 }
 
 

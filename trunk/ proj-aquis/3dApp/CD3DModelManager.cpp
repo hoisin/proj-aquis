@@ -1,5 +1,5 @@
 #include "CD3DModelManager.h"
-
+#include "ErrorCodes.h"
 #include <iostream>
 
 CD3DModelManager::CD3DModelManager(void)
@@ -77,7 +77,7 @@ bool CD3DModelManager::RemoveD3DModel(int index)
 {
 	// Boundary check
 	if(index < 0 || index >= (int)m_vpModels.size())
-		return false;
+		return ERROR_GFX_MODEL_REMOVE;
 
 	if(m_vpModels[index])
 	{
@@ -85,7 +85,7 @@ bool CD3DModelManager::RemoveD3DModel(int index)
 		m_vpModels[index] = NULL;
 	}
 
-	return true;
+	return ERROR_PASS;
 }
 
 
