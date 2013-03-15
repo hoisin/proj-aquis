@@ -26,6 +26,36 @@
 
 class CD3DBase
 {
+public:
+	CD3DBase(void);
+	virtual ~CD3DBase(void);
+
+	// Performs D3DX initialisation and other sub systems
+	int Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
+		float screenDepth, float screenNear);
+
+	int CreateDeviceIndependentResources(void);			// Create resources required that are independent of device
+	int CreateWindowSizeDependentResources(void);		// Allocate memory resources that change on window resize
+	int CreateDeviceResources(void);					// Create resources that are dependent on device
+
+	// Probably don't need since D3D11 does not have the lost device concept
+	void HandleDeviceLost();
+
+	int UpdateForWindowSizeChange(void);
+
+	// Clears screen & presents
+	void BeginDraw(float red, float green, float blue, float alpha);
+	void EndDraw(void);
+
+	void SetWireFrameMode(bool bWireframe);
+
+	ID3D11Device* GetDevice(void);
+	ID3D11DeviceContext* GetContext(void);
+	CD3DMatrixStack* GetMatrixStack(void);
+
+	// Shutdown all systems used by the renderer and clear all objects in memory
+	void ShutDown(void);
+
 protected:
 	HWND m_hwnd;			//Handle to the window
 
@@ -59,36 +89,6 @@ protected:
 	bool							m_bWireFrame;	
 	bool							m_bFullScreen;
 	bool							m_bEnable4xMssa;
-
-public:
-	CD3DBase(void);
-	virtual ~CD3DBase(void);
-
-	// Performs D3DX initialisation and other sub systems
-	int Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
-		float screenDepth, float screenNear);
-
-	int CreateDeviceIndependentResources(void);			// Create resources required that are independent of device
-	int CreateWindowSizeDependentResources(void);		// Allocate memory resources that change on window resize
-	int CreateDeviceResources(void);					// Create resources that are dependent on device
-
-	// Probably don't need since D3D11 does not have the lost device concept
-	void HandleDeviceLost();
-
-	int UpdateForWindowSizeChange(void);
-
-	// Clears screen & presents
-    void BeginDraw(float red, float green, float blue, float alpha);
-	void EndDraw(void);
-
-	void SetWireFrameMode(bool bWireframe);
-
-	ID3D11Device* GetDevice(void);
-	ID3D11DeviceContext* GetContext(void);
-	CD3DMatrixStack* GetMatrixStack(void);
-
-	// Shutdown all systems used by the renderer and clear all objects in memory
-	void ShutDown(void);
 };
 
 #endif

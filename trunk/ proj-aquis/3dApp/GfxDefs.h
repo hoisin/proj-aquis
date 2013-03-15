@@ -46,9 +46,10 @@ enum EVertexType
 	eVertexPC,		// Position & colour
 	eVertexPT,		// Position & texture coordinate
 	eVertexPNC,		// Position, normal & colour
-	eVertexPNT,		// Position, normal & texture coordinate
-	eVertexPNTT,	// Position, normal, tangent, texture
-	eVertexPNTBT,	// Position, normal, tangent, bi-tangent, texture
+	eVertexPNT,		// Position, normal & texture coordinate 
+	eVertexPNBT,	// Position, normal, bi-tangent, texture coordinate
+	eVertexPNTT,	// Position, normal, tangent, texture coordinate
+	eVertexPNBTT,	// Position, normal, tangent, bi-tangent, texture coordinate
 	eVertTypeCount
 };
 
@@ -90,6 +91,34 @@ struct SVertexTypePNT : public SVertexType
 };
 
 
+struct SVertexTypePNBT : public SVertexType
+{
+	DirectX::XMFLOAT3 position;
+	DirectX::XMFLOAT3 normal;
+	DirectX::XMFLOAT3 biTangent;
+	DirectX::XMFLOAT2 texture;
+};
+
+
+struct SVertexTypePNTT : public SVertexType
+{
+	DirectX::XMFLOAT3 position;
+	DirectX::XMFLOAT3 normal;
+	DirectX::XMFLOAT3 tangent;
+	DirectX::XMFLOAT2 texture;
+};
+
+
+struct SVertexTypePNBTT : public SVertexType
+{
+	DirectX::XMFLOAT3 position;
+	DirectX::XMFLOAT3 normal;
+	DirectX::XMFLOAT3 biTangent;
+	DirectX::XMFLOAT3 tangent;
+	DirectX::XMFLOAT2 texture;
+};
+
+
 // Helper method
 inline int GetSizeOfVertexType(EVertexType type)
 {
@@ -109,6 +138,18 @@ inline int GetSizeOfVertexType(EVertexType type)
 
 	case eVertexPNT:
 		return sizeof(SVertexTypePNT);
+		break;
+
+	case eVertexPNBT:
+		return sizeof(SVertexTypePNBT);
+		break;
+
+	case eVertexPNTT:
+		return sizeof(SVertexTypePNTT);
+		break;
+
+	case eVertexPNBTT:
+		return sizeof(SVertexTypePNBTT);
 		break;
 
 	default:
@@ -243,10 +284,10 @@ struct MeshData
 
 	void CleanUp(void)
 	{
-		for(int i = 0; i < (int)m_pvVertices.size(); i++)
+		for(std::vector<SVertexType* >::iterator it = m_pvVertices.begin(); it != m_pvVertices.end(); it++)
 		{
-			delete m_pvVertices[i];
-			m_pvVertices[i] = NULL;
+			delete *it;
+			*it = NULL;
 		}
 
 		m_pvVertices.clear();

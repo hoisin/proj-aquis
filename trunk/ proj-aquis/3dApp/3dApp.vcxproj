@@ -144,6 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CBaseResource.cpp" />
+    <ClCompile Include="CBufferManager.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CColourShader.cpp" />
     <ClCompile Include="CD3DBase.cpp" />
@@ -167,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C3DApp.h" />
+    <ClInclude Include="CBaseResource.h" />
+    <ClInclude Include="CBufferManager.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CColourShader.h" />
     <ClInclude Include="CD3DBase.h" />
