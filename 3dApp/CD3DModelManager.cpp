@@ -39,7 +39,7 @@ int CD3DModelManager::AddD3DModel(CD3DBase* pD3d, MeshData* pData, const std::st
 
 	// Return some sort of warning (system won't stop you labeling multiple models with the same name)
 	if(bNameUsed)
-		std::cout << "WARNING: EXSITING MODEL WITH SAME NAME" << std::endl;
+		std::cout << "WARNING: EXISTING MODEL WITH SAME NAME" << std::endl;
 
 	if(freeIndex == -1)
 	{

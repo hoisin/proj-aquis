@@ -118,11 +118,8 @@
     <ClCompile Include="CLogic.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="CBaseResource.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
     <ClCompile Include="CBufferManager.cpp">
-      <Filter>Graphics\D3D\Models\Old</Filter>
+      <Filter>Graphics\D3D\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,11 +201,8 @@
     <ClInclude Include="ErrorCodes.h">
       <Filter>Error</Filter>
     </ClInclude>
-    <ClInclude Include="CBaseResource.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="CBufferManager.h">
-      <Filter>Graphics\D3D\Models\Old</Filter>
+      <Filter>Graphics\D3D\Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
