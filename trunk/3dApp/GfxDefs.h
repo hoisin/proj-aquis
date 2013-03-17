@@ -267,14 +267,58 @@ public:
 
 struct MeshData
 {
-	std::vector<SVertexType* >		m_pvVertices;		// Vertex array		NOTE: Don't use vector, increased performance when use pointer to array
-	std::vector<unsigned long>		m_indices;			// Index array
-	EVertexType						m_vertexType;		// Format of vertices
+	//std::vector<SVertexType* >		m_pvVertices;		// Vertex array		NOTE: Don't use vector, increased performance when use pointer to array
+	//std::vector<unsigned long>		m_indices;			// Index array
+	SVertexType*			pVertices;
+	unsigned long*			pIndices;
+	int						vertexCount;
+	int						indexCount;
+	EVertexType				vertexType;		// Format of vertices
 
-	// Introduce vertex and index count when optimising. std::vector will be replaced in favour of pointers pointing to new MyClass []
-
-	MeshData(void) : m_pvVertices(NULL)
+	// Allocates memory for buffer for specified vertex type
+	MeshData(EVertexType vertType, int vertCount, int idxCount)
 	{
+		vertexCount = vertCount;
+		indexCount = idxCount;
+		vertexType = vertType;
+
+		// Create vertex array depending on type
+		switch(vertType)
+		{
+		case eVertexPC:
+			pVertices = new SVertexTypePC[vertCount];
+			break;
+
+		case eVertexPT:
+			pVertices = new SVertexTypePT[vertCount];
+			break;
+
+		case eVertexPNC:
+			pVertices = new SVertexTypePNC[vertCount];
+			break;
+
+		case eVertexPNT:
+			pVertices = new SVertexTypePNT[vertCount];
+			break;
+
+		case eVertexPNBT:
+			pVertices = new SVertexTypePNBT[vertCount];
+			break;
+
+		case eVertexPNTT:
+			pVertices = new SVertexTypePNTT[vertCount];
+			break;
+
+		case eVertexPNBTT:
+			pVertices = new SVertexTypePNBTT[vertCount];
+			break;
+
+		default:
+			break;
+		}
+
+		// Create index array
+		pIndices = new unsigned long[idxCount];
 	}
 
 	~MeshData(void)
@@ -284,13 +328,14 @@ struct MeshData
 
 	void CleanUp(void)
 	{
-		for(std::vector<SVertexType* >::iterator it = m_pvVertices.begin(); it != m_pvVertices.end(); it++)
-		{
-			delete *it;
-			*it = NULL;
-		}
+		if(pIndices)
+			delete [] pIndices;
 
-		m_pvVertices.clear();
+		if(pVertices)
+			delete [] pVertices;
+
+		pIndices = NULL;
+		pVertices = NULL;
 	}
 };
 

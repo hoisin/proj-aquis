@@ -86,7 +86,7 @@ int CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	// If invalid data, return false
 	if((int)pData->m_pvVertices.size() <= 0 || (int)pData->m_indices.size() <= 0)
 	{
-		return ERROR_GFX_VERT_BUFFER_INIT;
+		return ERROR_GFX_VERT_BUFFER_CREATE;
 	}
 
 	SVertexType* vertices = NULL;
@@ -99,7 +99,8 @@ int CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	m_indexCount = pData->m_indices.size();
 
 	// Create the vertex array.
-	CopyVertexData(&vertices, pData);
+	//CopyVertexData(&vertices, pData);
+	vertices = pData->m_pvVertices;
 
 	indices = new unsigned long[m_indexCount];
 
@@ -127,7 +128,7 @@ int CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	HRESULT result = pDevice->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
 	if(FAILED(result))
 	{
-		return ERROR_GFX_VERT_BUFFER_INIT;
+		return ERROR_GFX_VERT_BUFFER_CREATE;
 	}
 	
 	// Set up the description of the static index buffer.
@@ -147,7 +148,7 @@ int CD3DModel::VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData)
 	result = pDevice->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer);
 	if(FAILED(result))
 	{
-		return ERROR_GFX_VERT_BUFFER_INIT;
+		return ERROR_GFX_INDEX_BUFFER_CREATE;
 	}
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.

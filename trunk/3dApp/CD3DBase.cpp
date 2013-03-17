@@ -375,13 +375,13 @@ int CD3DBase::CreateDeviceResources(void)
             );
        
 	if(FAILED(result))
-		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
+		return ERROR_GFX_CREATE_DEVICE_DEPEND_RES;
 
     if(m_pDevice == NULL)
-		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
+		return ERROR_GFX_CREATE_DEVICE_DEPEND_RES;
 
 	if(m_pDeviceContext == NULL)
-		return ERROR_GFX_CREATE_WIN_DEPEND_RES;
+		return ERROR_GFX_CREATE_DEVICE_DEPEND_RES;
 
 	return ERROR_PASS;
 }
