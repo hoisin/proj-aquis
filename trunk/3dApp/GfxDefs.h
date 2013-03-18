@@ -260,8 +260,6 @@ public:
 /*
 ==============================================
 	Mesh Data
-
-	Note: Current structure is MEGA slow, will require refactoring
 ==============================================
 */
 
@@ -338,6 +336,19 @@ struct MeshData
 		pVertices = NULL;
 	}
 };
+
+
+
+/*
+==============================================
+	Material
+==============================================
+*/
+
+struct SMaterial
+{
+};
+
 
 
 #endif
