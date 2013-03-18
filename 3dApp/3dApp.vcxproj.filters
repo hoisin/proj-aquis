@@ -73,9 +73,6 @@
     <ClCompile Include="CGraphics.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CTexture.cpp">
-      <Filter>Graphics\D3D\Models</Filter>
-    </ClCompile>
     <ClCompile Include="WICTextureLoader.cpp">
       <Filter>Graphics\D3D\Utility</Filter>
     </ClCompile>
@@ -121,6 +118,12 @@
     <ClCompile Include="CBufferManager.cpp">
       <Filter>Graphics\D3D\Models</Filter>
     </ClCompile>
+    <ClCompile Include="CShaderTexture.cpp">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderTextureManager.cpp">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win_platform.h">
@@ -140,9 +143,6 @@
     </ClInclude>
     <ClInclude Include="IGraphics.h">
       <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="CTexture.h">
-      <Filter>Graphics\D3D\Models</Filter>
     </ClInclude>
     <ClInclude Include="WICTextureLoader.h">
       <Filter>Graphics\D3D\Utility</Filter>
@@ -202,6 +202,12 @@
       <Filter>Error</Filter>
     </ClInclude>
     <ClInclude Include="CBufferManager.h">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderTexture.h">
+      <Filter>Graphics\D3D\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderTextureManager.h">
       <Filter>Graphics\D3D\Models</Filter>
     </ClInclude>
   </ItemGroup>

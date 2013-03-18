@@ -10,7 +10,6 @@
 #define __CD3DMODEL_H__
 
 #include "GfxDefs.h"
-#include "CTexture.h"
 
 class CD3DBase;
 
@@ -19,7 +18,7 @@ class CD3DModel
 protected:
 	ID3D11Buffer *m_vertexBuffer;
 	ID3D11Buffer *m_indexBuffer;
-	CTexture* m_pTexture;						// May export out as an ID instead
+	ID3D11ShaderResourceView* m_pTexture;						
 	int m_vertexCount; 
 	int m_indexCount;
 	int m_vertexSize;
@@ -42,7 +41,9 @@ public:
 	int GetIndexCount(void) { return m_indexCount; }
 	std::string GetModelName(void) { return m_name; }
 
-	ID3D11ShaderResourceView* GetTexture(void);
+	ID3D11Buffer* GetVertexBuffer(void) { return m_vertexBuffer; }
+	ID3D11Buffer* GetIndexBuffer(void) { return m_indexBuffer; }
+	ID3D11ShaderResourceView* GetTexture(void) { return m_pTexture; }
 	EVertexType GetVertexType(void);
 
 protected:
