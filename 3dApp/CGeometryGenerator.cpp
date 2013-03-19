@@ -30,7 +30,7 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 	const DirectX::XMFLOAT4& colour)
 {
 	// Create mesh data
-	MeshData* pNewGeometry = new MeshData;
+	MeshData* pNewGeometry = new MeshData(vertexType, 3, 3);
 
 	// Distance of each vertex from origin (0,0,0)
 	float dist = size / 2;
@@ -39,10 +39,6 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 	switch(vertexType)
 	{
 	case eVertexPC:
-		// Allocate/calculate data
-		for(int i = 0; i < 3; i++)
-			pNewGeometry->m_pvVertices.push_back(new SVertexTypePC);
-
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
@@ -52,39 +48,39 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 			      /   \
 		       2 *-----* 3
 		*/
+
+		SVertexTypePC* pVertexPC = NULL;
+
 		// Top vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.x = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.y = dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.z = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.x = colour.x;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.y = colour.y;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.z = colour.z;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.w = colour.w;
+		pVertexPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
+		pVertexPC[0].position.x = 0;
+		pVertexPC[0].position.y = dist;
+		pVertexPC[0].position.z = 0;
+		pVertexPC[0].colour.x = colour.x;
+		pVertexPC[0].colour.y = colour.y;
+		pVertexPC[0].colour.z = colour.z;
+		pVertexPC[0].colour.w = colour.w;
 
 		// Bottom left vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->position.x = -dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->position.y = -dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->position.z = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.x = colour.x;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.y = colour.y;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.z = colour.z;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.w = colour.w;
+		pVertexPC[1].position.x = -dist;
+		pVertexPC[1].position.y = -dist;
+		pVertexPC[1].position.z = 0;
+		pVertexPC[1].colour.x = colour.x;
+		pVertexPC[1].colour.y = colour.y;
+		pVertexPC[1].colour.z = colour.z;
+		pVertexPC[1].colour.w = colour.w;
 
 		// Bottom right vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->position.x = dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->position.y = -dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->position.z = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.x = colour.x;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.y = colour.y;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.z = colour.z;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.w = colour.w;
+		pVertexPC[2].position.x = dist;
+		pVertexPC[2].position.y = -dist;
+		pVertexPC[2].position.z = 0;
+		pVertexPC[2].colour.x = colour.x;
+		pVertexPC[2].colour.y = colour.y;
+		pVertexPC[2].colour.z = colour.z;
+		pVertexPC[2].colour.w = colour.w;
 		break;
 
 	case eVertexPT:
-		// Allocate/calculate data
-		for(int i = 0; i < 3; i++)
-			pNewGeometry->m_pvVertices.push_back(new SVertexTypePT);
-
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
@@ -94,36 +90,33 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 			      /   \
 		       2 *-----* 3
 		*/
+
+		SVertexTypePT* pVertexPT = NULL;
+
 		// Top vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.x = 0;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[0]))->position.y = dist;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[0]))->position.z = 0;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[0]))->textureCoord.x = 0;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[0]))->textureCoord.y = 0.5;
+		pVertexPT = static_cast<SVertexTypePT*>(pNewGeometry->pVertices);
+		pVertexPT[0].position.x = 0;
+		pVertexPT[0].position.y = dist;
+		pVertexPT[0].position.z = 0;
+		pVertexPT[0].textureCoord.x = 0;
+		pVertexPT[0].textureCoord.y = 0.5;
 
 		// Bottom left vertex
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[1]))->position.x = -dist;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[1]))->position.y = -dist;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[1]))->position.z = 0;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[1]))->textureCoord.x = 0;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[1]))->textureCoord.y = 1;
+		pVertexPT[1].position.x = -dist;
+		pVertexPT[1].position.y = -dist;
+		pVertexPT[1].position.z = 0;
+		pVertexPT[1].textureCoord.x = 0;
+		pVertexPT[1].textureCoord.y = 1;
 
 		// Bottom right vertex
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[2]))->position.x = dist;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[2]))->position.y = -dist;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[2]))->position.z = 0;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[2]))->textureCoord.x = 1;
-		((SVertexTypePT*)(pNewGeometry->m_pvVertices[2]))->textureCoord.y = 1;
+		pVertexPT[2].position.x = dist;
+		pVertexPT[2].position.y = -dist;
+		pVertexPT[2].position.z = 0;
+		pVertexPT[2].textureCoord.x = 1;
+		pVertexPT[2].textureCoord.y = 1;
 		break;
 
 	case eVertexPNC:
-		// Allocate/calculate data
-		for(int i = 0; i < 3; i++)
-			pNewGeometry->m_pvVertices.push_back(new SVertexTypePNC);
-
-		// Variable for retrieving vertex data
-		SVertexTypePNC* pVert;
-
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
@@ -133,51 +126,48 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 			      /   \
 		       2 *-----* 3
 		*/
+
+		SVertexTypePNC* pVert = NULL;
+
 		// Top vertex
-		pVert = (SVertexTypePNC*)(pNewGeometry->m_pvVertices[0]);
-		pVert->position.x = 0;
-		pVert->position.y = dist;
-		pVert->position.z = 0;
-		pVert->normal.x = 0;
-		pVert->normal.y = 0;
-		pVert->normal.z = -1;
-		pVert->colour.x = colour.x;
-		pVert->colour.y = colour.y;
-		pVert->colour.y = colour.z;
-		pVert->colour.w = colour.w;
+		pVert = static_cast<SVertexTypePNC*>(pNewGeometry->pVertices);
+		pVert[0].position.x = 0;
+		pVert[0].position.y = dist;
+		pVert[0].position.z = 0;
+		pVert[0].normal.x = 0;
+		pVert[0].normal.y = 0;
+		pVert[0].normal.z = -1;
+		pVert[0].colour.x = colour.x;
+		pVert[0].colour.y = colour.y;
+		pVert[0].colour.y = colour.z;
+		pVert[0].colour.w = colour.w;
 
 		// Bottom left vertex
-		pVert = (SVertexTypePNC*)(pNewGeometry->m_pvVertices[1]);
-		pVert->position.x = -dist;
-		pVert->position.y = -dist;
-		pVert->position.z = 0;
-		pVert->normal.x = 0;
-		pVert->normal.y = 0;
-		pVert->normal.z = -1;
-		pVert->colour.x = colour.x;
-		pVert->colour.y = colour.y;
-		pVert->colour.y = colour.z;
-		pVert->colour.w = colour.w;
+		pVert[1].position.x = -dist;
+		pVert[1].position.y = -dist;
+		pVert[1].position.z = 0;
+		pVert[1].normal.x = 0;
+		pVert[1].normal.y = 0;
+		pVert[1].normal.z = -1;
+		pVert[1].colour.x = colour.x;
+		pVert[1].colour.y = colour.y;
+		pVert[1].colour.y = colour.z;
+		pVert[1].colour.w = colour.w;
 
 		// Bottom right vertex
-		pVert = (SVertexTypePNC*)(pNewGeometry->m_pvVertices[2]);
-		pVert->position.x = dist;
-		pVert->position.y = -dist;
-		pVert->position.z = 0;
-		pVert->normal.x = 0;
-		pVert->normal.y = 0;
-		pVert->normal.z = -1;
-		pVert->colour.x = colour.x;
-		pVert->colour.y = colour.y;
-		pVert->colour.y = colour.z;
-		pVert->colour.w = colour.w;
+		pVert[2].position.x = dist;
+		pVert[2].position.y = -dist;
+		pVert[2].position.z = 0;
+		pVert[2].normal.x = 0;
+		pVert[2].normal.y = 0;
+		pVert[2].normal.z = -1;
+		pVert[2].colour.x = colour.x;
+		pVert[2].colour.y = colour.y;
+		pVert[2].colour.y = colour.z;
+		pVert[2].colour.w = colour.w;
 		break;
 
 	case eVertexPNT:
-		// Allocate/calculate data
-		for(int i = 0; i < 3; i++)
-			pNewGeometry->m_pvVertices.push_back(new SVertexTypePNT);
-
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
@@ -187,35 +177,39 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 			      /   \
 		       2 *-----* 3
 		*/
+
+		SVertexTypePNT* pVertexPNT = NULL;
+
 		// Top vertex
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->position.x = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->position.y = dist;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->position.z = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->normal.x = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->normal.y = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->normal.z = -1;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->texture.x = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[0]))->texture.y = 0.5;
+		pVertexPNT = static_cast<SVertexTypePNT*>(pNewGeometry->pVertices);
+		pVertexPNT[0].position.x = 0;
+		pVertexPNT[0].position.y = dist;
+		pVertexPNT[0].position.z = 0;
+		pVertexPNT[0].normal.x = 0;
+		pVertexPNT[0].normal.y = 0;
+		pVertexPNT[0].normal.z = -1;
+		pVertexPNT[0].texture.x = 0;
+		pVertexPNT[0].texture.y = 0.5;
 
 		// Bottom left vertex
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->position.x = -dist;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->position.y = -dist;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->position.z = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->normal.x = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->normal.y = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->normal.z = -1;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->texture.x = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[1]))->texture.y = 1;
+		pVertexPNT[1].position.x = -dist;
+		pVertexPNT[1].position.y = -dist;
+		pVertexPNT[1].position.z = 0;
+		pVertexPNT[1].normal.x = 0;
+		pVertexPNT[1].normal.y = 0;
+		pVertexPNT[1].normal.z = -1;
+		pVertexPNT[1].texture.x = 0;
+		pVertexPNT[1].texture.y = 1;
 
 		// Bottom right vertex
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->position.x = dist;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->position.y = -dist;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->position.z = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->normal.x = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->normal.y = 0;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->normal.z = -1;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->texture.x = 1;
-		((SVertexTypePNT*)(pNewGeometry->m_pvVertices[2]))->texture.y = 1;
+		pVertexPNT[2].position.x = dist;
+		pVertexPNT[2].position.y = -dist;
+		pVertexPNT[2].position.z = 0;
+		pVertexPNT[2].normal.x = 0;
+		pVertexPNT[2].normal.y = 0;
+		pVertexPNT[2].normal.z = -1;
+		pVertexPNT[2].texture.x = 1;
+		pVertexPNT[2].texture.y = 1;
 		break;
 
 	// shouldn't end up here
@@ -226,12 +220,9 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 	}
 
 	// Add indices
-	pNewGeometry->m_indices.push_back(0);
-	pNewGeometry->m_indices.push_back(2);
-	pNewGeometry->m_indices.push_back(1);
-
-	// Set vertex type
-	pNewGeometry->m_vertexType = vertexType;
+	pNewGeometry->pIndices[0] = 0;
+	pNewGeometry->pIndices[1] = 2;
+	pNewGeometry->pIndices[2] = 1;
 
 	// Add new geometry to map
 	m_mGeometry.insert(std::pair<std::string, MeshData*>(geometryID, pNewGeometry));
@@ -245,7 +236,7 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 		const DirectX::XMFLOAT4& colour)
 {
 	// Create mesh data
-	MeshData* pNewGeometry = new MeshData;
+	MeshData* pNewGeometry = new MeshData(vertexType, 3, 3);
 
 	// Distance of each vertex from origin (0,0,0)
 	float dist = size / 2;
@@ -254,10 +245,6 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 	switch(vertexType)
 	{
 	case eVertexPC:
-		// Allocate/calculate data
-		for(int i = 0; i < 3; i++)
-			pNewGeometry->m_pvVertices.push_back(new SVertexTypePC);
-
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
@@ -267,42 +254,39 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 			      /   \
 		       2 *-----* 3
 		*/
+
+		SVertexTypePC* pVertexPC = NULL;
+
 		// Top vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.x = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.y = dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->position.z = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.x = 1.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.y = 0.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.z = 0.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[0]))->colour.w = 1.f;
+		pVertexPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
+		pVertexPC[0].position.x = 0;
+		pVertexPC[0].position.y = dist;
+		pVertexPC[0].position.z = 0;
+		pVertexPC[0].colour.x = 1.f;
+		pVertexPC[0].colour.y = 0.f;
+		pVertexPC[0].colour.z = 0.f;
+		pVertexPC[0].colour.w = 1.f;
 
 		// Bottom left vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->position.x = -dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->position.y = -dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->position.z = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.x = 0.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.y = 1.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.z = 0.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[1]))->colour.w = 1.f;
+		pVertexPC[1].position.x = -dist;
+		pVertexPC[1].position.y = -dist;
+		pVertexPC[1].position.z = 0;
+		pVertexPC[1].colour.x = 0.f;
+		pVertexPC[1].colour.y = 1.f;
+		pVertexPC[1].colour.z = 0.f;
+		pVertexPC[1].colour.w = 1.f;
 
 		// Bottom right vertex
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->position.x = dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->position.y = -dist;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->position.z = 0;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.x = 0.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.y = 0.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.z = 1.f;
-		((SVertexTypePC*)(pNewGeometry->m_pvVertices[2]))->colour.w = 1.f;
+		pVertexPC[2].position.x = dist;
+		pVertexPC[2].position.y = -dist;
+		pVertexPC[2].position.z = 0;
+		pVertexPC[2].colour.x = 0.f;
+		pVertexPC[2].colour.y = 0.f;
+		pVertexPC[2].colour.z = 1.f;
+		pVertexPC[2].colour.w = 1.f;
 		break;
 
 	case eVertexPNC:
-		// Allocate/calculate data
-		for(int i = 0; i < 3; i++)
-			pNewGeometry->m_pvVertices.push_back(new SVertexTypePNC);
-
-		// Variable for retrieving vertex data
-		SVertexTypePNC* pVert;
-
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
@@ -312,44 +296,45 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 			      /   \
 		       2 *-----* 3
 		*/
+
+		SVertexTypePNC* pVertexPNC = NULL;
+
 		// Top vertex
-		pVert = (SVertexTypePNC*)(pNewGeometry->m_pvVertices[0]);
-		pVert->position.x = 0;
-		pVert->position.y = dist;
-		pVert->position.z = 0;
-		pVert->normal.x = 0;
-		pVert->normal.y = 0;
-		pVert->normal.z = -1;
-		pVert->colour.x = colour.x;
-		pVert->colour.y = colour.y;
-		pVert->colour.y = colour.z;
-		pVert->colour.w = colour.w;
+		pVertexPNC = static_cast<SVertexTypePNC*>(pNewGeometry->pVertices);
+		pVertexPNC[0].position.x = 0;
+		pVertexPNC[0].position.y = dist;
+		pVertexPNC[0].position.z = 0;
+		pVertexPNC[0].normal.x = 0;
+		pVertexPNC[0].normal.y = 0;
+		pVertexPNC[0].normal.z = -1;
+		pVertexPNC[0].colour.x = colour.x;
+		pVertexPNC[0].colour.y = colour.y;
+		pVertexPNC[0].colour.y = colour.z;
+		pVertexPNC[0].colour.w = colour.w;
 
 		// Bottom left vertex
-		pVert = (SVertexTypePNC*)(pNewGeometry->m_pvVertices[1]);
-		pVert->position.x = -dist;
-		pVert->position.y = -dist;
-		pVert->position.z = 0;
-		pVert->normal.x = 0;
-		pVert->normal.y = 0;
-		pVert->normal.z = -1;
-		pVert->colour.x = colour.x;
-		pVert->colour.y = colour.y;
-		pVert->colour.y = colour.z;
-		pVert->colour.w = colour.w;
+		pVertexPNC[1].position.x = -dist;
+		pVertexPNC[1].position.y = -dist;
+		pVertexPNC[1].position.z = 0;
+		pVertexPNC[1].normal.x = 0;
+		pVertexPNC[1].normal.y = 0;
+		pVertexPNC[1].normal.z = -1;
+		pVertexPNC[1].colour.x = colour.x;
+		pVertexPNC[1].colour.y = colour.y;
+		pVertexPNC[1].colour.y = colour.z;
+		pVertexPNC[1].colour.w = colour.w;
 
 		// Bottom right vertex
-		pVert = (SVertexTypePNC*)(pNewGeometry->m_pvVertices[2]);
-		pVert->position.x = dist;
-		pVert->position.y = -dist;
-		pVert->position.z = 0;
-		pVert->normal.x = 0;
-		pVert->normal.y = 0;
-		pVert->normal.z = -1;
-		pVert->colour.x = colour.x;
-		pVert->colour.y = colour.y;
-		pVert->colour.y = colour.z;
-		pVert->colour.w = colour.w;
+		pVertexPNC[2].position.x = dist;
+		pVertexPNC[2].position.y = -dist;
+		pVertexPNC[2].position.z = 0;
+		pVertexPNC[2].normal.x = 0;
+		pVertexPNC[2].normal.y = 0;
+		pVertexPNC[2].normal.z = -1;
+		pVertexPNC[2].colour.x = colour.x;
+		pVertexPNC[2].colour.y = colour.y;
+		pVertexPNC[2].colour.y = colour.z;
+		pVertexPNC[2].colour.w = colour.w;
 		break;
 
 	// shouldn't end up here
@@ -360,12 +345,9 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 	}
 
 	// Add indices
-	pNewGeometry->m_indices.push_back(0);
-	pNewGeometry->m_indices.push_back(2);
-	pNewGeometry->m_indices.push_back(1);
-
-	// Set vertex type
-	pNewGeometry->m_vertexType = vertexType;
+	pNewGeometry->pIndices[0] = 0;
+	pNewGeometry->pIndices[1] = 2;
+	pNewGeometry->pIndices[2] = 1;
 
 	// Add new geometry to map
 	m_mGeometry.insert(std::pair<std::string, MeshData*>(geometryID, pNewGeometry));
@@ -393,27 +375,21 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 	int numIndices = ((tessellation * tessellation * 6) * 2) * 3;
 
 	// Create new mesh data
-	MeshData* pMeshData = new MeshData;
-
-	// Pre-allocate indices
-	for(int j = 0; j < numIndices; j++)
-		pMeshData->m_indices.push_back(0);
+	MeshData* pMeshData = new MeshData(vertexType, totalVerts, numIndices);
 
 	// Calc space inbetween vertices (same for x and y directions)
 	float incrementDist = size / tessellation;
-	int vertexCoutner = 0;
+	int vertexCounter = 0;
 
 	switch(vertexType)
 	{
 	case eVertexPC:
-		// Create empty vertices
-		for(int i = 0; i < totalVerts; i++)
-			pMeshData->m_pvVertices.push_back(new SVertexTypePC);
-
 		// Cube generated of length size centred at (0,0,0)
 		// ------------- Begin Cube Generation -------------
 
 		// ---Vertex/Index Generation---
+
+		SVertexTypePC* pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
 
 		// Front face
 		for(int y = 0; y < (tessellation + 1); y++)
@@ -424,15 +400,15 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertexPC[vertexCounter].position.y = yStart - (y * incrementDist);
+				pVertexPC[vertexCounter].position.z = zStart;
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 
@@ -445,15 +421,15 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart + (y * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertexPC[vertexCounter].position.y = yStart;
+				pVertexPC[vertexCounter].position.z = zStart + (y * incrementDist);
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 
@@ -466,15 +442,15 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart;
+				pVertexPC[vertexCounter].position.y = yStart - (y * incrementDist);
+				pVertexPC[vertexCounter].position.z = zStart - (x * incrementDist);
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 
@@ -487,15 +463,15 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart - (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart - (x * incrementDist);
+				pVertexPC[vertexCounter].position.y = yStart - (y * incrementDist);
+				pVertexPC[vertexCounter].position.z = zStart;
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 
@@ -508,15 +484,15 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart + (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart;
+				pVertexPC[vertexCounter].position.y = yStart - (y * incrementDist);
+				pVertexPC[vertexCounter].position.z = zStart + (x * incrementDist);
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 
@@ -529,31 +505,27 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (y * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertexPC[vertexCounter].position.y = yStart;
+				pVertexPC[vertexCounter].position.z = zStart - (y * incrementDist);
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 		break;
 
 		case eVertexPT:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePT);
-
 			// Cube generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePT* pVertPT;
+			SVertexTypePT* pVertPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int y = 0; y < (tessellation + 1); y++)
@@ -564,15 +536,13 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPT = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertPT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertPT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertPT[vertexCounter].position.z = zStart;
+					pVertPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertPT[vertexCounter].textureCoord.y = (float)y / (float)tessellation ;
 
-					pVertPT->position.x = xStart + (x * incrementDist);
-					pVertPT->position.y = yStart - (y * incrementDist);
-					pVertPT->position.z = zStart;
-					pVertPT->textureCoord.x = (float)x / (float)tessellation ;
-					pVertPT->textureCoord.y = (float)y / (float)tessellation ;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -585,15 +555,13 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPT = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertPT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertPT[vertexCounter].position.y = yStart;
+					pVertPT[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertPT[vertexCounter].textureCoord.y = (float)y / (float)tessellation ;
 
-					pVertPT->position.x = xStart + (x * incrementDist);
-					pVertPT->position.y = yStart;
-					pVertPT->position.z = zStart + (y * incrementDist);
-					pVertPT->textureCoord.x = (float)x / (float)tessellation ;
-					pVertPT->textureCoord.y = (float)y / (float)tessellation ;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -606,16 +574,14 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPT = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
-
-					pVertPT->position.x = xStart;
-					pVertPT->position.y = yStart - (y * incrementDist);
-					pVertPT->position.z = zStart - (x * incrementDist);
-					pVertPT->textureCoord.x = (float)x / (float)tessellation ;
-					pVertPT->textureCoord.y = (float)y / (float)tessellation ;
+					pVertPT[vertexCounter].position.x = xStart;
+					pVertPT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertPT[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertPT[vertexCounter].textureCoord.y = (float)y / (float)tessellation ;
 
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -628,15 +594,13 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPT = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertPT[vertexCounter].position.x = xStart - (x * incrementDist);
+					pVertPT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertPT[vertexCounter].position.z = zStart;
+					pVertPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertPT[vertexCounter].textureCoord.y = (float)y / (float)tessellation ;
 
-					pVertPT->position.x = xStart - (x * incrementDist);
-					pVertPT->position.y = yStart - (y * incrementDist);
-					pVertPT->position.z = zStart;
-					pVertPT->textureCoord.x = (float)x / (float)tessellation ;
-					pVertPT->textureCoord.y = (float)y / (float)tessellation ;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -649,15 +613,13 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPT = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertPT[vertexCounter].position.x = xStart;
+					pVertPT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertPT[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertPT[vertexCounter].textureCoord.y = (float)y / (float)tessellation ;
 
-					pVertPT->position.x = xStart;
-					pVertPT->position.y = yStart - (y * incrementDist);
-					pVertPT->position.z = zStart + (x * incrementDist);
-					pVertPT->textureCoord.x = (float)x / (float)tessellation ;
-					pVertPT->textureCoord.y = (float)y / (float)tessellation ;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -670,31 +632,25 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPT = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertPT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertPT[vertexCounter].position.y = yStart;
+					pVertPT[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation;
+					pVertPT[vertexCounter].textureCoord.y = (float)y / (float)tessellation;
 
-					pVertPT->position.x = xStart + (x * incrementDist);
-					pVertPT->position.y = yStart;
-					pVertPT->position.z = zStart - (y * incrementDist);
-					pVertPT->textureCoord.x = (float)x / (float)tessellation;
-					pVertPT->textureCoord.y = (float)y / (float)tessellation;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
 
 			case eVertexPNC:
-				// Create empty vertices
-				for(int i = 0; i < totalVerts; i++)
-					pMeshData->m_pvVertices.push_back(new SVertexTypePNC);
-
 				// Cube generated of length size centred at (0,0,0)
 				// ------------- Begin Cube Generation -------------
 
 				// ---Vertex/Index Generation---
 
 				// Variable for retrieving vertex data
-				SVertexTypePNC* pVertPNC;
+				SVertexTypePNC* pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
 
 				// Front face
 				for(int y = 0; y < (tessellation + 1); y++)
@@ -705,20 +661,18 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 					for(int x = 0; x < (tessellation + 1); x++)
 					{
-						pVertPNC = (SVertexTypePNC*)pMeshData->m_pvVertices[vertexCoutner];
+						pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+						pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+						pVertexPNC[vertexCounter].position.z = zStart;
+						pVertexPNC[vertexCounter].normal.x = 0.0f;
+						pVertexPNC[vertexCounter].normal.y = 0.0f;
+						pVertexPNC[vertexCounter].normal.z = -1.0f;
+						pVertexPNC[vertexCounter].colour.x = colour.x;
+						pVertexPNC[vertexCounter].colour.y = colour.y;
+						pVertexPNC[vertexCounter].colour.z = colour.z;
+						pVertexPNC[vertexCounter].colour.w = colour.w;
 
-						pVertPNC->position.x = xStart + (x * incrementDist);
-						pVertPNC->position.y = yStart - (y * incrementDist);
-						pVertPNC->position.z = zStart;
-						pVertPNC->normal.x = 0.0f;
-						pVertPNC->normal.y = 0.0f;
-						pVertPNC->normal.z = -1.0f;
-						pVertPNC->colour.x = colour.x;
-						pVertPNC->colour.y = colour.y;
-						pVertPNC->colour.z = colour.z;
-						pVertPNC->colour.w = colour.w;
-
-						vertexCoutner++;
+						vertexCounter++;
 					}
 				}
 
@@ -731,18 +685,18 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 					for(int x = 0; x < (tessellation + 1); x++)
 					{
-						pVertPNC->position.x = xStart + (x * incrementDist);
-						pVertPNC->position.y = yStart;
-						pVertPNC->position.z = zStart + (y * incrementDist);
-						pVertPNC->normal.x = 0.0f;
-						pVertPNC->normal.y = -1.0f;
-						pVertPNC->normal.z = 0.0f;
-						pVertPNC->colour.x = colour.x;
-						pVertPNC->colour.y = colour.y;
-						pVertPNC->colour.z = colour.z;
-						pVertPNC->colour.w = colour.w;
+						pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+						pVertexPNC[vertexCounter].position.y = yStart;
+						pVertexPNC[vertexCounter].position.z = zStart + (y * incrementDist);
+						pVertexPNC[vertexCounter].normal.x = 0.0f;
+						pVertexPNC[vertexCounter].normal.y = -1.0f;
+						pVertexPNC[vertexCounter].normal.z = 0.0f;
+						pVertexPNC[vertexCounter].colour.x = colour.x;
+						pVertexPNC[vertexCounter].colour.y = colour.y;
+						pVertexPNC[vertexCounter].colour.z = colour.z;
+						pVertexPNC[vertexCounter].colour.w = colour.w;
 
-						vertexCoutner++;
+						vertexCounter++;
 					}
 				}
 
@@ -755,18 +709,18 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 					for(int x = 0; x < (tessellation + 1); x++)
 					{
-						pVertPNC->position.x = xStart;
-						pVertPNC->position.y = yStart - (y * incrementDist);
-						pVertPNC->position.z = zStart - (x * incrementDist);
-						pVertPNC->normal.x = -1.0f;
-						pVertPNC->normal.y = 0.0f;
-						pVertPNC->normal.z = 0.0f;
-						pVertPNC->colour.x = colour.x;
-						pVertPNC->colour.y = colour.y;
-						pVertPNC->colour.z = colour.z;
-						pVertPNC->colour.w = colour.w;
+						pVertexPNC[vertexCounter].position.x = xStart;
+						pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+						pVertexPNC[vertexCounter].position.z = zStart - (x * incrementDist);
+						pVertexPNC[vertexCounter].normal.x = -1.0f;
+						pVertexPNC[vertexCounter].normal.y = 0.0f;
+						pVertexPNC[vertexCounter].normal.z = 0.0f;
+						pVertexPNC[vertexCounter].colour.x = colour.x;
+						pVertexPNC[vertexCounter].colour.y = colour.y;
+						pVertexPNC[vertexCounter].colour.z = colour.z;
+						pVertexPNC[vertexCounter].colour.w = colour.w;
 
-						vertexCoutner++;
+						vertexCounter++;
 					}
 				}
 
@@ -779,18 +733,18 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 					for(int x = 0; x < (tessellation + 1); x++)
 					{
-						pVertPNC->position.x = xStart - (x * incrementDist);
-						pVertPNC->position.y = yStart - (y * incrementDist);
-						pVertPNC->position.z = zStart;
-						pVertPNC->normal.x = 0.0f;
-						pVertPNC->normal.y = 0.0f;
-						pVertPNC->normal.z = 1.0f;
-						pVertPNC->colour.x = colour.x;
-						pVertPNC->colour.y = colour.y;
-						pVertPNC->colour.z = colour.z;
-						pVertPNC->colour.w = colour.w;
+						pVertexPNC[vertexCounter].position.x = xStart - (x * incrementDist);
+						pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+						pVertexPNC[vertexCounter].position.z = zStart;
+						pVertexPNC[vertexCounter].normal.x = 0.0f;
+						pVertexPNC[vertexCounter].normal.y = 0.0f;
+						pVertexPNC[vertexCounter].normal.z = 1.0f;
+						pVertexPNC[vertexCounter].colour.x = colour.x;
+						pVertexPNC[vertexCounter].colour.y = colour.y;
+						pVertexPNC[vertexCounter].colour.z = colour.z;
+						pVertexPNC[vertexCounter].colour.w = colour.w;
 
-						vertexCoutner++;
+						vertexCounter++;
 					}
 				}
 
@@ -803,18 +757,18 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 					for(int x = 0; x < (tessellation + 1); x++)
 					{
-						pVertPNC->position.x = xStart;
-						pVertPNC->position.y = yStart - (y * incrementDist);
-						pVertPNC->position.z = zStart + (x * incrementDist);
-						pVertPNC->normal.x = 1.0f;
-						pVertPNC->normal.y = 0.0f;
-						pVertPNC->normal.z = 0.0f;
-						pVertPNC->colour.x = colour.x;
-						pVertPNC->colour.y = colour.y;
-						pVertPNC->colour.z = colour.z;
-						pVertPNC->colour.w = colour.w;
+						pVertexPNC[vertexCounter].position.x = xStart;
+						pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+						pVertexPNC[vertexCounter].position.z = zStart + (x * incrementDist);
+						pVertexPNC[vertexCounter].normal.x = 1.0f;
+						pVertexPNC[vertexCounter].normal.y = 0.0f;
+						pVertexPNC[vertexCounter].normal.z = 0.0f;
+						pVertexPNC[vertexCounter].colour.x = colour.x;
+						pVertexPNC[vertexCounter].colour.y = colour.y;
+						pVertexPNC[vertexCounter].colour.z = colour.z;
+						pVertexPNC[vertexCounter].colour.w = colour.w;
 
-						vertexCoutner++;
+						vertexCounter++;
 					}
 				}
 
@@ -827,31 +781,29 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 					for(int x = 0; x < (tessellation + 1); x++)
 					{
-						pVertPNC->position.x = xStart + (x * incrementDist);
-						pVertPNC->position.y = yStart;
-						pVertPNC->position.z = zStart - (y * incrementDist);
-						pVertPNC->normal.x = 0.0f;
-						pVertPNC->normal.y = 1.0f;
-						pVertPNC->normal.z = 0.0f;
-						pVertPNC->colour.x = colour.x;
-						pVertPNC->colour.y = colour.y;
-						pVertPNC->colour.z = colour.z;
-						pVertPNC->colour.w = colour.w;
+						pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+						pVertexPNC[vertexCounter].position.y = yStart;
+						pVertexPNC[vertexCounter].position.z = zStart - (y * incrementDist);
+						pVertexPNC[vertexCounter].normal.x = 0.0f;
+						pVertexPNC[vertexCounter].normal.y = 1.0f;
+						pVertexPNC[vertexCounter].normal.z = 0.0f;
+						pVertexPNC[vertexCounter].colour.x = colour.x;
+						pVertexPNC[vertexCounter].colour.y = colour.y;
+						pVertexPNC[vertexCounter].colour.z = colour.z;
+						pVertexPNC[vertexCounter].colour.w = colour.w;
 
-						vertexCoutner++;
+						vertexCounter++;
 					}
 				}
 				break;
 
 		case eVertexPNT:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePNT);
-
 			// Cube generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
+
+			SVertexTypePNT* pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int y = 0; y < (tessellation + 1); y++)
@@ -862,16 +814,16 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = -1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)y / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart;
+					pVertexPNT[vertexCounter].normal.x = 0.0f;
+					pVertexPNT[vertexCounter].normal.y = 0.0f;
+					pVertexPNT[vertexCounter].normal.z = -1.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)y / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -884,16 +836,16 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart + (y * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = -1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)y / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart;
+					pVertexPNT[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 0.0f;
+					pVertexPNT[vertexCounter].normal.y = -1.0f;
+					pVertexPNT[vertexCounter].normal.z = 0.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)y / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -906,17 +858,17 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = -1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)y / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart;
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = -1.0f;
+					pVertexPNT[vertexCounter].normal.y = 0.0f;
+					pVertexPNT[vertexCounter].normal.z = 0.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)y / (float)tessellation ;
 
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -929,16 +881,16 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart - (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)y / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart - (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart;
+					pVertexPNT[vertexCounter].normal.x = 0.0f;
+					pVertexPNT[vertexCounter].normal.y = 0.0f;
+					pVertexPNT[vertexCounter].normal.z = 1.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)y / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -951,16 +903,16 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart - (y * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart + (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)y / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart;
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 1.0f;
+					pVertexPNT[vertexCounter].normal.y = 0.0f;
+					pVertexPNT[vertexCounter].normal.z = 0.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)y / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 
@@ -973,21 +925,23 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (y * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)y / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart;
+					pVertexPNT[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 0.0f;
+					pVertexPNT[vertexCounter].normal.y = 1.0f;
+					pVertexPNT[vertexCounter].normal.z = 0.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)y / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
 
 		default:
+			delete pMeshData;
+			pMeshData = NULL;
 			break;
 	}
 
@@ -1004,15 +958,15 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 			for (int x = 0; x < tessellation; x++)
 			{
 				// first triangle
-				pMeshData->m_indices[indexCounter++] = vIndex;
-				pMeshData->m_indices[indexCounter++] = vIndex + numVertsX + 1;
-				pMeshData->m_indices[indexCounter++] = vIndex + numVertsX;
+				pMeshData->pIndices[indexCounter++] = vIndex;
+				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
+				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX;
 				
 
 				// second triangle
-				pMeshData->m_indices[indexCounter++] = vIndex;
-				pMeshData->m_indices[indexCounter++] = vIndex + 1;
-				pMeshData->m_indices[indexCounter++] = vIndex + numVertsX + 1;
+				pMeshData->pIndices[indexCounter++] = vIndex;
+				pMeshData->pIndices[indexCounter++] = vIndex + 1;
+				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
 				
 				vIndex++;
 			}
@@ -1023,9 +977,6 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 		// Skips the 'bottom' row of vertices
 		vIndex += (tessellation + 1);
 	}
-
-	// Set vertex type
-	pMeshData->m_vertexType = vertexType;
 
 	m_mGeometry.insert(std::pair<std::string, MeshData*>("geometryID", pMeshData));
 
@@ -1048,27 +999,21 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 	int numIndices = ((tessellation * tessellation) * 2) * 3;
 
 	// Create new mesh data
-	MeshData* pMeshData = new MeshData;
-
-	// Pre-allocate indices
-	for(int j = 0; j < numIndices; j++)
-		pMeshData->m_indices.push_back(0);
+	MeshData* pMeshData = new MeshData(vertexType, totalVerts, numIndices);
 
 	// Calc space inbetween vertices (same for x and y directions)
 	float incrementDist = size / tessellation;
-	int vertexCoutner = 0;
+	int vertexCounter = 0;
 
 	switch(vertexType)
 	{
 	case eVertexPC:
-		// Create empty vertices
-		for(int i = 0; i < totalVerts; i++)
-			pMeshData->m_pvVertices.push_back(new SVertexTypePC);
-
 		// Plane generated of length size centred at (0,0,0)
 		// ------------- Begin Cube Generation -------------
 
 		// ---Vertex/Index Generation---
+
+		SVertexTypePC* pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
 
 		// Plane
 		for(int z = 0; z < (tessellation + 1); z++)
@@ -1079,31 +1024,27 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (z * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertexPC[vertexCounter].position.y = yStart;
+				pVertexPC[vertexCounter].position.z = zStart - (z * incrementDist);
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 		break;
 
 		case eVertexPT:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePT);
-
 			// Plane generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePT* pVert;
+			SVertexTypePT* pVertexPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1114,31 +1055,25 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVert = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertexPT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPT[vertexCounter].position.y = yStart;
+					pVertexPT[vertexCounter].position.z = zStart - (z * incrementDist);
+					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertexPT[vertexCounter].textureCoord.y = (float)z / (float)tessellation ;
 
-					pVert->position.x = xStart + (x * incrementDist);
-					pVert->position.y = yStart;
-					pVert->position.z = zStart - (z * incrementDist);
-					pVert->textureCoord.x = (float)x / (float)tessellation ;
-					pVert->textureCoord.y = (float)z / (float)tessellation ;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
 
 		case eVertexPNC:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePNC);
-
 			// Cube generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePNC* pVertPNC;
+			SVertexTypePNC* pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1149,33 +1084,29 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPNC = (SVertexTypePNC*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNC[vertexCounter].position.y = yStart;
+					pVertexPNC[vertexCounter].position.z = zStart - (z * incrementDist);
+					pVertexPNC[vertexCounter].normal.x = 0.0f;
+					pVertexPNC[vertexCounter].normal.y = 1.0f;
+					pVertexPNC[vertexCounter].normal.z = 0.0f;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+					pVertexPNC[vertexCounter].colour.w = colour.w;
 
-					pVertPNC->position.x = xStart + (x * incrementDist);
-					pVertPNC->position.y = yStart;
-					pVertPNC->position.z = zStart - (z * incrementDist);
-					pVertPNC->normal.x = 0.0f;
-					pVertPNC->normal.y = 1.0f;
-					pVertPNC->normal.z = 0.0f;
-					pVertPNC->colour.x = colour.x;
-					pVertPNC->colour.y = colour.y;
-					pVertPNC->colour.z = colour.z;
-					pVertPNC->colour.w = colour.w;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
 
 		case eVertexPNT:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePNT);
-
 			// Plane generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
+
+			SVertexTypePNT* pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1186,16 +1117,16 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (z * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)z / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart;
+					pVertexPNT[vertexCounter].position.z = zStart - (z * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 0.0f;
+					pVertexPNT[vertexCounter].normal.y = 1.0f;
+					pVertexPNT[vertexCounter].normal.z = 0.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)z / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
@@ -1214,23 +1145,20 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 		for (int x = 0; x < tessellation; x++)
 		{
 			// first triangle
-			pMeshData->m_indices[indexCounter++] = vIndex;
-			pMeshData->m_indices[indexCounter++] = vIndex + numVertsX + 1;
-			pMeshData->m_indices[indexCounter++] = vIndex + numVertsX;
+			pMeshData->pIndices[indexCounter++] = vIndex;
+			pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
+			pMeshData->pIndices[indexCounter++] = vIndex + numVertsX;
 
 			// second triangle
-			pMeshData->m_indices[indexCounter++] = vIndex;
-			pMeshData->m_indices[indexCounter++] = vIndex + 1;
-			pMeshData->m_indices[indexCounter++] = vIndex + numVertsX + 1;
+			pMeshData->pIndices[indexCounter++] = vIndex;
+			pMeshData->pIndices[indexCounter++] = vIndex + 1;
+			pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
 
 			vIndex++;
 		}
 
 		vIndex++;
 	}
-
-	// Set vertex type
-	pMeshData->m_vertexType = vertexType;
 
 	m_mGeometry.insert(std::pair<std::string, MeshData*>("geometryID", pMeshData));
 
@@ -1253,27 +1181,20 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 	int numIndices = ((tessellation * tessellation) * 2) * 3;
 
 	// Create new mesh data
-	MeshData* pMeshData = new MeshData;
-
-	// Pre-allocate indices
-	for(int j = 0; j < numIndices; j++)
-		pMeshData->m_indices.push_back(0);
+	MeshData* pMeshData = new MeshData(vertexType, totalVerts, numIndices);
 
 	// Calc space inbetween vertices (same for x and y directions)
 	float incrementDist = size / tessellation;
-	int vertexCoutner = 0;
+	int vertexCounter = 0;
 
 	switch(vertexType)
 	{
 	case eVertexPC:
-		// Create empty vertices
-		for(int i = 0; i < totalVerts; i++)
-			pMeshData->m_pvVertices.push_back(new SVertexTypePC);
-
 		// Plane generated of length size centred at (0,0,0)
 		// ------------- Begin Cube Generation -------------
 
 		// ---Vertex/Index Generation---
+		SVertexTypePC* pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
 
 		// Plane
 		for(int z = 0; z < (tessellation + 1); z++)
@@ -1284,31 +1205,27 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 
 			for(int x = 0; x < (tessellation + 1); x++)
 			{
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (z * incrementDist);
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.x = colour.x;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.y = colour.y;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.z = colour.z;
-				((SVertexTypePC*)(pMeshData->m_pvVertices[vertexCoutner]))->colour.w = colour.w;
+				pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertexPC[vertexCounter].position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
+				pVertexPC[vertexCounter].position.z = zStart - (z * incrementDist);
+				pVertexPC[vertexCounter].colour.x = colour.x;
+				pVertexPC[vertexCounter].colour.y = colour.y;
+				pVertexPC[vertexCounter].colour.z = colour.z;
+				pVertexPC[vertexCounter].colour.w = colour.w;
 
-				vertexCoutner++;
+				vertexCounter++;
 			}
 		}
 		break;
 
 		case eVertexPT:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePT);
-
 			// Plane generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePT* pVert;
+			SVertexTypePT* pVertexPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1319,32 +1236,26 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVert = (SVertexTypePT*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertexPT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPT[vertexCounter].position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
+					//pVertexPT[vertexCounter].position.y = yStart + ((sin((double)(x%360)*0.0174532925f)) + (sin((double)(z%360)*0.0174532925f)) * 10);
+					pVertexPT[vertexCounter].position.z = zStart - (z * incrementDist);
+					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)tessellation ;
+					pVertexPT[vertexCounter].textureCoord.y = (float)z / (float)tessellation ;
 
-					pVert->position.x = xStart + (x * incrementDist);
-					pVert->position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
-					//pVert->position.y = yStart + ((sin((double)(x%360)*0.0174532925f)) + (sin((double)(z%360)*0.0174532925f)) * 10);
-					pVert->position.z = zStart - (z * incrementDist);
-					pVert->textureCoord.x = (float)x / (float)tessellation ;
-					pVert->textureCoord.y = (float)z / (float)tessellation ;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
 
 		case eVertexPNC:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePNC);
-
 			// Cube generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePNC* pVertPNC;
+			SVertexTypePNC* pVertPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1355,33 +1266,28 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					pVertPNC = (SVertexTypePNC*)pMeshData->m_pvVertices[vertexCoutner];
+					pVertPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertPNC[vertexCounter].position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
+					pVertPNC[vertexCounter].position.z = zStart - (z * incrementDist);
+					pVertPNC[vertexCounter].normal.x = 0.0f;
+					pVertPNC[vertexCounter].normal.y = 1.0f;
+					pVertPNC[vertexCounter].normal.z = 0.0f;
+					pVertPNC[vertexCounter].colour.x = colour.x;
+					pVertPNC[vertexCounter].colour.y = colour.y;
+					pVertPNC[vertexCounter].colour.z = colour.z;
+					pVertPNC[vertexCounter].colour.w = colour.w;
 
-					pVertPNC->position.x = xStart + (x * incrementDist);
-					pVertPNC->position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
-					pVertPNC->position.z = zStart - (z * incrementDist);
-					pVertPNC->normal.x = 0.0f;
-					pVertPNC->normal.y = 1.0f;
-					pVertPNC->normal.z = 0.0f;
-					pVertPNC->colour.x = colour.x;
-					pVertPNC->colour.y = colour.y;
-					pVertPNC->colour.z = colour.z;
-					pVertPNC->colour.w = colour.w;
-
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
 
 		case eVertexPNT:
-			// Create empty vertices
-			for(int i = 0; i < totalVerts; i++)
-				pMeshData->m_pvVertices.push_back(new SVertexTypePNT);
-
 			// Plane generated of length size centred at (0,0,0)
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
+			SVertexTypePNT* pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1392,16 +1298,16 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 
 				for(int x = 0; x < (tessellation + 1); x++)
 				{
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.x = xStart + (x * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->position.z = zStart - (z * incrementDist);
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.x = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.y = 1.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->normal.z = 0.0f;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.x = (float)x / (float)tessellation ;
-					((SVertexTypePNT*)(pMeshData->m_pvVertices[vertexCoutner]))->texture.y = (float)z / (float)tessellation ;
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart + (sin((double)(((float)x*(float)z*0.25)*0.0174532925f)) * 10);
+					pVertexPNT[vertexCounter].position.z = zStart - (z * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 0.0f;
+					pVertexPNT[vertexCounter].normal.y = 1.0f;
+					pVertexPNT[vertexCounter].normal.z = 0.0f;
+					pVertexPNT[vertexCounter].texture.x = (float)x / (float)tessellation ;
+					pVertexPNT[vertexCounter].texture.y = (float)z / (float)tessellation ;
 
-					vertexCoutner++;
+					vertexCounter++;
 				}
 			}
 			break;
@@ -1420,23 +1326,20 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 		for (int x = 0; x < tessellation; x++)
 		{
 			// first triangle
-			pMeshData->m_indices[indexCounter++] = vIndex;
-			pMeshData->m_indices[indexCounter++] = vIndex + numVertsX + 1;
-			pMeshData->m_indices[indexCounter++] = vIndex + numVertsX;
+			pMeshData->pIndices[indexCounter++] = vIndex;
+			pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
+			pMeshData->pIndices[indexCounter++] = vIndex + numVertsX;
 
 			// second triangle
-			pMeshData->m_indices[indexCounter++] = vIndex;
-			pMeshData->m_indices[indexCounter++] = vIndex + 1;
-			pMeshData->m_indices[indexCounter++] = vIndex + numVertsX + 1;
+			pMeshData->pIndices[indexCounter++] = vIndex;
+			pMeshData->pIndices[indexCounter++] = vIndex + 1;
+			pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
 
 			vIndex++;
 		}
 
 		vIndex++;
 	}
-
-	// Set vertex type
-	pMeshData->m_vertexType = vertexType;
 
 	m_mGeometry.insert(std::pair<std::string, MeshData*>("geometryID", pMeshData));
 
