@@ -16,12 +16,12 @@ class CD3DBase;
 class CD3DModel
 {
 protected:
-	ID3D11Buffer *m_vertexBuffer;
-	ID3D11Buffer *m_indexBuffer;
+	ID3D11Buffer *m_pVertexBuffer;
+	ID3D11Buffer *m_pIndexBuffer;
 	ID3D11ShaderResourceView* m_pTexture;						
 	int m_vertexCount; 
 	int m_indexCount;
-	int m_vertexSize;
+	//int m_vertexSize;
 
 	std::string m_name;
 	EVertexType m_vertType;
@@ -31,7 +31,8 @@ public:
 	CD3DModel(const CD3DModel& other);
 	~CD3DModel(void);
 	
-	int Initialise(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName = "NULL");
+	int Initialise(ID3D11Buffer* pVertexBuffer, int vertCount, ID3D11Buffer* pIndexBuffer, int indexCount, ID3D11ShaderResourceView* pTextureRes,
+		EVertexType type, const std::string& modelName);
 
 	void ShutDown(void);
 
@@ -41,28 +42,14 @@ public:
 	int GetIndexCount(void) { return m_indexCount; }
 	std::string GetModelName(void) { return m_name; }
 
-	ID3D11Buffer* GetVertexBuffer(void) { return m_vertexBuffer; }
-	ID3D11Buffer* GetIndexBuffer(void) { return m_indexBuffer; }
+	ID3D11Buffer* GetVertexBuffer(void) { return m_pVertexBuffer; }
+	ID3D11Buffer* GetIndexBuffer(void) { return m_pIndexBuffer; }
 	ID3D11ShaderResourceView* GetTexture(void) { return m_pTexture; }
-	EVertexType GetVertexType(void);
+	EVertexType GetVertexType(void) { return m_vertType; }
 
 protected:
-	virtual int VInitialiseBuffers(ID3D11Device* pDevice, MeshData* pData);
-
-	// Releases buffers
-	virtual void VShutDownBuffers(void);
-
 	// Draws buffers
 	virtual void VRenderBuffers(ID3D11DeviceContext* pContext);
-
-	// Loads texture into shader resource
-	virtual int VLoadTexture(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const std::string fileTextureName);
-
-	// Frees loaded textures
-	virtual void VReleaseTexture(void);
-
-	// Internal helper method
-	void CopyVertexData(SVertexType **pVertices, MeshData* pData);
 };
 
 #endif

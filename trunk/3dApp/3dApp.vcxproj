@@ -163,6 +163,7 @@
     <ClCompile Include="CModelTriangle.cpp" />
     <ClCompile Include="CShaderTexture.cpp" />
     <ClCompile Include="CShaderTextureManager.cpp" />
+    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="CModelTriangle.h" />
     <ClInclude Include="CShaderTexture.h" />
     <ClInclude Include="CShaderTextureManager.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="ErrorCodes.h" />
     <ClInclude Include="IGraphics.h" />

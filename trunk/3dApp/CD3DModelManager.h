@@ -21,7 +21,8 @@ public:
 	~CD3DModelManager(void);
 
 	// Adds a model to the collection, returns an index to model (-2 if fails to add)
-	int AddD3DModel(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName);
+	int AddD3DModel(ID3D11Buffer* pVertexBuffer, int vertexCount, ID3D11Buffer* pIndexBuffer, int indexCount, ID3D11ShaderResourceView* pTextureRes,
+		EVertexType type, const std::string& modelName);
 
 	// Remove functions only delete the model (freeing memory). The elements in the vector do not get removed
 	bool RemoveD3DModel(int index);

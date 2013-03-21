@@ -24,6 +24,8 @@
 
 #define ERROR_GFX_WIC_CREATE_TEXTURE				0x00000321
 
+#define ERROR_GFX_MODEL_INIT						0x00000351
+
 #define ERROR_GFX_MODEL_REMOVE						0x00000381
 
 // Shader errors
