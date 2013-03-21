@@ -100,7 +100,7 @@ int CBufferManager::CreateIndexBuffer(ID3D11Device* pDevice, MeshData* pData, ID
 	indexData.SysMemSlicePitch = 0;
 
 	// Create the index buffer.
-	HRESULT result = pDevice->CreateBuffer(&indexBufferDesc, &indexData, &inBuffer);
+	HRESULT result = pDevice->CreateBuffer(&indexBufferDesc, &indexData, inBuffer);
 
 	if(FAILED(result))
 	{

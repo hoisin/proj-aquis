@@ -49,7 +49,7 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 		       2 *-----* 3
 		*/
 
-		SVertexTypePC* pVertexPC = NULL;
+		SVertexTypePC* pVertexPC;
 
 		// Top vertex
 		pVertexPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
@@ -91,7 +91,7 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 		       2 *-----* 3
 		*/
 
-		SVertexTypePT* pVertexPT = NULL;
+		SVertexTypePT* pVertexPT;
 
 		// Top vertex
 		pVertexPT = static_cast<SVertexTypePT*>(pNewGeometry->pVertices);
@@ -127,7 +127,7 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 		       2 *-----* 3
 		*/
 
-		SVertexTypePNC* pVert = NULL;
+		SVertexTypePNC* pVert;
 
 		// Top vertex
 		pVert = static_cast<SVertexTypePNC*>(pNewGeometry->pVertices);
@@ -178,7 +178,7 @@ MeshData* CGeometryGenerator::CreateTriangle(const std::string& geometryID, floa
 		       2 *-----* 3
 		*/
 
-		SVertexTypePNT* pVertexPNT = NULL;
+		SVertexTypePNT* pVertexPNT;
 
 		// Top vertex
 		pVertexPNT = static_cast<SVertexTypePNT*>(pNewGeometry->pVertices);
@@ -255,7 +255,7 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 		       2 *-----* 3
 		*/
 
-		SVertexTypePC* pVertexPC = NULL;
+		SVertexTypePC* pVertexPC;
 
 		// Top vertex
 		pVertexPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
@@ -297,7 +297,7 @@ MeshData* CGeometryGenerator::CreateTriangleTriColour(const std::string& geometr
 		       2 *-----* 3
 		*/
 
-		SVertexTypePNC* pVertexPNC = NULL;
+		SVertexTypePNC* pVertexPNC;
 
 		// Top vertex
 		pVertexPNC = static_cast<SVertexTypePNC*>(pNewGeometry->pVertices);
@@ -389,7 +389,8 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 		// ---Vertex/Index Generation---
 
-		SVertexTypePC* pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
+		SVertexTypePC* pVertexPC;
+		pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
 
 		// Front face
 		for(int y = 0; y < (tessellation + 1); y++)
@@ -525,7 +526,8 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePT* pVertPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
+			SVertexTypePT* pVertPT;
+			pVertPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int y = 0; y < (tessellation + 1); y++)
@@ -650,7 +652,8 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 				// ---Vertex/Index Generation---
 
 				// Variable for retrieving vertex data
-				SVertexTypePNC* pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
+				SVertexTypePNC* pVertexPNC;
+				pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
 
 				// Front face
 				for(int y = 0; y < (tessellation + 1); y++)
@@ -803,7 +806,8 @@ MeshData* CGeometryGenerator::CreateCube(const std::string& geometryID, float si
 
 			// ---Vertex/Index Generation---
 
-			SVertexTypePNT* pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
+			SVertexTypePNT* pVertexPNT;
+			pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int y = 0; y < (tessellation + 1); y++)
@@ -1013,7 +1017,8 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 
 		// ---Vertex/Index Generation---
 
-		SVertexTypePC* pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
+		SVertexTypePC* pVertexPC;
+		pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
 
 		// Plane
 		for(int z = 0; z < (tessellation + 1); z++)
@@ -1044,7 +1049,8 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePT* pVertexPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
+			SVertexTypePT* pVertexPT;
+			pVertexPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1073,7 +1079,8 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePNC* pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
+			SVertexTypePNC* pVertexPNC;
+			pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1106,7 +1113,8 @@ MeshData* CGeometryGenerator::CreatePlane(const std::string& geometryID, float s
 
 			// ---Vertex/Index Generation---
 
-			SVertexTypePNT* pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
+			SVertexTypePNT* pVertexPNT;
+			pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1194,7 +1202,8 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 		// ------------- Begin Cube Generation -------------
 
 		// ---Vertex/Index Generation---
-		SVertexTypePC* pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
+		SVertexTypePC* pVertexPC;
+		pVertexPC = static_cast<SVertexTypePC*>(pMeshData->pVertices);
 
 		// Plane
 		for(int z = 0; z < (tessellation + 1); z++)
@@ -1225,7 +1234,8 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePT* pVertexPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
+			SVertexTypePT* pVertexPT;
+			pVertexPT = static_cast<SVertexTypePT*>(pMeshData->pVertices);
 
 			// Front face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1255,7 +1265,8 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 			// ---Vertex/Index Generation---
 
 			// Variable for retrieving vertex data
-			SVertexTypePNC* pVertPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
+			SVertexTypePNC* pVertPNC;
+			pVertPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)
@@ -1287,7 +1298,8 @@ MeshData* CGeometryGenerator::CreateSinPlane(const std::string& geometryID, floa
 			// ------------- Begin Cube Generation -------------
 
 			// ---Vertex/Index Generation---
-			SVertexTypePNT* pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
+			SVertexTypePNT* pVertexPNT;
+			pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
 
 			// top face
 			for(int z = 0; z < (tessellation + 1); z++)

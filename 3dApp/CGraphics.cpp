@@ -34,7 +34,10 @@ bool CGraphics::VInitialise(HWND hwnd, int screenHeight, int screenWidth, bool b
 	pCamera->SetRotation(0,0,0);
 
 	m_pD3dModelManager = new CD3DModelManager;
-	myModelID = m_pD3dModelManager->AddD3DModel(m_pD3d, m_pGeoGenerator.CreateSinPlane("cubeGeo", 2000, 200, eVertexPT, DirectX::XMFLOAT4(0, 1, 0, 1.0)), "myCube", "Assets\\Graphics\\Textures\\brick.bmp");
+
+	//MeshData* myMesh = m_pGeoGenerator.CreateSinPlane("cubeGeo", 2000, 200, eVertexPT, DirectX::XMFLOAT4(0, 1, 0, 1.0));
+
+	//myModelID = m_pD3dModelManager->AddD3DModel(m_pD3d, m_pGeoGenerator.CreateSinPlane("cubeGeo", 2000, 200, eVertexPT, DirectX::XMFLOAT4(0, 1, 0, 1.0)), "myCube", "Assets\\Graphics\\Textures\\brick.bmp");
 
 	D3D11_SAMPLER_DESC samplerDesc;
 

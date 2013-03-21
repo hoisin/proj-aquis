@@ -13,7 +13,8 @@ CD3DModelManager::~CD3DModelManager(void)
 }
 
 
-int CD3DModelManager::AddD3DModel(CD3DBase* pD3d, MeshData* pData, const std::string& modelName, const std::string fileTextureName)
+int CD3DModelManager::AddD3DModel(ID3D11Buffer* pVertexBuffer, int vertexCount, ID3D11Buffer* pIndexBuffer, int indexCount, ID3D11ShaderResourceView* pTextureRes,
+	EVertexType type, const std::string& modelName)
 {
 	// Check name is not already used & check for unused elements if any
 	bool bNameUsed = false;
@@ -45,7 +46,7 @@ int CD3DModelManager::AddD3DModel(CD3DBase* pD3d, MeshData* pData, const std::st
 	{
 		// Create new model and initialise
 		CD3DModel* pModel = new CD3DModel;
-		if(!pModel->Initialise(pD3d, pData, modelName, fileTextureName))
+		if(!pModel->Initialise(pVertexBuffer, vertexCount, pIndexBuffer, indexCount, pTextureRes, type, modelName))
 		{
 			delete pModel;
 			return -2;
@@ -60,7 +61,7 @@ int CD3DModelManager::AddD3DModel(CD3DBase* pD3d, MeshData* pData, const std::st
 	{
 		// Create new model and initialise
 		CD3DModel* pModel = new CD3DModel;
-		if(!pModel->Initialise(pD3d, pData, modelName, fileTextureName))
+		if(!pModel->Initialise(pVertexBuffer, vertexCount, pIndexBuffer, indexCount, pTextureRes, type, modelName))
 		{
 			delete pModel;
 			return -2;
