@@ -1,9 +1,171 @@
-﻿Build started 21/03/2013 15:15:29.
-     1>Project "C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\3dApp\3dApp.vcxproj" on node 2 (clean target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\3dApp.lastbuildstate".
-     1>Done Building Project "C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\3dApp\3dApp.vcxproj" (clean target(s)).
+﻿Build started 23/03/2013 18:27:57.
+     1>Project "F:\Random VC Projs\3dApp\3dApp\3dApp.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\3dApp.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Windows Kits\8.0\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.0\Include\winrt" /I"C:\Program Files (x86)\Windows Kits\8.0\Include\shared" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CBufferManager.cpp CCamera.cpp CColourShader.cpp CD3DBase.cpp C3DApp.cpp CD3DEffect.cpp CD3DModel.cpp CD3DModelManager.cpp CD3DShader.cpp CD3DShaderManager.cpp CFPCamera.cpp CGeometryGenerator.cpp CGraphics.cpp CLogic.cpp CModelBase.cpp CModelCube.cpp CModelTriangle.cpp CShaderTexture.cpp CShaderTextureManager.cpp CTexture.cpp CTimer.cpp main.cpp WICTextureLoader.cpp
+         WICTextureLoader.cpp
+         main.cpp
+         CTimer.cpp
+         CTexture.cpp
+         CShaderTextureManager.cpp
+     1>f:\random vc projs\3dapp\3dapp\cshadertexturemanager.cpp(33): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+         CShaderTexture.cpp
+         CModelTriangle.cpp
+         CModelCube.cpp
+         CModelBase.cpp
+         CLogic.cpp
+         CGraphics.cpp
+         CGeometryGenerator.cpp
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(364): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(375): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(954): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(982): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(996): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1003): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1148): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1182): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1189): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1218): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1250): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1281): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1314): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cgeometrygenerator.cpp(1333): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         CFPCamera.cpp
+         CD3DShaderManager.cpp
+         CD3DShader.cpp
+         CD3DModelManager.cpp
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(150): warning C4005: 'INT8_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(72) : see previous definition of 'INT8_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(152): warning C4005: 'INT16_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(73) : see previous definition of 'INT16_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(154): warning C4005: 'INT32_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(74) : see previous definition of 'INT32_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(158): warning C4005: 'INT64_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(149) : see previous definition of 'INT64_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(173): warning C4005: 'INT8_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(76) : see previous definition of 'INT8_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(174): warning C4005: 'UINT8_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(79) : see previous definition of 'UINT8_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(177): warning C4005: 'INT16_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(77) : see previous definition of 'INT16_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(179): warning C4005: 'UINT16_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(80) : see previous definition of 'UINT16_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(182): warning C4005: 'INT32_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(78) : see previous definition of 'INT32_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(184): warning C4005: 'UINT32_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(81) : see previous definition of 'UINT32_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(190): warning C4005: 'INT64_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(150) : see previous definition of 'INT64_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(195): warning C4005: 'UINT64_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(151) : see previous definition of 'UINT64_MAX'
+     1>f:\random vc projs\3dapp\3dapp\cd3dmodelmanager.cpp(81): warning C4305: 'return' : truncation from 'int' to 'bool'
+         CD3DModel.cpp
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(150): warning C4005: 'INT8_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(72) : see previous definition of 'INT8_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(152): warning C4005: 'INT16_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(73) : see previous definition of 'INT16_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(154): warning C4005: 'INT32_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(74) : see previous definition of 'INT32_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(158): warning C4005: 'INT64_MIN' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(149) : see previous definition of 'INT64_MIN'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(173): warning C4005: 'INT8_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(76) : see previous definition of 'INT8_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(174): warning C4005: 'UINT8_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(79) : see previous definition of 'UINT8_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(177): warning C4005: 'INT16_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(77) : see previous definition of 'INT16_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(179): warning C4005: 'UINT16_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(80) : see previous definition of 'UINT16_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(182): warning C4005: 'INT32_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(78) : see previous definition of 'INT32_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(184): warning C4005: 'UINT32_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(81) : see previous definition of 'UINT32_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(190): warning C4005: 'INT64_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(150) : see previous definition of 'INT64_MAX'
+     1>c:\program files (x86)\windows kits\8.0\include\shared\intsafe.h(195): warning C4005: 'UINT64_MAX' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdint.h(151) : see previous definition of 'UINT64_MAX'
+         CD3DEffect.cpp
+         C3DApp.cpp
+     1>f:\random vc projs\3dapp\3dapp\c3dapp.cpp(194): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\c3dapp.cpp(195): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         CD3DBase.cpp
+     1>f:\random vc projs\3dapp\3dapp\cd3dbase.cpp(201): warning C4244: '=' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>f:\random vc projs\3dapp\3dapp\cd3dbase.cpp(202): warning C4244: '=' : conversion from 'float' to 'unsigned int', possible loss of data
+         Generating Code...
+     1>f:\random vc projs\3dapp\3dapp\cmodelcube.cpp(77): warning C4700: uninitialized local variable 'indices' used
+     1>f:\random vc projs\3dapp\3dapp\cshadertexturemanager.cpp(33): warning C4700: uninitialized local variable 'dest' used
+         Compiling...
+         CColourShader.cpp
+         CCamera.cpp
+         CBufferManager.cpp
+     1>f:\random vc projs\3dapp\3dapp\cbuffermanager.cpp(55): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>f:\random vc projs\3dapp\3dapp\cbuffermanager.cpp(115): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+         Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\3dApp.exe.embed.manifest.res" Debug\3dApp_manifest.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Random VC Projs\3dApp\Debug\3dApp.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.0\Lib\win8\um\x86" /LIBPATH:.\lib\win\x86 /LIBPATH:.\lib d3d11.lib d2d1.lib d3dcsx.lib dinput8.lib dxguid.lib dwrite.lib D3dcompiler.lib windowscodecs.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\3dApp.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\Random VC Projs\3dApp\Debug\3dApp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Random VC Projs\3dApp\Debug\3dApp.lib" /MACHINE:X86 Debug\3dApp.exe.embed.manifest.res
+         Debug\CBufferManager.obj
+         Debug\CCamera.obj
+         Debug\CColourShader.obj
+         Debug\CD3DBase.obj
+         Debug\C3DApp.obj
+         Debug\CD3DEffect.obj
+         Debug\CD3DModel.obj
+         Debug\CD3DModelManager.obj
+         Debug\CD3DShader.obj
+         Debug\CD3DShaderManager.obj
+         Debug\CFPCamera.obj
+         Debug\CGeometryGenerator.obj
+         Debug\CGraphics.obj
+         Debug\CLogic.obj
+         Debug\CModelBase.obj
+         Debug\CModelCube.obj
+         Debug\CModelTriangle.obj
+         Debug\CShaderTexture.obj
+         Debug\CShaderTextureManager.obj
+         Debug\CTexture.obj
+         Debug\CTimer.obj
+         Debug\main.obj
+         Debug\WICTextureLoader.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\3dApp.exe.embed.manifest" /manifest Debug\3dApp.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\3dApp.exe.embed.manifest.res" Debug\3dApp_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Random VC Projs\3dApp\Debug\3dApp.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.0\Lib\win8\um\x86" /LIBPATH:.\lib\win\x86 /LIBPATH:.\lib d3d11.lib d2d1.lib d3dcsx.lib dinput8.lib dxguid.lib dwrite.lib D3dcompiler.lib windowscodecs.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\3dApp.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\Random VC Projs\3dApp\Debug\3dApp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Random VC Projs\3dApp\Debug\3dApp.lib" /MACHINE:X86 Debug\3dApp.exe.embed.manifest.res
+         Debug\CBufferManager.obj
+         Debug\CCamera.obj
+         Debug\CColourShader.obj
+         Debug\CD3DBase.obj
+         Debug\C3DApp.obj
+         Debug\CD3DEffect.obj
+         Debug\CD3DModel.obj
+         Debug\CD3DModelManager.obj
+         Debug\CD3DShader.obj
+         Debug\CD3DShaderManager.obj
+         Debug\CFPCamera.obj
+         Debug\CGeometryGenerator.obj
+         Debug\CGraphics.obj
+         Debug\CLogic.obj
+         Debug\CModelBase.obj
+         Debug\CModelCube.obj
+         Debug\CModelTriangle.obj
+         Debug\CShaderTexture.obj
+         Debug\CShaderTextureManager.obj
+         Debug\CTexture.obj
+         Debug\CTimer.obj
+         Debug\main.obj
+         Debug\WICTextureLoader.obj
+         3dApp.vcxproj -> F:\Random VC Projs\3dApp\Debug\3dApp.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\3dApp.unsuccessfulbuild".
+         Touching "Debug\3dApp.lastbuildstate".
+     1>Done Building Project "F:\Random VC Projs\3dApp\3dApp\3dApp.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.02
+Time Elapsed 00:00:21.29

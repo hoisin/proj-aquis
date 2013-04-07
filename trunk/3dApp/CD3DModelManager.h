@@ -8,17 +8,25 @@
 
 #include <vector>
 #include "GfxDefs.h"
+
+// Handles creation and deletion of ID3D11Buffers for models
+#include "CBufferManager.h"
+
 #include "CD3DBase.h"
 #include "CD3DModel.h"
+
 
 class CD3DModelManager 
 {
 protected:
+	CBufferManager* m_pBufferManager;
 	std::vector<CD3DModel*> m_vpModels;
 
 public:
 	CD3DModelManager(void);
 	~CD3DModelManager(void);
+
+	bool Initialise(void);
 
 	// Adds a model to the collection, returns an index to model (-2 if fails to add)
 	int AddD3DModel(ID3D11Buffer* pVertexBuffer, int vertexCount, ID3D11Buffer* pIndexBuffer, int indexCount, ID3D11ShaderResourceView* pTextureRes,
