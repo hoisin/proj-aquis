@@ -2,16 +2,22 @@
 #include "ErrorCodes.h"
 #include <iostream>
 
-CD3DModelManager::CD3DModelManager(void)
+CD3DModelManager::CD3DModelManager(void) : m_pBufferManager(NULL)
 {
 }
 
 
 CD3DModelManager::~CD3DModelManager(void)
 {
-	EmptyD3DModels();
+	ShutDown();
 }
 
+
+bool CD3DModelManager::Initialise(void)
+{
+	m_pBufferManager = new CBufferManager;
+	return true;
+}
 
 int CD3DModelManager::AddD3DModel(ID3D11Buffer* pVertexBuffer, int vertexCount, ID3D11Buffer* pIndexBuffer, int indexCount, ID3D11ShaderResourceView* pTextureRes,
 	EVertexType type, const std::string& modelName)
@@ -178,4 +184,11 @@ void CD3DModelManager::EmptyD3DModels(void)
 int CD3DModelManager::GetTotalModels(void)
 {
 	return (int)m_vpModels.size();
+}
+
+
+void CD3DModelManager::ShutDown(void)
+{
+	delete m_pBufferManager;
+	EmptyD3DModels();
 }

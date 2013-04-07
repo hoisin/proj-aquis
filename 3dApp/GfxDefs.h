@@ -12,6 +12,21 @@
 #ifndef __GFXDEFS_H__
 #define __GFXDEFS_H__
 
+
+/*
+==============================================
+	Hardware buffer usage enumerate
+==============================================
+*/
+
+enum EBufferUsage
+{
+	eBUSAGE_STATIC,
+	eBUSAGE_DYNAMIC,
+	eBUSAGE_WRITEONLY,
+	eBUSAGE_TOTAL
+};
+
 /*
 ==============================================
 	Old Vertex Structs (UNUSED) TO BE REMOVED...
