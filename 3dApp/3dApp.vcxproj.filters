@@ -225,5 +225,8 @@
     <ClInclude Include="CD3DHardwareIndexBuffer.h">
       <Filter>Graphics\D3D\Buffers</Filter>
     </ClInclude>
+    <ClInclude Include="CResouce.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
