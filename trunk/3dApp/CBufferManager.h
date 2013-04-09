@@ -5,32 +5,29 @@
 #ifndef __CBUFFERMANAGER_H__
 #define __CBUFFERMANAGER_H__
 
-#include <vector>
+#include <map>
 #include <string>
 #include "CD3DBase.h"
 
 class CBufferManager
 {
-	struct SBufferInfo
-	{
-		std::string name;
-		ID3D11Buffer* buffer;
-	};
-
 public:
 	CBufferManager(void);
 	~CBufferManager(void);
 
-	int CreateVertexBuffer(ID3D11Device* pDevice, MeshData* pData, ID3D11Buffer** inBuffer);
-	int CreateInstanceBuffer(ID3D11Device* pDevice, MeshData* pData, ID3D11Buffer** inBuffer);
-	int CreateIndexBuffer(ID3D11Device* pDevice, MeshData* pData, ID3D11Buffer** inBuffer);
+	int CreateVertexBuffer(ID3D11Device* pDevice, const std::string& nameID, int bufferSize, void* pData, ID3D11Buffer** outBuffer = NULL);
+//	int CreateInstanceBuffer(ID3D11Device* pDevice, MeshData* pData, ID3D11Buffer** inBuffer);
+	int CreateIndexBuffer(ID3D11Device* pDevice, const std::string& nameID, int bufferSize, void* pData,  ID3D11Buffer** outBuffer = NULL);
+
+	ID3D11Buffer* GetVertexBuffer(const std::string& nameID);
+	ID3D11Buffer* GetIndexBuffer(const std::string& nameID);
 
 	void ShutDown(void);
 
 private:
-	std::vector<SBufferInfo> m_vertexBuffers;
-	std::vector<SBufferInfo> m_instanceBuffers;
-	std::vector<SBufferInfo> m_indexBuffers;
+	std::map<std::string, ID3D11Buffer*> m_vertexBuffers;
+	//std::map<std::string, ID3D11Buffer*> m_instanceBuffers;
+	std::map<std::string, ID3D11Buffer*> m_indexBuffers;
 };
 
 #endif

@@ -188,6 +188,7 @@
     <ClInclude Include="CModelBase.h" />
     <ClInclude Include="CModelCube.h" />
     <ClInclude Include="CModelTriangle.h" />
+    <ClInclude Include="CResouce.h" />
     <ClInclude Include="CShaderTexture.h" />
     <ClInclude Include="CShaderTextureManager.h" />
     <ClInclude Include="CTexture.h" />
