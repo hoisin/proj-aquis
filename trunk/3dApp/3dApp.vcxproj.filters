@@ -88,9 +88,6 @@
     <ClCompile Include="CD3DModel.cpp">
       <Filter>Graphics\D3D\Models</Filter>
     </ClCompile>
-    <ClCompile Include="CGeometryGenerator.cpp">
-      <Filter>Graphics\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="CModelBase.cpp">
       <Filter>Graphics\D3D\Models\Old</Filter>
     </ClCompile>
@@ -130,6 +127,9 @@
     <ClCompile Include="CBufferManager.cpp">
       <Filter>Graphics\D3D\Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="CMeshDataManager.cpp">
+      <Filter>Graphics\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win_platform.h">
@@ -167,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="CD3DModel.h">
       <Filter>Graphics\D3D\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="CGeometryGenerator.h">
-      <Filter>Graphics\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="CModelBase.h">
       <Filter>Graphics\D3D\Models\Old</Filter>
@@ -225,8 +222,11 @@
     <ClInclude Include="CD3DHardwareIndexBuffer.h">
       <Filter>Graphics\D3D\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="CResouce.h">
+    <ClInclude Include="CResourceManager.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshDataManager.h">
+      <Filter>Graphics\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
