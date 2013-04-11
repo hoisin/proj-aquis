@@ -155,7 +155,7 @@
     <ClCompile Include="CD3DShader.cpp" />
     <ClCompile Include="CD3DShaderManager.cpp" />
     <ClCompile Include="CFPCamera.cpp" />
-    <ClCompile Include="CGeometryGenerator.cpp" />
+    <ClCompile Include="CMeshDataManager.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CLogic.cpp" />
     <ClCompile Include="CModelBase.cpp" />
@@ -182,13 +182,13 @@
     <ClInclude Include="CD3DShader.h" />
     <ClInclude Include="CD3DShaderManager.h" />
     <ClInclude Include="CFPCamera.h" />
-    <ClInclude Include="CGeometryGenerator.h" />
+    <ClInclude Include="CMeshDataManager.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CLogic.h" />
     <ClInclude Include="CModelBase.h" />
     <ClInclude Include="CModelCube.h" />
     <ClInclude Include="CModelTriangle.h" />
-    <ClInclude Include="CResouce.h" />
+    <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CShaderTexture.h" />
     <ClInclude Include="CShaderTextureManager.h" />
     <ClInclude Include="CTexture.h" />

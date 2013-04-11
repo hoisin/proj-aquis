@@ -8,6 +8,8 @@ CBufferManager::CBufferManager(void)
 
 CBufferManager::~CBufferManager(void)
 {
+	ClearVertexBuffers();
+	ClearIndexBuffers();
 }
 
 
@@ -132,21 +134,35 @@ ID3D11Buffer* CBufferManager::GetIndexBuffer(const std::string& nameID)
 }
 
 
-void CBufferManager::ShutDown(void)
+void CBufferManager::FreeVertexBuffer(const std::string& nameID)
+{
+	std::map<std::string, ID3D11Buffer*>::iterator it = m_vertexBuffers.find(nameID);
+
+	if(it != m_indexBuffers.end())
+	{
+		it->second->Release();
+		it->second = NULL;
+		m_vertexBuffers.erase(it);
+	}
+}
+
+
+void CBufferManager::FreeIndexBufffer(const std::string& nameID)
+{
+	std::map<std::string, ID3D11Buffer*>::iterator it = m_indexBuffers.find(nameID);
+
+	if(it != m_indexBuffers.end())
+	{
+		it->second->Release();
+		it->second = NULL;
+		m_indexBuffers.erase(it);
+	}
+}
+
+
+void CBufferManager::ClearVertexBuffers(void)
 {
 	std::map<std::string, ID3D11Buffer*>::iterator ita;
-
-	for(ita = m_indexBuffers.begin(); ita != m_indexBuffers.end(); ita++)
-	{
-		ita->second->Release();
-		ita->second = NULL;
-	}
-
-	/*for(ita = m_instanceBuffers.begin(); ita != m_instanceBuffers.end(); ita++)
-	{
-		ita->second->Release();
-		ita->second = NULL;
-	}*/
 
 	for(ita = m_vertexBuffers.begin(); ita != m_vertexBuffers.end(); ita++)
 	{
@@ -155,3 +171,14 @@ void CBufferManager::ShutDown(void)
 	}
 }
 
+
+void CBufferManager::ClearIndexBuffers(void)
+{
+	std::map<std::string, ID3D11Buffer*>::iterator ita;
+
+	for(ita = m_indexBuffers.begin(); ita != m_indexBuffers.end(); ita++)
+	{
+		ita->second->Release();
+		ita->second = NULL;
+	}
+}

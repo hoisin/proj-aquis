@@ -22,7 +22,11 @@ public:
 	ID3D11Buffer* GetVertexBuffer(const std::string& nameID);
 	ID3D11Buffer* GetIndexBuffer(const std::string& nameID);
 
-	void ShutDown(void);
+	void FreeVertexBuffer(const std::string &nameID);
+	void FreeIndexBufffer(const std::string &nameID);
+
+	void ClearVertexBuffers(void);
+	void ClearIndexBuffers(void);
 
 private:
 	std::map<std::string, ID3D11Buffer*> m_vertexBuffers;

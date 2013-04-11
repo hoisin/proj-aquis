@@ -11,7 +11,7 @@
 #include "CD3DBase.h"
 
 #include "CFPCamera.h"
-#include "CGeometryGenerator.h"
+#include "CMeshDataManager.h"
 #include "CD3DModelManager.h"
 #include "CD3DShaderManager.h"
 
@@ -22,7 +22,7 @@ protected:
 	CD3DModelManager*		m_pD3dModelManager;			// Manager handling our models
 	CD3DShaderManager*		m_pD3dShaderManager;		// Manager handling shaders
 	CFPCamera* pCamera;
-	CGeometryGenerator m_pGeoGenerator;
+	CMeshDataManager m_pGeoGenerator;
 
 	int myModelID;
 	int myShaderID;
