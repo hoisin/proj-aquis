@@ -130,6 +130,9 @@
     <ClCompile Include="CMeshDataManager.cpp">
       <Filter>Graphics\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="CResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win_platform.h">

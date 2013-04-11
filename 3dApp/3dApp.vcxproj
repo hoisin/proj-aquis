@@ -161,6 +161,7 @@
     <ClCompile Include="CModelBase.cpp" />
     <ClCompile Include="CModelCube.cpp" />
     <ClCompile Include="CModelTriangle.cpp" />
+    <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CShaderTexture.cpp" />
     <ClCompile Include="CShaderTextureManager.cpp" />
     <ClCompile Include="CTexture.cpp" />
