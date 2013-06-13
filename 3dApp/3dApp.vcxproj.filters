@@ -219,12 +219,6 @@
     <ClInclude Include="CBufferManager.h">
       <Filter>Graphics\D3D\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="CD3DHardwareVertexBuffer.h">
-      <Filter>Graphics\D3D\Buffers</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3DHardwareIndexBuffer.h">
-      <Filter>Graphics\D3D\Buffers</Filter>
-    </ClInclude>
     <ClInclude Include="CResourceManager.h">
       <Filter>Resource</Filter>
     </ClInclude>

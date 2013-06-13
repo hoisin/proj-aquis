@@ -43,6 +43,9 @@ public:
 	void EmptyD3DModels(void);
 
 	int GetTotalModels(void);
+
+	// Does what it says......
+	void ShutDown();
 };
 
 #endif

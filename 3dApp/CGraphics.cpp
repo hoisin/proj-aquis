@@ -1,6 +1,6 @@
 #include "CGraphics.h"
 
-CGraphics::CGraphics(void) : m_pD3d(NULL), m_pD3dModelManager(NULL), m_pD3dShaderManager(NULL)
+CGraphics::CGraphics(void) : m_pD3d(NULL), m_pBufferManager(NULL), m_pD3dModelManager(NULL), m_pD3dShaderManager(NULL), m_pTextureManager(NULL)
 {
 }
 
@@ -34,10 +34,20 @@ bool CGraphics::VInitialise(HWND hwnd, int screenHeight, int screenWidth, bool b
 	pCamera->SetRotation(0,0,0);
 
 	m_pD3dModelManager = new CD3DModelManager;
+	m_pBufferManager = new CBufferManager;
+	m_pTextureManager = new CShaderTextureManager;
 
-	MeshData* myMesh = m_pGeoGenerator.CreateSinPlane("cubeGeo", 2000, 200, eVertexPT, DirectX::XMFLOAT4(0, 1, 0, 1.0));
+	MeshData* myMesh = m_pGeoGenerator.CreateSinPlane("cubeGeo", 2000, 100, eVertexPT, DirectX::XMFLOAT4(0, 1, 0, 1.0));
 
-	myModelID = m_pD3dModelManager->AddD3DModel(m_pD3d, m_pGeoGenerator.CreateSinPlane("cubeGeo", 2000, 200, eVertexPT, DirectX::XMFLOAT4(0, 1, 0, 1.0)), "myCube", "Assets\\Graphics\\Textures\\brick.bmp");
+	m_pBufferManager->CreateVertexBuffer(m_pD3d->GetDevice(), "myCubeVert", myMesh->vertexCount * GetSizeOfVertexType(myMesh->vertexType), myMesh->pVertices);
+	m_pBufferManager->CreateIndexBuffer(m_pD3d->GetDevice(), "myCubeIdx", myMesh->indexCount * sizeof(int), myMesh->pIndices);
+
+	ID3D11ShaderResourceView* pResource;
+
+	m_pTextureManager->CreateShaderTexture(m_pD3d, "Assets\\Graphics\\Textures\\brick.bmp", &pResource, "myBrickTexture");
+
+	myModelID = m_pD3dModelManager->AddD3DModel(m_pBufferManager->GetVertexBuffer("myCubeVert"), myMesh->vertexCount, m_pBufferManager->GetIndexBuffer("myCubeIdx"), 
+		myMesh->indexCount, pResource, myMesh->vertexType, "myCubeModel");
 
 	D3D11_SAMPLER_DESC samplerDesc;
 
@@ -78,6 +88,12 @@ void CGraphics::VShutDown(void)
 	if(m_pD3dShaderManager)
 		delete m_pD3dShaderManager;
 
+	if(m_pBufferManager)
+		delete m_pBufferManager;
+	
+	if(m_pTextureManager)
+		delete m_pTextureManager;
+
 	if(m_pD3dModelManager)
 		delete m_pD3dModelManager;
 
@@ -87,6 +103,7 @@ void CGraphics::VShutDown(void)
 	delete pCamera;
 	
 	m_pD3dShaderManager = NULL;
+	m_pBufferManager = NULL;
 	m_pD3dModelManager = NULL;
 	m_pD3d = NULL;
 }

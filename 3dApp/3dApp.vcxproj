@@ -176,8 +176,6 @@
     <ClInclude Include="CColourShader.h" />
     <ClInclude Include="CD3DBase.h" />
     <ClInclude Include="CD3DEffect.h" />
-    <ClInclude Include="CD3DHardwareIndexBuffer.h" />
-    <ClInclude Include="CD3DHardwareVertexBuffer.h" />
     <ClInclude Include="CD3DModel.h" />
     <ClInclude Include="CD3DModelManager.h" />
     <ClInclude Include="CD3DShader.h" />

@@ -12,11 +12,12 @@
 class CCamera
 {
 protected:
-	float m_posX, m_posY, m_posZ;
-	float m_lookX, m_lookY, m_lookZ;
-	float m_upX, m_upY, m_upZ;
-	float m_rotX, m_rotY, m_rotZ;
-	float m_fov, m_aspect, m_near, m_far;
+	float m_posX,	m_posY,		m_posZ;
+	float m_lookX,	m_lookY,	m_lookZ;
+	float m_upX,	m_upY,		m_upZ;
+	float m_rotX,	m_rotY,		m_rotZ;
+	float m_fov,	m_aspect,	m_near,		m_far;
+
 	//DirectX::XMFLOAT4X4 m_viewMat;
 
 public:

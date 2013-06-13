@@ -8,16 +8,17 @@ CShaderTextureManager::CShaderTextureManager(void)
 
 CShaderTextureManager::~CShaderTextureManager(void)
 {
+	ShutDown();
 }
 
 
-bool CShaderTextureManager::CreateShaderTexture(CD3DBase *pBase, const std::string& fileTextureName, ID3D11ShaderResourceView** pInTexture, const std::string& textureName)
+bool CShaderTextureManager::CreateShaderTexture(CD3DBase *pBase, const std::string& fileTextureName, ID3D11ShaderResourceView** pOutTexture, const std::string& textureName)
 {
 	// Load the texture in.
 	std::wstring wFileTextureName = std::wstring(fileTextureName.begin(), fileTextureName.end());
 
 	// Create the texture resource
-	HRESULT result = CreateWICTextureFromFile(pBase->GetDevice(), pBase->GetContext(), wFileTextureName.c_str(), NULL, pInTexture);
+	HRESULT result = CreateWICTextureFromFile(pBase->GetDevice(), pBase->GetContext(), wFileTextureName.c_str(), NULL, pOutTexture);
 
 	if(FAILED(result))
 	{
@@ -43,7 +44,7 @@ bool CShaderTextureManager::CreateShaderTexture(CD3DBase *pBase, const std::stri
 		newInfo.name = textureName;
 	}
 
-	newInfo.pTexture = *pInTexture;
+	newInfo.pTexture = *pOutTexture;
 
 	// Add to list
 	m_vpTextures.push_back(newInfo);
