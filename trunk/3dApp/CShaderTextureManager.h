@@ -22,7 +22,7 @@ public:
 	CShaderTextureManager(void);
 	~CShaderTextureManager(void);
 
-	bool CreateShaderTexture(CD3DBase* pBase, const std::string& fileTextureName, ID3D11ShaderResourceView** pInTexture, const std::string& textureName = " ");
+	bool CreateShaderTexture(CD3DBase* pBase, const std::string& fileTextureName, ID3D11ShaderResourceView** pOutTexture, const std::string& textureName = " ");
 
 	// Releases all loaded textures
 	void ShutDown(void);

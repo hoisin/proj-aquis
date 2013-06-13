@@ -34,6 +34,7 @@ public:
 	int Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
 		float screenDepth, float screenNear);
 
+	// These should be private/protected
 	int CreateDeviceIndependentResources(void);			// Create resources required that are independent of device
 	int CreateWindowSizeDependentResources(void);		// Allocate memory resources that change on window resize
 	int CreateDeviceResources(void);					// Create resources that are dependent on device
@@ -49,6 +50,7 @@ public:
 
 	void SetWireFrameMode(bool bWireframe);
 
+	// Get stuff
 	ID3D11Device* GetDevice(void);
 	ID3D11DeviceContext* GetContext(void);
 	CD3DMatrixStack* GetMatrixStack(void);

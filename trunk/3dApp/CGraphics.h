@@ -15,12 +15,19 @@
 #include "CD3DModelManager.h"
 #include "CD3DShaderManager.h"
 
+#include "CShaderTextureManager.h"
+
 class CGraphics
 {
 protected:
 	CD3DBase*				m_pD3d;						// Base Direct3D
+	CBufferManager*			m_pBufferManager;			// Handles buffers
+
 	CD3DModelManager*		m_pD3dModelManager;			// Manager handling our models
 	CD3DShaderManager*		m_pD3dShaderManager;		// Manager handling shaders
+
+	CShaderTextureManager*	m_pTextureManager;			// Texture manager
+
 	CFPCamera* pCamera;
 	CMeshDataManager m_pGeoGenerator;
 

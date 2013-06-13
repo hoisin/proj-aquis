@@ -1,6 +1,13 @@
+/*
+	Date: 04/06/2013
+
+	Management of D3D
+*/
+
 #include "CD3DBase.h"
 #include "ErrorCodes.h"
 
+// C'tor
 CD3DBase::CD3DBase(void) :
 	m_pWICFactory(NULL),
 	m_pDevice(NULL),
@@ -21,13 +28,14 @@ CD3DBase::CD3DBase(void) :
 {
 }
 
-
+// D'tor
 CD3DBase::~CD3DBase(void)
 {
 	ShutDown();
 }
 
 
+// Main initialise method
 int CD3DBase::Initialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
 	float screenDepth, float screenNear)
 {
@@ -79,6 +87,9 @@ int CD3DBase::CreateDeviceIndependentResources(void)
 }
 
 
+/*
+	Everything in here are dependent on the window size
+*/
 int CD3DBase::CreateWindowSizeDependentResources(void)
 {
 	// Get current window 
@@ -386,7 +397,7 @@ int CD3DBase::CreateDeviceResources(void)
 	return ERROR_PASS;
 }
 
-
+// This is probably to be removed as it is unused
 void CD3DBase::HandleDeviceLost(void)
 {
 	// Reset these member variables to ensure that SetDpi recreates all resources.
@@ -428,6 +439,9 @@ int CD3DBase::UpdateForWindowSizeChange(void)
 }
 
 
+/*
+	Clears the 'screen' from the last draw to specified colour
+*/
 void CD3DBase::BeginDraw(float red, float green, float blue, float alpha)
 {
 	float bgColour[4] = { red, green, blue, alpha };
@@ -441,6 +455,9 @@ void CD3DBase::BeginDraw(float red, float green, float blue, float alpha)
 }
 
 
+/*
+	Presents the drawn image
+*/
 void CD3DBase::EndDraw(void)
 {
 	if(m_bVSync)
@@ -481,7 +498,9 @@ CD3DMatrixStack* CD3DBase::GetMatrixStack(void)
 	return m_pMatrixStack;
 }
 
-
+/*
+	House cleaning
+*/
 void CD3DBase::ShutDown(void)
 {
 	//Release device then object
