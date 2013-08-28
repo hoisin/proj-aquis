@@ -17,10 +17,10 @@ public:
 
 	virtual bool VInitialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
 		float screenDepth, float screenNear) = 0;
+
 	virtual void VShutDown(void) = 0;
 
 	virtual bool VRenderScene(void) = 0;
-
 
 	// Prototyping, loads scene from xml or some other file
 	virtual bool VLoadScene(void) = 0;

@@ -80,6 +80,9 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 
 	m_pRenderer->VInitialise(_hwnd, windowWidth, windowHeight, FALSE, FALSE, 100, 1);
 
+	// Load crap
+	m_pRenderer->VLoadScene();
+
 	return TRUE;
 }
 
