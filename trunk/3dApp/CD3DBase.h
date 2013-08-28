@@ -1,8 +1,8 @@
 /*
 	Date: 24/08/2012
-	Class handles the management of the D3D device, context, swap chain, etc etc
+	Class handles the management of the D3D device, context, swap chain, etc etc.
 
-	This implementation is DX11 only, cba with backwards compatibility atm....
+	Forward rendering
 */
 
 #pragma once

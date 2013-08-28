@@ -21,7 +21,6 @@ protected:
 	ID3D11ShaderResourceView* m_pTexture;						
 	int m_vertexCount; 
 	int m_indexCount;
-	//int m_vertexSize;
 
 	std::string m_name;
 	EVertexType m_vertType;

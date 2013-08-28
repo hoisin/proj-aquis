@@ -49,6 +49,10 @@ public:
 	void SetWireFrameMode(bool bWireFrame);
 
 	CCamera* GetCamera(void);
+
+
+private:
+	void LoadScene(void);
 };
 
 #endif
