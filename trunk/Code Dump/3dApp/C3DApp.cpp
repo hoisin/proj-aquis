@@ -75,9 +75,8 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 	// Store a pointer to this object in the window
 	SetWindowLongPtr( _hwnd, GWLP_USERDATA, (long)this );
 
-	// Create renderer
+	// Create renderer & initialise
 	m_pRenderer = new CGraphics;
-
 	m_pRenderer->VInitialise(_hwnd, windowWidth, windowHeight, FALSE, FALSE, 100, 1);
 
 	// Load crap
@@ -87,6 +86,7 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 }
 
 
+// Main loop
 void C3DApp::Run(void)
 {
 	// show window
@@ -141,23 +141,28 @@ void C3DApp::OnUpdate(float fTime)
 void C3DApp::CalculateFrameStats(void)
 {
 	static int frameCount = 0;
-	static float timeElapsed = 0.0f;
+	static double timeElapsed = 0.0f;
 
+	// Increment counter and elapsed time
 	frameCount++;
+	timeElapsed += m_timer.DeltaTime();
 
-	if((m_timer.Time() - timeElapsed) >= 1.0f)
+	// If exceed over a second
+	if((timeElapsed) >= 1.0f)
 	{
 		float fps = (float)frameCount;
 		float mspf = 1000.0f / fps;
 
+		// Write stats on the title of the window
 		std::wostringstream outs;
 		outs.precision(6);
 		outs << m_windowName << L"    " << L"FPS: " << fps << L"    " << L"Frame Time: " << mspf << L" (ms)";
 
 		SetWindowText(_hwnd, outs.str().c_str());
 
+		// Reset vars
 		frameCount = 0;
-		timeElapsed += m_timer.Time();
+		timeElapsed = 0;
 	}
 }
 
