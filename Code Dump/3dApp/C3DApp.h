@@ -1,5 +1,7 @@
 /*
 	Date: 24/08/2012
+	Author: Matthew Tsang
+
 	Class for handling the window (win32). Contains our main execution loop
 
 	Might create an interface for it, but seems overkill/unnecessary for our application
@@ -19,37 +21,39 @@
 class C3DApp
 {
 private:
-	CGraphics* m_pRenderer;		//Our renderer
-	CTimer m_timer;
+	CGraphics* m_pRenderer;			// Our renderer
+	CTimer m_timer;		
 	std::wstring m_windowName;
 
-	HWND _hwnd;					//Handler to our window
+	HWND _hwnd;						// Handler to our window
 	bool _bRun;
 
 public:
 	C3DApp(void);
 	~C3DApp(void);
 
-	//Performs window creation and other initialisation
+	// Performs window creation and other initialisation
 	BOOL Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight);
 
-	//Main loop
+	// Main loop
 	void Run(void);
 
 private:
 	
-	//Do all drawing here
+	// Do all drawing here
 	void OnDraw(void);
 
-	//Do all updating here
+	// Do all updating here
 	void OnUpdate(float fTime);
 
-	//An event that needs capturing in here
+	// An event that needs capturing in here
 	BOOL OnEvent(UINT msg, WPARAM wParam, LPARAM lParam);
 
+	// Just calulates the framerate and time it takes to do 1 'frame'
 	void CalculateFrameStats(void);
 
 private:
+	// Win32 callback method
 	static LRESULT WINAPI WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 

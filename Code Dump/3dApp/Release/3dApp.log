@@ -1,17 +1,9 @@
-﻿Build started 28/08/2013 10:16:03.
-     1>Project "C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\3dApp\3dApp.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Release\3dApp.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         All outputs are up-to-date.
-       Link:
-         All outputs are up-to-date.
-         3dApp.vcxproj -> C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\Release\3dApp.exe
-       FinalizeBuildStatus:
-         Deleting file "Release\3dApp.unsuccessfulbuild".
-         Touching "Release\3dApp.lastbuildstate".
-     1>Done Building Project "C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\3dApp\3dApp.vcxproj" (build target(s)).
+﻿Build started 19/02/2014 17:07:42.
+     1>Project "C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\Code Dump\3dApp\3dApp.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Release\3dApp.lastbuildstate".
+     1>Done Building Project "C:\Users\Mathew\Desktop\Developers Toolkit\proj-aquis\Code Dump\3dApp\3dApp.vcxproj" (clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.15
+Time Elapsed 00:00:00.01
