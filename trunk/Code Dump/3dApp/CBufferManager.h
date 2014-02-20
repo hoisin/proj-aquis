@@ -1,5 +1,8 @@
 /*
-	Class for managing buffers
+	Date: 30/01/2013
+	Author: Matthew Tsang
+
+	Graphics buffer manager
 */
 
 #ifndef __CBUFFERMANAGER_H__

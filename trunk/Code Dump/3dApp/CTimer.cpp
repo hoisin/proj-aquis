@@ -12,7 +12,10 @@ CTimer::CTimer(void) :
 {
 	__int64 countsPerSecond;
 
+	// Grab number of clock counts per second
 	QueryPerformanceFrequency((LARGE_INTEGER*) &countsPerSecond);
+
+	// Flip so we don't need to "/" for values later on
 	m_secondsPerCount = 1.0 / (double)countsPerSecond;
 }
 

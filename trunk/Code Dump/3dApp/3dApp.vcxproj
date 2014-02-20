@@ -168,6 +168,7 @@
     <ClCompile Include="CModelCube.cpp" />
     <ClCompile Include="CModelTriangle.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
+    <ClCompile Include="CSceneBaseNode.cpp" />
     <ClCompile Include="CShaderTexture.cpp" />
     <ClCompile Include="CShaderTextureManager.cpp" />
     <ClCompile Include="CTexture.cpp" />
@@ -202,6 +203,8 @@
     <ClInclude Include="IGraphics.h" />
     <ClInclude Include="GfxDefs.h" />
     <ClInclude Include="ILogic.h" />
+    <ClInclude Include="IScene.h" />
+    <ClInclude Include="CSceneBaseNode.h" />
     <ClInclude Include="IShader.h" />
     <ClInclude Include="ShaderParams.h" />
     <ClInclude Include="WICTextureLoader.h" />
