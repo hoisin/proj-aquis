@@ -1,7 +1,13 @@
 /*
 	$ CTimer.h, Revision 1.0 $
+	Author: Matthew Tsang
 
-	Class which provides timer functionality
+	Class which provides timer functionality.
+
+	Notes:
+
+	QueryPerformanceFrequency(..)	-	Returns the number of clock cycles per second
+	QueryPerformanceCounter(..)		-	Returns the number of clock cycles done so far
 */
 
 #pragma once
@@ -16,6 +22,7 @@ protected:
 	double m_secondsPerCount;
 	double m_deltaTime;
 
+	// Should probably use LARGE_INTEGER since  __int64 is M$ specific.....
 	__int64 m_currentTime;
 	__int64 m_prevTime;
 	__int64 m_stopTime;
@@ -27,12 +34,23 @@ protected:
 public:
 	CTimer(void);
 
+	// Returns the current time in seconds.
+	// Note, if reset is not called before starting, then current time starts at the current duration of the app.
 	float Time(void) const;
+
+	// Returns the elapsed time since last Tick().
 	float DeltaTime(void) const;
 
+	// Resets timer. Returned value from Time will start from 0
 	void Reset(void);
+
+	// Tells timer to start
 	void Start(void);
+
+	// Stops timer
 	void Stop(void);
+
+	// Update timer (call in update loop).
 	void Tick(void);
 };
 

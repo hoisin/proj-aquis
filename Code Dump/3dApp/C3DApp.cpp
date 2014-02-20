@@ -18,6 +18,17 @@ C3DApp::~C3DApp(void)
 }
 
 
+//----------------------------------------------------------------------
+//
+//	Params:
+//	windowName		-	defines the window title
+//	windowWidth		-	width of the window (initial width if sizeable)
+//	windowHeight	-	height of the window (intial height if sizeable)
+//
+//	Description:
+//	Initialises the window and other stuff....
+//
+//----------------------------------------------------------------------
 BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 {
 	// Create class
@@ -75,6 +86,12 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 	// Store a pointer to this object in the window
 	SetWindowLongPtr( _hwnd, GWLP_USERDATA, (long)this );
 
+
+
+	/*
+		For now other non win32 stuff should be initialised here
+	*/
+
 	// Create renderer & initialise
 	m_pRenderer = new CGraphics;
 	m_pRenderer->VInitialise(_hwnd, windowWidth, windowHeight, FALSE, FALSE, 100, 1);
@@ -86,7 +103,11 @@ BOOL C3DApp::Initialise(LPCWSTR windowName, UINT windowWidth, UINT windowHeight)
 }
 
 
-// Main loop
+//----------------------------------------------------------------------
+//
+//	The main loop
+//
+//----------------------------------------------------------------------
 void C3DApp::Run(void)
 {
 	// show window
@@ -98,6 +119,8 @@ void C3DApp::Run(void)
 
 	long startTime = timeGetTime();
 
+	// Reset and start our timer for stats tracking
+	m_timer.Reset();
 	m_timer.Start();
 
 	// Main app loop
@@ -112,12 +135,13 @@ void C3DApp::Run(void)
 			DispatchMessage( &msg );
 		}
 	
-		// Update
+		// Update (could use our own timer but w/e
 		OnUpdate(0.001f * ( timeGetTime() - startTime ) );
 
 		// Draw
 		OnDraw();
 
+		// Update stats
 		CalculateFrameStats();
 	}
 
@@ -125,6 +149,11 @@ void C3DApp::Run(void)
 }
 
 
+//----------------------------------------------------------------------
+//
+//	Any drawing should be done here
+//
+//----------------------------------------------------------------------
 void C3DApp::OnDraw(void)
 {
 	// Draw something
@@ -132,12 +161,25 @@ void C3DApp::OnDraw(void)
 }
 
 
+//----------------------------------------------------------------------
+//
+//	Params:
+//	fTime	-	The elapsed time since the last update 
+//
+//	Anything that needs updating should go here.
+//
+//----------------------------------------------------------------------
 void C3DApp::OnUpdate(float fTime)
 {
 	// Do some update here
 }
 
 
+//----------------------------------------------------------------------
+//
+//	Just updates FPS and time stats.
+//
+//----------------------------------------------------------------------
 void C3DApp::CalculateFrameStats(void)
 {
 	static int frameCount = 0;
@@ -167,6 +209,11 @@ void C3DApp::CalculateFrameStats(void)
 }
 
 
+//----------------------------------------------------------------------
+//
+//	Handle windows event here
+//
+//----------------------------------------------------------------------
 BOOL C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	// mouse variables for allowing interaction with camera
@@ -253,6 +300,12 @@ BOOL C3DApp::OnEvent(UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 
+//----------------------------------------------------------------------
+//
+//	Windows event callback method.
+//	Don't handles events here, do it in OnEvent(...)
+//
+//----------------------------------------------------------------------
 LRESULT WINAPI C3DApp::WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 

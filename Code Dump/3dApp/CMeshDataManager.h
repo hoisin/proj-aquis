@@ -31,6 +31,8 @@ public:
 		-----------------------Primitive geometry generation methods-----------------------
 	*/
 
+
+	/*                     REVIEW PLS			*/
 	// Creates triangle of specified colour (mainly used for debugging)
 	MeshData* CreateTriangle(const std::string& geometryID, float size, EVertexType vertexType,
 		const DirectX::XMFLOAT4& colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
@@ -38,6 +40,10 @@ public:
 	// Creates multi-coloured triangle for debugging (Vertex types with colour component only)
 	MeshData* CreateTriangleTriColour(const std::string& geometryID, float size, EVertexType vertexType,
 		const DirectX::XMFLOAT4& colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
+
+	/*               EOF REVIEW PLS				*/
+
+
 
 	// Creates a cube
 	MeshData* CreateCube(const std::string& geometryID, float size, float tessellation, EVertexType vertexType,
@@ -48,6 +54,8 @@ public:
 		const DirectX::XMFLOAT4& colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
 
 	// Creates a plane with y values using sin
+	// Tis bullshit, doesn't work properly....
+	// TO DO FIX W/E
 	MeshData* CreateSinPlane(const std::string& geometryID, float size, float tessellation, EVertexType vertexType,
 		const DirectX::XMFLOAT4& colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
 };

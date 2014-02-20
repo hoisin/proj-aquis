@@ -30,7 +30,6 @@ int main(int argc, char* argv [])
 	if(app.Initialise(L"3D Renderer", 1024, 768))
 		app.Run();
 
-
 	//system("PAUSE");
 
 	return 0;

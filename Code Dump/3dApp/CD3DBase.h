@@ -1,8 +1,10 @@
 /*
 	Date: 24/08/2012
+	Author: Matthew Tsang
+
 	Class handles the management of the D3D device, context, swap chain, etc etc.
 
-	Forward rendering
+	Forward rendering	- Going to use deferred, for now forward to get something working...
 */
 
 #pragma once

@@ -1,5 +1,7 @@
 /*
 	Date: 31/01/2013
+	Author: Matthew Tsang
+
 	Bunch of graphics types data, helper classes and functions
 */
 
@@ -343,6 +345,7 @@ struct MeshData
 	{
 		if(pIndices)
 			delete [] pIndices;
+		
 
 		if(pVertices)
 			delete [] pVertices;

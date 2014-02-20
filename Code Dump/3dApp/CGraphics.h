@@ -1,5 +1,7 @@
 /*
 	Date: 30/01/2013
+	Author: Matthew Tsang
+
 	Implementation of graphics interface
 */
 
@@ -40,6 +42,7 @@ public:
 
 	bool VInitialise(HWND hwnd, int screenHeight, int screenWidth, bool bVSync, bool bFullScreen, 
 		float screenDepth, float screenNear);
+
 	void VShutDown(void);
 
 	bool VRenderScene(void);

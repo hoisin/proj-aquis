@@ -59,6 +59,12 @@
     <Filter Include="Graphics\D3D\Buffers">
       <UniqueIdentifier>{f5f6f229-e226-4be5-a656-333eef7affb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Scene">
+      <UniqueIdentifier>{b438c359-4499-4e38-9d1a-85a6f263f956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Scene\Scene Nodes">
+      <UniqueIdentifier>{aaeb6bcc-08e0-41d8-ac44-5e9c9d61ec16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -132,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="CResourceManager.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneBaseNode.cpp">
+      <Filter>Graphics\Scene\Scene Nodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="CMeshDataManager.h">
       <Filter>Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Graphics\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneBaseNode.h">
+      <Filter>Graphics\Scene\Scene Nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

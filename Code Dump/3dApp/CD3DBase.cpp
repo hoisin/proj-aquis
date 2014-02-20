@@ -360,7 +360,7 @@ int CD3DBase::CreateDeviceResources(void)
     //description.  All applications are assumed to support 9.1 unless otherwise stated.
     D3D_FEATURE_LEVEL featureLevels[] =
     {
-        //D3D_FEATURE_LEVEL_11_1,
+        //D3D_FEATURE_LEVEL_11_1,		// Not supported in windows 7, scumbag M$
         D3D_FEATURE_LEVEL_11_0,
         D3D_FEATURE_LEVEL_10_1,
         D3D_FEATURE_LEVEL_10_0,
@@ -467,7 +467,9 @@ void CD3DBase::EndDraw(void)
 		m_pSwapChain->Present(0, 0);
 }
 
-
+/*
+	Swaps states depending whether wireframe is enabled
+*/
 void CD3DBase::SetWireFrameMode(bool bWireframe)
 {
 	if(bWireframe)

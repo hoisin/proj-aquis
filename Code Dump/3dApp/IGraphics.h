@@ -23,6 +23,8 @@ public:
 	virtual bool VRenderScene(void) = 0;
 
 	// Prototyping, loads scene from xml or some other file
+	// Herp derp.... doing too much for prototyping. (Been trying to load full models etc....)
+	// Too much effort. Going to procedurally generating simple shapes instead (i.e. cubes, spheres)
 	virtual bool VLoadScene(void) = 0;
 };
 
