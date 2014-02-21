@@ -41,7 +41,7 @@ public:
 	virtual void VCleanUp(void) = 0;
 
 	// Not sure whether to go through with this.....
-	virtual void* VGetData(void) { return NULL; }
+	virtual void* VGetData(void) { return 0; }
 };
 
 
