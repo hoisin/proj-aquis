@@ -167,7 +167,11 @@
     <ClCompile Include="CModelBase.cpp" />
     <ClCompile Include="CModelCube.cpp" />
     <ClCompile Include="CModelTriangle.cpp" />
+    <ClCompile Include="CResourceIndexBuffer.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
+    <ClCompile Include="CResourceMeshData.cpp" />
+    <ClCompile Include="CResourceModel.cpp" />
+    <ClCompile Include="CResourceVertexBuffer.cpp" />
     <ClCompile Include="CSceneBaseNode.cpp" />
     <ClCompile Include="CShaderTexture.cpp" />
     <ClCompile Include="CShaderTextureManager.cpp" />
@@ -194,7 +198,11 @@
     <ClInclude Include="CModelBase.h" />
     <ClInclude Include="CModelCube.h" />
     <ClInclude Include="CModelTriangle.h" />
+    <ClInclude Include="CResourceIndexBuffer.h" />
     <ClInclude Include="CResourceManager.h" />
+    <ClInclude Include="CResourceMeshData.h" />
+    <ClInclude Include="CResourceModel.h" />
+    <ClInclude Include="CResourceVertexBuffer.h" />
     <ClInclude Include="CShaderTexture.h" />
     <ClInclude Include="CShaderTextureManager.h" />
     <ClInclude Include="CTexture.h" />
@@ -203,6 +211,7 @@
     <ClInclude Include="IGraphics.h" />
     <ClInclude Include="GfxDefs.h" />
     <ClInclude Include="ILogic.h" />
+    <ClInclude Include="IResource.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="CSceneBaseNode.h" />
     <ClInclude Include="IShader.h" />
