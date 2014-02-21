@@ -159,9 +159,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="win_platform.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="CTimer.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -269,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="CResourceModel.h">
       <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="win_platform.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
