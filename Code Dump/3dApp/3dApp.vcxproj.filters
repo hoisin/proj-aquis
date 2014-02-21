@@ -65,6 +65,9 @@
     <Filter Include="Graphics\Scene\Scene Nodes">
       <UniqueIdentifier>{aaeb6bcc-08e0-41d8-ac44-5e9c9d61ec16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Resource Types">
+      <UniqueIdentifier>{e9713da7-0c91-46c2-a5f6-2619c93dec82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,6 +144,18 @@
     </ClCompile>
     <ClCompile Include="CSceneBaseNode.cpp">
       <Filter>Graphics\Scene\Scene Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceMeshData.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceVertexBuffer.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceIndexBuffer.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceModel.cpp">
+      <Filter>Resource\Resource Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +254,21 @@
     </ClInclude>
     <ClInclude Include="CSceneBaseNode.h">
       <Filter>Graphics\Scene\Scene Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="IResource.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceMeshData.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceVertexBuffer.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceIndexBuffer.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceModel.h">
+      <Filter>Resource\Resource Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

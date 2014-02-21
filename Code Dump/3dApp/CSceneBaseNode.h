@@ -29,7 +29,7 @@ protected:
 
 public:
 	CSceneBaseNode(void);
-	virtual CSceneBaseNode(void);
+	virtual ~CSceneBaseNode(void);
 
 	virtual void VAddChild(CSceneBaseNode *pChild);
 

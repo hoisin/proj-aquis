@@ -54,7 +54,6 @@ public:
 		const DirectX::XMFLOAT4& colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
 
 	// Creates a plane with y values using sin
-	// Tis bullshit, doesn't work properly....
 	// TO DO FIX W/E
 	MeshData* CreateSinPlane(const std::string& geometryID, float size, float tessellation, EVertexType vertexType,
 		const DirectX::XMFLOAT4& colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
