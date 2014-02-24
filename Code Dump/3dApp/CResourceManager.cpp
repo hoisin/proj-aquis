@@ -21,6 +21,19 @@ bool CResourceManager::Initialise(void)
 }
 
 
+bool CResourceManager::CreateMeshDataCube(const std::string &cubeHandle, int size, int tessellation,
+		EVertexType type, const DirectX::XMFLOAT4 &colour)
+{
+	if(m_pMeshDataManager)
+	{
+		m_pMeshDataManager->CreateCube(cubeHandle, size, tessellation, type, colour);
+		return true;
+	}
+
+	return false;
+}
+
+
 CMeshDataManager* CResourceManager::GetMeshDataManager(void)
 {
 	return m_pMeshDataManager;
