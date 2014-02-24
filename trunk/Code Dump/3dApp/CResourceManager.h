@@ -26,7 +26,7 @@
 class CResourceManager
 {
 protected:
-	std::map<std::string, IResource*>	m_mMeshData;
+	//std::map<std::string, IResource*>	m_mMeshData;
 	CMeshDataManager*					m_pMeshDataManager;
 	CBufferManager*						m_pBufferManager;
 	CShaderTextureManager*				m_pShaderTextureManager;
@@ -36,6 +36,10 @@ public:
 	~CResourceManager(void);
 
 	bool Initialise(void);
+
+	// Procedural generated assets
+	bool CreateMeshDataCube(const std::string &cubeHandle, int size, int tessellation,
+		EVertexType type, const DirectX::XMFLOAT4 &colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
 
 	///* Mesh data creation methods */
 	//int LoadMeshData(const std::string& meshDataID, const std::string &fileName);
