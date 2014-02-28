@@ -27,19 +27,25 @@ class CResourceManager
 {
 protected:
 	//std::map<std::string, IResource*>	m_mMeshData;
+	CD3DBase*							m_pD3DBase;
 	CMeshDataManager*					m_pMeshDataManager;
 	CBufferManager*						m_pBufferManager;
 	CShaderTextureManager*				m_pShaderTextureManager;
 
 public:
-	CResourceManager(void);
+	// No default c'tor
+	CResourceManager(CD3DBase *pD3DBase);
 	~CResourceManager(void);
 
 	bool Initialise(void);
 
 	// Procedural generated assets
-	bool CreateMeshDataCube(const std::string &cubeHandle, int size, int tessellation,
+	MeshData* CreateMeshDataCube(const std::string &cubeID, int size, int tessellation,
 		EVertexType type, const DirectX::XMFLOAT4 &colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
+
+	// Create GPU assets
+	bool CreateVertexIndexBuffers(const std::string &vertexID, const std::string &indexID,
+		const MeshData *pMeshData, ID3D11Buffer *pOutVertBuf = NULL, ID3D11Buffer *pOutIdxBuf = NULL);
 
 	///* Mesh data creation methods */
 	//int LoadMeshData(const std::string& meshDataID, const std::string &fileName);

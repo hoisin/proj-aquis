@@ -282,12 +282,10 @@ public:
 
 struct MeshData
 {
-	//std::vector<SVertexType* >		m_pvVertices;		// Vertex array		NOTE: Don't use vector, increased performance when use pointer to array
-	//std::vector<unsigned long>		m_indices;			// Index array
-	SVertexType*			pVertices;
-	unsigned long*			pIndices;
-	int						vertexCount;
-	int						indexCount;
+	SVertexType*			pVertices;		// Pointer to vertex data
+	unsigned long*			pIndices;		// Pointer to index data
+	int						vertexCount;	// Vertex count
+	int						indexCount;		// Index count
 	EVertexType				vertexType;		// Format of vertices
 
 	// Allocates memory for buffer for specified vertex type
