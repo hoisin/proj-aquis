@@ -13,13 +13,13 @@ CBufferManager::~CBufferManager(void)
 }
 
 
-int CBufferManager::CreateVertexBuffer(ID3D11Device* pDevice, const std::string& nameID, 
+bool CBufferManager::CreateVertexBuffer(ID3D11Device* pDevice, const std::string& nameID, 
 	int bufferSize, void* pData, ID3D11Buffer** outBuffer)
 {
 	// If empty data, return error
 	if(pData == NULL)
 	{
-		return ERROR_GFX_VERT_BUFFER_CREATE;
+		return false;
 	}
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
@@ -45,7 +45,7 @@ int CBufferManager::CreateVertexBuffer(ID3D11Device* pDevice, const std::string&
 
 	if(FAILED(result))
 	{
-		return ERROR_GFX_VERT_BUFFER_CREATE;
+		return false;
 	}
 
 	// Add to list
@@ -63,13 +63,13 @@ int CBufferManager::CreateVertexBuffer(ID3D11Device* pDevice, const std::string&
 //}
 
 
-int CBufferManager::CreateIndexBuffer(ID3D11Device* pDevice, const std::string& nameID, int bufferSize,
+bool CBufferManager::CreateIndexBuffer(ID3D11Device* pDevice, const std::string& nameID, int bufferSize,
 	void* pData,  ID3D11Buffer** outBuffer)
 {
 	// If invalid data, return false
 	if(pData == NULL)
 	{
-		return ERROR_GFX_VERT_BUFFER_CREATE;
+		return false;
 	}
 
 	D3D11_BUFFER_DESC indexBufferDesc;
@@ -96,7 +96,7 @@ int CBufferManager::CreateIndexBuffer(ID3D11Device* pDevice, const std::string& 
 
 	if(FAILED(result))
 	{
-		return ERROR_GFX_INDEX_BUFFER_CREATE;
+		return false;
 	}
 
 	// Add to list
@@ -104,7 +104,7 @@ int CBufferManager::CreateIndexBuffer(ID3D11Device* pDevice, const std::string& 
 
 	outBuffer = &pNewBuffer;
 
-	return ERROR_PASS;
+	return true;
 }
 
 
