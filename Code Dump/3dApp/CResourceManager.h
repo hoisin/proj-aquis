@@ -7,6 +7,12 @@
 //
 //	Feel that the Mesh, buffers, texture and shader managers should,
 //	be created and managed here (subject to change....)
+//
+//	Having managers defeat the purpose of this resource manager.
+//	Instead all assets are encapsulated in an IResource class, which
+//		all are stored within a single map!
+//	
+//	As a result, no need for the other 'managers'
 //  
 //----------------------------------------------------------------------
 
@@ -21,16 +27,17 @@
 
 #include "CBufferManager.h"
 #include "CMeshDataManager.h"
-#include "CShaderTextureManager.h"
+#include "CTextureManager.h"
 
 class CResourceManager
 {
 protected:
-	//std::map<std::string, IResource*>	m_mMeshData;
+	std::map<std::string, IResource*>	m_resourceMap;
 	CD3DBase*							m_pD3DBase;
 	CMeshDataManager*					m_pMeshDataManager;
 	CBufferManager*						m_pBufferManager;
-	CShaderTextureManager*				m_pShaderTextureManager;
+	CTextureManager*					m_pTextureManager;
+	//CShaderTextureManager*				m_pShaderTextureManager;
 
 public:
 	// No default c'tor
@@ -43,9 +50,19 @@ public:
 	MeshData* CreateMeshDataCube(const std::string &cubeID, int size, int tessellation,
 		EVertexType type, const DirectX::XMFLOAT4 &colour = DirectX::XMFLOAT4(0, 0, 0, 1.f));
 
+	// TO DO: Plane creation (flat)
+	// TO DO: Height map generated terrain
+	// TO DO: Some procedural generated terrain
+
 	// Create GPU assets
 	bool CreateVertexIndexBuffers(const std::string &vertexID, const std::string &indexID,
 		const MeshData *pMeshData, ID3D11Buffer *pOutVertBuf = NULL, ID3D11Buffer *pOutIdxBuf = NULL);
+
+	// Load/Create Textures
+	bool CreateTexture(const std::string &textureID, const std::string &fileName, 
+		ID3D11ShaderResourceView *pOutTexture = NULL);
+
+	// Load/Create Shaders
 
 	///* Mesh data creation methods */
 	//int LoadMeshData(const std::string& meshDataID, const std::string &fileName);
@@ -65,7 +82,7 @@ public:
 	// (Subject to change).... don't rely on these
 	CMeshDataManager* GetMeshDataManager(void);
 	CBufferManager* GetBufferManager(void);
-	CShaderTextureManager* GetShaderTextureManager(void);
+	CTextureManager* GetTextureManager(void);
 
 	void ShutDown(void);
 };

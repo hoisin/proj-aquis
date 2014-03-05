@@ -1,5 +1,6 @@
 /*
 	18/03/2013
+	Author: Matthew Tsang
 
 	This manages creation and clean up of 2D textures used for shaders (ID3D11ShaderResourceView)
 */
