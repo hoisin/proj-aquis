@@ -157,6 +157,9 @@
     <ClCompile Include="CResourceModel.cpp">
       <Filter>Resource\Resource Types</Filter>
     </ClCompile>
+    <ClCompile Include="CTextureManager.cpp">
+      <Filter>Graphics\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CTimer.h">
@@ -269,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="win_platform.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureManager.h">
+      <Filter>Graphics\Material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
