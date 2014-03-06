@@ -23,7 +23,7 @@ void CResourceVertexBuffer::VCleanUp(void)
 {
 	if(m_pVertexBuffer)
 	{
-		delete m_pVertexBuffer;
+		m_pVertexBuffer->Release();
 		m_pVertexBuffer = NULL;
 	}
 }

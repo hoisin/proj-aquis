@@ -1,7 +1,11 @@
 #include "CResourceManager.h"
+#include "CResourceMeshData.h"
+#include "CResourceIndexBuffer.h"
+#include "CResourceVertexBuffer.h"
+#include "CResourceModel.h"
 
 CResourceManager::CResourceManager(CD3DBase *pD3DBase) : m_pD3DBase(pD3DBase),
-	m_pMeshDataManager(NULL), m_pBufferManager(NULL), m_pTextureManager(NULL)
+	m_pMeshDataGenerator(NULL), m_pBufferManager(NULL), m_pTextureManager(NULL)
 {
 }
 
@@ -20,7 +24,7 @@ CResourceManager::~CResourceManager(void)
 //----------------------------------------------------------------------
 bool CResourceManager::Initialise(void)
 {
-	m_pMeshDataManager = new CMeshDataManager;
+	m_pMeshDataGenerator = new CMeshDataGenerator;
 	m_pBufferManager = new CBufferManager;
 	m_pTextureManager = new CTextureManager;
 
@@ -44,9 +48,17 @@ bool CResourceManager::Initialise(void)
 MeshData* CResourceManager::CreateMeshDataCube(const std::string &cubeID, int size, int tessellation,
 		EVertexType type, const DirectX::XMFLOAT4 &colour)
 {
-	if(m_pMeshDataManager)
+	// If generator present
+	if(m_pMeshDataGenerator)
 	{
-		return m_pMeshDataManager->CreateCube(cubeID, size, tessellation, type, colour);
+		// Create Resource for MeshData
+		CResourceMeshData *pNewResource = new CResourceMeshData(
+			m_pMeshDataGenerator->CreateCube(cubeID, size, tessellation, type, colour));
+
+		m_resourceMap.insert(std::pair<std::string, IResource *>(cubeID, pNewResource));
+
+		// Return created MeshData if caller wants to use/store it
+		return pNewResource->m_pMeshData;
 	}
 
 	return NULL;
@@ -108,9 +120,9 @@ bool CResourceManager::CreateTexture(const std::string &textureID, const std::st
 }
 
 
-CMeshDataManager* CResourceManager::GetMeshDataManager(void)
+CMeshDataGenerator* CResourceManager::GetMeshDataGenerator(void)
 {
-	return m_pMeshDataManager;
+	return m_pMeshDataGenerator;
 }
 
 
@@ -137,10 +149,10 @@ void CResourceManager::ShutDown(void)
 	if(m_pBufferManager)
 		delete m_pBufferManager;
 
-	if(m_pMeshDataManager)
-		delete m_pMeshDataManager;
+	if(m_pMeshDataGenerator)
+		delete m_pMeshDataGenerator;
 
 	m_pTextureManager = NULL;
 	m_pBufferManager = NULL;
-	m_pMeshDataManager =  NULL;
+	m_pMeshDataGenerator =  NULL;
 }

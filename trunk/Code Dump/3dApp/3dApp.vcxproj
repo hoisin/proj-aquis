@@ -161,6 +161,7 @@
     <ClCompile Include="CD3DShader.cpp" />
     <ClCompile Include="CD3DShaderManager.cpp" />
     <ClCompile Include="CFPCamera.cpp" />
+    <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="CMeshDataManager.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CLogic.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="CD3DShader.h" />
     <ClInclude Include="CD3DShaderManager.h" />
     <ClInclude Include="CFPCamera.h" />
+    <ClInclude Include="CMeshDataGenerator.h" />
     <ClInclude Include="CMeshDataManager.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CLogic.h" />

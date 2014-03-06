@@ -68,6 +68,9 @@
     <Filter Include="Resource\Resource Types">
       <UniqueIdentifier>{e9713da7-0c91-46c2-a5f6-2619c93dec82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Geometry\Old">
+      <UniqueIdentifier>{6fc657e8-8c10-4a6d-b16b-9c75a58fd5d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,9 +139,6 @@
     <ClCompile Include="CBufferManager.cpp">
       <Filter>Graphics\D3D\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="CMeshDataManager.cpp">
-      <Filter>Graphics\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="CResourceManager.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
@@ -159,6 +159,12 @@
     </ClCompile>
     <ClCompile Include="CTextureManager.cpp">
       <Filter>Graphics\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshDataGenerator.cpp">
+      <Filter>Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshDataManager.cpp">
+      <Filter>Graphics\Geometry\Old</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +252,6 @@
     <ClInclude Include="CResourceManager.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="CMeshDataManager.h">
-      <Filter>Graphics\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="IScene.h">
       <Filter>Graphics\Scene</Filter>
     </ClInclude>
@@ -275,6 +278,12 @@
     </ClInclude>
     <ClInclude Include="CTextureManager.h">
       <Filter>Graphics\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshDataGenerator.h">
+      <Filter>Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshDataManager.h">
+      <Filter>Graphics\Geometry\Old</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

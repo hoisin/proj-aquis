@@ -1,33 +1,32 @@
 /*
 	Date: 04/02/2013
+	Author: Matthew Tsang
+
 	Class which handles geometry data generation.
 	Can generate primitives as well as load model data from files.
 	Its main output is MeshData.
 
-	Note: All create functions will return a pointer to the newly created geometry data and	
-		will store the data in a map. This class handles the creation of geometry data as well as the
-		deletion.
+	Note: This class does not store anything. It simply creates MeshData Objects either from
+		a file or procedural generation.
 
-		OLD ARCHIVING...............
+	IMPORTANT: All generated MeshData objects MUST be managed by the caller (i.e. deleting it when 
+		not used).
+		This class is simply a collection of methods and does not store any data.
+		Failure to handle returned MeshData pointer will result in memory leaks!
 */
 
 #pragma once
-#ifndef __CMESHDATAMANAGER_H__
-#define __CMESHDATAMANAGER_H__
+#ifndef __CMESHDATAGENERATOR_H__
+#define __CMESHDATAGENERATOR_H__
 
 #include <map>
 #include "GfxDefs.h"
 
-class CMeshDataManager
+class CMeshDataGenerator
 {
-protected:
-	std::map<std::string, MeshData*> m_mMeshData;	
-
 public:
-	CMeshDataManager(void);
-	~CMeshDataManager(void);
-
-	void ShutDown(void);
+	CMeshDataGenerator(void);
+	~CMeshDataGenerator(void);
 
 	/*
 		-----------------------Primitive geometry generation methods-----------------------
