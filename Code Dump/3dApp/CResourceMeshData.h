@@ -16,7 +16,7 @@ struct MeshData;
 
 class CResourceMeshData : public IResource
 {
-protected:
+public:
 	MeshData* m_pMeshData;
 
 public:

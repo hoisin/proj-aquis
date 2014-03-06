@@ -23,7 +23,7 @@ void CResourceIndexBuffer::VCleanUp(void)
 {
 	if(m_pIndexBuffer)
 	{
-		delete m_pIndexBuffer;
+		m_pIndexBuffer->Release();
 		m_pIndexBuffer = NULL;
 	}
 }

@@ -26,7 +26,7 @@
 #include "IResource.h"
 
 #include "CBufferManager.h"
-#include "CMeshDataManager.h"
+#include "CMeshDataGenerator.h"
 #include "CTextureManager.h"
 
 class CResourceManager
@@ -34,7 +34,7 @@ class CResourceManager
 protected:
 	std::map<std::string, IResource*>	m_resourceMap;
 	CD3DBase*							m_pD3DBase;
-	CMeshDataManager*					m_pMeshDataManager;
+	CMeshDataGenerator*					m_pMeshDataGenerator;
 	CBufferManager*						m_pBufferManager;
 	CTextureManager*					m_pTextureManager;
 	//CShaderTextureManager*				m_pShaderTextureManager;
@@ -80,7 +80,7 @@ public:
 	// TBH should'nt need these. Should provide a form of interface that allows calling code to do whatever it needs.
 	// Adding these kind of defeats the purpose of this "resource manager"
 	// (Subject to change).... don't rely on these
-	CMeshDataManager* GetMeshDataManager(void);
+	CMeshDataGenerator* GetMeshDataGenerator(void);
 	CBufferManager* GetBufferManager(void);
 	CTextureManager* GetTextureManager(void);
 
