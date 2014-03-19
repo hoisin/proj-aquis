@@ -13,10 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{95d1cddd-a53c-46c6-84f2-dc442bc9e224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{d2ac5645-64e6-4d63-a7fc-cada4075cae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Vectors">
+      <UniqueIdentifier>{880ad07f-e8cf-4409-aee6-64e8fefa7552}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vec2.h">
+      <Filter>Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.h">
+      <Filter>Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec4.h">
+      <Filter>Math\Vectors</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
