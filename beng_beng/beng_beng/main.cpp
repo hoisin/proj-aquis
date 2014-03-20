@@ -6,7 +6,8 @@
 //
 //--------------------------------------------------------------------------
 
-#include <windows.h>
+#include <Windows.h>
+#include "CApp.h"
 
 //#include <iostream>
 //
@@ -30,7 +31,19 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR sCmdLine, int iShow)
 {
-	system("PAUSE");
+	CApp app;
+
+	if(!app.InitialiseApp("opengl_3_3"))
+		return 0;
+
+	app.RegisterAppClass(hInstance);
+
+	if(!app.CreateAppWindow("OpenGL 3.3 App", 800, 600))
+		return 0;
+
+	app.AppRun();
+	app.ShutDown();
+
 	return 0;
 }
 
