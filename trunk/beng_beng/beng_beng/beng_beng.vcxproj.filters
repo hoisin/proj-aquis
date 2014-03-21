@@ -31,6 +31,9 @@
     <ClCompile Include="CApp.cpp">
       <Filter>Application</Filter>
     </ClCompile>
+    <ClCompile Include="COpenGL.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -56,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="CTimer.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="COpenGL.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

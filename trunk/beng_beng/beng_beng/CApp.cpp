@@ -2,7 +2,7 @@
 #include "CApp.h"
 
 
-CApp::CApp() : m_bAppActive(true), m_bRun(false)
+CApp::CApp() : m_pOpenGL(NULL), m_bAppActive(true), m_bRun(false)
 {
 }
 
@@ -133,9 +133,10 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 	// -----------------------------------------------------------------------
 	// Custom initialise code can go below here, or create a method for it....
 	// -----------------------------------------------------------------------
+	m_pOpenGL = new COpenGL;
 
-	//if(!oglControl.InitOpenGL(m_m_hInstance, &hWnd, 3, 1, InitScene, RenderScene, NULL, &oglControl))return false;
-
+	if(!m_pOpenGL->InitOpenGL(m_hInstance, &hWnd, 3, 1, MsgHandlerMain))
+		return false;
 
 	return true;
 }
@@ -196,6 +197,12 @@ void CApp::AppRun()
 //------------------------------------------------------------------
 void CApp::ShutDown()
 {
+	if(m_pOpenGL)
+	{
+		delete m_pOpenGL;
+		m_pOpenGL = NULL;
+	}
+
 	DestroyWindow(hWnd);
 	UnregisterClass(m_sAppName.c_str(), m_hInstance);
 	ReleaseMutex(m_hMutex);
@@ -259,6 +266,7 @@ LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPAR
 //------------------------------------------------------------------
 void CApp::OnDraw()
 {
+	m_pOpenGL->Render();
 }
 
 

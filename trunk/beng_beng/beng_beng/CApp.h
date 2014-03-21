@@ -13,6 +13,7 @@
 
 #include <string>
 #include <Windows.h>
+#include "COpenGL.h"
 
 #include "CTimer.h"
 
@@ -50,6 +51,8 @@ private:
 	HINSTANCE m_hInstance;
 	std::string m_sAppName, m_windowName;
 	HANDLE m_hMutex;
+
+	COpenGL *m_pOpenGL;
 
 	CTimer m_timer;	
 	bool m_bAppActive, m_bRun;
