@@ -140,14 +140,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
+    <ClCompile Include="CGameCore.cpp" />
+    <ClCompile Include="CGraphics.cpp" />
+    <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="COpenGL.cpp" />
+    <ClCompile Include="CResourceManager.cpp" />
+    <ClCompile Include="CResourceVertexBuffer.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="CGameCore.h" />
+    <ClInclude Include="CGraphics.h" />
+    <ClInclude Include="CMeshDataGenerator.h" />
     <ClInclude Include="COpenGL.h" />
+    <ClInclude Include="CResourceManager.h" />
+    <ClInclude Include="CResourceVertexBuffer.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="GfxDefs.h" />
+    <ClInclude Include="IResource.h" />
     <ClInclude Include="Mat3x3.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="Mat4x4.h" />

@@ -8,6 +8,7 @@
 bool COpenGL::m_bClassRegistered = false;
 bool COpenGL::m_bGlewInitialised = false;
 
+
 COpenGL::COpenGL()
 {
 }
@@ -15,9 +16,24 @@ COpenGL::COpenGL()
 
 COpenGL::~COpenGL()
 {
+	ReleaseOpenGLControl();
 }
 
 
+//------------------------------------------------------------------
+//
+//	InitOpenGL(..)
+//
+//	Params:
+//	hInstance		-	App instance
+//	hwnd			-	Handle to window
+//	majorVer		-	Major version of OpenGL
+//	minorVer		-	Minor version of OpenGL
+//	funcCallback	-	Callback function
+//
+//	Initialises OpenGL
+//
+//------------------------------------------------------------------
 bool COpenGL::InitOpenGL(HINSTANCE hInstance, HWND* pHwnd, int majorVer, int minorVer, WNDPROC funcCallback)
 {
 	if(!InitGLEW(hInstance, funcCallback))
@@ -89,8 +105,8 @@ bool COpenGL::InitOpenGL(HINSTANCE hInstance, HWND* pHwnd, int majorVer, int min
 	{
 		// Generate error messages
 		char sErrorMessage[255], sErrorTitle[255];
-		sprintf(sErrorMessage, "OpenGL %d.%d is not supported! Please download latest GPU drivers!", majorVer, minorVer);
-		sprintf(sErrorTitle, "OpenGL %d.%d Not Supported", majorVer, minorVer);
+		sprintf_s(sErrorMessage, "OpenGL %d.%d is not supported! Please download latest GPU drivers!", majorVer, minorVer);
+		sprintf_s(sErrorTitle, "OpenGL %d.%d Not Supported", majorVer, minorVer);
 		MessageBox(*m_pHwnd, sErrorMessage, sErrorTitle, MB_ICONINFORMATION);
 		return false;
 	}
@@ -116,25 +132,6 @@ void COpenGL::ResizeOpenGLViewportFull()
 
 	RECT rRect; GetClientRect(*m_pHwnd, &rRect);
 	glViewport(0, 0, rRect.right, rRect.bottom);
-}
-
-
-//------------------------------------------------------------------
-//
-//	Render(..)
-//
-//	Scene graph code/rendering stuff calls should go here
-//
-//------------------------------------------------------------------
-void COpenGL::Render()
-{
-	// Clear screen before drawing
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	// DO STUFF and drawing here
-
-	// Flip buffers
-	SwapBuffersM();
 }
 
 
@@ -223,6 +220,21 @@ void COpenGL::MakeCurrent()
 }
 
 
+
+//------------------------------------------------------------------
+//
+//	ClearScreen(..)
+//
+//	Clears the screen
+//
+//------------------------------------------------------------------
+void COpenGL::ClearScreen()
+{
+	// Clear screen before drawing
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+
 //------------------------------------------------------------------
 //
 //	SwapBuffersM(..)
@@ -230,7 +242,6 @@ void COpenGL::MakeCurrent()
 //	Swaps back and front buffer
 //
 //------------------------------------------------------------------
-
 void COpenGL::SwapBuffersM()
 {
 	SwapBuffers(m_hDC);

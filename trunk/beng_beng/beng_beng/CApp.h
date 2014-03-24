@@ -13,6 +13,7 @@
 
 #include <string>
 #include <Windows.h>
+#include "CGraphics.h"
 #include "COpenGL.h"
 
 #include "CTimer.h"
@@ -36,6 +37,8 @@ public:
 	static LRESULT CALLBACK MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPARAM lParam);
 
 private:
+	bool OnInitialise();
+
 	void OnDraw();
 
 	void OnUpdate(float fTime);
@@ -45,13 +48,14 @@ private:
 	void CalculateFrameStats();
 
 public:
-	HWND hWnd;
+	HWND m_hWnd;
 
 private:
 	HINSTANCE m_hInstance;
 	std::string m_sAppName, m_windowName;
 	HANDLE m_hMutex;
 
+	CGraphics *m_pGfx;
 	COpenGL *m_pOpenGL;
 
 	CTimer m_timer;	
