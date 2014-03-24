@@ -2,7 +2,7 @@
 #include "CApp.h"
 
 
-CApp::CApp() : m_pOpenGL(NULL), m_bAppActive(true), m_bRun(false)
+CApp::CApp() : m_pGfx(NULL), m_bAppActive(true), m_bRun(false)
 {
 }
 
@@ -103,20 +103,20 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 	AdjustWindowRectEx(&windowSize, WS_VISIBLE | WS_SYSMENU | WS_MINIMIZEBOX  |
 								WS_CLIPCHILDREN | WS_CLIPSIBLINGS, false, WS_EX_OVERLAPPEDWINDOW); 
 
-	hWnd = CreateWindowEx(0, m_sAppName.c_str(), windowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
+	m_hWnd = CreateWindowEx(0, m_sAppName.c_str(), windowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
 		0, 0, (windowSize.right - windowSize.left), (windowSize.bottom - windowSize.top), NULL,
 		NULL, m_hInstance, NULL);
 
 	// Recalculate window to get client area to correct size
 	RECT rClient, rWindow;
 	POINT ptDiff;
-	GetClientRect(hWnd, &rClient);
-	GetWindowRect(hWnd, &rWindow);
+	GetClientRect(m_hWnd, &rClient);
+	GetWindowRect(m_hWnd, &rWindow);
 	ptDiff.x = (rWindow.right - rWindow.left) - rClient.right;
 	ptDiff.y = (rWindow.bottom - rWindow.top) - rClient.bottom;
-	MoveWindow(hWnd,rWindow.left, rWindow.top, windowWidth + ptDiff.x, windowHeight + ptDiff.y, TRUE);
+	MoveWindow(m_hWnd,rWindow.left, rWindow.top, windowWidth + ptDiff.x, windowHeight + ptDiff.y, TRUE);
 
-	if(hWnd == 0)
+	if(m_hWnd == 0)
 	{
 		throw std::runtime_error("Failed to create window");
 		return FALSE;
@@ -124,19 +124,10 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 
 	// Store a pointer to this object in the window, otherwise we can't grab it using
 	// GetWindowLongPtr(..) in the callback for messages
-	SetWindowLongPtr( hWnd, GWLP_USERDATA, (long)this );
+	SetWindowLongPtr( m_hWnd, GWLP_USERDATA, (long)this );
 
-	ShowWindow(hWnd, SW_SHOW);
-	UpdateWindow(hWnd);
-
-
-	// -----------------------------------------------------------------------
-	// Custom initialise code can go below here, or create a method for it....
-	// -----------------------------------------------------------------------
-	m_pOpenGL = new COpenGL;
-
-	if(!m_pOpenGL->InitOpenGL(m_hInstance, &hWnd, 3, 1, MsgHandlerMain))
-		return false;
+	ShowWindow(m_hWnd, SW_SHOW);
+	UpdateWindow(m_hWnd);
 
 	return true;
 }
@@ -159,6 +150,10 @@ void CApp::AppRun()
 	m_timer.Reset();
 	m_timer.Start();
 
+	// Run initialisation, if fail quit the application
+	if(!OnInitialise())
+		m_bRun = false;
+
 	while(m_bRun)
 	{
 		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -177,6 +172,8 @@ void CApp::AppRun()
 				OnUpdate( 0.001f * ( timeGetTime() - startTime )  );
 
 				OnDraw();
+
+				CalculateFrameStats();
 			}
 			else 
 			{
@@ -197,13 +194,14 @@ void CApp::AppRun()
 //------------------------------------------------------------------
 void CApp::ShutDown()
 {
-	if(m_pOpenGL)
+	if(m_pGfx)
 	{
-		delete m_pOpenGL;
-		m_pOpenGL = NULL;
+		m_pGfx->ShutDown();
+		delete m_pGfx;
+		m_pGfx = NULL;
 	}
 
-	DestroyWindow(hWnd);
+	DestroyWindow(m_hWnd);
 	UnregisterClass(m_sAppName.c_str(), m_hInstance);
 	ReleaseMutex(m_hMutex);
 }
@@ -245,7 +243,7 @@ LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPAR
 	switch ( uiMsg )
 	{
 	case WM_CLOSE:
-		ShowWindow( app->hWnd, SW_HIDE );
+		ShowWindow( app->m_hWnd, SW_HIDE );
 		app->m_bRun = false;
 		break;
 	}
@@ -259,6 +257,27 @@ LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPAR
 
 //------------------------------------------------------------------
 //
+//	OnInitialise(..)
+//
+//	Do App initialisation here
+//
+//------------------------------------------------------------------
+bool CApp::OnInitialise()
+{
+	if(!m_pGfx)
+	{
+		m_pGfx = new CGraphics;
+	}
+
+	if(!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, MsgHandlerMain))
+		return false;
+
+	return true;
+}
+
+
+//------------------------------------------------------------------
+//
 //	OnDraw(..)
 //
 //	Do Drawing here
@@ -266,7 +285,7 @@ LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPAR
 //------------------------------------------------------------------
 void CApp::OnDraw()
 {
-	m_pOpenGL->Render();
+	m_pGfx->RenderScene();
 }
 
 
@@ -353,9 +372,9 @@ void CApp::CalculateFrameStats()
 		// Write stats on the title of the window
 		std::ostringstream outs;
 		outs.precision(6);
-		outs << m_windowName << L"    " << L"FPS: " << fps << L"    " << L"Frame Time: " << mspf << L" (ms)";
+		outs << m_windowName << "    " << "FPS: " << fps << "    " << "Frame Time: " << mspf << " (ms)";
 
-		SetWindowText(hWnd, outs.str().c_str());
+		SetWindowText(m_hWnd, outs.str().c_str());
 
 		// Reset vars
 		frameCount = 0;

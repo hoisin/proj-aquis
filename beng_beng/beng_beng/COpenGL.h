@@ -28,13 +28,13 @@ public:
 
 	void ResizeOpenGLViewportFull();
 
-	void Render();
 	void ReleaseOpenGLControl();
 
 	static void RegisterOpenGLClass(HINSTANCE hInstance, WNDPROC funcCallback);
 	static void UnregisterOpenGLClass(HINSTANCE hInstance);
 
 	void MakeCurrent();
+	void ClearScreen();
 	void SwapBuffersM();
 
 private:
