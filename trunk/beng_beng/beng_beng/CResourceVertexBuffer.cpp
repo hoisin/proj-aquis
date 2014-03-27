@@ -7,6 +7,7 @@ CResourceVertexBuffer::CResourceVertexBuffer()
 
 CResourceVertexBuffer::~CResourceVertexBuffer()
 {
+	VCleanUp();
 }
 
 
