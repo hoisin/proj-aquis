@@ -14,6 +14,7 @@
 
 enum EResourceType
 {
+	eResourceMeshData,
 	eResourceVertexBuffer,
 	eResourceTotal
 };
@@ -23,7 +24,7 @@ class IResource
 {
 public:
 	IResource() {}
-	~IResource() {}
+	virtual ~IResource() {}
 
 	// Must override!
 	virtual EResourceType VGetType() = 0;

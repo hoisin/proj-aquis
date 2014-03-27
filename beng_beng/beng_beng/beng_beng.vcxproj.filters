@@ -58,6 +58,9 @@
     <ClCompile Include="CMeshDataGenerator.cpp">
       <Filter>Graphics\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="CResourceMeshData.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="CMeshDataGenerator.h">
       <Filter>Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceMeshData.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

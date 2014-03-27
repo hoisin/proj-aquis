@@ -145,6 +145,7 @@
     <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="COpenGL.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
+    <ClCompile Include="CResourceMeshData.cpp" />
     <ClCompile Include="CResourceVertexBuffer.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="CMeshDataGenerator.h" />
     <ClInclude Include="COpenGL.h" />
     <ClInclude Include="CResourceManager.h" />
+    <ClInclude Include="CResourceMeshData.h" />
     <ClInclude Include="CResourceVertexBuffer.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="GfxDefs.h" />
