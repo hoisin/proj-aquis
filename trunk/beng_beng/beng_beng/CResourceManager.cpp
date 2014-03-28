@@ -11,6 +11,7 @@ CResourceManager::CResourceManager() : m_pMeshGenerator(NULL)
 
 CResourceManager::~CResourceManager()
 {
+	ShutDown();
 }
 
 
