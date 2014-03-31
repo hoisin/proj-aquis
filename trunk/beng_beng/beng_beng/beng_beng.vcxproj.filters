@@ -29,6 +29,9 @@
     <Filter Include="Graphics\Geometry">
       <UniqueIdentifier>{8b607665-26aa-4de7-ba29-6586857d4591}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\OpenGL">
+      <UniqueIdentifier>{0b595205-5e96-4895-90af-219b0cf424b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,9 +42,6 @@
     </ClCompile>
     <ClCompile Include="CApp.cpp">
       <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGL.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="CResourceVertexBuffer.cpp">
       <Filter>Resource</Filter>
@@ -60,6 +60,12 @@
     </ClCompile>
     <ClCompile Include="CResourceMeshData.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="COpenGL.cpp">
+      <Filter>Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CVertexData.cpp">
+      <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +93,6 @@
     <ClInclude Include="CTimer.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="COpenGL.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="IResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
@@ -113,6 +116,15 @@
     </ClInclude>
     <ClInclude Include="CResourceMeshData.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexBuffer.h">
+      <Filter>Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="COpenGL.h">
+      <Filter>Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

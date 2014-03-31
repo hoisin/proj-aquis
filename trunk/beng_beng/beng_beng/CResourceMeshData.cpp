@@ -1,4 +1,5 @@
 #include "CResourceMeshData.h"
+#include "GfxDefs.h"
 
 CResourceMeshData::CResourceMeshData(MeshData *pData) : m_pMeshData(pData)
 {
