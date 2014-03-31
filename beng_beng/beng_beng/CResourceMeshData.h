@@ -12,7 +12,8 @@
 #define __CRESOURCEMESHDATA_H__
 
 #include "IResource.h"
-#include "GfxDefs.h"
+
+class MeshData;
 
 class CResourceMeshData : public IResource
 {

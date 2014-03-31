@@ -55,7 +55,29 @@ bool CResourceManager::CreateTriangle(const std::string &geometryID, float size,
 	CResourceMeshData *pNewResource = new CResourceMeshData(pNewMeshData);
 
 	// Add to map.
-	m_resourceMap.insert(std::pair<std::string, MeshData*>(geometryID, pNewMeshData));
+	m_resourceMap.insert(std::pair<std::string, IResource*>(geometryID, pNewResource));
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
+//	CreateVertexBuffer(..)
+//
+//	Params:
+//	vertexID		-	ID of resource to store in map
+//	pData			-	loaded mesh data in memory
+//
+//	Description:
+//	Loads/creates vertex buffer resource
+//
+//----------------------------------------------------------------------------------------------------
+bool CResourceManager::CreateVertexBuffer(const std::string &vertexID, MeshData *pData)
+{
+	CResourceVertexBuffer *pNewResource = new CResourceVertexBuffer(pData);
+
+	m_resourceMap.insert(std::pair<std::string, IResource*>(vertexID, pNewResource));
+
+	return true;
 }
 
 

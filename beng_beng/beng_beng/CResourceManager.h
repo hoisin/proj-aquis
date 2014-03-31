@@ -31,6 +31,8 @@ public:
 	bool CreateTriangle(const std::string &geometryID, float size, EVertexType type,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
+	bool CreateVertexBuffer(const std::string &vertexID, MeshData *pData);
+
 	void ShutDown();
 
 private:

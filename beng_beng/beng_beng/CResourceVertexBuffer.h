@@ -27,10 +27,13 @@
 
 #include "IResource.h"
 
+class MeshData;
+class CVertexBuffer;
+
 class CResourceVertexBuffer : public IResource
 {
 public:
-	CResourceVertexBuffer();
+	CResourceVertexBuffer(MeshData *pData);
 	~CResourceVertexBuffer();
 
 	EResourceType VGetType();
@@ -38,7 +41,7 @@ public:
 	void VCleanUp();
 
 protected:
-
+	CVertexBuffer *m_pVertBuffer;
 };
 
 
