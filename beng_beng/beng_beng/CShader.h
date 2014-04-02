@@ -16,6 +16,7 @@
 
 #include <gl/glew.h>
 #include <gl/wglew.h>
+#include <string>
 
 class CShader
 {
@@ -28,7 +29,9 @@ public:
 	GLuint GetShaderID() { return m_shaderID; }
 
 protected:
-	GLuint m_shaderID;
+	GLuint m_programID;
+	GLuint m_vertShaderID;
+	GLuint m_fragShaderID;
 };
 
 #endif
