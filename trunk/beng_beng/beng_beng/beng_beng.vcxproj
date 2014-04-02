@@ -147,6 +147,7 @@
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CResourceMeshData.cpp" />
     <ClCompile Include="CResourceVertexBuffer.cpp" />
+    <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CVertexData.cpp" />
     <ClCompile Include="main.cpp" />
