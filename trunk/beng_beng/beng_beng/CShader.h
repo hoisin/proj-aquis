@@ -26,7 +26,7 @@ public:
 
 	GLuint LoadShader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 
-	GLuint GetShaderID() { return m_shaderID; }
+	GLuint GetShaderID() { return m_programID; }
 
 protected:
 	GLuint m_programID;

@@ -70,6 +70,9 @@
     <ClCompile Include="CShader.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="CResourceShader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceShader.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

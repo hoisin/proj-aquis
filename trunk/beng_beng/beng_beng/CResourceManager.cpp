@@ -56,6 +56,8 @@ bool CResourceManager::CreateTriangle(const std::string &geometryID, float size,
 
 	// Add to map.
 	m_resourceMap.insert(std::pair<std::string, IResource*>(geometryID, pNewResource));
+
+	return true;
 }
 
 
@@ -77,6 +79,27 @@ bool CResourceManager::CreateVertexBuffer(const std::string &vertexID, MeshData 
 
 	m_resourceMap.insert(std::pair<std::string, IResource*>(vertexID, pNewResource));
 
+	return true;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
+//	CreateShader(..)
+//
+//	Params:
+//	shaderID			-	ID of resource to store in map
+//	vertexShaderFile	-	location of vertex shader
+//	fragShaderFile		-	location of fragment shader
+//
+//	Description:
+//	Loads/creates a shader resource by taking vertex and fragment shader and compiling them
+//
+//----------------------------------------------------------------------------------------------------
+bool CResourceManager::CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
+		const std::string &fragShaderFile)
+{
+	// TO DO
 	return true;
 }
 

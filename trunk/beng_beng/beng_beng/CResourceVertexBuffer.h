@@ -27,7 +27,7 @@
 
 #include "IResource.h"
 
-class MeshData;
+struct MeshData;
 class CVertexBuffer;
 
 class CResourceVertexBuffer : public IResource
@@ -36,11 +36,11 @@ public:
 	CResourceVertexBuffer(MeshData *pData);
 	~CResourceVertexBuffer();
 
-	EResourceType VGetType();
+	EResourceType VGetType() { return eResourceVertexBuffer; }
 
 	void VCleanUp();
 
-protected:
+public:
 	CVertexBuffer *m_pVertBuffer;
 };
 

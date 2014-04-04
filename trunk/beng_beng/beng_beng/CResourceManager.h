@@ -33,6 +33,9 @@ public:
 
 	bool CreateVertexBuffer(const std::string &vertexID, MeshData *pData);
 
+	bool CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
+		const std::string &fragShaderFile);
+
 	void ShutDown();
 
 private:
