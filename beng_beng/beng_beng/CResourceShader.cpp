@@ -1,12 +1,12 @@
-#include "CResourceMeshData.h"
+#include "CResourceShader.h"
 #include "GfxDefs.h"
 
-CResourceMeshData::CResourceMeshData(MeshData *pData) : m_pMeshData(pData)
+CResourceShader::CResourceShader(CShader *pShader) : m_pShader(pShader)
 {
 }
 
 
-CResourceMeshData::~CResourceMeshData()
+CResourceShader::~CResourceShader()
 {
 	VCleanUp();
 }
@@ -19,11 +19,10 @@ CResourceMeshData::~CResourceMeshData()
 //	Performs any clean up required
 //
 //------------------------------------------------------------------
-void CResourceMeshData::VCleanUp()
+void CResourceShader::VCleanUp()
 {
-	if(m_pMeshData) {
-		delete m_pMeshData;
-		m_pMeshData = NULL;
+	if(m_pShader) {
+		delete m_pShader;
+		m_pShader = NULL;
 	}
 }
-

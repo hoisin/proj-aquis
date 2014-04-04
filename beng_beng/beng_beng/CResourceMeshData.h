@@ -13,7 +13,7 @@
 
 #include "IResource.h"
 
-class MeshData;
+struct MeshData;
 
 class CResourceMeshData : public IResource
 {
@@ -21,11 +21,11 @@ public:
 	CResourceMeshData(MeshData *pData);
 	~CResourceMeshData();
 
-	EResourceType VGetType();
+	EResourceType VGetType() { return eResourceMeshData; }
 
 	void VCleanUp();
 
-protected:
+public:
 	MeshData *m_pMeshData;
 };
 
