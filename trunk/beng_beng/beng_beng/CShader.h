@@ -24,14 +24,12 @@ public:
 	CShader();
 	~CShader();
 
-	GLuint LoadShader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
+	bool LoadShader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath, GLuint &outID);
 
 	GLuint GetShaderID() { return m_programID; }
 
 protected:
 	GLuint m_programID;
-	GLuint m_vertShaderID;
-	GLuint m_fragShaderID;
 };
 
 #endif

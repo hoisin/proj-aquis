@@ -32,6 +32,9 @@
     <Filter Include="Graphics\OpenGL">
       <UniqueIdentifier>{0b595205-5e96-4895-90af-219b0cf424b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Scenegraph">
+      <UniqueIdentifier>{b4fe6e59-b25c-4d0b-971a-651ee765fa12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,14 +67,14 @@
     <ClCompile Include="COpenGL.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="CVertexData.cpp">
-      <Filter>Graphics\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="CShader.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="CResourceShader.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CVertexBuffer.cpp">
+      <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="CResourceShader.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneNode.h">
+      <Filter>Graphics\Scenegraph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

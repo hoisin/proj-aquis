@@ -2,7 +2,7 @@
 #include "CApp.h"
 
 
-CApp::CApp() : m_pGfx(NULL), m_bAppActive(true), m_bRun(false)
+CApp::CApp() : m_pGfx(NULL), m_pResourceMgr(NULL), m_bAppActive(true), m_bRun(true)
 {
 }
 
@@ -29,8 +29,7 @@ bool CApp::InitialiseApp(const std::string &appName)
 	m_hMutex = CreateMutex(NULL, 1, m_sAppName.c_str());
 
 	// Don't allow to run multiple instances
-	if(GetLastError() == ERROR_ALREADY_EXISTS)
-	{
+	if(GetLastError() == ERROR_ALREADY_EXISTS) {
 		MessageBox(NULL, "Application already running!", "Multiple Instances Found", MB_ICONINFORMATION | MB_OK);
 		return false;
 	}
@@ -59,9 +58,11 @@ void CApp::RegisterAppClass(HINSTANCE hAppInstance)
 
 	wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
-	wcex.hIcon = LoadIcon(m_hInstance, IDI_WINLOGO);
+	// Memory Access Violation error
+	/*wcex.hIcon = LoadIcon(m_hInstance, IDI_WINLOGO);
 	wcex.hIconSm = LoadIcon(m_hInstance, IDI_WINLOGO);
-	wcex.hCursor = LoadCursor(m_hInstance, IDC_ARROW);
+	wcex.hCursor = LoadCursor(m_hInstance, IDC_ARROW);*/
+
 	wcex.hInstance = m_hInstance;
 
 	wcex.lpfnWndProc = MsgHandlerMain;
@@ -70,8 +71,7 @@ void CApp::RegisterAppClass(HINSTANCE hAppInstance)
 	wcex.lpszMenuName = NULL;
 
 	// Register Class
-	if(!RegisterClassEx(&wcex))
-	{
+	if(!RegisterClassEx(&wcex)) {
 		throw std::runtime_error("Failed to register window");
 	}
 }
@@ -116,8 +116,7 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 	ptDiff.y = (rWindow.bottom - rWindow.top) - rClient.bottom;
 	MoveWindow(m_hWnd,rWindow.left, rWindow.top, windowWidth + ptDiff.x, windowHeight + ptDiff.y, TRUE);
 
-	if(m_hWnd == 0)
-	{
+	if(m_hWnd == 0) {
 		throw std::runtime_error("Failed to create window");
 		return FALSE;
 	}
@@ -128,6 +127,10 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 
 	ShowWindow(m_hWnd, SW_SHOW);
 	UpdateWindow(m_hWnd);
+
+	// Run initialisation, if fail quit the application
+	if(!OnInitialise(windowWidth, windowHeight))
+		m_bRun = false;
 
 	return true;
 }
@@ -142,17 +145,11 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 //------------------------------------------------------------------
 void CApp::AppRun()
 {
-	m_bRun = true;
-
 	MSG msg;
 	long startTime = timeGetTime();
 
 	m_timer.Reset();
 	m_timer.Start();
-
-	// Run initialisation, if fail quit the application
-	if(!OnInitialise())
-		m_bRun = false;
 
 	while(m_bRun)
 	{
@@ -194,11 +191,14 @@ void CApp::AppRun()
 //------------------------------------------------------------------
 void CApp::ShutDown()
 {
-	if(m_pGfx)
-	{
-		m_pGfx->ShutDown();
+	if(m_pGfx) {
 		delete m_pGfx;
 		m_pGfx = NULL;
+	}
+
+	if(m_pResourceMgr) { 
+		delete m_pResourceMgr;
+		m_pResourceMgr = NULL;
 	}
 
 	DestroyWindow(m_hWnd);
@@ -262,15 +262,23 @@ LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPAR
 //	Do App initialisation here
 //
 //------------------------------------------------------------------
-bool CApp::OnInitialise()
+bool CApp::OnInitialise(UINT windowWidth, UINT windowHeight)
 {
-	if(!m_pGfx)
-	{
+	if(!m_pResourceMgr) { 
+		m_pResourceMgr = new CResourceManager;
+	}
+
+	if(!m_pResourceMgr->Initialise())
+		return false;
+
+	if(!m_pGfx) {
 		m_pGfx = new CGraphics;
 	}
 
-	if(!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, MsgHandlerMain))
+	if(!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, m_pResourceMgr, windowWidth, windowHeight, MsgHandlerMain))
 		return false;
+
+	m_pGfx->LoadScene();
 
 	return true;
 }

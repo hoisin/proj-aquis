@@ -14,6 +14,8 @@
 #include <Windows.h>
 
 class COpenGL;
+class CResourceManager;
+class CVertexBuffer;
 
 class CGraphics
 {
@@ -21,7 +23,8 @@ public:
 	CGraphics();
 	~CGraphics();
 
-	bool Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, WNDPROC funcCallback);
+	bool Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, CResourceManager *pResourceMgr,
+		UINT windowWidth, UINT windowHeight, WNDPROC funcCallback);
 
 	bool RenderScene();
 
@@ -33,6 +36,14 @@ public:
 protected:
 	HINSTANCE m_hInstance;
 	COpenGL *m_pOpenGL;
+	CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
+
+
+	// Test vars
+	CVertexBuffer *pVert;
+	int shaderProgID;
+
+
 };
 
 #endif

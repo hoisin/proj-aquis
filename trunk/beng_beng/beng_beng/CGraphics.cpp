@@ -1,6 +1,7 @@
 #include "CGraphics.h"
 #include "COpenGL.h"
-
+#include "CResourceManager.h"
+#include "CVertexBuffer.h"
 
 CGraphics::CGraphics() : m_pOpenGL(NULL)
 {
@@ -27,7 +28,8 @@ CGraphics::~CGraphics()
 //	Initialises all graphics related components
 //
 //------------------------------------------------------------------
-bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, WNDPROC funcCallback)
+bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, CResourceManager *pResourceMgr, 
+	UINT windowWidth, UINT windowHeight, WNDPROC funcCallback)
 {
 	if(!m_pOpenGL)
 	{
@@ -38,7 +40,10 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 		return false;
 
 	// Keep a reference
+	m_pResourceMgr = pResourceMgr;
 	m_hInstance = hInstance;
+
+	glViewport(0, 0, windowWidth, windowHeight);
 
 	return true;
 }
@@ -60,9 +65,9 @@ bool CGraphics::RenderScene()
 	// Clear screen before drawing
 	glClear(GL_COLOR_BUFFER_BIT);
 
-
 	// Do drawing crap here
-
+	glBindVertexArray(pVert->GetVertexArray());
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	// Swap buffers!!!
 	m_pOpenGL->SwapBuffersM();
@@ -86,4 +91,16 @@ void CGraphics::ShutDown()
 		delete m_pOpenGL;
 		m_pOpenGL = NULL;
 	}
+}
+
+
+void CGraphics::LoadScene()
+{
+	MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, EVertexType::eVertexPC);
+
+	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
+
+	shaderProgID = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
+
+	glUseProgram(shaderProgID);
 }

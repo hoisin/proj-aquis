@@ -29,25 +29,27 @@ void CVertexBuffer::LoadData(MeshData *pData)
 	// Generate & setup VAO
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
-
+	
 	// Generate buffers based on vertex type
 	switch(m_vertType)
 	{
 	case eVertexPC:
 		m_numVBOs = 2;
+		m_pVBO = new GLuint[m_numVBOs];
 
 		// Generate and setup VBOs
 		glGenBuffers(m_numVBOs, m_pVBO);
 
 		// Position buffer
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*3*sizeof(GL_FLOAT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), 0);
+		
 		glEnableVertexAttribArray(0);
 
 		// Colour buffer
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*3*sizeof(GL_FLOAT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), &((SVertexTypePC*)(pData->pVertices))[0].colour);
 		glEnableVertexAttribArray(1);
 		break;
@@ -68,6 +70,14 @@ void CVertexBuffer::LoadData(MeshData *pData)
 //----------------------------------------------------------------------------------------------------
 void CVertexBuffer::ShutDown()
 {
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
 	glDeleteBuffers(m_numVBOs, m_pVBO);
 	glDeleteVertexArrays(1, &m_VAO);
+
+	if(m_numVBOs > 0)
+	{
+		delete [] m_pVBO;
+	}
 }

@@ -59,7 +59,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPC[0].colour.x = colour.x;
 		pVertexPC[0].colour.y = colour.y;
 		pVertexPC[0].colour.z = colour.z;
-
+		
 		// Bottom left vertex
 		pVertexPC[1].position.x = -dist;
 		pVertexPC[1].position.y = -dist;

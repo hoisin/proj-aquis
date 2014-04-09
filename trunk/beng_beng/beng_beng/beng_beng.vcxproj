@@ -150,7 +150,7 @@
     <ClCompile Include="CResourceVertexBuffer.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CTimer.cpp" />
-    <ClCompile Include="CVertexData.cpp" />
+    <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +168,7 @@
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="GfxDefs.h" />
     <ClInclude Include="IResource.h" />
+    <ClInclude Include="ISceneNode.h" />
     <ClInclude Include="Mat3x3.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="Mat4x4.h" />
