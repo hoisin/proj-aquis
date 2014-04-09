@@ -18,6 +18,7 @@
 #include "GfxDefs.h"
 
 class CMeshDataGenerator;
+class CVertexBuffer;
 
 class CResourceManager
 {
@@ -28,13 +29,15 @@ public:
 	bool Initialise();
 
 	// Geometry generation methods
-	bool CreateTriangle(const std::string &geometryID, float size, EVertexType type,
+	MeshData* CreateTriangle(const std::string &geometryID, float size, EVertexType type,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
-	bool CreateVertexBuffer(const std::string &vertexID, MeshData *pData);
+	CVertexBuffer* CreateVertexBuffer(const std::string &vertexID, MeshData *pData);
 
-	bool CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
+	unsigned int CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
 		const std::string &fragShaderFile);
+
+	IResource* GetResource(const std::string &esourceID);
 
 	void ShutDown();
 

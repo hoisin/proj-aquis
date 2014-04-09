@@ -1,7 +1,10 @@
 #include "CResourceManager.h"
 #include "CResourceMeshData.h"
 #include "CResourceVertexBuffer.h"
+#include "CResourceShader.h"
+#include "CShader.h"
 #include "CMeshDataGenerator.h"
+#include "CVertexBuffer.h"
 
 
 CResourceManager::CResourceManager() : m_pMeshGenerator(NULL)
@@ -45,7 +48,7 @@ bool CResourceManager::Initialise()
 //	Call Mesh Generator to create triangle, then stores as a resource
 //
 //----------------------------------------------------------------------------------------------------
-bool CResourceManager::CreateTriangle(const std::string &geometryID, float size, EVertexType type,
+MeshData* CResourceManager::CreateTriangle(const std::string &geometryID, float size, EVertexType type,
 		const glm::vec4 &colour)
 {
 	// Generator mesh data
@@ -57,7 +60,7 @@ bool CResourceManager::CreateTriangle(const std::string &geometryID, float size,
 	// Add to map.
 	m_resourceMap.insert(std::pair<std::string, IResource*>(geometryID, pNewResource));
 
-	return true;
+	return pNewMeshData;
 }
 
 
@@ -73,13 +76,13 @@ bool CResourceManager::CreateTriangle(const std::string &geometryID, float size,
 //	Loads/creates vertex buffer resource
 //
 //----------------------------------------------------------------------------------------------------
-bool CResourceManager::CreateVertexBuffer(const std::string &vertexID, MeshData *pData)
+CVertexBuffer* CResourceManager::CreateVertexBuffer(const std::string &vertexID, MeshData *pData)
 {
 	CResourceVertexBuffer *pNewResource = new CResourceVertexBuffer(pData);
 
 	m_resourceMap.insert(std::pair<std::string, IResource*>(vertexID, pNewResource));
 
-	return true;
+	return pNewResource->m_pVertBuffer;
 }
 
 
@@ -91,16 +94,36 @@ bool CResourceManager::CreateVertexBuffer(const std::string &vertexID, MeshData 
 //	shaderID			-	ID of resource to store in map
 //	vertexShaderFile	-	location of vertex shader
 //	fragShaderFile		-	location of fragment shader
+//	outHandle			-	output if required, pass as reference
 //
 //	Description:
 //	Loads/creates a shader resource by taking vertex and fragment shader and compiling them
 //
 //----------------------------------------------------------------------------------------------------
-bool CResourceManager::CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
+unsigned int CResourceManager::CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
 		const std::string &fragShaderFile)
 {
-	// TO DO
-	return true;
+	CShader *pNewShader = new CShader;
+
+	GLuint outID;
+	pNewShader->LoadShader(vertexShaderFile, fragShaderFile, outID);
+
+	CResourceShader *pNewResource = new CResourceShader(pNewShader);
+
+	m_resourceMap.insert(std::pair<std::string, IResource*>(shaderID, pNewResource));
+
+	return pNewShader->GetShaderID();
+}
+
+
+IResource* CResourceManager::GetResource(const std::string &resourceID)
+{
+	std::map<std::string, IResource*>::iterator it = m_resourceMap.find("resourceID");
+
+	if(it != m_resourceMap.end())
+		return it->second;
+
+	return NULL;
 }
 
 

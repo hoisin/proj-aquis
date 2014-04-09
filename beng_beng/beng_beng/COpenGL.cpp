@@ -173,8 +173,11 @@ void COpenGL::RegisterOpenGLClass(HINSTANCE hInstance, WNDPROC funcCallback)
 	wc.lpfnWndProc = funcCallback;
 	wc.cbClsExtra = 0; wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
-	wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
-	wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+
+	// Memory Access Violation error
+	//wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+	//wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)(COLOR_MENUBAR+1);
 	wc.lpszMenuName = NULL;

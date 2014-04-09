@@ -14,7 +14,7 @@
 #include <string>
 #include <Windows.h>
 #include "CGraphics.h"
-#include "COpenGL.h"
+#include "CResourceManager.h"
 
 #include "CTimer.h"
 
@@ -37,7 +37,7 @@ public:
 	static LRESULT CALLBACK MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPARAM lParam);
 
 private:
-	bool OnInitialise();
+	bool OnInitialise(UINT windowWidth, UINT windowHeight);
 
 	void OnDraw();
 
@@ -56,7 +56,7 @@ private:
 	HANDLE m_hMutex;
 
 	CGraphics *m_pGfx;
-	COpenGL *m_pOpenGL;
+	CResourceManager *m_pResourceMgr;
 
 	CTimer m_timer;	
 	bool m_bAppActive, m_bRun;
