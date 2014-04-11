@@ -29,7 +29,8 @@ public:
 	void ShutDown();
 
 private:
-	int m_numVBOs;		// Number of vertex buffer objects
+	GLuint m_vertCount;	// Number of vertices (assuming a vector 3)
+	GLuint m_numVBOs;	// Number of vertex buffer objects
 	GLuint m_VAO;		// Only one vertex array object per CVertexData
 	GLuint *m_pVBO;
 

@@ -24,6 +24,7 @@ CVertexBuffer::~CVertexBuffer()
 //----------------------------------------------------------------------------------------------------
 void CVertexBuffer::LoadData(MeshData *pData)
 {
+	m_vertCount = pData->vertexCount;
 	m_vertType = pData->vertexType;
 
 	// Generate & setup VAO
@@ -44,14 +45,17 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
 		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), 0);
-		
 		glEnableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		// Colour buffer
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
 		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), &((SVertexTypePC*)(pData->pVertices))[0].colour);
 		glEnableVertexAttribArray(1);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		break;
 
 	default:
@@ -71,7 +75,6 @@ void CVertexBuffer::LoadData(MeshData *pData)
 void CVertexBuffer::ShutDown()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDeleteBuffers(m_numVBOs, m_pVBO);
 	glDeleteVertexArrays(1, &m_VAO);

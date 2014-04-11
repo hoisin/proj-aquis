@@ -16,6 +16,7 @@ enum EResourceType
 {
 	eResourceMeshData,
 	eResourceVertexBuffer,
+	eResourceIndexBuffer,
 	eResourceShader,
 	eResourceTotal
 };

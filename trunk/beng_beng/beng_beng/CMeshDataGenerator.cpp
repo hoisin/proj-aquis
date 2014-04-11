@@ -224,3 +224,112 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 	// Return reference to newly created geometry
 	return pNewGeometry;
 }
+
+
+//-------------------------------------------------------------------------------------
+//
+//	CreateQuad(..)
+//
+//	Params:
+//	geometryID		-	String name stored in MeshData
+//	size			-	size of the quad
+//	type			-	type of vertices to use
+//	colour			-	colour of triangle if vertex type supports colour
+//
+//	Description:
+//	Method creates a 2D quad consisting of 2 triangles
+//
+//-------------------------------------------------------------------------------------
+MeshData* CMeshDataGenerator::CreateQuad(const std::string &geometryID, float size, EVertexType type,
+	const glm::vec4 &colour)
+{
+	MeshData *pNewGeometry = new MeshData(type, 4, 6);
+
+	// Basing mesh at origin 0,0,0
+	float dist = size / 2;
+
+	// Create vertex data
+	switch(type)
+	{
+	case eVertexPC:
+
+		SVertexTypePC *pVertPC;
+		
+		pVertPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
+
+		pVertPC[0].position.x = -dist;
+		pVertPC[0].position.y = dist;
+		pVertPC[0].position.z = 0;
+		pVertPC[0].colour.r = colour.r;
+		pVertPC[0].colour.g = colour.g;
+		pVertPC[0].colour.b = colour.b;
+
+		pVertPC[1].position.x = dist;
+		pVertPC[1].position.y = dist;
+		pVertPC[1].position.z = 0;
+		pVertPC[1].colour.r = colour.r;
+		pVertPC[1].colour.g = colour.g;
+		pVertPC[1].colour.b = colour.b;
+
+		pVertPC[2].position.x = -dist;
+		pVertPC[2].position.y = -dist;
+		pVertPC[2].position.z = 0;
+		pVertPC[2].colour.r = colour.r;
+		pVertPC[2].colour.g = colour.g;
+		pVertPC[2].colour.b = colour.b;
+
+		pVertPC[3].position.x = dist;
+		pVertPC[3].position.y = -dist;
+		pVertPC[3].position.z = 0;
+		pVertPC[3].colour.r = colour.r;
+		pVertPC[3].colour.g = colour.g;
+		pVertPC[3].colour.b = colour.b;
+		break;
+
+	case eVertexPT:
+		SVertexTypePT *pVertPT;
+
+		pVertPT = static_cast<SVertexTypePT*>(pNewGeometry->pVertices);
+
+		pVertPT[0].position.x = -dist;
+		pVertPT[0].position.y = dist;
+		pVertPT[0].position.z = 0;
+		pVertPT[0].textureCoord.x = 0;
+		pVertPT[0].textureCoord.y = 0;
+
+		pVertPT[1].position.x = dist;
+		pVertPT[1].position.y = dist;
+		pVertPT[1].position.z = 0;
+		pVertPT[1].textureCoord.x = 1;
+		pVertPT[1].textureCoord.y = 0;
+
+		pVertPT[2].position.x = -dist;
+		pVertPT[2].position.y = -dist;
+		pVertPT[2].position.z = 0;
+		pVertPT[2].textureCoord.x = 0;
+		pVertPT[2].textureCoord.y = 1;
+
+		pVertPT[3].position.x = dist;
+		pVertPT[3].position.y = -dist;
+		pVertPT[3].position.z = 0;
+		pVertPT[3].textureCoord.x = 1;
+		pVertPT[3].textureCoord.y = 1;
+		break;
+
+		// Should not end up here
+	default:
+		delete pNewGeometry;
+		pNewGeometry = NULL;
+		break;
+	}
+
+	// Create index data
+	pNewGeometry->pIndices[0] = 0;
+	pNewGeometry->pIndices[1] = 1;
+	pNewGeometry->pIndices[2] = 2;
+	pNewGeometry->pIndices[3] = 1;
+	pNewGeometry->pIndices[4] = 3;
+	pNewGeometry->pIndices[5] = 2;
+
+	return pNewGeometry;
+}

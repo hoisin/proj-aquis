@@ -35,6 +35,18 @@
     <Filter Include="Graphics\Scenegraph">
       <UniqueIdentifier>{b4fe6e59-b25c-4d0b-971a-651ee765fa12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Camera">
+      <UniqueIdentifier>{0e5dda18-6e82-4bd1-8b84-51d3ef796aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\OpenGL\Buffers">
+      <UniqueIdentifier>{6740fb85-2c3a-40fd-bff3-0f953a9dfd42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Resource Types">
+      <UniqueIdentifier>{156d2ad9-7840-4878-9388-b8b62cdc6a3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\OpenGL\Texture">
+      <UniqueIdentifier>{1c70b9a7-c82e-4de7-a57d-773d8db4f7f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,9 +57,6 @@
     </ClCompile>
     <ClCompile Include="CApp.cpp">
       <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="CResourceVertexBuffer.cpp">
-      <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="CResourceManager.cpp">
       <Filter>Resource</Filter>
@@ -61,20 +70,38 @@
     <ClCompile Include="CMeshDataGenerator.cpp">
       <Filter>Graphics\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="CResourceMeshData.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
     <ClCompile Include="COpenGL.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="CShader.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="CResourceShader.cpp">
-      <Filter>Resource</Filter>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Graphics\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneNode.cpp">
+      <Filter>Graphics\Scenegraph</Filter>
     </ClCompile>
     <ClCompile Include="CVertexBuffer.cpp">
-      <Filter>Graphics\OpenGL</Filter>
+      <Filter>Graphics\OpenGL\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="CIndexBuffer.cpp">
+      <Filter>Graphics\OpenGL\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceMeshData.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceShader.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceVertexBuffer.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceIndexBuffer.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture2D.cpp">
+      <Filter>Graphics\OpenGL\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +132,6 @@
     <ClInclude Include="IResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="CResourceVertexBuffer.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="CResourceManager.h">
       <Filter>Resource</Filter>
     </ClInclude>
@@ -123,23 +147,44 @@
     <ClInclude Include="CMeshDataGenerator.h">
       <Filter>Graphics\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="CResourceMeshData.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="CVertexBuffer.h">
-      <Filter>Graphics\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="COpenGL.h">
       <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="CResourceShader.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="ISceneNode.h">
       <Filter>Graphics\Scenegraph</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNode.h">
+      <Filter>Graphics\Scenegraph</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelMesh.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexBuffer.h">
+      <Filter>Graphics\OpenGL\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndexBuffer.h">
+      <Filter>Graphics\OpenGL\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceVertexBuffer.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceMeshData.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceShader.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceIndexBuffer.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture2D.h">
+      <Filter>Graphics\OpenGL\Texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

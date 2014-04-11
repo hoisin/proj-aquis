@@ -12,8 +12,7 @@
 #ifndef __GFXDEFS_H__
 #define __GFXDEFS_H__
 
-
-#include <glm.hpp>
+#include <glm\glm.hpp>
 #include <vector>
 
 /*
@@ -195,7 +194,7 @@ public:
 struct MeshData
 {
 	SVertexType*			pVertices;		// Pointer to vertex data
-	unsigned long*			pIndices;		// Pointer to index data
+	unsigned int*			pIndices;		// Pointer to index data
 	int						vertexCount;	// Vertex count
 	int						indexCount;		// Index count
 	EVertexType				vertexType;		// Format of vertices
@@ -243,7 +242,7 @@ struct MeshData
 		}
 
 		// Create index array
-		pIndices = new unsigned long[idxCount];
+		pIndices = new unsigned int[idxCount];
 	}
 
 	~MeshData(void)

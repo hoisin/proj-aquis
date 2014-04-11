@@ -1,10 +1,12 @@
 #include "CResourceManager.h"
 #include "CResourceMeshData.h"
 #include "CResourceVertexBuffer.h"
+#include "CResourceIndexBuffer.h"
 #include "CResourceShader.h"
 #include "CShader.h"
 #include "CMeshDataGenerator.h"
 #include "CVertexBuffer.h"
+#include "CIndexBuffer.h"
 
 
 CResourceManager::CResourceManager() : m_pMeshGenerator(NULL)
@@ -66,6 +68,36 @@ MeshData* CResourceManager::CreateTriangle(const std::string &geometryID, float 
 
 //----------------------------------------------------------------------------------------------------
 //
+//	CreateQuad(..)
+//
+//	Params:
+//	geometryID		-	String name stored in MeshData
+//	size			-	size of quad
+//	type			-	type of vertices to use
+//	colour			-	colour of quad if vertex type supports colour
+//
+//	Description:
+//	Call Mesh Generator to create 2D quad, then stores as a resource
+//
+//----------------------------------------------------------------------------------------------------
+MeshData* CResourceManager::CreateQuad(const std::string &geometryID, float size, EVertexType type,
+		const glm::vec4 &colour)
+{
+	// Generator mesh data
+	MeshData *pNewMeshData = m_pMeshGenerator->CreateQuad(geometryID, size, type, colour);
+
+	// Attach to resource object
+	CResourceMeshData *pNewResource = new CResourceMeshData(pNewMeshData);
+
+	// Add to map.
+	m_resourceMap.insert(std::pair<std::string, IResource*>(geometryID, pNewResource));
+
+	return pNewMeshData;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
 //	CreateVertexBuffer(..)
 //
 //	Params:
@@ -83,6 +115,28 @@ CVertexBuffer* CResourceManager::CreateVertexBuffer(const std::string &vertexID,
 	m_resourceMap.insert(std::pair<std::string, IResource*>(vertexID, pNewResource));
 
 	return pNewResource->m_pVertBuffer;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
+//	CreateIndexBuffer(..)
+//
+//	Params:
+//	vertexID		-	ID of resource to store in map
+//	pData			-	loaded mesh data in memory
+//
+//	Description:
+//	Loads/creates index buffer resource
+//
+//----------------------------------------------------------------------------------------------------
+CIndexBuffer* CResourceManager::CreateIndexBuffer(const std::string &indexID, MeshData *pData)
+{
+	CResourceIndexBuffer *pNewResource = new CResourceIndexBuffer(pData);
+
+	m_resourceMap.insert(std::pair<std::string, IResource*>(indexID, pNewResource));
+
+	return pNewResource->m_pIdxBuffer;
 }
 
 
