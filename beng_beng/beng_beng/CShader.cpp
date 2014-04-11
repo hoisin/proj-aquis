@@ -15,6 +15,19 @@ CShader::~CShader()
 }
 
 
+//----------------------------------------------------------------------------------------------------
+//
+//	LoadShader(..)
+//
+//	Params:
+//	vertexShaderPath		-	file directory to vertex shader
+//	fragmentShaderPath		-	file directory to fragment shader
+//	outID					-	return ID of compiled program
+//
+//	Description:
+//	Loads and compiles shaders and links them to generate a program ID.
+//
+//----------------------------------------------------------------------------------------------------
 bool CShader::LoadShader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath, GLuint &outID)
 {
 	// Create shaders

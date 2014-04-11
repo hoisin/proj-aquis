@@ -70,13 +70,13 @@
     <LibraryPath>..\glew-1.10.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\glm\glm;..\glew-1.10.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\glm;..\glew-1.10.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>..\glew-1.10.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\glm\glm;..\glew-1.10.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\glm;..\glew-1.10.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>..\glew-1.10.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
@@ -140,30 +140,41 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CGameCore.cpp" />
     <ClCompile Include="CGraphics.cpp" />
+    <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="COpenGL.cpp" />
+    <ClCompile Include="CResourceIndexBuffer.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CResourceMeshData.cpp" />
     <ClCompile Include="CResourceShader.cpp" />
     <ClCompile Include="CResourceVertexBuffer.cpp" />
+    <ClCompile Include="CSceneNode.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CGameCore.h" />
     <ClInclude Include="CGraphics.h" />
+    <ClInclude Include="CIndexBuffer.h" />
     <ClInclude Include="CMeshDataGenerator.h" />
+    <ClInclude Include="CModelMesh.h" />
     <ClInclude Include="COpenGL.h" />
+    <ClInclude Include="CResourceIndexBuffer.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CResourceMeshData.h" />
     <ClInclude Include="CResourceShader.h" />
     <ClInclude Include="CResourceVertexBuffer.h" />
+    <ClInclude Include="CSceneNode.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="GfxDefs.h" />

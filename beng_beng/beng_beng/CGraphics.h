@@ -16,6 +16,7 @@
 class COpenGL;
 class CResourceManager;
 class CVertexBuffer;
+class CIndexBuffer;
 
 class CGraphics
 {
@@ -41,6 +42,7 @@ protected:
 
 	// Test vars
 	CVertexBuffer *pVert;
+	CIndexBuffer *pIdx;
 	int shaderProgID;
 
 

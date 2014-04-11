@@ -1,4 +1,5 @@
 #include "CResourceShader.h"
+#include "CShader.h"
 #include "GfxDefs.h"
 
 CResourceShader::CResourceShader(CShader *pShader) : m_pShader(pShader)

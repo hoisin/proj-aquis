@@ -2,6 +2,7 @@
 #include "COpenGL.h"
 #include "CResourceManager.h"
 #include "CVertexBuffer.h"
+#include "CIndexBuffer.h"
 
 CGraphics::CGraphics() : m_pOpenGL(NULL)
 {
@@ -67,7 +68,13 @@ bool CGraphics::RenderScene()
 
 	// Do drawing crap here
 	glBindVertexArray(pVert->GetVertexArray());
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
+	
+	glDrawElements(GL_TRIANGLES, pIdx->GetIndexCount(), GL_UNSIGNED_INT, 0);
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	// Swap buffers!!!
 	m_pOpenGL->SwapBuffersM();
@@ -96,9 +103,11 @@ void CGraphics::ShutDown()
 
 void CGraphics::LoadScene()
 {
-	MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, EVertexType::eVertexPC);
+	MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 1, eVertexPC);
+	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC);
 
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
+	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
 
 	shaderProgID = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 

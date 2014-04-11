@@ -4,6 +4,10 @@
 //
 //	Main math header
 //
+//	Note: This mini math library isn't used for the OpenGL app.
+//		Just for code exploration....
+//		Using GLM library instead.
+//
 //	Author: SeaFooD © 2014
 //
 //--------------------------------------------------------------------------

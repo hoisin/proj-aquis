@@ -13,12 +13,13 @@
 
 #include <map>
 #include <string>
-#include <glm.hpp>
+#include <glm\glm.hpp>
 #include "IResource.h"
 #include "GfxDefs.h"
 
 class CMeshDataGenerator;
 class CVertexBuffer;
+class CIndexBuffer;
 
 class CResourceManager
 {
@@ -32,7 +33,12 @@ public:
 	MeshData* CreateTriangle(const std::string &geometryID, float size, EVertexType type,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
+	MeshData* CreateQuad(const std::string &geometryID, float size, EVertexType,
+		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
+
 	CVertexBuffer* CreateVertexBuffer(const std::string &vertexID, MeshData *pData);
+
+	CIndexBuffer* CreateIndexBuffer(const std::string &indexID, MeshData *pData);
 
 	unsigned int CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
 		const std::string &fragShaderFile);
