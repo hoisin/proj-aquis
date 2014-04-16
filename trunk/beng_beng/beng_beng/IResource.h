@@ -18,6 +18,7 @@ enum EResourceType
 	eResourceVertexBuffer,
 	eResourceIndexBuffer,
 	eResourceShader,
+	eResourceTexture2D,
 	eResourceTotal
 };
 

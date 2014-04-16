@@ -3,6 +3,8 @@
 #include "CResourceManager.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
+#include "CShader.h"
+#include "CTexture2D.h"
 
 CGraphics::CGraphics() : m_pOpenGL(NULL)
 {
@@ -109,7 +111,7 @@ void CGraphics::LoadScene()
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
 	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
 
-	shaderProgID = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
+	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
-	glUseProgram(shaderProgID);
+	glUseProgram(pShader->GetShaderID());
 }

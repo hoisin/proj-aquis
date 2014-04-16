@@ -103,6 +103,12 @@
     <ClCompile Include="CTexture2D.cpp">
       <Filter>Graphics\OpenGL\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="CTextureLoader.cpp">
+      <Filter>Graphics\OpenGL\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceTexture2D.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -185,6 +191,12 @@
     </ClInclude>
     <ClInclude Include="CTexture2D.h">
       <Filter>Graphics\OpenGL\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureLoader.h">
+      <Filter>Graphics\OpenGL\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceTexture2D.h">
+      <Filter>Resource\Resource Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
