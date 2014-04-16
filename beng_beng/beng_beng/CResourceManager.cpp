@@ -3,13 +3,16 @@
 #include "CResourceVertexBuffer.h"
 #include "CResourceIndexBuffer.h"
 #include "CResourceShader.h"
-#include "CShader.h"
+#include "CResourceTexture2D.h"
 #include "CMeshDataGenerator.h"
+#include "CTextureLoader.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
+#include "CShader.h"
+#include "CTexture2D.h"
 
 
-CResourceManager::CResourceManager() : m_pMeshGenerator(NULL)
+CResourceManager::CResourceManager() : m_pMeshGenerator(NULL), m_pTextureLoader(NULL)
 {
 }
 
@@ -31,6 +34,7 @@ CResourceManager::~CResourceManager()
 bool CResourceManager::Initialise()
 {
 	m_pMeshGenerator = new CMeshDataGenerator;
+	m_pTextureLoader = new CTextureLoader;
 
 	return true;
 }
@@ -140,6 +144,27 @@ CIndexBuffer* CResourceManager::CreateIndexBuffer(const std::string &indexID, Me
 }
 
 
+CTexture2D* CResourceManager::CreateTexture2D(const std::string &fileName)
+{
+	unsigned char* pData = 0;
+	unsigned int width = 0;
+	unsigned int height = 0;
+
+	// Assume we only load BMPs for now
+	if(m_pTextureLoader->LoadBMP(fileName, width, height, pData)) {
+		CTexture2D *pNewTexture = new CTexture2D;
+
+		pNewTexture->LoadTexture(width, height, GL_RGB, GL_BGR, GL_UNSIGNED_BYTE, pData);
+
+		CResourceTexture2D *pNewResource = new CResourceTexture2D(pNewTexture);
+
+		// TO DO!!!!!
+	}
+
+	return NULL;
+}
+
+
 //----------------------------------------------------------------------------------------------------
 //
 //	CreateShader(..)
@@ -154,7 +179,7 @@ CIndexBuffer* CResourceManager::CreateIndexBuffer(const std::string &indexID, Me
 //	Loads/creates a shader resource by taking vertex and fragment shader and compiling them
 //
 //----------------------------------------------------------------------------------------------------
-unsigned int CResourceManager::CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
+CShader* CResourceManager::CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
 		const std::string &fragShaderFile)
 {
 	CShader *pNewShader = new CShader;
@@ -166,7 +191,7 @@ unsigned int CResourceManager::CreateShader(const std::string &shaderID, const s
 
 	m_resourceMap.insert(std::pair<std::string, IResource*>(shaderID, pNewResource));
 
-	return pNewShader->GetShaderID();
+	return pNewShader;
 }
 
 
