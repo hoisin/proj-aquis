@@ -28,6 +28,8 @@ public:
 	bool LoadTexture(unsigned int width, unsigned int height, GLint internalFormat,
 	GLint texFormat, GLenum dataType, unsigned char *pData);
 
+	void UseTexture();
+
 	GLuint GetTexture() { return m_textureHandle; }
 
 	void CleanUp();

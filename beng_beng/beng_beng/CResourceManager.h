@@ -43,7 +43,7 @@ public:
 	CIndexBuffer* CreateIndexBuffer(const std::string &indexID, MeshData *pData);
 
 	// Shader stuff
-	CTexture2D* CreateTexture2D(const std::string &fileName);
+	CTexture2D* CreateTexture2D(const std::string &textureID, const std::string &fileName);
 	CShader* CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
 		const std::string &fragShaderFile);
 

@@ -1,9 +1,11 @@
 #version 330 core
 
+in vec3 colorVert;
+
 out vec3 color;
 
 void main() 
 {
 	// output color as red
-	color = vec3(0.2, 0.5, 0.8);
+	color = colorVert;
 }

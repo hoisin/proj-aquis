@@ -24,6 +24,15 @@ void CIndexBuffer::LoadData(MeshData *pData)
 }
 
 
+void CIndexBuffer::UseBuffer()
+{
+	// Free previous used index buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);	// Probably don't need this
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+}
+
+
 void CIndexBuffer::ShutDown()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

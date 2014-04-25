@@ -11,7 +11,7 @@ CTextureLoader::~CTextureLoader()
 
 
 bool CTextureLoader::LoadFile(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,
-		unsigned char* pOutData)
+		unsigned char** pOutData)
 {
 
 	return LoadBMP(fileName, outWidth, outHeight, pOutData);
@@ -20,7 +20,7 @@ bool CTextureLoader::LoadFile(const std::string &fileName, unsigned int &outWidt
 
 
 bool CTextureLoader::LoadBMP(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,
-		unsigned char* pOutData)
+		unsigned char** pOutData)
 {
 	// Read header data from BMP
 	unsigned char header[54];	// Each BMP has a 54-byte header
@@ -61,5 +61,5 @@ bool CTextureLoader::LoadBMP(const std::string &fileName, unsigned int &outWidth
 
 	fclose(pFile);
 
-	pOutData = pData;
+	*pOutData = pData;
 }

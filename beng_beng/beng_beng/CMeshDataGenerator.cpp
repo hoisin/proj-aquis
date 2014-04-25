@@ -95,22 +95,22 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPT[0].position.x = 0;
 		pVertexPT[0].position.y = dist;
 		pVertexPT[0].position.z = 0;
-		pVertexPT[0].textureCoord.x = 0;
-		pVertexPT[0].textureCoord.y = 0.5;
+		pVertexPT[0].textureCoord.x = 1;
+		pVertexPT[0].textureCoord.y = 1;
 
 		// Bottom left vertex
 		pVertexPT[1].position.x = -dist;
 		pVertexPT[1].position.y = -dist;
 		pVertexPT[1].position.z = 0;
 		pVertexPT[1].textureCoord.x = 0;
-		pVertexPT[1].textureCoord.y = 1;
+		pVertexPT[1].textureCoord.y = 0;
 
 		// Bottom right vertex
 		pVertexPT[2].position.x = dist;
 		pVertexPT[2].position.y = -dist;
 		pVertexPT[2].position.z = 0;
 		pVertexPT[2].textureCoord.x = 1;
-		pVertexPT[2].textureCoord.y = 1;
+		pVertexPT[2].textureCoord.y = 0;
 		break;
 
 	case eVertexPNC:
@@ -294,26 +294,26 @@ MeshData* CMeshDataGenerator::CreateQuad(const std::string &geometryID, float si
 		pVertPT[0].position.x = -dist;
 		pVertPT[0].position.y = dist;
 		pVertPT[0].position.z = 0;
-		pVertPT[0].textureCoord.x = 0;
-		pVertPT[0].textureCoord.y = 0;
+		pVertPT[0].textureCoord.x = 0.f;
+		pVertPT[0].textureCoord.y = 1.f;
 
 		pVertPT[1].position.x = dist;
 		pVertPT[1].position.y = dist;
 		pVertPT[1].position.z = 0;
-		pVertPT[1].textureCoord.x = 1;
-		pVertPT[1].textureCoord.y = 0;
+		pVertPT[1].textureCoord.x = 1.f;
+		pVertPT[1].textureCoord.y = 1.f;
 
 		pVertPT[2].position.x = -dist;
 		pVertPT[2].position.y = -dist;
 		pVertPT[2].position.z = 0;
-		pVertPT[2].textureCoord.x = 0;
-		pVertPT[2].textureCoord.y = 1;
+		pVertPT[2].textureCoord.x = 0.f;
+		pVertPT[2].textureCoord.y = 0.f;
 
 		pVertPT[3].position.x = dist;
 		pVertPT[3].position.y = -dist;
 		pVertPT[3].position.z = 0;
-		pVertPT[3].textureCoord.x = 1;
-		pVertPT[3].textureCoord.y = 1;
+		pVertPT[3].textureCoord.x = 1.f;
+		pVertPT[3].textureCoord.y = 0.f;
 		break;
 
 		// Should not end up here
