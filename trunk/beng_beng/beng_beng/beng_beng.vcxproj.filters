@@ -47,6 +47,9 @@
     <Filter Include="Graphics\OpenGL\Texture">
       <UniqueIdentifier>{1c70b9a7-c82e-4de7-a57d-773d8db4f7f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\OpenGL\Shader">
+      <UniqueIdentifier>{c20101f0-0ef3-40b3-926b-39ec7f79746d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,9 +74,6 @@
       <Filter>Graphics\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="COpenGL.cpp">
-      <Filter>Graphics\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CShader.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="CCamera.cpp">
@@ -108,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="CResourceTexture2D.cpp">
       <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>Graphics\OpenGL\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +159,6 @@
     <ClInclude Include="COpenGL.h">
       <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="CShader.h">
-      <Filter>Graphics\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="ISceneNode.h">
       <Filter>Graphics\Scenegraph</Filter>
     </ClInclude>
@@ -197,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="CResourceTexture2D.h">
       <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Graphics\OpenGL\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

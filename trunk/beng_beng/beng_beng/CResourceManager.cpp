@@ -144,24 +144,33 @@ CIndexBuffer* CResourceManager::CreateIndexBuffer(const std::string &indexID, Me
 }
 
 
-CTexture2D* CResourceManager::CreateTexture2D(const std::string &fileName)
+CTexture2D* CResourceManager::CreateTexture2D(const std::string &textureID, const std::string &fileName)
 {
-	unsigned char* pData = 0;
+	unsigned char* pData = NULL;
 	unsigned int width = 0;
 	unsigned int height = 0;
 
-	// Assume we only load BMPs for now
-	if(m_pTextureLoader->LoadBMP(fileName, width, height, pData)) {
-		CTexture2D *pNewTexture = new CTexture2D;
+	CTexture2D *pNewTexture = new CTexture2D;
 
+	// Assume we only load BMPs for now
+	if(m_pTextureLoader->LoadBMP(fileName, width, height, &pData)) {
 		pNewTexture->LoadTexture(width, height, GL_RGB, GL_BGR, GL_UNSIGNED_BYTE, pData);
 
 		CResourceTexture2D *pNewResource = new CResourceTexture2D(pNewTexture);
 
-		// TO DO!!!!!
+		m_resourceMap.insert(std::pair<std::string, IResource*>(textureID, pNewResource));
+	} else {
+		delete pNewTexture;
+		pNewTexture = NULL;
 	}
 
-	return NULL;
+	// Clean up loaded data
+	if(pData) {
+		delete [] pData;
+		pData = NULL;
+	}
+
+	return pNewTexture;
 }
 
 
@@ -216,8 +225,7 @@ IResource* CResourceManager::GetResource(const std::string &resourceID)
 //----------------------------------------------------------------------------------------------------
 void CResourceManager::ShutDown()
 {
-	if(m_pMeshGenerator)
-	{
+	if(m_pMeshGenerator) {
 		delete m_pMeshGenerator;
 		m_pMeshGenerator = NULL;
 	}
@@ -225,8 +233,7 @@ void CResourceManager::ShutDown()
 	// Loop through all resources and remove
 	std::map<std::string, IResource *>::iterator it = m_resourceMap.begin();
 
-	for(; it != m_resourceMap.end(); it++)
-	{
+	for(; it != m_resourceMap.end(); it++) {
 		it->second->VCleanUp();	// Won't need this if resources call the shutdown in the d'tor.
 		delete it->second;
 		it->second = NULL;

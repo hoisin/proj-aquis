@@ -1,9 +1,9 @@
 #version 330 core
 
 layout(location = 0) in vec3 vertexPosition_modelspace;
-layout(location = 1) in vec3 vertexColor;
+layout(location = 1) in vec2 vertexUV;
 
-out vec3 colorVert;
+out vec2 UV;
 
 // main routine
 void main()
@@ -11,5 +11,5 @@ void main()
 	gl_Position.xyz = vertexPosition_modelspace;
 	gl_Position.w = 1.0;
 	
-	colorVert = vertexColor;
+	UV = vertexUV;
 }

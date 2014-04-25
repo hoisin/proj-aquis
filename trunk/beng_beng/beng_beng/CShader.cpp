@@ -80,6 +80,7 @@ bool CShader::LoadShader(const std::string &vertexShaderPath, const std::string 
 	std::vector<char> vertexShaderErrorMessage(infoLogLength);
 	glGetShaderInfoLog(vertShaderID, infoLogLength, NULL, &vertexShaderErrorMessage[0]);
 	fprintf(stdout, "%s\n", &vertexShaderErrorMessage[0]);
+	::OutputDebugStringA(&vertexShaderErrorMessage[0]);
 	
 	// Compile fragment shader
 	printf("Compiling shader: %s\n", fragmentShaderPath);
@@ -93,6 +94,7 @@ bool CShader::LoadShader(const std::string &vertexShaderPath, const std::string 
 	std::vector<char> fragShaderErrorMessage(infoLogLength);
 	glGetShaderInfoLog(fragShaderID, infoLogLength, NULL, &fragShaderErrorMessage[0]);
 	fprintf(stdout, "%s\n", &fragShaderErrorMessage);
+	::OutputDebugStringA(&fragShaderErrorMessage[0]);
 	
 	// Link program
 	fprintf(stdout, "Linking program\n");
@@ -107,6 +109,7 @@ bool CShader::LoadShader(const std::string &vertexShaderPath, const std::string 
 	std::vector<char> programErrorMessage( (std::max)(infoLogLength, int(1)) );
 	glGetProgramInfoLog(m_programID, infoLogLength, NULL, &programErrorMessage[0]);
 	fprintf(stdout, "%s\n", &programErrorMessage[0]);
+	::OutputDebugStringA(&programErrorMessage[0]);
 
 	glDeleteShader(vertShaderID);
 	glDeleteShader(fragShaderID);
@@ -114,4 +117,13 @@ bool CShader::LoadShader(const std::string &vertexShaderPath, const std::string 
 	outID = m_programID;
 
 	return true;
+}
+
+
+void CShader::UserShader()
+{
+	// Free last used shader
+	glUseProgram(0);
+
+	glUseProgram(m_programID);
 }

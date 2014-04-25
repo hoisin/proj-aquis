@@ -42,27 +42,69 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		glGenBuffers(m_numVBOs, m_pVBO);
 
 		// Position buffer
+		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
 		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), 0);
-		glEnableVertexAttribArray(0);
-
+		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		// Colour buffer
+		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
 		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
-		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), &((SVertexTypePC*)(pData->pVertices))[0].colour);
-		glEnableVertexAttribArray(1);
+		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), (void*)sizeof(glm::vec3));
+		
 
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		break;
+
+	case eVertexPT:
+		m_numVBOs = 2;
+		m_pVBO = new GLuint[m_numVBOs];
+
+		// Generate and setup VBOs
+		glGenBuffers(m_numVBOs, m_pVBO);
+
+		// Position buffer
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePT), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePT), 0);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// texture buffer
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePT), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)1, 2, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePT), (void*)sizeof(glm::vec3));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		break;
 
 	default:
 		break;
 	}
+
+	glBindVertexArray(0);
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//
+//	UseBuffer(..)
+//
+//	Description:
+//	Set this buffer to be the current buffer in use
+//
+//----------------------------------------------------------------------------------------------------
+void CVertexBuffer::UseBuffer()
+{
+	// Free previous used buffer
+	glBindVertexArray(0);			// Probably don't need this
+
+	glBindVertexArray(m_VAO);
+}
 
 //----------------------------------------------------------------------------------------------------
 //
@@ -79,8 +121,7 @@ void CVertexBuffer::ShutDown()
 	glDeleteBuffers(m_numVBOs, m_pVBO);
 	glDeleteVertexArrays(1, &m_VAO);
 
-	if(m_numVBOs > 0)
-	{
+	if(m_numVBOs > 0) {
 		delete [] m_pVBO;
 	}
 }

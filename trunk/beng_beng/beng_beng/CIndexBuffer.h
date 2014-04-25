@@ -23,6 +23,8 @@ public:
 
 	void LoadData(MeshData *pData);
 
+	void UseBuffer();
+
 	GLuint GetElementBuffer()	{ return m_elementBuffer; }
 	GLuint GetIndexCount()		{ return m_idxCount; } 
 		

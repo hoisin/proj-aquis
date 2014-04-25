@@ -4,6 +4,9 @@
 //
 //	Class handling texture loading
 //
+//	Note: This has been tested for the BMP loading and is working correctly.
+//		Simply read data retrieved and wrote it back to another file for test.
+//
 //	Author: SeaFooD © 2014
 //
 //--------------------------------------------------------------------------
@@ -20,10 +23,10 @@ public:
 	~CTextureLoader();
 
 	bool LoadFile(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,
-		unsigned char* pOutData);
+		unsigned char** pOutData);
 
 	bool LoadBMP(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,
-		unsigned char* pOutData);
+		unsigned char** pOutData);
 
 private:
 };

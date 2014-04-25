@@ -24,6 +24,8 @@ public:
 
 	void LoadData(MeshData *pData);
 
+	void UseBuffer();
+
 	GLuint GetVertexArray() { return m_VAO; }
 
 	void ShutDown();

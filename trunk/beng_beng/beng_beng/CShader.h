@@ -25,6 +25,8 @@ public:
 	~CShader();
 
 	bool LoadShader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath, GLuint &outID);
+	
+	void UserShader();
 
 	GLuint GetShaderID() { return m_programID; }
 
