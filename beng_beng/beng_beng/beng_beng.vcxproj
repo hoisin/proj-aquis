@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCameraFPS.cpp" />
     <ClCompile Include="CGameCore.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="CApp.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCameraFPS.h" />
     <ClInclude Include="CGameCore.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CIndexBuffer.h" />

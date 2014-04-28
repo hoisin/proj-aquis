@@ -19,6 +19,7 @@ class CVertexBuffer;
 class CIndexBuffer;
 class CShader;
 class CTexture2D;
+class CCamera;
 
 class CGraphics
 {
@@ -47,7 +48,7 @@ protected:
 	CIndexBuffer *pIdx;
 	CShader* pShader;
 	CTexture2D* pTex;
-
+	CCamera* pCam;
 
 };
 
