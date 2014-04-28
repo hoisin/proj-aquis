@@ -112,6 +112,9 @@
     <ClCompile Include="CShader.cpp">
       <Filter>Graphics\OpenGL\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="CCameraFPS.cpp">
+      <Filter>Graphics\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>Graphics\OpenGL\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraFPS.h">
+      <Filter>Graphics\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

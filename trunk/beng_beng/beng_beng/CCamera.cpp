@@ -69,3 +69,54 @@ glm::mat4 CCamera::GetViewMatrix()
 {
 	return glm::lookAt(m_look, m_position, m_up);
 }
+
+
+//------------------------------------------------------------------
+//
+//	ResetAngle180(..)
+//
+//	Params:
+//	angle	-	angle in degrees
+//
+//	Calulates the passed angle to be in between -180 to 180
+//
+//------------------------------------------------------------------
+float CCamera::ResetAngle180(float angle)
+{
+	float temp = angle;
+	if(angle > (180 * (PI/180)))
+		temp +=  (float)(-360 * (PI/180));
+
+	if(angle < (-180 * (PI/180)))
+		temp +=  (float)(360 * (PI/180));
+
+	return temp;
+}
+
+
+//------------------------------------------------------------------
+//
+//	RestrictAngle90(..)
+//
+//	Params:
+//	angle	-	angle in degrees
+//
+//	Calulates the passed angle to be in between -90 to 90
+//
+//------------------------------------------------------------------
+float CCamera::RestrictAngle90(float angle)
+{
+	float temp = angle;
+
+	// Using 89.99 to avoid gimbal lock
+	float maxBound = (float)(89.99*(PI/180));
+	float minBound = (float)(-89.99*(PI/180));
+
+	if(angle > maxBound)
+		temp = maxBound;
+
+	if(angle < minBound)
+		temp = minBound;
+
+	return temp;
+}

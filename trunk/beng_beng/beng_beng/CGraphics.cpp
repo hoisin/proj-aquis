@@ -5,6 +5,7 @@
 #include "CIndexBuffer.h"
 #include "CShader.h"
 #include "CTexture2D.h"
+#include "CCameraFPS.h"
 
 CGraphics::CGraphics() : m_pOpenGL(NULL)
 {

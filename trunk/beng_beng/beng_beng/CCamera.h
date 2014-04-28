@@ -13,7 +13,7 @@
 
 #include <glm\glm.hpp>
 
-// going to create the base camera class
+#define PI 3.14159265
 
 class CCamera
 {
@@ -25,6 +25,10 @@ public:
 
 	glm::mat4 GetProjectionMatrix();
 	glm::mat4 GetViewMatrix();
+
+protected:
+	float ResetAngle180(float angle);		//resets angle back to 0 when over 180 or under -180
+	float RestrictAngle90(float angle);		//restricts angle to 90 - (-90)
 
 public:
 	// View matrix stuff
