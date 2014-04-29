@@ -1,6 +1,12 @@
 #include <sstream>
 #include "CApp.h"
 
+// test
+#include "CCameraFPS.h"
+
+float g_movAmt = 0.2f;
+float g_rotAmt = 0.3f;
+
 
 CApp::CApp() : m_pGfx(NULL), m_pResourceMgr(NULL), m_bAppActive(true), m_bRun(true)
 {
@@ -322,6 +328,14 @@ bool CApp::OnEvent(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 
+	//mouse variables for allowing interaction with camera
+	POINT temp;
+	::GetCursorPos(&temp);
+	static float lastX = (float)temp.x;
+	static float lastY = (float)temp.y;
+	static float x = (float)temp.x;
+	static float y = (float)temp.y;
+
 	switch ( msg )
 	{
 	case WM_PAINT:
@@ -345,6 +359,61 @@ bool CApp::OnEvent(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 
 	case WM_SIZE:
+		break;
+
+	case WM_LBUTTONDOWN:
+		SetCapture(m_hWnd);
+		break;
+
+	case WM_LBUTTONUP:
+		::ReleaseCapture();
+		break;
+
+	case WM_MOUSEWHEEL:
+		break;
+
+	case WM_MOUSEMOVE:
+		::GetCursorPos(&temp);
+		x = (float)temp.x - lastX;
+		y = (float)temp.y - lastY; 
+		if(wParam && MK_LBUTTON)
+		{
+			CCameraFPS* cam = (CCameraFPS*)m_pGfx->GetCamera();
+			cam->RotateYaw(x*g_rotAmt);
+			cam->RotatePitch(y*g_rotAmt);
+	/*		g_firstPersonCam.RotateLeftRight(x*g_rotationAmt);
+			g_firstPersonCam.RotateUpDown(y*g_rotationAmt);*/
+		}
+
+		lastX = (float)temp.x;
+		lastY = (float)temp.y;
+		break;
+
+	case WM_KEYDOWN:
+		{
+			CCameraFPS* cam = (CCameraFPS*)m_pGfx->GetCamera();
+			switch(wParam)
+			{
+			case 'W':
+				cam->MoveForward(g_movAmt);
+				break;
+
+			case 'S':
+				cam->MoveBack(g_movAmt);
+				break;
+
+			case 'A':
+				cam->StrafeLeft(g_movAmt);
+				break;
+
+			case 'D':
+				cam->StrafeRight(g_movAmt);
+				break;
+
+			default:
+				break;
+			}
+		}
 		break;
 
 	default:
