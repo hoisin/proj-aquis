@@ -19,7 +19,7 @@ class CVertexBuffer;
 class CIndexBuffer;
 class CShader;
 class CTexture2D;
-class CCamera;
+class CCameraFPS;
 
 class CGraphics
 {
@@ -37,10 +37,15 @@ public:
 	// Temporary test method for general loading stuff.....
 	void LoadScene();
 
+	// Temporary camera get function
+	CCameraFPS* GetCamera() { return pCam; }
+
 protected:
 	HINSTANCE m_hInstance;
 	COpenGL *m_pOpenGL;
 	CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
+
+	int m_winWidth, m_winHeight;
 
 
 	// Test vars
@@ -48,7 +53,7 @@ protected:
 	CIndexBuffer *pIdx;
 	CShader* pShader;
 	CTexture2D* pTex;
-	CCamera* pCam;
+	CCameraFPS* pCam;
 
 };
 
