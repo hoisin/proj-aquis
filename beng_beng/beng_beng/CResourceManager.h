@@ -37,6 +37,8 @@ public:
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 	MeshData* CreateQuad(const std::string &geometryID, float size, EVertexType,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
+	MeshData* CreateCube(const std::string &geometryID, float size, EVertexType, unsigned int numFaces,
+		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
 	// Buffer Stuff
 	CVertexBuffer* CreateVertexBuffer(const std::string &vertexID, MeshData *pData);

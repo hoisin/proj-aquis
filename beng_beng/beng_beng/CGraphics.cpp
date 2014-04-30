@@ -51,6 +51,12 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 	m_winWidth = windowWidth;
 	m_winHeight = windowHeight;
 
+	// Vars/states that need porting 
+	glDepthMask(GL_TRUE);		// Depth buffer enabled for writing
+	glEnable(GL_DEPTH_TEST);	// Depth testing (stuff behind stuff don't get draw)
+	glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
+		
+
 	return true;
 }
 
@@ -69,7 +75,7 @@ bool CGraphics::RenderScene()
 		return false;
 
 	// Clear screen before drawing
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
 
 	// Do drawing crap here
 	//glActiveTexture(GL_TEXTURE0);
@@ -131,15 +137,16 @@ void CGraphics::ShutDown()
 void CGraphics::LoadScene()
 {
 	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 1, eVertexPT);//, glm::vec4(1,0,1,1));
-	MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC, glm::vec4(1,1,1,0));
+	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC, glm::vec4(1,1,1,0));
+	MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 1, glm::vec4(1,1,1,0));
 
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
 	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
 
 	pTex = m_pResourceMgr->CreateTexture2D("tex_1", "..\\Textures\\wtf.bmp");
 
-	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
-	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
+	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
+	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
 	pCam = new CCameraFPS(glm::vec3(0,0,0), glm::vec3(0,1,0), glm::vec3(0,0,1), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }
