@@ -1,11 +1,20 @@
 #include "CCameraFPS.h"
 
 
-CCameraFPS::CCameraFPS(const glm::vec3 &pos, const glm::vec3 &up, const glm::vec3 &look, 
-		float zNear, float zFar, float aspectRatio, float fovV) : 
+CCameraFPS::CCameraFPS(const glm::vec3 &pos, const glm::vec3 &up , float zNear, float zFar, float aspectRatio, 
+	float fovV, float horizAngle, float vertAngle) : 
 	m_horizontalAngle(0), m_verticalAngle(0),
-	CCamera(pos, up, look, zNear, zFar, aspectRatio, fovV)
+	CCamera(pos, up, glm::vec3(0,0,0), zNear, zFar, aspectRatio, fovV)
 {
+	//convert angles to radians
+	m_horizontalAngle = (float)(horizAngle * (PI/180));
+	m_verticalAngle = (float)(vertAngle * (PI/180));
+
+	//right handed coordinate system
+	//calculate interest
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle);
 }
 
 
@@ -16,7 +25,26 @@ CCameraFPS::~CCameraFPS()
 
 void CCameraFPS::MoveForward(float amt)
 {
-	// Right handed system, -tive value to move into screen
+	//view direction
+	float viewDirX = m_look.x - m_position.x;
+	float viewDirY = m_look.y - m_position.y;
+	float viewDirZ = m_look.z - m_position.z;
+
+	m_position.x += amt*viewDirX;
+	m_position.y += amt*viewDirY;	//remove this to prevent player moving up when facing up
+	m_position.z += amt*viewDirZ;
+
+	// Right handed coordinate system
+	// calculate interest
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle); 
+}
+
+
+void CCameraFPS::MoveBack(float amt)
+{
+	// Right handed system, +tive value to move out of screen
 	amt *= -1;
 
 	//view direction
@@ -30,30 +58,9 @@ void CCameraFPS::MoveForward(float amt)
 
 	// Right handed coordinate system
 	// calculate interest
-	m_look.x = m_position.x + sin(m_horizontalAngle)*cos(m_verticalAngle);
-	m_look.y = m_position.y + sin(m_verticalAngle);
-	m_look.z = m_position.z + cos(m_horizontalAngle)*cos(m_verticalAngle); 
-}
-
-
-void CCameraFPS::MoveBack(float amt)
-{
-	// Right handed system, +tive value to move out of screen
-
-	//view direction
-	float viewDirX = m_look.x - m_position.x;
-	float viewDirY = m_look.y - m_position.y;
-	float viewDirZ = m_look.z - m_position.z;
-
-	m_position.x += amt*viewDirX;
-	m_position.y += amt*viewDirY;	//remove this to prevent player moving up when facing up
-	m_position.z += amt*viewDirZ;
-
-	// Right handed coordinate system
-	// calculate interest
-	m_look.x = m_position.x + sin(m_horizontalAngle)*cos(m_verticalAngle);
-	m_look.y = m_position.y + sin(m_verticalAngle);
-	m_look.z = m_position.z + cos(m_horizontalAngle)*cos(m_verticalAngle); 
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle); 
 }
 
 
@@ -69,9 +76,9 @@ void CCameraFPS::StrafeLeft(float amt)
 
 	// Right handed coordinate system
 	// calculate interest
-	m_look.x = m_position.x + sin(m_horizontalAngle)*cos(m_verticalAngle);
-	m_look.y = m_position.y + sin(m_verticalAngle);
-	m_look.z = m_position.z + cos(m_horizontalAngle)*cos(m_verticalAngle); 
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle); 
 }
 
 
@@ -87,9 +94,9 @@ void CCameraFPS::StrafeRight(float amt)
 
 	// Right handed coordinate system
 	// calculate interest
-	m_look.x = m_position.x + sin(m_horizontalAngle)*cos(m_verticalAngle);
-	m_look.y = m_position.y + sin(m_verticalAngle);
-	m_look.z = m_position.z + cos(m_horizontalAngle)*cos(m_verticalAngle); 
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle); 
 }
 
 
@@ -102,9 +109,9 @@ void CCameraFPS::RotateYaw(float degrees)
 
 	// Right handed coordinate system
 	// calculate interest
-	m_look.x = m_position.x + sin(m_horizontalAngle)*cos(m_verticalAngle);
-	m_look.y = m_position.y + sin(m_verticalAngle);
-	m_look.z = m_position.z + cos(m_horizontalAngle)*cos(m_verticalAngle); 
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle); 
 }
 
 
@@ -117,8 +124,8 @@ void CCameraFPS::RotatePitch(float degress)
 
 	// Right handed coordinate system
 	// calculate interest
-	m_look.x = m_position.x + sin(m_horizontalAngle)*cos(m_verticalAngle);
-	m_look.y = m_position.y + sin(m_verticalAngle);
-	m_look.z = m_position.z + cos(m_horizontalAngle)*cos(m_verticalAngle); 
+	m_look.x = m_position.x - sin(m_horizontalAngle)*cos(m_verticalAngle);
+	m_look.y = m_position.y - sin(m_verticalAngle);
+	m_look.z = m_position.z - cos(m_horizontalAngle)*cos(m_verticalAngle); 
 }
 

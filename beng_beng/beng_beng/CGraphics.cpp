@@ -148,5 +148,5 @@ void CGraphics::LoadScene()
 	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
-	pCam = new CCameraFPS(glm::vec3(0,0,0), glm::vec3(0,1,0), glm::vec3(0,0,1), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
+	pCam = new CCameraFPS(glm::vec3(0,0,10), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }

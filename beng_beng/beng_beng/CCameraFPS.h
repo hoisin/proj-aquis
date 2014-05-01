@@ -16,8 +16,8 @@
 class CCameraFPS : public CCamera
 {
 public:
-	CCameraFPS(const glm::vec3 &pos, const glm::vec3 &up, const glm::vec3 &look, 
-		float zNear, float zFar, float aspectRatio, float fovV);
+	CCameraFPS(const glm::vec3 &pos, const glm::vec3 &up, float zNear, float zFar, float aspectRatio, 
+		float fovV, float horizAngle = 0.f, float vertAngle = 0.f);
 	~CCameraFPS();
 
 	void MoveForward(float amt);
