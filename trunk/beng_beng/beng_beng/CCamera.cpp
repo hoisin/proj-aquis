@@ -67,7 +67,7 @@ glm::mat4 CCamera::GetProjectionMatrix()
 //------------------------------------------------------------------
 glm::mat4 CCamera::GetViewMatrix()
 {
-	return glm::lookAt(m_look, m_position, m_up);
+	return glm::lookAt(m_position, m_look, m_up);
 }
 
 
