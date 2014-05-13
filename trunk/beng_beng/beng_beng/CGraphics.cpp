@@ -6,6 +6,7 @@
 #include "CShader.h"
 #include "CTexture2D.h"
 #include "CCameraFPS.h"
+#include "CModelMesh.h"
 
 CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0)
 {
@@ -86,29 +87,32 @@ bool CGraphics::RenderScene()
 	//glBindVertexArray(pVert->GetVertexArray());
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
 
-	pVert->UseBuffer();
-	pIdx->UseBuffer();
-	pTex->UseTexture();
-	pShader->UserShader();
+	for(int i = 0; i < 1; i++)
+	{
+		/*pVert->UseBuffer();
+		pIdx->UseBuffer();
+		pTex->UseTexture();
+		pShader->UserShader();*/
 
-	int projectionMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "projectionMatrix"); // Get the location of our projection matrix in the shader  
-	int viewMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "viewMatrix"); // Get the location of our view matrix in the shader  
-	int modelMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "worldMatrix"); // Get the location of our model matrix in the shader 
+		int projectionMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "projectionMatrix"); // Get the location of our projection matrix in the shader  
+		int viewMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "viewMatrix"); // Get the location of our view matrix in the shader  
+		int modelMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "worldMatrix"); // Get the location of our model matrix in the shader 
 
-	glm::mat4 world(1);
+		glm::mat4 world(1);
 
-	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &pCam->GetProjectionMatrix()[0][0]); // Send our projection matrix to the shader  
-    glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &pCam->GetViewMatrix()[0][0]); // Send our view matrix to the shader  
-    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &world[0][0]); // Send our model matrix to the shader  
-	
-	glDrawElements(GL_TRIANGLES, pIdx->GetIndexCount(), GL_UNSIGNED_INT, 0);
-	//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &pCam->GetProjectionMatrix()[0][0]); // Send our projection matrix to the shader  
+		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &pCam->GetViewMatrix()[0][0]); // Send our view matrix to the shader  
+		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &world[0][0]); // Send our model matrix to the shader  
 
-	// Free stuff for the next draw call
-	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glUseProgram(0);
+		glDrawElements(GL_TRIANGLES, pIdx->GetIndexCount(), GL_UNSIGNED_INT, 0);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// Free stuff for the next draw call
+		glBindVertexArray(0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glUseProgram(0);
+	}
 
 	// Swap buffers!!!
 	m_pOpenGL->SwapBuffersM();
@@ -147,6 +151,12 @@ void CGraphics::LoadScene()
 
 	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
+
+	pModels[0] = m_pResourceMgr->CreateModelMesh("myModel1", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+	pModels[1] = m_pResourceMgr->CreateModelMesh("myModel2", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+	pModels[2] = m_pResourceMgr->CreateModelMesh("myModel3", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+	pModels[3] = m_pResourceMgr->CreateModelMesh("myModel4", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+	pModels[4] = m_pResourceMgr->CreateModelMesh("myModel5", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
 
 	pCam = new CCameraFPS(glm::vec3(0,0,10), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }

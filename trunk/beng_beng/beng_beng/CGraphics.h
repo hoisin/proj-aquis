@@ -20,6 +20,7 @@ class CIndexBuffer;
 class CShader;
 class CTexture2D;
 class CCameraFPS;
+class CModelMesh;
 
 class CGraphics
 {
@@ -55,6 +56,8 @@ protected:
 	CTexture2D* pTex;
 	CCameraFPS* pCam;
 
+	// Resource manager handles clean up
+	CModelMesh* pModels[5];
 };
 
 #endif

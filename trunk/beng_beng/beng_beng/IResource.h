@@ -17,6 +17,7 @@ enum EResourceType
 	eResourceMeshData,
 	eResourceVertexBuffer,
 	eResourceIndexBuffer,
+	eResourceModelMesh,
 	eResourceShader,
 	eResourceTexture2D,
 	eResourceTotal

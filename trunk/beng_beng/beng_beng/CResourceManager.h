@@ -23,6 +23,7 @@ class CVertexBuffer;
 class CIndexBuffer;
 class CShader;
 class CTexture2D;
+class CModelMesh;
 
 class CResourceManager
 {
@@ -48,6 +49,10 @@ public:
 	CTexture2D* CreateTexture2D(const std::string &textureID, const std::string &fileName);
 	CShader* CreateShader(const std::string &shaderID, const std::string &vertexShaderFile,
 		const std::string &fragShaderFile);
+
+	// Model definiton stuff
+	CModelMesh* CreateModelMesh(const std::string &modelMeshID, const std::string &meshID, const std::string &vertexID, 
+		const std::string &indexID, const std::string &shaderID, const std::string &textureID);
 
 	IResource* GetResource(const std::string &esourceID);
 
