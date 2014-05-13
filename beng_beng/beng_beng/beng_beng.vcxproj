@@ -146,10 +146,12 @@
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="CMeshDataGenerator.cpp" />
+    <ClCompile Include="CModelMesh.cpp" />
     <ClCompile Include="COpenGL.cpp" />
     <ClCompile Include="CResourceIndexBuffer.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CResourceMeshData.cpp" />
+    <ClCompile Include="CResourceModelMesh.cpp" />
     <ClCompile Include="CResourceShader.cpp" />
     <ClCompile Include="CResourceTexture2D.cpp" />
     <ClCompile Include="CResourceVertexBuffer.cpp" />
@@ -174,6 +176,7 @@
     <ClInclude Include="CResourceIndexBuffer.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CResourceMeshData.h" />
+    <ClInclude Include="CResourceModelMesh.h" />
     <ClInclude Include="CResourceShader.h" />
     <ClInclude Include="CResourceTexture2D.h" />
     <ClInclude Include="CResourceVertexBuffer.h" />

@@ -115,6 +115,12 @@
     <ClCompile Include="CCameraFPS.cpp">
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="CModelMesh.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceModelMesh.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -206,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="CCameraFPS.h">
       <Filter>Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceModelMesh.h">
+      <Filter>Resource\Resource Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

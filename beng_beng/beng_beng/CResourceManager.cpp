@@ -4,12 +4,14 @@
 #include "CResourceIndexBuffer.h"
 #include "CResourceShader.h"
 #include "CResourceTexture2D.h"
+#include "CResourceModelMesh.h"
 #include "CMeshDataGenerator.h"
 #include "CTextureLoader.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CShader.h"
 #include "CTexture2D.h"
+#include "CModelMesh.h"
 
 
 CResourceManager::CResourceManager() : m_pMeshGenerator(NULL), m_pTextureLoader(NULL)
@@ -173,6 +175,18 @@ CIndexBuffer* CResourceManager::CreateIndexBuffer(const std::string &indexID, Me
 }
 
 
+//----------------------------------------------------------------------------------------------------
+//
+//	CreateTexture2D(..)
+//
+//	Params:
+//	textureID		-	ID of resource to store in map
+//	fileName		-	location of file
+//
+//	Description:
+//	Loads/creates texture resource
+//
+//----------------------------------------------------------------------------------------------------
 CTexture2D* CResourceManager::CreateTexture2D(const std::string &textureID, const std::string &fileName)
 {
 	unsigned char* pData = NULL;
@@ -230,6 +244,35 @@ CShader* CResourceManager::CreateShader(const std::string &shaderID, const std::
 	m_resourceMap.insert(std::pair<std::string, IResource*>(shaderID, pNewResource));
 
 	return pNewShader;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
+//	CreateModelMesh(..)
+//
+//	Params:
+//	modelMeshID	-	ID of the resource to store in the map
+//	meshID		-	Reference ID to stored Mesh Data
+//	vertexID	-	Reference ID to stored vertex buffer
+//	indexID		-	Reference ID to stored index buffer
+//	shaderID	-	Reference ID to stored shader
+//	textureID	-	Reference ID to stored texture
+//
+//	Description:
+//	Creates a model mesh
+//
+//----------------------------------------------------------------------------------------------------
+CModelMesh* CResourceManager::CreateModelMesh(const std::string &modelMeshID, const std::string &meshID, const std::string &vertexID, 
+	const std::string &indexID, const std::string &shaderID, const std::string &textureID)
+{
+	CModelMesh *pNewModelMesh = new CModelMesh(meshID, vertexID, indexID, shaderID, textureID);
+
+	CResourceModelMesh *pNewResource = new CResourceModelMesh(pNewModelMesh);
+
+	m_resourceMap.insert(std::pair<std::string, IResource*>(modelMeshID, pNewResource));
+
+	return pNewModelMesh;
 }
 
 
