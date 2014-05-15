@@ -20,6 +20,7 @@
 #ifndef __CMODELMESH_H__
 #define __CMODELMESH_H__
 
+#include <glm\glm.hpp>
 #include <string>
 
 class CModelMesh
@@ -35,6 +36,9 @@ public:
 	std::string m_indexID;
 	std::string m_shaderID;
 	std::string m_textureID;
+	
+	// Temporary only, for testing
+	glm::vec3 pos;
 };
 
 #endif

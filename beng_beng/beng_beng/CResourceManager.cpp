@@ -278,7 +278,7 @@ CModelMesh* CResourceManager::CreateModelMesh(const std::string &modelMeshID, co
 
 IResource* CResourceManager::GetResource(const std::string &resourceID)
 {
-	std::map<std::string, IResource*>::iterator it = m_resourceMap.find("resourceID");
+	std::map<std::string, IResource*>::iterator it = m_resourceMap.find(resourceID);
 
 	if(it != m_resourceMap.end())
 		return it->second;

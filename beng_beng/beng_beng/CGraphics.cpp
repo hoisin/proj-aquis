@@ -1,12 +1,20 @@
 #include "CGraphics.h"
 #include "COpenGL.h"
 #include "CResourceManager.h"
+#include "CResourceVertexBuffer.h"
+#include "CResourceModelMesh.h"
+#include "CResourceIndexBuffer.h"
+#include "CResourceModelMesh.h"
+#include "CResourceShader.h"
+#include "CResourceTexture2D.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CShader.h"
 #include "CTexture2D.h"
 #include "CCameraFPS.h"
 #include "CModelMesh.h"
+
+#include <sstream>
 
 CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0)
 {
@@ -87,18 +95,32 @@ bool CGraphics::RenderScene()
 	//glBindVertexArray(pVert->GetVertexArray());
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
 
-	for(int i = 0; i < 1; i++)
+	for(int i = 0; i < 1000; i++)
 	{
 		/*pVert->UseBuffer();
 		pIdx->UseBuffer();
 		pTex->UseTexture();
 		pShader->UserShader();*/
 
+		((CResourceVertexBuffer*)(m_pResourceMgr->GetResource(pModels[i]->m_vertexID)))->m_pVertBuffer->UseBuffer();
+		((CResourceIndexBuffer*)(m_pResourceMgr->GetResource(pModels[i]->m_indexID)))->m_pIdxBuffer->UseBuffer();
+		((CResourceTexture2D*)(m_pResourceMgr->GetResource(pModels[i]->m_textureID)))->m_pTexture->UseTexture();
+		((CResourceShader*)(m_pResourceMgr->GetResource(pModels[i]->m_shaderID)))->m_pShader->UserShader();
+
 		int projectionMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "projectionMatrix"); // Get the location of our projection matrix in the shader  
 		int viewMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "viewMatrix"); // Get the location of our view matrix in the shader  
 		int modelMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "worldMatrix"); // Get the location of our model matrix in the shader 
 
 		glm::mat4 world(1);
+
+		std::string name = "";
+		std::stringstream str;
+		str << i;
+		name = "myModel" + str.str();
+
+		//world = glm::translate(glm::mat4(1.0), glm::vec3(rand()%50, rand()%50, -rand()%50));
+		world = glm::translate(glm::mat4(1.0), 
+			((CResourceModelMesh*)(m_pResourceMgr->GetResource(name)))->m_pModelMesh->pos);
 
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &pCam->GetProjectionMatrix()[0][0]); // Send our projection matrix to the shader  
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &pCam->GetViewMatrix()[0][0]); // Send our view matrix to the shader  
@@ -142,7 +164,7 @@ void CGraphics::LoadScene()
 {
 	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 1, eVertexPT);//, glm::vec4(1,0,1,1));
 	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC, glm::vec4(1,1,1,0));
-	MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 1, glm::vec4(1,1,1,0));
+	MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 10, glm::vec4(1,1,1,0));
 
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
 	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
@@ -152,11 +174,14 @@ void CGraphics::LoadScene()
 	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
-	pModels[0] = m_pResourceMgr->CreateModelMesh("myModel1", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-	pModels[1] = m_pResourceMgr->CreateModelMesh("myModel2", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-	pModels[2] = m_pResourceMgr->CreateModelMesh("myModel3", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-	pModels[3] = m_pResourceMgr->CreateModelMesh("myModel4", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-	pModels[4] = m_pResourceMgr->CreateModelMesh("myModel5", "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+	for(int i = 0; i < 1000; i++) {
+		std::string name = "";
+		std::stringstream str;
+		str << i;
+		name = "myModel" + str.str();
+		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+		pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
+	}
 
 	pCam = new CCameraFPS(glm::vec3(0,0,10), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }
