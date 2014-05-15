@@ -12,6 +12,7 @@
 #define __CGRAPHICS_H__
 
 #include <Windows.h>
+#include <glm\gtc\matrix_transform.hpp>
 
 class COpenGL;
 class CResourceManager;
@@ -57,7 +58,7 @@ protected:
 	CCameraFPS* pCam;
 
 	// Resource manager handles clean up
-	CModelMesh* pModels[5];
+	CModelMesh* pModels[1000];
 };
 
 #endif

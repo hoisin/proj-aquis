@@ -62,4 +62,6 @@ bool CTextureLoader::LoadBMP(const std::string &fileName, unsigned int &outWidth
 	fclose(pFile);
 
 	*pOutData = pData;
+
+	return true;
 }
