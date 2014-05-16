@@ -155,6 +155,7 @@
     <ClCompile Include="CResourceShader.cpp" />
     <ClCompile Include="CResourceTexture2D.cpp" />
     <ClCompile Include="CResourceVertexBuffer.cpp" />
+    <ClCompile Include="CSceneGraph.cpp" />
     <ClCompile Include="CSceneNode.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="CResourceShader.h" />
     <ClInclude Include="CResourceTexture2D.h" />
     <ClInclude Include="CResourceVertexBuffer.h" />
+    <ClInclude Include="CSceneGraph.h" />
     <ClInclude Include="CSceneNode.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CTexture2D.h" />

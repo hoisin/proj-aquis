@@ -16,6 +16,9 @@
 
 #include <sstream>
 
+// Testingzzzz remove pls when not needed
+int g_numObjs = 1;
+
 CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0)
 {
 }
@@ -95,7 +98,7 @@ bool CGraphics::RenderScene()
 	//glBindVertexArray(pVert->GetVertexArray());
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
 
-	for(int i = 0; i < 1000; i++)
+	for(int i = 0; i < g_numObjs; i++)
 	{
 		/*pVert->UseBuffer();
 		pIdx->UseBuffer();
@@ -174,13 +177,13 @@ void CGraphics::LoadScene()
 	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
-	for(int i = 0; i < 1000; i++) {
+	for(int i = 0; i < g_numObjs; i++) {
 		std::string name = "";
 		std::stringstream str;
 		str << i;
 		name = "myModel" + str.str();
 		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-		pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
+		//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
 	}
 
 	pCam = new CCameraFPS(glm::vec3(0,0,10), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
