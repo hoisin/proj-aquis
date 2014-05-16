@@ -121,6 +121,9 @@
     <ClCompile Include="CResourceModelMesh.cpp">
       <Filter>Resource\Resource Types</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneGraph.cpp">
+      <Filter>Graphics\Scenegraph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -215,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="CResourceModelMesh.h">
       <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneGraph.h">
+      <Filter>Graphics\Scenegraph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
