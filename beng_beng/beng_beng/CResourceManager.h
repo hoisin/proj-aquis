@@ -38,7 +38,11 @@ public:
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 	MeshData* CreateQuad(const std::string &geometryID, float size, EVertexType,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
-	MeshData* CreateCube(const std::string &geometryID, float size, EVertexType, unsigned int numFaces,
+	MeshData* CreatePlane(const std::string &geometryID, float size, EVertexType, unsigned int numFaces = 1,
+		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
+	MeshData* CreateCube(const std::string &geometryID, float size, EVertexType, unsigned int numFaces = 1,
+		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
+	MeshData* CreateSphere(const std::string &geometryID, float size, EVertexType, unsigned int subDivs,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
 	// Buffer Stuff

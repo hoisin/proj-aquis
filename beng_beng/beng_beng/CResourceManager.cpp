@@ -104,17 +104,48 @@ MeshData* CResourceManager::CreateQuad(const std::string &geometryID, float size
 
 //----------------------------------------------------------------------------------------------------
 //
+//	CreatePlane(..)
+//
+//	Params:
+//	geometryID		-	String name stored in MeshData
+//	size			-	size of quad
+//	type			-	type of vertices to use
+//	numFaces		-   defines the polycount
+//	colour			-	colour of quad if vertex type supports colour
+//
+//	Description:
+//	Call Mesh Generator to create 2D quad, then stores as a resource
+//
+//----------------------------------------------------------------------------------------------------
+MeshData* CResourceManager::CreatePlane(const std::string &geometryID, float size, EVertexType type, unsigned int numFaces,
+		const glm::vec4 &colour)
+{
+	// Generator mesh data
+	MeshData *pNewMeshData = m_pMeshGenerator->CreatePlane(geometryID, size, type, numFaces, colour);
+
+	// Attach to resource object
+	CResourceMeshData *pNewResource = new CResourceMeshData(pNewMeshData);
+
+	// Add to map.
+	m_resourceMap.insert(std::pair<std::string, IResource*>(geometryID, pNewResource));
+
+	return pNewMeshData;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
 //	CreateCube(..)
 //
 //	Params:
 //	geometryID		-	String name stored in MeshData
 //	size			-	size of cube
-//	numFaces		-	
+//	numFaces		-	Number of cells
 //	type			-	type of vertices to use
 //	colour			-	colour of quad if vertex type supports colour
 //
 //	Description:
-//	Call Mesh Generator to create 2D quad, then stores as a resource
+//	Call Mesh Generator to create cube, then stores as a resource
 //
 //----------------------------------------------------------------------------------------------------
 MeshData* CResourceManager::CreateCube(const std::string &geometryID, float size, EVertexType type, unsigned int numFaces,
@@ -122,6 +153,35 @@ MeshData* CResourceManager::CreateCube(const std::string &geometryID, float size
 {
 	MeshData *pNewMeshData = m_pMeshGenerator->CreateCube(geometryID,
 		size, type, numFaces, colour);
+
+	CResourceMeshData *pNewResource = new CResourceMeshData(pNewMeshData);
+
+	m_resourceMap.insert(std::pair<std::string, IResource*>(geometryID, pNewResource));
+
+	return pNewMeshData;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//
+//	CreateSphere(..)
+//
+//	Params:
+//	geometryID		-	String name stored in MeshData
+//	size			-	size of cube
+//	subDivs			-	number of subdivisions (If 0 circle has 3 subdivions)
+//	type			-	type of vertices to use
+//	colour			-	colour of quad if vertex type supports colour
+//
+//	Description:
+//	Call Mesh Generator to create sphere, then stores as a resource
+//
+//----------------------------------------------------------------------------------------------------
+MeshData* CResourceManager::CreateSphere(const std::string &geometryID, float size, EVertexType type, unsigned int subDivs,
+		const glm::vec4 &colour)
+{
+	MeshData *pNewMeshData = m_pMeshGenerator->CreateSphere(geometryID,
+		size, type, subDivs, colour);
 
 	CResourceMeshData *pNewResource = new CResourceMeshData(pNewMeshData);
 
