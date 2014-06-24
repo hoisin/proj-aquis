@@ -26,12 +26,23 @@ public:
 	MeshData* CreateTriangle(const std::string &geometryID, float size, EVertexType type,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
+	// 2D quad in XY facing towards screen
 	MeshData* CreateQuad(const std::string &geometryID, float size, EVertexType type, 
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 
+	// Same as Quad but XZ facing up
+	MeshData* CreatePlane(const std::string &geometryID, float size, EVertexType type, unsigned int numFaces = 1,
+		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
+
+	// Creates a cube
 	MeshData* CreateCube(const std::string &geometryID, float size, EVertexType type, unsigned int numFaces = 1,
 		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
+
+	// Creates a sphere
+	MeshData* CreateSphere(const std::string &geometryID, float size, EVertexType type, unsigned int subDivisions = 1,
+		const glm::vec4 &colour = glm::vec4(0, 0, 0, 0));
 };
+
 
 
 #endif

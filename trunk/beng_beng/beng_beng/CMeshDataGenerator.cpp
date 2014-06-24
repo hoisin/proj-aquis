@@ -325,11 +325,132 @@ MeshData* CMeshDataGenerator::CreateQuad(const std::string &geometryID, float si
 
 	// Create index data
 	pNewGeometry->pIndices[0] = 0;
-	pNewGeometry->pIndices[1] = 1;
-	pNewGeometry->pIndices[2] = 2;
+	pNewGeometry->pIndices[1] = 2;
+	pNewGeometry->pIndices[2] = 1;
 	pNewGeometry->pIndices[3] = 1;
-	pNewGeometry->pIndices[4] = 3;
-	pNewGeometry->pIndices[5] = 2;
+	pNewGeometry->pIndices[4] = 2;
+	pNewGeometry->pIndices[5] = 3;
+
+	return pNewGeometry;
+}
+
+
+
+//-------------------------------------------------------------------------------------
+//
+//	CreatePlane(..)
+//
+//	Params:
+//	geometryID		-	String name stored in MeshData
+//	size			-	size of the quad
+//	type			-	type of vertices to use
+//	colour			-	colour of triangle if vertex type supports colour
+//
+//	Description:
+//	Method creates a 2D quad consisting of 2 triangles
+//
+//-------------------------------------------------------------------------------------
+MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float size, EVertexType type, unsigned int numFaces,
+	const glm::vec4 &colour)
+{
+	// Number of vertices on plane
+	int totalVerts = (numFaces + 1) * (numFaces + 1);
+
+	// Calculate number of indices
+	//
+	//	numFaces * numFaces = number of faces/cells on a face of cube
+	//	2 = 2 triangles per side
+	//	3 = 3 indices per triangle
+	//
+	int numIndices = ((numFaces * numFaces) * 2) * 3;
+
+	MeshData *pNewGeometry = new MeshData(type, totalVerts, numIndices);
+
+	// Basing mesh at origin 0,0,0
+	float dist = size / 2;
+
+	// Create vertex data
+	switch(type)
+	{
+	case eVertexPC:
+
+		SVertexTypePC *pVertPC;
+		
+		pVertPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
+
+		pVertPC[0].position.x = -dist;
+		pVertPC[0].position.y = 0;
+		pVertPC[0].position.z = -dist;
+		pVertPC[0].colour.r = colour.r;
+		pVertPC[0].colour.g = colour.g;
+		pVertPC[0].colour.b = colour.b;
+
+		pVertPC[1].position.x = dist;
+		pVertPC[1].position.y = 0;
+		pVertPC[1].position.z = -dist;
+		pVertPC[1].colour.r = colour.r;
+		pVertPC[1].colour.g = colour.g;
+		pVertPC[1].colour.b = colour.b;
+
+		pVertPC[2].position.x = -dist;
+		pVertPC[2].position.y = 0;
+		pVertPC[2].position.z = dist;
+		pVertPC[2].colour.r = colour.r;
+		pVertPC[2].colour.g = colour.g;
+		pVertPC[2].colour.b = colour.b;
+
+		pVertPC[3].position.x = dist;
+		pVertPC[3].position.y = 0;
+		pVertPC[3].position.z = dist;
+		pVertPC[3].colour.r = colour.r;
+		pVertPC[3].colour.g = colour.g;
+		pVertPC[3].colour.b = colour.b;
+		break;
+
+	case eVertexPT:
+		SVertexTypePT *pVertPT;
+
+		pVertPT = static_cast<SVertexTypePT*>(pNewGeometry->pVertices);
+
+		pVertPT[0].position.x = -dist;
+		pVertPT[0].position.y = 0;
+		pVertPT[0].position.z = -dist;
+		pVertPT[0].textureCoord.x = 0.f;
+		pVertPT[0].textureCoord.y = 1.f;
+
+		pVertPT[1].position.x = dist;
+		pVertPT[1].position.y = 0;
+		pVertPT[1].position.z = -dist;
+		pVertPT[1].textureCoord.x = 1.f;
+		pVertPT[1].textureCoord.y = 1.f;
+
+		pVertPT[2].position.x = -dist;
+		pVertPT[2].position.y = 0;
+		pVertPT[2].position.z = dist;
+		pVertPT[2].textureCoord.x = 0.f;
+		pVertPT[2].textureCoord.y = 0.f;
+
+		pVertPT[3].position.x = dist;
+		pVertPT[3].position.y = 0;
+		pVertPT[3].position.z = dist;
+		pVertPT[3].textureCoord.x = 1.f;
+		pVertPT[3].textureCoord.y = 0.f;
+		break;
+
+		// Should not end up here
+	default:
+		delete pNewGeometry;
+		pNewGeometry = NULL;
+		break;
+	}
+
+	// Create index data
+	pNewGeometry->pIndices[0] = 0;
+	pNewGeometry->pIndices[1] = 2;
+	pNewGeometry->pIndices[2] = 1;
+	pNewGeometry->pIndices[3] = 1;
+	pNewGeometry->pIndices[4] = 2;
+	pNewGeometry->pIndices[5] = 3;
 
 	return pNewGeometry;
 }
@@ -664,4 +785,175 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 
 
 	return pMeshData;
+}
+
+
+
+//-------------------------------------------------------------------------------------
+//
+//	CreateSphere(..)
+//
+//	Params:
+//	geometryID		-	String name stored in MeshData
+//	size			-	size of the quad
+//	type			-	type of vertices to use
+//	subDivisons		-	increases number of divisions, more vertices created. Already assumes 3 as min
+//	colour			-	colour of triangle if vertex type supports colour
+//
+//	Description:
+//	Method creates a 2D quad consisting of 2 triangles
+//
+//-------------------------------------------------------------------------------------
+MeshData* CMeshDataGenerator::CreateSphere(const std::string &geometryID, float size, EVertexType type, unsigned int subDivisions,
+	const glm::vec4 &colour)
+{
+
+	unsigned int subDivs = 3 + subDivisions;
+
+	int vertSegments = subDivs;
+	int horizSegments = subDivs * 2;
+
+	// Add 2 as we add a single point for top and bottom sphere
+	int totalVerts = (vertSegments - 1) * horizSegments + 2;
+
+	// Total indies:
+	//	2 fan strips (top and bottom) + main body of circle (handle in pairs of triangles)
+	int totalIndices = (2 * horizSegments * 3) + (((vertSegments - 2) * horizSegments) * 6);
+
+	// Create empty data
+	MeshData *pNewMesh = new MeshData(type, totalVerts, totalIndices);
+
+	float radius = size / 2;
+	int vertCounter = 0;
+
+	// Generate the vertex data
+	switch(type)
+	{
+	case eVertexPC:
+		{
+		SVertexTypePC *pVertPC = static_cast<SVertexTypePC*>(pNewMesh->pVertices);
+		
+		// Start with single vertex at bottom of sphere
+		pVertPC[0].position = glm::vec3(0, (radius * -1), 0);
+		pVertPC[0].colour = glm::vec3(colour);
+
+		// Already a vertex from above code
+		vertCounter = 1;
+
+		// Create rings of vertices at higher latitidues
+		for(int i = 0; i < vertSegments - 1; i++) {
+			float latitude = ((i + 1) * glm::pi<float>()/
+				vertSegments) - (glm::pi<float>()/2);
+
+			float dy = (float)sin(latitude);
+			float dxz = (float)cos(latitude);
+
+			// Create a single ring of vertices at this latitude
+			for(int j = 0; j < horizSegments; j++) {
+				float longitude = j * (2 * glm::pi<float>()) / horizSegments;
+
+				float dx = cos(longitude) * dxz;
+				float dz = sin(longitude) * dxz;
+
+				pVertPC[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
+				pVertPC[vertCounter].colour = glm::vec3(colour);
+
+				vertCounter++;
+			}
+		}
+
+		// Finish with single vertex
+		pVertPC[vertCounter].position = glm::vec3(0, (radius * 1), 0);
+		pVertPC[vertCounter].colour = glm::vec3(colour);
+		}
+		break;
+
+	case eVertexPT:
+		{
+		SVertexTypePT *pVertPT = static_cast<SVertexTypePT*>(pNewMesh->pVertices);
+		
+		// Start with single vertex at bottom of sphere
+		pVertPT[0].position = glm::vec3(0, (radius * -1), 0);
+		pVertPT[0].textureCoord = glm::vec2(0, 0);
+
+		// Already a vertex from above code
+		vertCounter = 1;
+
+		// Create rings of vertices at higher latitidues
+		for(int i = 0; i < vertSegments - 1; i++) {
+			float latitude = ((i + 1) * glm::pi<float>()/
+				vertSegments) - (glm::pi<float>()/2);
+
+			float dy = (float)sin(latitude);
+			float dxz = (float)cos(latitude);
+
+			// Create a single ring of vertices at this latitude
+			for(int j = 0; j < horizSegments; j++) {
+				float longitude = j * (2 * glm::pi<float>()) / horizSegments;
+
+				float dx = cos(longitude) * dxz;
+				float dz = sin(longitude) * dxz;
+
+				float u = asinf(dx)/glm::pi<float>()+0.5f;
+				float v = asinf(dy)/glm::pi<float>()+0.5f;
+
+				pVertPT[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
+				pVertPT[vertCounter].textureCoord = glm::vec2(u, v);
+
+				vertCounter++;
+			}
+		}
+
+		// Finish with single vertex
+		pVertPT[vertCounter].position = glm::vec3(0, (radius * 1), 0);
+		pVertPT[vertCounter].textureCoord = glm::vec2(1, 1);
+		}
+		break;
+
+
+	default:
+		// Don't end up here pls.
+		break;
+	}
+
+	// Generate the index data
+	int indexCounter = 0;
+
+	// Create a fan connecting the bottom vertex to the bottom of the latitude ring
+	for(int i = 0; i < horizSegments; i++) {
+		pNewMesh->pIndices[indexCounter] = 0;
+		pNewMesh->pIndices[indexCounter+2] = 1 + (i + 1) % horizSegments;
+		pNewMesh->pIndices[indexCounter+1] = 1 + i;
+
+		indexCounter += 3;
+	}
+
+	// Fill the sphere body with triangles joining each of latitude rings
+	for(int i = 0; i < vertSegments - 2; i ++) {
+		for(int j = 0; j < horizSegments; j++) {
+			int nextI = i + 1;
+			int nextJ = (j + 1) % horizSegments;
+
+			pNewMesh->pIndices[indexCounter] = 1 + i * horizSegments + j;
+			pNewMesh->pIndices[indexCounter+2] = 1 + i * horizSegments + nextJ;
+			pNewMesh->pIndices[indexCounter+1] = 1 + nextI * horizSegments + j;
+
+			pNewMesh->pIndices[indexCounter+3] = (1 + i * horizSegments + nextJ);
+			pNewMesh->pIndices[indexCounter+5] = 1 + nextI * horizSegments + nextJ;
+			pNewMesh->pIndices[indexCounter+4] = 1 + nextI * horizSegments + j;
+
+			indexCounter += 6;
+		}
+	}
+
+	// Create a fan connecting the top vertex to the top latitude ring.
+	for(int i = 0; i < horizSegments; i++) { 
+		pNewMesh->pIndices[indexCounter] = totalVerts - 1;
+		pNewMesh->pIndices[indexCounter+2] = totalVerts - 2 - (i + 1) % horizSegments;
+		pNewMesh->pIndices[indexCounter+1] = totalVerts - 2 - i;
+
+		indexCounter += 3;
+	}
+
+	return pNewMesh;
 }

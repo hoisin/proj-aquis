@@ -165,9 +165,11 @@ void CGraphics::ShutDown()
 
 void CGraphics::LoadScene()
 {
-	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 1, eVertexPT);//, glm::vec4(1,0,1,1));
+	MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 5, eVertexPT, 50);
+	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPT);//, glm::vec4(1,0,1,1));
+	//MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 100, eVertexPT, 20);//, glm::vec4(1,0,1,1));
 	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC, glm::vec4(1,1,1,0));
-	MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 10, glm::vec4(1,1,1,0));
+	//MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 10, glm::vec4(1,1,1,0));
 
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
 	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
@@ -182,7 +184,8 @@ void CGraphics::LoadScene()
 		std::stringstream str;
 		str << i;
 		name = "myModel" + str.str();
-		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "cube_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "sphere_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+		pModels[i]->pos = glm::vec3(0, 0, 0);
 		//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
 	}
 

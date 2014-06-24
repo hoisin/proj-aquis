@@ -13,6 +13,7 @@
 #define __GFXDEFS_H__
 
 #include <glm\glm.hpp>
+#include <glm\gtc\constants.hpp>
 #include <vector>
 
 /*

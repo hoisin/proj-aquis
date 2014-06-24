@@ -17,7 +17,7 @@ class CSceneGraph
 public:
 	CSceneGraph();
 	~CSceneGraph();
-}
+};
 
 
 #endif
