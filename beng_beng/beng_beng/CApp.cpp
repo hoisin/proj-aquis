@@ -410,6 +410,14 @@ bool CApp::OnEvent(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				cam->StrafeRight(g_movAmt);
 				break;
 
+			case 'N':
+				m_pGfx->SetWireFrame(true);
+				break;
+
+			case 'M':
+				m_pGfx->SetWireFrame(false);
+				break;
+
 			default:
 				break;
 			}
