@@ -19,7 +19,7 @@
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
 
-CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0)
+CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false)
 {
 }
 
@@ -97,7 +97,7 @@ bool CGraphics::RenderScene()
 
 	//glBindVertexArray(pVert->GetVertexArray());
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
-
+	
 	for(int i = 0; i < g_numObjs; i++)
 	{
 		/*pVert->UseBuffer();
@@ -138,7 +138,7 @@ bool CGraphics::RenderScene()
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glUseProgram(0);
 	}
-
+	
 	// Swap buffers!!!
 	m_pOpenGL->SwapBuffersM();
 
@@ -163,11 +163,18 @@ void CGraphics::ShutDown()
 }
 
 
+//------------------------------------------------------------------
+//
+//	LoadScene(..)
+//
+// Temporary load scene function
+//
+//------------------------------------------------------------------
 void CGraphics::LoadScene()
 {
-	MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 5, eVertexPT, 50);
+	MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPT, 100);
 	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPT);//, glm::vec4(1,0,1,1));
-	//MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 100, eVertexPT, 20);//, glm::vec4(1,0,1,1));
+	//MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 20, eVertexPT, 20);//, glm::vec4(1,0,1,1));
 	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC, glm::vec4(1,1,1,0));
 	//MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 10, glm::vec4(1,1,1,0));
 
@@ -190,4 +197,26 @@ void CGraphics::LoadScene()
 	}
 
 	pCam = new CCameraFPS(glm::vec3(0,0,10), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
+}
+
+
+//------------------------------------------------------------------
+//
+//	SetWireFrame(..)
+//
+//	Params:
+//	bool	-	Enables/disables wireframe mode
+//
+// Turns wire frame mode on/off
+//
+//------------------------------------------------------------------
+
+void CGraphics::SetWireFrame(bool bWireFrame)
+{
+	m_bWireFrame = bWireFrame;
+
+	if(bWireFrame)
+		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	else
+		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }

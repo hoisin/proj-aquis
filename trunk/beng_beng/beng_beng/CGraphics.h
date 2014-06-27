@@ -38,6 +38,7 @@ public:
 
 	// Temporary test method for general loading stuff.....
 	void LoadScene();
+	void SetWireFrame(bool bWireFrame);
 
 	// Temporary camera get function
 	CCameraFPS* GetCamera() { return pCam; }
@@ -48,6 +49,8 @@ protected:
 	CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
 
 	int m_winWidth, m_winHeight;
+
+	bool m_bWireFrame;
 
 
 	// Test vars

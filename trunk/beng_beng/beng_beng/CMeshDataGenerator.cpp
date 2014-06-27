@@ -42,11 +42,11 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-					1
-					* 
-				   / \
-			      /   \
-		       2 *-----* 3
+		1
+		* 
+		/ \
+		/   \
+		2 *-----* 3
 		*/
 
 		SVertexTypePC* pVertexPC;
@@ -59,7 +59,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPC[0].colour.x = colour.x;
 		pVertexPC[0].colour.y = colour.y;
 		pVertexPC[0].colour.z = colour.z;
-		
+
 		// Bottom left vertex
 		pVertexPC[1].position.x = -dist;
 		pVertexPC[1].position.y = -dist;
@@ -81,11 +81,11 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-					1
-					* 
-				   / \
-			      /   \
-		       2 *-----* 3
+		1
+		* 
+		/ \
+		/   \
+		2 *-----* 3
 		*/
 
 		SVertexTypePT* pVertexPT;
@@ -117,11 +117,11 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-					1
-					* 
-				   / \
-			      /   \
-		       2 *-----* 3
+		1
+		* 
+		/ \
+		/   \
+		2 *-----* 3
 		*/
 
 		SVertexTypePNC* pVert;
@@ -168,11 +168,11 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-					1
-					* 
-				   / \
-			      /   \
-		       2 *-----* 3
+		1
+		* 
+		/ \
+		/   \
+		2 *-----* 3
 		*/
 
 		SVertexTypePNT* pVertexPNT;
@@ -185,8 +185,8 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPNT[0].normal.x = 0;
 		pVertexPNT[0].normal.y = 0;
 		pVertexPNT[0].normal.z = -1;
-		pVertexPNT[0].texture.x = 0;
-		pVertexPNT[0].texture.y = 0.5;
+		pVertexPNT[0].textureCoord.x = 0;
+		pVertexPNT[0].textureCoord.y = 0.5;
 
 		// Bottom left vertex
 		pVertexPNT[1].position.x = -dist;
@@ -195,8 +195,8 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPNT[1].normal.x = 0;
 		pVertexPNT[1].normal.y = 0;
 		pVertexPNT[1].normal.z = -1;
-		pVertexPNT[1].texture.x = 0;
-		pVertexPNT[1].texture.y = 1;
+		pVertexPNT[1].textureCoord.x = 0;
+		pVertexPNT[1].textureCoord.y = 1;
 
 		// Bottom right vertex
 		pVertexPNT[2].position.x = dist;
@@ -205,11 +205,11 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPNT[2].normal.x = 0;
 		pVertexPNT[2].normal.y = 0;
 		pVertexPNT[2].normal.z = -1;
-		pVertexPNT[2].texture.x = 1;
-		pVertexPNT[2].texture.y = 1;
+		pVertexPNT[2].textureCoord.x = 1;
+		pVertexPNT[2].textureCoord.y = 1;
 		break;
 
-	// shouldn't end up here
+		// shouldn't end up here
 	default:
 		delete pNewGeometry;
 		pNewGeometry = NULL;
@@ -254,7 +254,7 @@ MeshData* CMeshDataGenerator::CreateQuad(const std::string &geometryID, float si
 	case eVertexPC:
 
 		SVertexTypePC *pVertPC;
-		
+
 		pVertPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
 
 		pVertPC[0].position.x = -dist;
@@ -316,6 +316,93 @@ MeshData* CMeshDataGenerator::CreateQuad(const std::string &geometryID, float si
 		pVertPT[3].textureCoord.y = 0.f;
 		break;
 
+	case eVertexPNC:
+		SVertexTypePNC *pVertPNC;
+		pVertPNC = static_cast<SVertexTypePNC*>(pNewGeometry->pVertices);
+
+		pVertPNC[0].position.x = -dist;
+		pVertPNC[0].position.y = dist;
+		pVertPNC[0].position.z = 0;
+		pVertPNC[0].normal.x = 0;
+		pVertPNC[0].normal.y = 0;
+		pVertPNC[0].normal.z = 1;
+		pVertPNC[0].colour.r = colour.r;
+		pVertPNC[0].colour.g = colour.g;
+		pVertPNC[0].colour.b = colour.b;
+
+		pVertPNC[1].position.x = dist;
+		pVertPNC[1].position.y = dist;
+		pVertPNC[1].position.z = 0;
+		pVertPNC[1].normal.x = 0;
+		pVertPNC[1].normal.y = 0;
+		pVertPNC[1].normal.z = 1;
+		pVertPNC[1].colour.r = colour.r;
+		pVertPNC[1].colour.g = colour.g;
+		pVertPNC[1].colour.b = colour.b;
+
+		pVertPNC[2].position.x = -dist;
+		pVertPNC[2].position.y = -dist;
+		pVertPNC[2].position.z = 0;
+		pVertPNC[2].normal.x = 0;
+		pVertPNC[2].normal.y = 0;
+		pVertPNC[2].normal.z = 1;
+		pVertPNC[2].colour.r = colour.r;
+		pVertPNC[2].colour.g = colour.g;
+		pVertPNC[2].colour.b = colour.b;
+
+		pVertPNC[3].position.x = dist;
+		pVertPNC[3].position.y = -dist;
+		pVertPNC[3].position.z = 0;
+		pVertPNC[3].normal.x = 0;
+		pVertPNC[3].normal.y = 0;
+		pVertPNC[3].normal.z = 1;
+		pVertPNC[3].colour.r = colour.r;
+		pVertPNC[3].colour.g = colour.g;
+		pVertPNC[3].colour.b = colour.b;
+		break;
+
+	case eVertexPNT:
+		SVertexTypePNT *pVertPNT;
+
+		pVertPNT = static_cast<SVertexTypePNT*>(pNewGeometry->pVertices);
+
+		pVertPNT[0].position.x = -dist;
+		pVertPNT[0].position.y = dist;
+		pVertPNT[0].position.z = 0;
+		pVertPNT[0].normal.x = 0;
+		pVertPNT[0].normal.y = 0;
+		pVertPNT[0].normal.z = 1;
+		pVertPNT[0].textureCoord.x = 0.f;
+		pVertPNT[0].textureCoord.y = 1.f;
+
+		pVertPNT[1].position.x = dist;
+		pVertPNT[1].position.y = dist;
+		pVertPNT[1].position.z = 0;
+		pVertPNT[1].normal.x = 0;
+		pVertPNT[1].normal.y = 0;
+		pVertPNT[1].normal.z = 1;
+		pVertPNT[1].textureCoord.x = 1.f;
+		pVertPNT[1].textureCoord.y = 1.f;
+
+		pVertPNT[2].position.x = -dist;
+		pVertPNT[2].position.y = -dist;
+		pVertPNT[2].position.z = 0;
+		pVertPNT[2].normal.x = 0;
+		pVertPNT[2].normal.y = 0;
+		pVertPNT[2].normal.z = 1;
+		pVertPNT[2].textureCoord.x = 0.f;
+		pVertPNT[2].textureCoord.y = 0.f;
+
+		pVertPNT[3].position.x = dist;
+		pVertPNT[3].position.y = -dist;
+		pVertPNT[3].position.z = 0;
+		pVertPNT[3].normal.x = 0;
+		pVertPNT[3].normal.y = 0;
+		pVertPNT[3].normal.z = 1;
+		pVertPNT[3].textureCoord.x = 1.f;
+		pVertPNT[3].textureCoord.y = 0.f;
+		break;
+
 		// Should not end up here
 	default:
 		delete pNewGeometry;
@@ -337,7 +424,7 @@ MeshData* CMeshDataGenerator::CreateQuad(const std::string &geometryID, float si
 
 
 //-------------------------------------------------------------------------------------
-//
+//	
 //	CreatePlane(..)
 //
 //	Params:
@@ -366,8 +453,9 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 
 	MeshData *pNewGeometry = new MeshData(type, totalVerts, numIndices);
 
-	// Basing mesh at origin 0,0,0
-	float dist = size / 2;
+	// Step size between vertices
+	float incrementDist = size / numFaces;
+	int vertexCounter = 0;
 
 	// Create vertex data
 	switch(type)
@@ -375,36 +463,28 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 	case eVertexPC:
 
 		SVertexTypePC *pVertPC;
-		
+
 		pVertPC = static_cast<SVertexTypePC*>(pNewGeometry->pVertices);
 
-		pVertPC[0].position.x = -dist;
-		pVertPC[0].position.y = 0;
-		pVertPC[0].position.z = -dist;
-		pVertPC[0].colour.r = colour.r;
-		pVertPC[0].colour.g = colour.g;
-		pVertPC[0].colour.b = colour.b;
+		// Generate plane vertices
+		for(int y = 0; y < (int)(numFaces + 1); y++)
+		{
+			float xStart = -(size / 2);
+			float yStart = size / 2;
+			float zStart = (size / 2);
 
-		pVertPC[1].position.x = dist;
-		pVertPC[1].position.y = 0;
-		pVertPC[1].position.z = -dist;
-		pVertPC[1].colour.r = colour.r;
-		pVertPC[1].colour.g = colour.g;
-		pVertPC[1].colour.b = colour.b;
+			for(int x = 0; x < (int)(numFaces + 1); x++)
+			{
+				pVertPC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertPC[vertexCounter].position.y = yStart;
+				pVertPC[vertexCounter].position.z = zStart - (y * incrementDist);
+				pVertPC[vertexCounter].colour.x = colour.x;
+				pVertPC[vertexCounter].colour.y = colour.y;
+				pVertPC[vertexCounter].colour.z = colour.z;
 
-		pVertPC[2].position.x = -dist;
-		pVertPC[2].position.y = 0;
-		pVertPC[2].position.z = dist;
-		pVertPC[2].colour.r = colour.r;
-		pVertPC[2].colour.g = colour.g;
-		pVertPC[2].colour.b = colour.b;
-
-		pVertPC[3].position.x = dist;
-		pVertPC[3].position.y = 0;
-		pVertPC[3].position.z = dist;
-		pVertPC[3].colour.r = colour.r;
-		pVertPC[3].colour.g = colour.g;
-		pVertPC[3].colour.b = colour.b;
+				vertexCounter++;
+			}
+		}
 		break;
 
 	case eVertexPT:
@@ -412,29 +492,81 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 
 		pVertPT = static_cast<SVertexTypePT*>(pNewGeometry->pVertices);
 
-		pVertPT[0].position.x = -dist;
-		pVertPT[0].position.y = 0;
-		pVertPT[0].position.z = -dist;
-		pVertPT[0].textureCoord.x = 0.f;
-		pVertPT[0].textureCoord.y = 1.f;
+		// Generate plane vertices
+		for(int y = 0; y < (int)(numFaces + 1); y++)
+		{
+			float xStart = -(size / 2);
+			float yStart = size / 2;
+			float zStart = (size / 2);
 
-		pVertPT[1].position.x = dist;
-		pVertPT[1].position.y = 0;
-		pVertPT[1].position.z = -dist;
-		pVertPT[1].textureCoord.x = 1.f;
-		pVertPT[1].textureCoord.y = 1.f;
+			for(int x = 0; x < (int)(numFaces + 1); x++)
+			{
+				pVertPT[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertPT[vertexCounter].position.y = yStart;
+				pVertPT[vertexCounter].position.z = zStart - (y * incrementDist);
+				pVertPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+				pVertPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
 
-		pVertPT[2].position.x = -dist;
-		pVertPT[2].position.y = 0;
-		pVertPT[2].position.z = dist;
-		pVertPT[2].textureCoord.x = 0.f;
-		pVertPT[2].textureCoord.y = 0.f;
+				vertexCounter++;
+			}
+		}
+		break;
 
-		pVertPT[3].position.x = dist;
-		pVertPT[3].position.y = 0;
-		pVertPT[3].position.z = dist;
-		pVertPT[3].textureCoord.x = 1.f;
-		pVertPT[3].textureCoord.y = 0.f;
+	case eVertexPNC:
+		SVertexTypePNC *pVertPNC;
+
+		pVertPNC = static_cast<SVertexTypePNC*>(pNewGeometry->pVertices);
+
+		// Generate plane vertices
+		for(int y = 0; y < (int)(numFaces + 1); y++)
+		{
+			float xStart = -(size / 2);
+			float yStart = size / 2;
+			float zStart = (size / 2);
+
+			for(int x = 0; x < (int)(numFaces + 1); x++)
+			{
+				pVertPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertPNC[vertexCounter].position.y = yStart;
+				pVertPNC[vertexCounter].position.z = zStart - (y * incrementDist);
+				pVertPNC[vertexCounter].normal.x = 0;
+				pVertPNC[vertexCounter].normal.y = 1;
+				pVertPNC[vertexCounter].normal.z = 0;
+				pVertPNC[vertexCounter].colour.x = colour.x;
+				pVertPNC[vertexCounter].colour.y = colour.y;
+				pVertPNC[vertexCounter].colour.z = colour.z;
+
+				vertexCounter++;
+			}
+		}
+		break;
+
+	case eVertexPNT:
+		SVertexTypePNT *pVertPNT;
+
+		pVertPNT = static_cast<SVertexTypePNT*>(pNewGeometry->pVertices);
+
+		// Generate plane vertices
+		for(int y = 0; y < (int)(numFaces + 1); y++)
+		{
+			float xStart = -(size / 2);
+			float yStart = size / 2;
+			float zStart = (size / 2);
+
+			for(int x = 0; x < (int)(numFaces + 1); x++)
+			{
+				pVertPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+				pVertPNT[vertexCounter].position.y = yStart;
+				pVertPNT[vertexCounter].position.z = zStart - (y * incrementDist);
+				pVertPNT[vertexCounter].normal.x = 0;
+				pVertPNT[vertexCounter].normal.y = 1;
+				pVertPNT[vertexCounter].normal.z = 0;
+				pVertPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+				pVertPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+
+				vertexCounter++;
+			}
+		}
 		break;
 
 		// Should not end up here
@@ -445,12 +577,31 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 	}
 
 	// Create index data
-	pNewGeometry->pIndices[0] = 0;
-	pNewGeometry->pIndices[1] = 2;
-	pNewGeometry->pIndices[2] = 1;
-	pNewGeometry->pIndices[3] = 1;
-	pNewGeometry->pIndices[4] = 2;
-	pNewGeometry->pIndices[5] = 3;
+	int indexCounter = 0;
+	int vIndex = 0;
+	int numVertsX = numFaces + 1;
+
+	// Loops for generating indices for a face
+	for (int y = 0; y < (int)numFaces; y++)
+	{
+		for (int x = 0; x < (int)numFaces; x++)
+		{
+			// first triangle
+			pNewGeometry->pIndices[indexCounter++] = vIndex;
+			pNewGeometry->pIndices[indexCounter++] = vIndex + numVertsX + 1;
+			pNewGeometry->pIndices[indexCounter++] = vIndex + numVertsX;
+
+
+			// second triangle
+			pNewGeometry->pIndices[indexCounter++] = vIndex;
+			pNewGeometry->pIndices[indexCounter++] = vIndex + 1;
+			pNewGeometry->pIndices[indexCounter++] = vIndex + numVertsX + 1;
+
+			vIndex++;
+		}
+
+		vIndex++;
+	}
 
 	return pNewGeometry;
 }
@@ -469,7 +620,9 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 //	colour			-	colour of triangle if vertex type supports colour
 //
 //	Description:
-//	Method creates a 2D quad consisting of 2 triangles
+//	Method creates a 2D quad consisting of 2 triangles.
+//	Note: Cube generated as we are looking right at it. i.e. Left face is our (perspective) left
+//		not the cube's left.
 //
 //-------------------------------------------------------------------------------------
 MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float size, EVertexType type, unsigned int numFaces,
@@ -744,6 +897,287 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 		}
 		break;
 
+	case eVertexPNC:
+		{
+			SVertexTypePNC *pVertexPNC = static_cast<SVertexTypePNC*>(pMeshData->pVertices);
+
+			// Front face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = size / 2;
+				float zStart = -(size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart;
+					pVertexPNC[vertexCounter].normal.x = 0;
+					pVertexPNC[vertexCounter].normal.y = 0;
+					pVertexPNC[vertexCounter].normal.z = 1;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+
+					vertexCounter++;
+				}
+			}
+
+			// bottom face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = -(size / 2);
+				float zStart = -(size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNC[vertexCounter].position.y = yStart;
+					pVertexPNC[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPNC[vertexCounter].normal.x = 0;
+					pVertexPNC[vertexCounter].normal.y = -1;
+					pVertexPNC[vertexCounter].normal.z = 0;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+
+					vertexCounter++;
+				}
+			}
+
+			// Left face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = size / 2;
+				float zStart = size / 2;
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNC[vertexCounter].position.x = xStart;
+					pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPNC[vertexCounter].normal.x = -1;
+					pVertexPNC[vertexCounter].normal.y = 0;
+					pVertexPNC[vertexCounter].normal.z = 0;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+
+					vertexCounter++;
+				}
+			}
+
+			// Back face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = size / 2;
+				float yStart = size / 2;
+				float zStart = size / 2;
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNC[vertexCounter].position.x = xStart - (x * incrementDist);
+					pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart;
+					pVertexPNC[vertexCounter].normal.x = 0;
+					pVertexPNC[vertexCounter].normal.y = 0;
+					pVertexPNC[vertexCounter].normal.z = -1;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+
+					vertexCounter++;
+				}
+			}
+
+			// Right face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = size / 2;
+				float yStart = size / 2;
+				float zStart = -(size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNC[vertexCounter].position.x = xStart;
+					pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPNC[vertexCounter].normal.x = 1;
+					pVertexPNC[vertexCounter].normal.y = 0;
+					pVertexPNC[vertexCounter].normal.z = 0;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+
+					vertexCounter++;
+				}
+			}
+
+			// Top face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = size / 2;
+				float zStart = (size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNC[vertexCounter].position.y = yStart;
+					pVertexPNC[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPNC[vertexCounter].normal.x = 0;
+					pVertexPNC[vertexCounter].normal.y = 1;
+					pVertexPNC[vertexCounter].normal.z = 0;
+					pVertexPNC[vertexCounter].colour.x = colour.x;
+					pVertexPNC[vertexCounter].colour.y = colour.y;
+					pVertexPNC[vertexCounter].colour.z = colour.z;
+
+					vertexCounter++;
+				}
+			}
+		}
+		break;
+
+	case eVertexPNT:
+		{
+			SVertexTypePNT *pVertexPNT = static_cast<SVertexTypePNT*>(pMeshData->pVertices);
+
+			// Front face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = size / 2;
+				float zStart = -(size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart;
+					pVertexPNT[vertexCounter].normal.x = 0;
+					pVertexPNT[vertexCounter].normal.y = 0;
+					pVertexPNT[vertexCounter].normal.z = 1;
+					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+
+					vertexCounter++;
+				}
+			}
+
+			// bottom face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = -(size / 2);
+				float zStart = -(size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart;
+					pVertexPNT[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 0;
+					pVertexPNT[vertexCounter].normal.y = -1;
+					pVertexPNT[vertexCounter].normal.z = 0;
+					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+
+					vertexCounter++;
+				}
+			}
+
+			// Left face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = size / 2;
+				float zStart = size / 2;
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNT[vertexCounter].position.x = xStart;
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = -1;
+					pVertexPNT[vertexCounter].normal.y = 0;
+					pVertexPNT[vertexCounter].normal.z = 0;
+					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+
+					vertexCounter++;
+				}
+			}
+
+			// Back face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = size / 2;
+				float yStart = size / 2;
+				float zStart = size / 2;
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNT[vertexCounter].position.x = xStart - (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart;
+					pVertexPNT[vertexCounter].normal.x = 0;
+					pVertexPNT[vertexCounter].normal.y = 0;
+					pVertexPNT[vertexCounter].normal.z = -1;
+					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+
+					vertexCounter++;
+				}
+			}
+
+			// Right face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = size / 2;
+				float yStart = size / 2;
+				float zStart = -(size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNT[vertexCounter].position.x = xStart;
+					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 1;
+					pVertexPNT[vertexCounter].normal.y = 0;
+					pVertexPNT[vertexCounter].normal.z = 0;
+					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+
+					vertexCounter++;
+				}
+			}
+
+			// Top face
+			for(int y = 0; y < (int)(numFaces + 1); y++)
+			{
+				float xStart = -(size / 2);
+				float yStart = size / 2;
+				float zStart = (size / 2);
+
+				for(int x = 0; x < (int)(numFaces + 1); x++)
+				{
+					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.y = yStart;
+					pVertexPNT[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].normal.x = 0;
+					pVertexPNT[vertexCounter].normal.y = 1;
+					pVertexPNT[vertexCounter].normal.z = 0;
+					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					vertexCounter++;
+				}
+			}
+		}
+		break;
+
 	default:
 		break;
 	}
@@ -766,13 +1200,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 				pMeshData->pIndices[indexCounter++] = vIndex;
 				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
 				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX;
-				
+
 
 				// second triangle
 				pMeshData->pIndices[indexCounter++] = vIndex;
 				pMeshData->pIndices[indexCounter++] = vIndex + 1;
 				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
-				
+
 				vIndex++;
 			}
 
@@ -831,85 +1265,171 @@ MeshData* CMeshDataGenerator::CreateSphere(const std::string &geometryID, float 
 	{
 	case eVertexPC:
 		{
-		SVertexTypePC *pVertPC = static_cast<SVertexTypePC*>(pNewMesh->pVertices);
-		
-		// Start with single vertex at bottom of sphere
-		pVertPC[0].position = glm::vec3(0, (radius * -1), 0);
-		pVertPC[0].colour = glm::vec3(colour);
+			SVertexTypePC *pVertPC = static_cast<SVertexTypePC*>(pNewMesh->pVertices);
 
-		// Already a vertex from above code
-		vertCounter = 1;
+			// Start with single vertex at bottom of sphere
+			pVertPC[0].position = glm::vec3(0, (radius * -1), 0);
+			pVertPC[0].colour = glm::vec3(colour);
 
-		// Create rings of vertices at higher latitidues
-		for(int i = 0; i < vertSegments - 1; i++) {
-			float latitude = ((i + 1) * glm::pi<float>()/
-				vertSegments) - (glm::pi<float>()/2);
+			// Already a vertex from above code
+			vertCounter = 1;
 
-			float dy = (float)sin(latitude);
-			float dxz = (float)cos(latitude);
+			// Create rings of vertices at higher latitidues
+			for(int i = 0; i < vertSegments - 1; i++) {
+				float latitude = ((i + 1) * glm::pi<float>()/
+					vertSegments) - (glm::pi<float>()/2);
 
-			// Create a single ring of vertices at this latitude
-			for(int j = 0; j < horizSegments; j++) {
-				float longitude = j * (2 * glm::pi<float>()) / horizSegments;
+				float dy = (float)sin(latitude);
+				float dxz = (float)cos(latitude);
 
-				float dx = cos(longitude) * dxz;
-				float dz = sin(longitude) * dxz;
+				// Create a single ring of vertices at this latitude
+				for(int j = 0; j < horizSegments; j++) {
+					float longitude = j * (2 * glm::pi<float>()) / horizSegments;
 
-				pVertPC[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
-				pVertPC[vertCounter].colour = glm::vec3(colour);
+					float dx = cos(longitude) * dxz;
+					float dz = sin(longitude) * dxz;
 
-				vertCounter++;
+					pVertPC[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
+					pVertPC[vertCounter].colour = glm::vec3(colour);
+
+					vertCounter++;
+				}
 			}
-		}
 
-		// Finish with single vertex
-		pVertPC[vertCounter].position = glm::vec3(0, (radius * 1), 0);
-		pVertPC[vertCounter].colour = glm::vec3(colour);
+			// Finish with single vertex
+			pVertPC[vertCounter].position = glm::vec3(0, (radius * 1), 0);
+			pVertPC[vertCounter].colour = glm::vec3(colour);
 		}
 		break;
 
 	case eVertexPT:
 		{
-		SVertexTypePT *pVertPT = static_cast<SVertexTypePT*>(pNewMesh->pVertices);
-		
-		// Start with single vertex at bottom of sphere
-		pVertPT[0].position = glm::vec3(0, (radius * -1), 0);
-		pVertPT[0].textureCoord = glm::vec2(0, 0);
+			SVertexTypePT *pVertPT = static_cast<SVertexTypePT*>(pNewMesh->pVertices);
 
-		// Already a vertex from above code
-		vertCounter = 1;
+			// Start with single vertex at bottom of sphere
+			pVertPT[0].position = glm::vec3(0, (radius * -1), 0);
+			pVertPT[0].textureCoord = glm::vec2(0, 0);
 
-		// Create rings of vertices at higher latitidues
-		for(int i = 0; i < vertSegments - 1; i++) {
-			float latitude = ((i + 1) * glm::pi<float>()/
-				vertSegments) - (glm::pi<float>()/2);
+			// Already a vertex from above code
+			vertCounter = 1;
 
-			float dy = (float)sin(latitude);
-			float dxz = (float)cos(latitude);
+			// Create rings of vertices at higher latitidues
+			for(int i = 0; i < vertSegments - 1; i++) {
+				float latitude = ((i + 1) * glm::pi<float>()/
+					vertSegments) - (glm::pi<float>()/2);
 
-			// Create a single ring of vertices at this latitude
-			for(int j = 0; j < horizSegments; j++) {
-				float longitude = j * (2 * glm::pi<float>()) / horizSegments;
+				float dy = (float)sin(latitude);
+				float dxz = (float)cos(latitude);
 
-				float dx = cos(longitude) * dxz;
-				float dz = sin(longitude) * dxz;
+				// Create a single ring of vertices at this latitude
+				for(int j = 0; j < horizSegments; j++) {
+					float longitude = j * (2 * glm::pi<float>()) / horizSegments;
 
-				float u = asinf(dx)/glm::pi<float>()+0.5f;
-				float v = asinf(dy)/glm::pi<float>()+0.5f;
+					float dx = cos(longitude) * dxz;
+					float dz = sin(longitude) * dxz;
 
-				pVertPT[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
-				pVertPT[vertCounter].textureCoord = glm::vec2(u, v);
+					float u = asinf(dx)/glm::pi<float>()+0.5f;
+					float v = asinf(dy)/glm::pi<float>()+0.5f;
 
-				vertCounter++;
+					pVertPT[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
+					pVertPT[vertCounter].textureCoord = glm::vec2(u, v);
+
+					vertCounter++;
+				}
 			}
-		}
 
-		// Finish with single vertex
-		pVertPT[vertCounter].position = glm::vec3(0, (radius * 1), 0);
-		pVertPT[vertCounter].textureCoord = glm::vec2(1, 1);
+			// Finish with single vertex
+			pVertPT[vertCounter].position = glm::vec3(0, (radius * 1), 0);
+			pVertPT[vertCounter].textureCoord = glm::vec2(1, 1);
 		}
 		break;
 
+	case eVertexPNC:
+		{
+			SVertexTypePNC *pVertPNC = static_cast<SVertexTypePNC*>(pNewMesh->pVertices);
+
+			// Start with single vertex at bottom of sphere
+			pVertPNC[0].position = glm::vec3(0, (radius * -1), 0);
+			pVertPNC[0].normal = glm::vec3(0, -1, 0);
+			pVertPNC[0].colour = colour;
+
+			// Already a vertex from above code
+			vertCounter = 1;
+
+			// Create rings of vertices at higher latitidues
+			for(int i = 0; i < vertSegments - 1; i++) {
+				float latitude = ((i + 1) * glm::pi<float>()/
+					vertSegments) - (glm::pi<float>()/2);
+
+				float dy = (float)sin(latitude);
+				float dxz = (float)cos(latitude);
+
+				// Create a single ring of vertices at this latitude
+				for(int j = 0; j < horizSegments; j++) {
+					float longitude = j * (2 * glm::pi<float>()) / horizSegments;
+
+					float dx = cos(longitude) * dxz;
+					float dz = sin(longitude) * dxz;
+
+					pVertPNC[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
+					pVertPNC[vertCounter].normal = glm::vec3(dx, dy, dz);
+					pVertPNC[vertCounter].colour = colour;
+
+					vertCounter++;
+				}
+			}
+
+			// Finish with single vertex
+			pVertPNC[vertCounter].position = glm::vec3(0, (radius * 1), 0);
+			pVertPNC[vertCounter].normal = glm::vec3(0, 1, 0);
+			pVertPNC[vertCounter].colour = colour;
+		}
+		break;
+
+	case eVertexPNT:
+		{
+			SVertexTypePNT *pVertPNT = static_cast<SVertexTypePNT*>(pNewMesh->pVertices);
+
+			// Start with single vertex at bottom of sphere
+			pVertPNT[0].position = glm::vec3(0, (radius * -1), 0);
+			pVertPNT[0].normal = glm::vec3(0, -1, 0);
+			pVertPNT[0].textureCoord = glm::vec2(0, 0);
+
+			// Already a vertex from above code
+			vertCounter = 1;
+
+			// Create rings of vertices at higher latitidues
+			for(int i = 0; i < vertSegments - 1; i++) {
+				float latitude = ((i + 1) * glm::pi<float>()/
+					vertSegments) - (glm::pi<float>()/2);
+
+				float dy = (float)sin(latitude);
+				float dxz = (float)cos(latitude);
+
+				// Create a single ring of vertices at this latitude
+				for(int j = 0; j < horizSegments; j++) {
+					float longitude = j * (2 * glm::pi<float>()) / horizSegments;
+
+					float dx = cos(longitude) * dxz;
+					float dz = sin(longitude) * dxz;
+
+					float u = asinf(dx)/glm::pi<float>()+0.5f;
+					float v = asinf(dy)/glm::pi<float>()+0.5f;
+
+					pVertPNT[vertCounter].position = glm::vec3((radius * dx), (radius * dy), (radius * dz));
+					pVertPNT[vertCounter].normal = glm::vec3(dx, dy, dz);
+					pVertPNT[vertCounter].textureCoord = glm::vec2(u, v);
+
+					vertCounter++;
+				}
+			}
+
+			// Finish with single vertex
+			pVertPNT[vertCounter].position = glm::vec3(0, (radius * 1), 0);
+			pVertPNT[vertCounter].normal = glm::vec3(0, 1, 0);
+			pVertPNT[vertCounter].textureCoord = glm::vec2(1, 1);
+		}
+		break;
 
 	default:
 		// Don't end up here pls.

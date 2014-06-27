@@ -68,7 +68,7 @@ struct SVertexTypePNT : public SVertexType
 {
 	glm::vec3 position;
 	glm::vec3 normal;
-	glm::vec2 texture;
+	glm::vec2 textureCoord;
 };
 
 
@@ -77,7 +77,7 @@ struct SVertexTypePNBT : public SVertexType
 	glm::vec3 position;
 	glm::vec3 normal;
 	glm::vec3 biTangent;
-	glm::vec2 texture;
+	glm::vec2 textureCoord;
 };
 
 
@@ -86,7 +86,7 @@ struct SVertexTypePNTT : public SVertexType
 	glm::vec3 position;
 	glm::vec3 normal;
 	glm::vec3 tangent;
-	glm::vec2 texture;
+	glm::vec2 textureCoord;
 };
 
 
@@ -96,7 +96,7 @@ struct SVertexTypePNBTT : public SVertexType
 	glm::vec3 normal;
 	glm::vec3 biTangent;
 	glm::vec3 tangent;
-	glm::vec2 texture;
+	glm::vec2 textureCoord;
 };
 
 
