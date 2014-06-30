@@ -74,11 +74,74 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		// texture buffer
+		// Texture buffer
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
 		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePT), pData->pVertices, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 2, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePT), (void*)sizeof(glm::vec3));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		break;
+
+	case eVertexPNC:
+		m_numVBOs = 3;
+		m_pVBO = new GLuint[m_numVBOs];
+
+		// Generate and setup VBOs
+		glGenBuffers(m_numVBOs, m_pVBO);
+
+		// Position buffer
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNC), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNC), 0);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Normal buffer
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNC), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNC), (void*)sizeof(glm::vec3));
+		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Colour buffer
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[2]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNC), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)2, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNC), (void*)(sizeof(glm::vec3) * 2));
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		break;
+
+	case eVertexPNT:
+		m_numVBOs = 3;
+		m_pVBO = new GLuint[m_numVBOs];
+
+		// Generate and setup VBOs
+		glGenBuffers(m_numVBOs, m_pVBO);
+
+		// Position buffer
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNT), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNT), 0);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Normal buffer
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNT), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNT), (void*)sizeof(glm::vec3));
+		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Texture buffer
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[2]);
+		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNT), pData->pVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNT), (void*)(sizeof(glm::vec3) * 2));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		break;
 
