@@ -42,10 +42,10 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-		1
-		* 
-		/ \
-		/   \
+		     1
+		     * 
+		    / \
+		   /   \
 		2 *-----* 3
 		*/
 
@@ -81,10 +81,10 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-		1
-		* 
-		/ \
-		/   \
+		     1
+		     * 
+		    / \
+		   /   \
 		2 *-----* 3
 		*/
 
@@ -117,10 +117,10 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-		1
-		* 
-		/ \
-		/   \
+		     1
+	     	 * 
+	     	/ \
+		   /   \
 		2 *-----* 3
 		*/
 
@@ -133,7 +133,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVert[0].position.z = 0;
 		pVert[0].normal.x = 0;
 		pVert[0].normal.y = 0;
-		pVert[0].normal.z = -1;
+		pVert[0].normal.z = 1;
 		pVert[0].colour.x = colour.x;
 		pVert[0].colour.y = colour.y;
 		pVert[0].colour.y = colour.z;
@@ -145,7 +145,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVert[1].position.z = 0;
 		pVert[1].normal.x = 0;
 		pVert[1].normal.y = 0;
-		pVert[1].normal.z = -1;
+		pVert[1].normal.z = 1;
 		pVert[1].colour.x = colour.x;
 		pVert[1].colour.y = colour.y;
 		pVert[1].colour.y = colour.z;
@@ -157,7 +157,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVert[2].position.z = 0;
 		pVert[2].normal.x = 0;
 		pVert[2].normal.y = 0;
-		pVert[2].normal.z = -1;
+		pVert[2].normal.z = 1;
 		pVert[2].colour.x = colour.x;
 		pVert[2].colour.y = colour.y;
 		pVert[2].colour.y = colour.z;
@@ -168,10 +168,10 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		/*
 		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
 		Think of placing the triangle in a square. Thats how the points are positioned.
-		1
-		* 
-		/ \
-		/   \
+		     1
+		     * 
+		    / \
+		   /   \
 		2 *-----* 3
 		*/
 
@@ -184,7 +184,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPNT[0].position.z = 0;
 		pVertexPNT[0].normal.x = 0;
 		pVertexPNT[0].normal.y = 0;
-		pVertexPNT[0].normal.z = -1;
+		pVertexPNT[0].normal.z = 1;
 		pVertexPNT[0].textureCoord.x = 0;
 		pVertexPNT[0].textureCoord.y = 0.5;
 
@@ -194,7 +194,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPNT[1].position.z = 0;
 		pVertexPNT[1].normal.x = 0;
 		pVertexPNT[1].normal.y = 0;
-		pVertexPNT[1].normal.z = -1;
+		pVertexPNT[1].normal.z = 1;
 		pVertexPNT[1].textureCoord.x = 0;
 		pVertexPNT[1].textureCoord.y = 1;
 
@@ -204,7 +204,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 		pVertexPNT[2].position.z = 0;
 		pVertexPNT[2].normal.x = 0;
 		pVertexPNT[2].normal.y = 0;
-		pVertexPNT[2].normal.z = -1;
+		pVertexPNT[2].normal.z = 1;
 		pVertexPNT[2].textureCoord.x = 1;
 		pVertexPNT[2].textureCoord.y = 1;
 		break;
@@ -218,8 +218,8 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 
 	// Add indices
 	pNewGeometry->pIndices[0] = 0;
-	pNewGeometry->pIndices[1] = 2;
-	pNewGeometry->pIndices[2] = 1;
+	pNewGeometry->pIndices[1] = 1;
+	pNewGeometry->pIndices[2] = 2;
 
 	// Return reference to newly created geometry
 	return pNewGeometry;
@@ -470,7 +470,7 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 		for(int y = 0; y < (int)(numFaces + 1); y++)
 		{
 			float xStart = -(size / 2);
-			float yStart = size / 2;
+			float yStart = 0;
 			float zStart = (size / 2);
 
 			for(int x = 0; x < (int)(numFaces + 1); x++)
@@ -496,7 +496,7 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 		for(int y = 0; y < (int)(numFaces + 1); y++)
 		{
 			float xStart = -(size / 2);
-			float yStart = size / 2;
+			float yStart = 0;
 			float zStart = (size / 2);
 
 			for(int x = 0; x < (int)(numFaces + 1); x++)
@@ -521,7 +521,7 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 		for(int y = 0; y < (int)(numFaces + 1); y++)
 		{
 			float xStart = -(size / 2);
-			float yStart = size / 2;
+			float yStart = 0;
 			float zStart = (size / 2);
 
 			for(int x = 0; x < (int)(numFaces + 1); x++)
@@ -550,7 +550,7 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 		for(int y = 0; y < (int)(numFaces + 1); y++)
 		{
 			float xStart = -(size / 2);
-			float yStart = size / 2;
+			float yStart = 0;
 			float zStart = (size / 2);
 
 			for(int x = 0; x < (int)(numFaces + 1); x++)
@@ -661,7 +661,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -681,13 +681,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = -(size / 2);
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPC[vertexCounter].position.y = yStart;
-					pVertexPC[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPC[vertexCounter].position.z = zStart - (y * incrementDist);
 					pVertexPC[vertexCounter].colour.x = colour.x;
 					pVertexPC[vertexCounter].colour.y = colour.y;
 					pVertexPC[vertexCounter].colour.z = colour.z;
@@ -701,13 +701,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPC[vertexCounter].position.x = xStart;
 					pVertexPC[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPC[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPC[vertexCounter].position.z = zStart + (x * incrementDist);
 					pVertexPC[vertexCounter].colour.x = colour.x;
 					pVertexPC[vertexCounter].colour.y = colour.y;
 					pVertexPC[vertexCounter].colour.z = colour.z;
@@ -721,7 +721,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -741,13 +741,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPC[vertexCounter].position.x = xStart;
 					pVertexPC[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPC[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPC[vertexCounter].position.z = zStart - (x * incrementDist);
 					pVertexPC[vertexCounter].colour.x = colour.x;
 					pVertexPC[vertexCounter].colour.y = colour.y;
 					pVertexPC[vertexCounter].colour.z = colour.z;
@@ -761,13 +761,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = (size / 2);
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPC[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPC[vertexCounter].position.y = yStart;
-					pVertexPC[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPC[vertexCounter].position.z = zStart + (y * incrementDist);
 					pVertexPC[vertexCounter].colour.x = colour.x;
 					pVertexPC[vertexCounter].colour.y = colour.y;
 					pVertexPC[vertexCounter].colour.z = colour.z;
@@ -787,7 +787,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -806,13 +806,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = -(size / 2);
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPT[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPT[vertexCounter].position.y = yStart;
-					pVertexPT[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPT[vertexCounter].position.z = zStart - (y * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
 					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
 
@@ -825,13 +825,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPT[vertexCounter].position.x = xStart;
 					pVertexPT[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPT[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPT[vertexCounter].position.z = zStart + (x * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
 					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
 
@@ -844,7 +844,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -863,13 +863,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPT[vertexCounter].position.x = xStart;
 					pVertexPT[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPT[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPT[vertexCounter].position.z = zStart - (x * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
 					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
 
@@ -882,13 +882,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = (size / 2);
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPT[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPT[vertexCounter].position.y = yStart;
-					pVertexPT[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPT[vertexCounter].position.z = zStart + (y * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
 					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
 					vertexCounter++;
@@ -906,7 +906,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = (size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -929,13 +929,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = -(size / 2);
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPNC[vertexCounter].position.y = yStart;
-					pVertexPNC[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart - (y * incrementDist);
 					pVertexPNC[vertexCounter].normal.x = 0;
 					pVertexPNC[vertexCounter].normal.y = -1;
 					pVertexPNC[vertexCounter].normal.z = 0;
@@ -952,13 +952,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNC[vertexCounter].position.x = xStart;
 					pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPNC[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart + (x * incrementDist);
 					pVertexPNC[vertexCounter].normal.x = -1;
 					pVertexPNC[vertexCounter].normal.y = 0;
 					pVertexPNC[vertexCounter].normal.z = 0;
@@ -975,7 +975,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -998,13 +998,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNC[vertexCounter].position.x = xStart;
 					pVertexPNC[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPNC[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart - (x * incrementDist);
 					pVertexPNC[vertexCounter].normal.x = 1;
 					pVertexPNC[vertexCounter].normal.y = 0;
 					pVertexPNC[vertexCounter].normal.z = 0;
@@ -1021,13 +1021,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = (size / 2);
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNC[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPNC[vertexCounter].position.y = yStart;
-					pVertexPNC[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPNC[vertexCounter].position.z = zStart + (y * incrementDist);
 					pVertexPNC[vertexCounter].normal.x = 0;
 					pVertexPNC[vertexCounter].normal.y = 1;
 					pVertexPNC[vertexCounter].normal.z = 0;
@@ -1050,7 +1050,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -1072,13 +1072,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = -(size / 2);
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPNT[vertexCounter].position.y = yStart;
-					pVertexPNT[vertexCounter].position.z = zStart + (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart - (y * incrementDist);
 					pVertexPNT[vertexCounter].normal.x = 0;
 					pVertexPNT[vertexCounter].normal.y = -1;
 					pVertexPNT[vertexCounter].normal.z = 0;
@@ -1094,13 +1094,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNT[vertexCounter].position.x = xStart;
 					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPNT[vertexCounter].position.z = zStart - (x * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart + (x * incrementDist);
 					pVertexPNT[vertexCounter].normal.x = -1;
 					pVertexPNT[vertexCounter].normal.y = 0;
 					pVertexPNT[vertexCounter].normal.z = 0;
@@ -1116,7 +1116,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = size / 2;
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
@@ -1138,13 +1138,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = size / 2;
 				float yStart = size / 2;
-				float zStart = -(size / 2);
+				float zStart = size / 2;
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNT[vertexCounter].position.x = xStart;
 					pVertexPNT[vertexCounter].position.y = yStart - (y * incrementDist);
-					pVertexPNT[vertexCounter].position.z = zStart + (x * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart - (x * incrementDist);
 					pVertexPNT[vertexCounter].normal.x = 1;
 					pVertexPNT[vertexCounter].normal.y = 0;
 					pVertexPNT[vertexCounter].normal.z = 0;
@@ -1160,13 +1160,13 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				float xStart = -(size / 2);
 				float yStart = size / 2;
-				float zStart = (size / 2);
+				float zStart = -(size / 2);
 
 				for(int x = 0; x < (int)(numFaces + 1); x++)
 				{
 					pVertexPNT[vertexCounter].position.x = xStart + (x * incrementDist);
 					pVertexPNT[vertexCounter].position.y = yStart;
-					pVertexPNT[vertexCounter].position.z = zStart - (y * incrementDist);
+					pVertexPNT[vertexCounter].position.z = zStart + (y * incrementDist);
 					pVertexPNT[vertexCounter].normal.x = 0;
 					pVertexPNT[vertexCounter].normal.y = 1;
 					pVertexPNT[vertexCounter].normal.z = 0;
@@ -1198,14 +1198,14 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 			{
 				// first triangle
 				pMeshData->pIndices[indexCounter++] = vIndex;
-				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
 				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX;
+				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
 
 
 				// second triangle
 				pMeshData->pIndices[indexCounter++] = vIndex;
-				pMeshData->pIndices[indexCounter++] = vIndex + 1;
 				pMeshData->pIndices[indexCounter++] = vIndex + numVertsX + 1;
+				pMeshData->pIndices[indexCounter++] = vIndex + 1;
 
 				vIndex++;
 			}
