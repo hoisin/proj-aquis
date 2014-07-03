@@ -1,4 +1,4 @@
-#include "CGraphics.h"
+﻿#include "CGraphics.h"
 #include "COpenGL.h"
 #include "CResourceManager.h"
 #include "CResourceVertexBuffer.h"
@@ -18,6 +18,8 @@
 
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
+glm::vec3 gLightDir = glm::vec3(0,-0.3,-0.5);
+glm::vec4 gLightCol = glm::vec4(1,1,1,1);
 
 CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false)
 {
@@ -67,7 +69,7 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 	glDepthMask(GL_TRUE);		// Depth buffer enabled for writing
 	glEnable(GL_DEPTH_TEST);	// Depth testing (stuff behind stuff don't get draw)
 	glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
-		
+	glFrontFace(GL_CCW);
 
 	return true;
 }
@@ -97,6 +99,8 @@ bool CGraphics::RenderScene()
 
 	//glBindVertexArray(pVert->GetVertexArray());
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
+
+
 	
 	for(int i = 0; i < g_numObjs; i++)
 	{
@@ -113,6 +117,10 @@ bool CGraphics::RenderScene()
 		int projectionMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "projectionMatrix"); // Get the location of our projection matrix in the shader  
 		int viewMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "viewMatrix"); // Get the location of our view matrix in the shader  
 		int modelMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "worldMatrix"); // Get the location of our model matrix in the shader 
+		int modelInvMatrixLoc = glGetUniformLocation(pShader->GetShaderID(), "worldInvMatrix");
+
+		int lightDirection = glGetUniformLocation(pShader->GetShaderID(), "lightDirection");
+		int lightDiffuseCol = glGetUniformLocation(pShader->GetShaderID(), "diffuseLightCol");
 
 		glm::mat4 world(1);
 
@@ -128,6 +136,16 @@ bool CGraphics::RenderScene()
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &pCam->GetProjectionMatrix()[0][0]); // Send our projection matrix to the shader  
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &pCam->GetViewMatrix()[0][0]); // Send our view matrix to the shader  
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &world[0][0]); // Send our model matrix to the shader  
+
+		glm::mat4 invWorld(1);
+		invWorld = glm::inverse(invWorld);
+		invWorld = glm::transpose(invWorld);
+
+		glUniformMatrix4fv(modelInvMatrixLoc, 1, GL_FALSE, &invWorld[0][0]);
+		
+
+		glUniform3fv(lightDirection, 1, &gLightDir.x);
+		glUniform4fv(lightDiffuseCol, 1, &gLightCol.x);
 
 		glDrawElements(GL_TRIANGLES, pIdx->GetIndexCount(), GL_UNSIGNED_INT, 0);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -172,18 +190,19 @@ void CGraphics::ShutDown()
 //------------------------------------------------------------------
 void CGraphics::LoadScene()
 {
-	MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPT, 100);
-	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPT);//, glm::vec4(1,0,1,1));
-	//MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 20, eVertexPT, 20);//, glm::vec4(1,0,1,1));
-	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 1, eVertexPC, glm::vec4(1,1,1,0));
-	//MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 1, eVertexPT, 10, glm::vec4(1,1,1,0));
+	//MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPNC, 100);
+	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPNC, glm::vec4(1,0,0,1));
+	MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 50, eVertexPNC, 20, glm::vec4(1,0,1,1));
+	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 5, eVertexPC, glm::vec4(1,1,0,0));
+	//MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 10, eVertexPNC, 10, glm::vec4(1,1,1,1));
 
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
 	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
 
 	pTex = m_pResourceMgr->CreateTexture2D("tex_1", "..\\Textures\\wtf.bmp");
 
-	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
+	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleDirLightVertexShader.vsh", "..\\Shaders\\simpleDirLightFragmentShader.fsh");
+	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
 	for(int i = 0; i < g_numObjs; i++) {
@@ -191,12 +210,12 @@ void CGraphics::LoadScene()
 		std::stringstream str;
 		str << i;
 		name = "myModel" + str.str();
-		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "sphere_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-		pModels[i]->pos = glm::vec3(0, 0, 0);
+		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "plane_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+		pModels[i]->pos = glm::vec3(0, -10, 0);
 		//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
 	}
 
-	pCam = new CCameraFPS(glm::vec3(0,0,10), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
+	pCam = new CCameraFPS(glm::vec3(0,0,20), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }
 
 
