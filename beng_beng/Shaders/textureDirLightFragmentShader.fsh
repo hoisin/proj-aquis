@@ -1,9 +1,11 @@
 #version 330 core
 
 in vec3 normalVert;
-in vec3 colorVert;
+in vec2 UV;
 
 out vec4 outputColor;
+
+uniform sampler2D myTextureSampler;
 
 uniform vec3 lightDirection;
 uniform vec4 diffuseLightCol;
@@ -25,6 +27,5 @@ void main()
 	outputColor = clamp((diffuseLightCol * lightIntensity), 0.0f, 1.0f);
 	
 	// Multiple the light colour with the object's diffuse colour to get final result
-	outputColor = vec4(colorVert, 1) * outputColor + vec4((ambLightCol * ambIntensity), 1);
-
+	outputColor = vec4(texture( myTextureSampler, UV ).rgb, 1) * outputColor + vec4((ambLightCol * ambIntensity), 1);
 }

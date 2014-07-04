@@ -14,12 +14,17 @@
 #include "CCameraFPS.h"
 #include "CModelMesh.h"
 
+#include "CLight.h"
+
 #include <sstream>
 
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
-glm::vec3 gLightDir = glm::vec3(0,-0.3,-0.5);
-glm::vec4 gLightCol = glm::vec4(1,1,1,1);
+
+CLight g_light = CLight(eLightDir, glm::vec3(0, -0.3, -0.5), glm::vec3(1, 1, 1), 1,
+	1, 0);
+
+CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.2);
 
 CGraphics::CGraphics() : m_pOpenGL(NULL), m_pResourceMgr(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false)
 {
@@ -121,6 +126,8 @@ bool CGraphics::RenderScene()
 
 		int lightDirection = glGetUniformLocation(pShader->GetShaderID(), "lightDirection");
 		int lightDiffuseCol = glGetUniformLocation(pShader->GetShaderID(), "diffuseLightCol");
+		int ambLightCol = glGetUniformLocation(pShader->GetShaderID(), "ambLightCol");
+		int ambIntensity = glGetUniformLocation(pShader->GetShaderID(), "ambIntensity");
 
 		glm::mat4 world(1);
 
@@ -143,9 +150,11 @@ bool CGraphics::RenderScene()
 
 		glUniformMatrix4fv(modelInvMatrixLoc, 1, GL_FALSE, &invWorld[0][0]);
 		
-
-		glUniform3fv(lightDirection, 1, &gLightDir.x);
-		glUniform4fv(lightDiffuseCol, 1, &gLightCol.x);
+		glm::vec4 col = glm::vec4(g_light.m_col, 1);
+		glUniform3fv(lightDirection, 1, &g_light.m_pos.x);
+		glUniform4fv(lightDiffuseCol, 1, &col.x);
+		glUniform3fv(ambLightCol, 1, &g_ambLight.m_col.x);
+		glUniform1fv(ambIntensity, 1, &g_ambLight.m_intensity);
 
 		glDrawElements(GL_TRIANGLES, pIdx->GetIndexCount(), GL_UNSIGNED_INT, 0);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -190,18 +199,19 @@ void CGraphics::ShutDown()
 //------------------------------------------------------------------
 void CGraphics::LoadScene()
 {
-	//MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPNC, 100);
+	MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPNT, 100, glm::vec4(0,1,0,0));
 	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPNC, glm::vec4(1,0,0,1));
-	MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 50, eVertexPNC, 20, glm::vec4(1,0,1,1));
+	//MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 50, eVertexPNC, 20, glm::vec4(1,0,1,1));
 	//MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 5, eVertexPC, glm::vec4(1,1,0,0));
-	//MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 10, eVertexPNC, 10, glm::vec4(1,1,1,1));
+	//MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 10, eVertexPNT, 10, glm::vec4(1,1,1,1));
 
 	pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
 	pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
 
 	pTex = m_pResourceMgr->CreateTexture2D("tex_1", "..\\Textures\\wtf.bmp");
 
-	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleDirLightVertexShader.vsh", "..\\Shaders\\simpleDirLightFragmentShader.fsh");
+	pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureDirLightVertexShader.vsh", "..\\Shaders\\textureDirLightFragmentShader.fsh");
+	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleDirLightVertexShader.vsh", "..\\Shaders\\simpleDirLightFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
 
@@ -210,7 +220,7 @@ void CGraphics::LoadScene()
 		std::stringstream str;
 		str << i;
 		name = "myModel" + str.str();
-		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "plane_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "sphere_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
 		pModels[i]->pos = glm::vec3(0, -10, 0);
 		//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
 	}

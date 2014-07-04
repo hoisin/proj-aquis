@@ -145,6 +145,7 @@
     <ClCompile Include="CGameCore.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
+    <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="CModelMesh.cpp" />
     <ClCompile Include="COpenGL.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="CGameCore.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CIndexBuffer.h" />
+    <ClInclude Include="CLight.h" />
     <ClInclude Include="CMeshDataGenerator.h" />
     <ClInclude Include="CModelMesh.h" />
     <ClInclude Include="COpenGL.h" />
