@@ -267,5 +267,24 @@ struct MeshData
 
 
 
+/*
+==============================================
+	Light types
+==============================================
+*/
+
+enum ELightType
+{
+	eLightNone,
+	eLightAmb,
+	eLightDir,
+	eLightPoint,
+	eLightSpot,
+	eTotalLights
+};
+
+
+
+
 
 #endif

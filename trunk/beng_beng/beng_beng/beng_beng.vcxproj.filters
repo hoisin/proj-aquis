@@ -50,6 +50,9 @@
     <Filter Include="Graphics\OpenGL\Shader">
       <UniqueIdentifier>{c20101f0-0ef3-40b3-926b-39ec7f79746d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Lights">
+      <UniqueIdentifier>{d25fec6b-1e83-44df-96c1-98b737d9eaa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="CSceneGraph.cpp">
       <Filter>Graphics\Scenegraph</Filter>
+    </ClCompile>
+    <ClCompile Include="CLight.cpp">
+      <Filter>Graphics\Lights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="CSceneGraph.h">
       <Filter>Graphics\Scenegraph</Filter>
+    </ClInclude>
+    <ClInclude Include="CLight.h">
+      <Filter>Graphics\Lights</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
