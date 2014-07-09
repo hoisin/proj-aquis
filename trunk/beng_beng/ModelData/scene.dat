@@ -1,0 +1,94 @@
+// Custom data file for scene/mesh data. Everything can be in seperate files or in a single file like here.
+// If storing everything in a single file, be sure to use this format.
+//
+****mesh_data****
+meshID="cube1"
+meshType="cube"
+meshSize="5"
+meshVertexType="PNC"
+meshTessellation="6"
+meshTexture=""
+meshColour="1 0.5 0"
+
+meshID="sphere1"
+meshType="sphere"
+meshSize="3"
+meshVertexType="PNC"
+meshTessellation="10"
+meshTexture=""
+meshColour="1 0.5 0"
+
+//meshID="rect1"
+//meshType="model"
+//meshVertexType="PNC"
+//meshTessellation="10"
+//meshTexture=""
+//meshColour="1 0.5 0"
+//meshVertex="-15 15 25 15 15 25 -15 -15 25 15 -15 25 -15 15 25 15 15 25 -15 -15 25 15 -15 25"
+//meshIndex="0 2 1 1 2 3 4 6 0 0 6 2 4 6 5 5 6 7 1 3 5 5 3 7 6 2 7 7 2 3 4 0 5 5 0 1"
+//meshNormal="0 0 1 -1 0 0 0 0 -1 1 0 0 0 -1 0 0 1 0"
+
+****texture_data****
+textureID="tex_1"
+textureFile="..\\Textures\\wtf.bmp"
+
+****shader_data****
+shaderID="shader1"
+vertexShaderFile="***.vsh"
+fragmentShaderFile="***.fsh"
+
+****model_data****
+modelID="model1"
+meshID="cube1"
+shaderID="shader1"
+texture=""
+
+modelID="model2"
+meshID="sphere1"
+shaderID="shader1"
+texture=""
+
+modelID="model3"
+meshID="cube1"
+shaderID="shader1"
+texture=""
+
+modelID="model4"
+meshID="sphere1"
+shaderID="shader1"
+texture=""
+
+modelID="model5"
+meshID="cube1"
+shaderID="shader1"
+texture=""
+
+modelID="model6"
+meshID="sphere1"
+shaderID="shader1"
+texture=""
+
+****scene_data****
+objID="obj1"
+modelID="model1"
+pos="10 0 10"
+
+objID="obj2"
+modelID="model2"
+pos="0 0 10"
+
+objID="obj3"
+modelID="model3"
+pos="10 0 0"
+
+objID="obj4"
+modelID="model4"
+pos="20 0 10"
+
+objID="obj5"
+modelID="model5"
+pos="10 0 20"
+
+objID="obj6"
+modelID="model6"
+pos="0 0 0"
