@@ -9,11 +9,9 @@
 //	- Shader
 //	- Texture (Possibly)
 //
-//	Not 100% how this is going to be structured yet. 
-//	Going with storing IDs for now which requires going through the resource manager
-//	Might even be better as a structure.
-//
 //	Author: SeaFooD © 2014
+//
+//	Note: this class to be modified to be CSubsetMesh.
 //
 //--------------------------------------------------------------------------
 

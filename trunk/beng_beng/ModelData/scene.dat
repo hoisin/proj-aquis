@@ -2,24 +2,24 @@
 // If storing everything in a single file, be sure to use this format.
 //
 ****mesh_data****
-meshID="cube1"
 meshType="cube"
+meshID="cube1"
 meshSize="5"
 meshVertexType="PNC"
 meshTessellation="6"
 meshTexture=""
 meshColour="1 0.5 0"
 
-meshID="sphere1"
 meshType="sphere"
+meshID="sphere1"
 meshSize="3"
 meshVertexType="PNC"
 meshTessellation="10"
 meshTexture=""
 meshColour="1 0.5 0"
 
-//meshID="rect1"
 //meshType="model"
+//meshID="rect1"
 //meshVertexType="PNC"
 //meshTessellation="10"
 //meshTexture=""
