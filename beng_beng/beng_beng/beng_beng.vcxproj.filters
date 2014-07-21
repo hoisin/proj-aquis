@@ -53,6 +53,9 @@
     <Filter Include="Graphics\Lights">
       <UniqueIdentifier>{d25fec6b-1e83-44df-96c1-98b737d9eaa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Mesh">
+      <UniqueIdentifier>{495615af-7da8-4c12-8ab7-2371981ff59f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -118,9 +121,6 @@
     <ClCompile Include="CCameraFPS.cpp">
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CModelMesh.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="CResourceModelMesh.cpp">
       <Filter>Resource\Resource Types</Filter>
     </ClCompile>
@@ -129,6 +129,12 @@
     </ClCompile>
     <ClCompile Include="CLight.cpp">
       <Filter>Graphics\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelMesh.cpp">
+      <Filter>Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>Graphics\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +192,6 @@
     <ClInclude Include="CSceneNode.h">
       <Filter>Graphics\Scenegraph</Filter>
     </ClInclude>
-    <ClInclude Include="CModelMesh.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="CVertexBuffer.h">
       <Filter>Graphics\OpenGL\Buffers</Filter>
     </ClInclude>
@@ -230,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="CLight.h">
       <Filter>Graphics\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelMesh.h">
+      <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Graphics\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

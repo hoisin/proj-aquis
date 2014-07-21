@@ -17,6 +17,7 @@
 #include "CLight.h"
 
 #include <sstream>
+#include <fstream>
 
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
@@ -199,6 +200,38 @@ void CGraphics::ShutDown()
 //------------------------------------------------------------------
 void CGraphics::LoadScene()
 {
+	std::ifstream inFile("..\\ModelData\\scene.dat");
+
+	for(std::string line; std::getline(inFile, line); ) {
+
+		if(line == "****mesh_data****") {
+			std::getline(inFile, line);
+			std::string type = line;
+
+			std::getline(inFile, line);
+			std::string meshID = line;
+
+			std::getline(inFile, line);
+			std::string size = line;
+
+			std::getline(inFile, line);
+			std::string vertType = line;
+
+			std::getline(inFile, line);
+			std::string tessellation = line;
+
+			std::getline(inFile, line);
+			std::string texture = line;
+
+			std::getline(inFile, line);
+			std::string colour = line;
+
+			if(type == "cube") {
+				m_pResourceMgr->CreateCube(meshID, atoi(size.c_str()), eVertexPNT, atoi(tessellation.c_str()), glm::vec4(1,1,1,1));
+			}
+		}
+	}
+
 	MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPNT, 100, glm::vec4(0,1,0,0));
 	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPNC, glm::vec4(1,0,0,1));
 	//MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 50, eVertexPNC, 20, glm::vec4(1,0,1,1));
