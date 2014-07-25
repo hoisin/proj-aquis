@@ -4,14 +4,14 @@
 #include "CResourceIndexBuffer.h"
 #include "CResourceShader.h"
 #include "CResourceTexture2D.h"
-#include "CResourceModelMesh.h"
+#include "CResourceSubMesh.h"
 #include "CMeshDataGenerator.h"
 #include "CTextureLoader.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CShader.h"
 #include "CTexture2D.h"
-#include "CModelMesh.h"
+#include "CSubMesh.h"
 
 
 CResourceManager::CResourceManager() : m_pMeshGenerator(NULL), m_pTextureLoader(NULL)
@@ -309,7 +309,7 @@ CShader* CResourceManager::CreateShader(const std::string &shaderID, const std::
 
 //----------------------------------------------------------------------------------------------------
 //
-//	CreateModelMesh(..)
+//	CreateSubMesh(..)
 //
 //	Params:
 //	modelMeshID	-	ID of the resource to store in the map
@@ -323,14 +323,14 @@ CShader* CResourceManager::CreateShader(const std::string &shaderID, const std::
 //	Creates a model mesh
 //
 //----------------------------------------------------------------------------------------------------
-CModelMesh* CResourceManager::CreateModelMesh(const std::string &modelMeshID, const std::string &meshID, const std::string &vertexID, 
+CSubMesh* CResourceManager::CreateSubMesh(const std::string &subMeshID, const std::string &meshDataID, const std::string &vertexID, 
 	const std::string &indexID, const std::string &shaderID, const std::string &textureID)
 {
-	CModelMesh *pNewModelMesh = new CModelMesh(meshID, vertexID, indexID, shaderID, textureID);
+	CSubMesh *pNewModelMesh = new CSubMesh(meshDataID, vertexID, indexID, shaderID, textureID);
 
-	CResourceModelMesh *pNewResource = new CResourceModelMesh(pNewModelMesh);
+	CResourceSubMesh *pNewResource = new CResourceSubMesh(pNewModelMesh);
 
-	m_resourceMap.insert(std::pair<std::string, IResource*>(modelMeshID, pNewResource));
+	m_resourceMap.insert(std::pair<std::string, IResource*>(subMeshID, pNewResource));
 
 	return pNewModelMesh;
 }

@@ -2,9 +2,8 @@
 #include "COpenGL.h"
 #include "CResourceManager.h"
 #include "CResourceVertexBuffer.h"
-#include "CResourceModelMesh.h"
+#include "CResourceSubMesh.h"
 #include "CResourceIndexBuffer.h"
-#include "CResourceModelMesh.h"
 #include "CResourceShader.h"
 #include "CResourceTexture2D.h"
 #include "CVertexBuffer.h"
@@ -12,7 +11,7 @@
 #include "CShader.h"
 #include "CTexture2D.h"
 #include "CCameraFPS.h"
-#include "CModelMesh.h"
+#include "CSubMesh.h"
 
 #include "CLight.h"
 
@@ -139,7 +138,7 @@ bool CGraphics::RenderScene()
 
 		//world = glm::translate(glm::mat4(1.0), glm::vec3(rand()%50, rand()%50, -rand()%50));
 		world = glm::translate(glm::mat4(1.0), 
-			((CResourceModelMesh*)(m_pResourceMgr->GetResource(name)))->m_pModelMesh->pos);
+			((CResourceSubMesh*)(m_pResourceMgr->GetResource(name)))->m_pSubMesh->pos);
 
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &pCam->GetProjectionMatrix()[0][0]); // Send our projection matrix to the shader  
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &pCam->GetViewMatrix()[0][0]); // Send our view matrix to the shader  
@@ -253,7 +252,7 @@ void CGraphics::LoadScene()
 		std::stringstream str;
 		str << i;
 		name = "myModel" + str.str();
-		pModels[i] = m_pResourceMgr->CreateModelMesh(name, "sphere_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
+		pModels[i] = m_pResourceMgr->CreateSubMesh(name, "sphere_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
 		pModels[i]->pos = glm::vec3(0, -10, 0);
 		//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
 	}
