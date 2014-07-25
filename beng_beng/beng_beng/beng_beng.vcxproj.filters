@@ -121,20 +121,23 @@
     <ClCompile Include="CCameraFPS.cpp">
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CResourceModelMesh.cpp">
-      <Filter>Resource\Resource Types</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneGraph.cpp">
       <Filter>Graphics\Scenegraph</Filter>
     </ClCompile>
     <ClCompile Include="CLight.cpp">
       <Filter>Graphics\Lights</Filter>
     </ClCompile>
-    <ClCompile Include="CModelMesh.cpp">
-      <Filter>Graphics\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="CMesh.cpp">
       <Filter>Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CSubMesh.cpp">
+      <Filter>Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceSubMesh.cpp">
+      <Filter>Resource\Resource Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CGBuffer.cpp">
+      <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,20 +228,23 @@
     <ClInclude Include="CCameraFPS.h">
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CResourceModelMesh.h">
-      <Filter>Resource\Resource Types</Filter>
-    </ClInclude>
     <ClInclude Include="CSceneGraph.h">
       <Filter>Graphics\Scenegraph</Filter>
     </ClInclude>
     <ClInclude Include="CLight.h">
       <Filter>Graphics\Lights</Filter>
     </ClInclude>
-    <ClInclude Include="CModelMesh.h">
-      <Filter>Graphics\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="CMesh.h">
       <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CSubMesh.h">
+      <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceSubMesh.h">
+      <Filter>Resource\Resource Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CGBuffer.h">
+      <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

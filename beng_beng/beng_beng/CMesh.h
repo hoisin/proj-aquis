@@ -12,6 +12,7 @@
 #define __CMESH_H__
 
 #include <vector>
+#include <glm\glm.hpp>
 
 class CModelMesh;		// to be changed to CSubMesh
 
@@ -23,6 +24,8 @@ public:
 
 protected:
 	std::vector<CModelMesh *> m_vpSubMeshes;
+
+	glm::vec3 pos;
 };
 
 

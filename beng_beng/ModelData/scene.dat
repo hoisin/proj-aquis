@@ -37,33 +37,13 @@ shaderID="shader1"
 vertexShaderFile="***.vsh"
 fragmentShaderFile="***.fsh"
 
-****model_data****
+****sub_mesh****
 modelID="model1"
 meshID="cube1"
 shaderID="shader1"
 texture=""
 
 modelID="model2"
-meshID="sphere1"
-shaderID="shader1"
-texture=""
-
-modelID="model3"
-meshID="cube1"
-shaderID="shader1"
-texture=""
-
-modelID="model4"
-meshID="sphere1"
-shaderID="shader1"
-texture=""
-
-modelID="model5"
-meshID="cube1"
-shaderID="shader1"
-texture=""
-
-modelID="model6"
 meshID="sphere1"
 shaderID="shader1"
 texture=""
@@ -76,19 +56,3 @@ pos="10 0 10"
 objID="obj2"
 modelID="model2"
 pos="0 0 10"
-
-objID="obj3"
-modelID="model3"
-pos="10 0 0"
-
-objID="obj4"
-modelID="model4"
-pos="20 0 10"
-
-objID="obj5"
-modelID="model5"
-pos="10 0 20"
-
-objID="obj6"
-modelID="model6"
-pos="0 0 0"
