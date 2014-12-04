@@ -22,7 +22,7 @@ public:
 	CVertexBuffer();
 	~CVertexBuffer();
 
-	void LoadData(MeshData *pData);
+	void LoadData(void* pVertData, glm::uint32 vertexCount, EVertexType vertType);
 
 	void UseBuffer();
 

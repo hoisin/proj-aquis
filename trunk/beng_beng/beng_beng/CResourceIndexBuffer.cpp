@@ -5,7 +5,7 @@
 CResourceIndexBuffer::CResourceIndexBuffer(MeshData *pData)
 {
 	m_pIdxBuffer = new CIndexBuffer;
-	m_pIdxBuffer->LoadData(pData);
+	//m_pIdxBuffer->LoadData(pData);
 }
 
 

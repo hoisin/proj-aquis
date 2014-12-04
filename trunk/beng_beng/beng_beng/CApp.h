@@ -14,7 +14,6 @@
 #include <string>
 #include <Windows.h>
 #include "CGraphics.h"
-#include "CResourceManager.h"
 
 #include "CTimer.h"
 
@@ -56,7 +55,6 @@ private:
 	HANDLE m_hMutex;
 
 	CGraphics *m_pGfx;
-	CResourceManager *m_pResourceMgr;
 
 	CTimer m_timer;	
 	bool m_bAppActive, m_bRun;

@@ -29,7 +29,7 @@ public:
 	CGraphics();
 	~CGraphics();
 
-	bool Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, CResourceManager *pResourceMgr,
+	bool Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, 
 		UINT windowWidth, UINT windowHeight, WNDPROC funcCallback);
 
 	bool RenderScene();
@@ -46,7 +46,7 @@ public:
 protected:
 	HINSTANCE m_hInstance;
 	COpenGL *m_pOpenGL;
-	CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
+	//CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
 
 	int m_winWidth, m_winHeight;
 

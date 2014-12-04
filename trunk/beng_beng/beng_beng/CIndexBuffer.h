@@ -21,7 +21,7 @@ public:
 	CIndexBuffer();
 	~CIndexBuffer();
 
-	void LoadData(MeshData *pData);
+	void LoadData(void* pIndexData, glm::uint32 indexCount);
 
 	void UseBuffer();
 
