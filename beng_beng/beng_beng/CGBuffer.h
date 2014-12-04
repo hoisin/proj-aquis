@@ -29,8 +29,8 @@ public:
 	~CGBuffer(void);
 
 protected:
-	GLUINT m_fbo;						// Frame buffer object for off screen rendering
-	GLUINT m_buffer[eSizeOfGBuffer];
+	GLuint m_fbo;						// Frame buffer object for off screen rendering
+	GLuint m_buffer[eSizeOfGBuffer];
 };
 
 #endif

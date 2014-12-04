@@ -14,7 +14,7 @@
 #include <vector>
 #include <glm\glm.hpp>
 
-class CModelMesh;		// to be changed to CSubMesh
+class CSubMesh;		// to be changed to CSubMesh
 
 class CMesh
 {
@@ -22,8 +22,10 @@ public:
 	CMesh(void);
 	~CMesh(void);
 
+	void AddSubMesh(CSubMesh* pSubMesh);
+
 protected:
-	std::vector<CModelMesh *> m_vpSubMeshes;
+	std::vector<CSubMesh *> m_vpSubMeshes;
 
 	glm::vec3 pos;
 };

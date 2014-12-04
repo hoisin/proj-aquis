@@ -16,16 +16,18 @@ CVertexBuffer::~CVertexBuffer()
 //	LoadData(..)
 //
 //	Params:
-//	pData		-	Mesh data to load into GPU memory
+//	pVertData		-	pointer to data
+//	vertexCount		-	number of vertices
+//	vertType		-	the vertex type
 //
 //	Description:
 //	Loads mesh data in RAM to VRAM.
 //
 //----------------------------------------------------------------------------------------------------
-void CVertexBuffer::LoadData(MeshData *pData)
+void CVertexBuffer::LoadData(void* pVertData, glm::uint32 vertexCount, EVertexType vertType)
 {
-	m_vertCount = pData->vertexCount;
-	m_vertType = pData->vertexType;
+	m_vertCount = vertexCount;
+	m_vertType = vertType;
 
 	// Generate & setup VAO
 	glGenVertexArrays(1, &m_VAO);
@@ -44,7 +46,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Position buffer
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePC), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -52,7 +54,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Colour buffer
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePC), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePC), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePC), (void*)sizeof(glm::vec3));
 		
 
@@ -69,7 +71,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Position buffer
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePT), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePT), 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -77,7 +79,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Texture buffer
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePT), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 2, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePT), (void*)sizeof(glm::vec3));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		break;
@@ -92,7 +94,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Position buffer
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNC), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNC), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNC), 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -100,7 +102,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Normal buffer
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNC), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNC), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNC), (void*)sizeof(glm::vec3));
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -108,7 +110,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Colour buffer
 		glEnableVertexAttribArray(2);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[2]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNC), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNC), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)2, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNC), (void*)(sizeof(glm::vec3) * 2));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -124,7 +126,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Position buffer
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNT), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNT), 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -132,7 +134,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Normal buffer
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNT), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNT), (void*)sizeof(glm::vec3));
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -140,7 +142,7 @@ void CVertexBuffer::LoadData(MeshData *pData)
 		// Texture buffer
 		glEnableVertexAttribArray(2);
 		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[2]);
-		glBufferData(GL_ARRAY_BUFFER, pData->vertexCount*sizeof(SVertexTypePNT), pData->pVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNT), pVertData, GL_STATIC_DRAW);
 		glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNT), (void*)(sizeof(glm::vec3) * 2));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		break;

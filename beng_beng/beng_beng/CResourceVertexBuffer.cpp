@@ -5,7 +5,7 @@
 CResourceVertexBuffer::CResourceVertexBuffer(MeshData *pData) 
 {
 	m_pVertBuffer = new CVertexBuffer;
-	m_pVertBuffer->LoadData(pData);
+	//m_pVertBuffer->LoadData(pData);
 }
 
 

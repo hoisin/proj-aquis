@@ -8,7 +8,7 @@ float g_movAmt = 0.2f;
 float g_rotAmt = 0.3f;
 
 
-CApp::CApp() : m_pGfx(NULL), m_pResourceMgr(NULL), m_bAppActive(true), m_bRun(true)
+CApp::CApp() : m_pGfx(NULL), m_bAppActive(true), m_bRun(true)
 {
 }
 
@@ -202,11 +202,6 @@ void CApp::ShutDown()
 		m_pGfx = NULL;
 	}
 
-	if(m_pResourceMgr) { 
-		delete m_pResourceMgr;
-		m_pResourceMgr = NULL;
-	}
-
 	DestroyWindow(m_hWnd);
 	UnregisterClass(m_sAppName.c_str(), m_hInstance);
 	ReleaseMutex(m_hMutex);
@@ -270,18 +265,11 @@ LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPAR
 //------------------------------------------------------------------
 bool CApp::OnInitialise(UINT windowWidth, UINT windowHeight)
 {
-	if(!m_pResourceMgr) { 
-		m_pResourceMgr = new CResourceManager;
-	}
-
-	if(!m_pResourceMgr->Initialise())
-		return false;
-
 	if(!m_pGfx) {
 		m_pGfx = new CGraphics;
 	}
 
-	if(!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, m_pResourceMgr, windowWidth, windowHeight, MsgHandlerMain))
+	if(!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, windowWidth, windowHeight, MsgHandlerMain))
 		return false;
 
 	m_pGfx->LoadScene();
@@ -394,6 +382,10 @@ bool CApp::OnEvent(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			CCameraFPS* cam = (CCameraFPS*)m_pGfx->GetCamera();
 			switch(wParam)
 			{
+			case VK_ESCAPE :
+				m_bRun = false;
+				break;
+
 			case 'W':
 				cam->MoveForward(g_movAmt);
 				break;

@@ -139,6 +139,9 @@
     <ClCompile Include="CGBuffer.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="CBufferManager.cpp">
+      <Filter>Graphics\OpenGL\Buffers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -245,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="CGBuffer.h">
       <Filter>Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CBufferManager.h">
+      <Filter>Graphics\OpenGL\Buffers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
