@@ -73,9 +73,6 @@
     <ClCompile Include="CGraphics.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CGameCore.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="CMeshDataGenerator.cpp">
       <Filter>Graphics\Geometry</Filter>
     </ClCompile>
@@ -142,6 +139,9 @@
     <ClCompile Include="CBufferManager.cpp">
       <Filter>Graphics\OpenGL\Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="CShaderManager.cpp">
+      <Filter>Graphics\OpenGL\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
@@ -176,9 +176,6 @@
     </ClInclude>
     <ClInclude Include="CGraphics.h">
       <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="CGameCore.h">
-      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="GfxDefs.h">
       <Filter>Graphics</Filter>
@@ -251,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="CBufferManager.h">
       <Filter>Graphics\OpenGL\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderManager.h">
+      <Filter>Graphics\OpenGL\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

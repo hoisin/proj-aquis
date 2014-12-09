@@ -35,6 +35,28 @@ CIndexBuffer* CBufferManager::CreateIndexBuffer(const std::string& indexID, Mesh
 }
 
 
+CVertexBuffer* CBufferManager::GetVertexBuffer(const std::string& vertexID)
+{
+	std::map<std::string, CVertexBuffer*>::iterator it = m_vertexBufferMap.find(vertexID);
+
+	if(it == m_vertexBufferMap.end())
+		return NULL;
+
+	return it->second;
+}
+
+
+CIndexBuffer* CBufferManager::GetIndexBuffer(const std::string& indexID)
+{
+	std::map<std::string, CIndexBuffer*>::iterator it = m_indexBufferMap.find(indexID);
+
+	if(it == m_indexBufferMap.end())
+		return NULL;
+
+	return it->second;
+}
+
+
 void CBufferManager::CleanUp()
 {
 	std::map<std::string, CVertexBuffer*>::iterator vertexIt = m_vertexBufferMap.begin();

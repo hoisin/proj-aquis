@@ -2,6 +2,8 @@
 #pragma comment(lib, "glu32.lib")
 #pragma comment(lib, "glew32.lib")
 
+#include "CVertexBuffer.h"
+#include "CIndexBuffer.h"
 #include "COpenGL.h"
 
 // Initialise statics
@@ -205,6 +207,18 @@ void COpenGL::UnregisterOpenGLClass(HINSTANCE hInstance)
 		UnregisterClass(OPENGL_CLASS_NAME, hInstance);
 		m_bClassRegistered = false;
 	}
+}
+
+
+void COpenGL::RenderBuffer(CVertexBuffer* pVertBuffer, CIndexBuffer* pIndexBuffer)
+{
+	pVertBuffer->UseBuffer();
+	pIndexBuffer->UseBuffer();
+
+	// Set Shader stuff
+	// Set textures
+
+	glDrawElements(GL_TRIANGLES, pIndexBuffer->GetIndexCount(), GL_UNSIGNED_INT, 0);
 }
 
 
