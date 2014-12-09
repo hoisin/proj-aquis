@@ -89,7 +89,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalDependencies>winmm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -143,13 +143,13 @@
     <ClCompile Include="CBufferManager.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCameraFPS.cpp" />
-    <ClCompile Include="CGameCore.cpp" />
     <ClCompile Include="CGBuffer.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshDataGenerator.cpp" />
+    <ClCompile Include="CShaderManager.cpp" />
     <ClCompile Include="CSubMesh.cpp" />
     <ClCompile Include="COpenGL.cpp" />
     <ClCompile Include="CResourceIndexBuffer.cpp" />
@@ -173,13 +173,13 @@
     <ClInclude Include="CBufferManager.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCameraFPS.h" />
-    <ClInclude Include="CGameCore.h" />
     <ClInclude Include="CGBuffer.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CIndexBuffer.h" />
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshDataGenerator.h" />
+    <ClInclude Include="CShaderManager.h" />
     <ClInclude Include="CSubMesh.h" />
     <ClInclude Include="COpenGL.h" />
     <ClInclude Include="CResourceIndexBuffer.h" />

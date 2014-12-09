@@ -18,6 +18,9 @@
 #include <Windows.h>
 #include <iostream>
 
+class CVertexBuffer;
+class CIndexBuffer;
+
 class COpenGL
 {
 public:
@@ -32,6 +35,8 @@ public:
 
 	static void RegisterOpenGLClass(HINSTANCE hInstance, WNDPROC funcCallback);
 	static void UnregisterOpenGLClass(HINSTANCE hInstance);
+
+	void RenderBuffer(CVertexBuffer* pVertBuffer, CIndexBuffer* pIndexBuffer);
 
 	void MakeCurrent();
 	void ClearScreen();
