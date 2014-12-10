@@ -46,8 +46,9 @@ private:
 	bool InitGLEW(HINSTANCE hInstance, WNDPROC funcCallback);
 
 private:
-	HDC m_hDC;
 	HWND* m_pHwnd;
+
+	HDC m_hDC;
 	HGLRC m_hRC;
 	static bool m_bClassRegistered;
 	static bool m_bGlewInitialised;

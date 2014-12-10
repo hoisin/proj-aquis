@@ -287,7 +287,7 @@ bool CApp::OnInitialise(UINT windowWidth, UINT windowHeight)
 //------------------------------------------------------------------
 void CApp::OnDraw()
 {
-	m_pGfx->RenderScene();
+	m_pGfx->RenderScene();	// <--- Scene graph draw
 }
 
 
