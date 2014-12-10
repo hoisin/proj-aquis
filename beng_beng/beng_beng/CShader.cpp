@@ -119,7 +119,14 @@ bool CShader::LoadShader(const std::string &vertexShaderPath, const std::string 
 	return true;
 }
 
-
+//----------------------------------------------------------------------------------------------------
+//
+//	UserShader(..)
+//
+//	Description:
+//	Sets this shader as the active shader
+//
+//----------------------------------------------------------------------------------------------------
 void CShader::UserShader()
 {
 	// Free last used shader
@@ -127,3 +134,109 @@ void CShader::UserShader()
 
 	glUseProgram(m_programID);
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//
+//	SetShaderParam###(..)
+//
+//	Description:
+//	Following functions perform setting the parameter/s of current active shader
+//
+//----------------------------------------------------------------------------------------------------
+
+void CShader::SetShaderParam1f(const std::string& paramID, glm::float32 data)
+{
+	glUniform1f(glGetUniformLocation(m_programID, paramID.c_str()), data);
+}
+
+
+void CShader::SetShaderParam1fv(const std::string& paramID, glm::float32* dataArray, glm::uint sizeCount)
+{
+	glUniform1fv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam1i(const std::string& paramID, glm::int32 data)
+{
+	glUniform1i(glGetUniformLocation(m_programID, paramID.c_str()), data);
+}
+
+
+void CShader::SetShaderParam1iv(const std::string& paramID, glm::int32* dataArray, glm::uint sizeCount)
+{
+	glUniform1iv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam2f(const std::string& paramID, glm::float32 data1, glm::float32 data2)
+{
+	glUniform2f(glGetUniformLocation(m_programID, paramID.c_str()), data1, data2);
+}
+
+
+void CShader::SetShaderParam2fv(const std::string& paramID, glm::float32* dataArray, glm::uint sizeCount)
+{
+	glUniform2fv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam2i(const std::string& paramID, glm::int32 data1, glm::int32 data2)
+{
+	glUniform2i(glGetUniformLocation(m_programID, paramID.c_str()), data1, data2);
+}
+
+
+void CShader::SetShaderParam2iv(const std::string& paramID, glm::int32* dataArray, glm::uint sizeCount)
+{
+	glUniform2iv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam3f(const std::string& paramID, glm::float32 data1, glm::float32 data2, glm::float32 data3)
+{
+	glUniform3f(glGetUniformLocation(m_programID, paramID.c_str()), data1, data2, data3);
+}
+
+
+void CShader::SetShaderParam3fv(const std::string& paramID, glm::float32* dataArray, glm::uint sizeCount)
+{
+	glUniform3fv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam3i(const std::string& paramID, glm::int32 data1, glm::int32 data2, glm::int32 data3)
+{
+	glUniform3i(glGetUniformLocation(m_programID, paramID.c_str()), data1, data2, data3);
+}
+
+
+void CShader::SetShaderParam3iv(const std::string& paramID, glm::int32* dataArray, glm::uint sizeCount)
+{
+	glUniform3iv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam4f(const std::string& paramID, glm::float32 data1, glm::float32 data2, glm::float32 data3, glm::float32 data4)
+{
+	glUniform4f(glGetUniformLocation(m_programID, paramID.c_str()), data1, data2, data3, data4);
+}
+
+
+void CShader::SetShaderParam4fv(const std::string& paramID, glm::float32* dataArray, glm::uint sizeCount)
+{
+	glUniform4fv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+
+
+void CShader::SetShaderParam4i(const std::string& paramID, glm::int32 data1, glm::int32 data2, glm::int32 data3, glm::int32 data4)
+{
+	glUniform4i(glGetUniformLocation(m_programID, paramID.c_str()), data1, data2, data3, data4);
+}
+
+
+void CShader::SetShaderParam4iv(const std::string& paramID, glm::int32* dataArray, glm::uint sizeCount)
+{
+	glUniform4iv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
+}
+

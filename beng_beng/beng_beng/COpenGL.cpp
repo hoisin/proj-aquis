@@ -11,7 +11,7 @@ bool COpenGL::m_bClassRegistered = false;
 bool COpenGL::m_bGlewInitialised = false;
 
 
-COpenGL::COpenGL()
+COpenGL::COpenGL() : m_pHwnd(NULL), m_iMajorVer(0), m
 {
 }
 

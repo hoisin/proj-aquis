@@ -11,12 +11,16 @@
 #ifndef __CSCENEGRAPH_H__
 #define __CSCENEGRAPH_H__
 
+class CSceneNode;
 
 class CSceneGraph
 {
 public:
 	CSceneGraph();
 	~CSceneGraph();
+
+protected:
+	CSceneNode* m_pRoot;
 };
 
 
