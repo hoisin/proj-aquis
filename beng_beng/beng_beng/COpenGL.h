@@ -20,6 +20,7 @@
 
 class CVertexBuffer;
 class CIndexBuffer;
+class CShader;
 
 class COpenGL
 {
@@ -35,6 +36,12 @@ public:
 
 	static void RegisterOpenGLClass(HINSTANCE hInstance, WNDPROC funcCallback);
 	static void UnregisterOpenGLClass(HINSTANCE hInstance);
+
+	void SetCurrentShader(CShader* pNewShader);
+	CShader* GetCurrentShader() { return m_pRefCurrentShader; }
+
+	void BeginDraw();
+	void EndDraw();
 
 	void RenderBuffer(CVertexBuffer* pVertBuffer, CIndexBuffer* pIndexBuffer);
 
@@ -54,6 +61,7 @@ private:
 	static bool m_bGlewInitialised;
 	int m_iMajorVer, m_iMinorVer;
 
+	CShader* m_pRefCurrentShader;			// A reference, do not handle cleanup here
 };
 
 

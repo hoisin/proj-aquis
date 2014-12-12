@@ -210,6 +210,43 @@ void COpenGL::UnregisterOpenGLClass(HINSTANCE hInstance)
 }
 
 
+//------------------------------------------------------------------
+//
+//	SetCurrentShader(..)
+//
+//	pNewShader	-	New shader to be used as current
+//
+//	Simply sets new shader to be stored as current
+//
+//------------------------------------------------------------------
+void COpenGL::SetCurrentShader(CShader* pNewShader)
+{
+	m_pRefCurrentShader = pNewShader;
+}
+
+
+void COpenGL::BeginDraw()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+
+void COpenGL::EndDraw()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+
+//------------------------------------------------------------------
+//
+//	RenderBuffer(..)
+//
+//	pVertBuffer		-	pointer to the vertex buffer object
+//	pIndexBuffer	-	pointer to the index buffer object
+//
+//	Draws passed vertex data
+//
+//------------------------------------------------------------------
 void COpenGL::RenderBuffer(CVertexBuffer* pVertBuffer, CIndexBuffer* pIndexBuffer)
 {
 	pVertBuffer->UseBuffer();
