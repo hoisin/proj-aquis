@@ -5,13 +5,14 @@
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "COpenGL.h"
+#include "CShader.h"
 
 // Initialise statics
 bool COpenGL::m_bClassRegistered = false;
 bool COpenGL::m_bGlewInitialised = false;
 
 
-COpenGL::COpenGL() : m_pHwnd(NULL), m_iMajorVer(0), m
+COpenGL::COpenGL() : m_pHwnd(NULL), m_iMajorVer(3), m_iMinorVer(3)
 {
 }
 
@@ -222,6 +223,109 @@ void COpenGL::UnregisterOpenGLClass(HINSTANCE hInstance)
 void COpenGL::SetCurrentShader(CShader* pNewShader)
 {
 	m_pRefCurrentShader = pNewShader;
+}
+
+
+void COpenGL::SetShaderParam(EShaderParamType type, char* paramID, void* pData, UINT count, bool bTranspose)
+{
+	// Get handle to shader param
+	int shaderParam = glGetUniformLocation(m_pRefCurrentShader->GetShaderID(), paramID);
+
+	switch(type){
+	case eShaderParam1i:
+		glUniform1i(shaderParam, *((GLint*)(pData)));
+		break;
+
+	case eShaderParam2i:
+		{
+			glm::ivec2* data = (glm::ivec2*)pData;
+			glUniform2i(shaderParam, data->x, data->y);
+		}
+		break;
+
+	case eShaderParam3i:
+		{
+			glm::ivec3* data = (glm::ivec3*)pData;
+			glUniform3i(shaderParam, data->x, data->y, data->z);
+		}
+		break;
+
+	case eShaderParam4i:
+		{
+			glm::ivec4* data = (glm::ivec4*)pData;
+			glUniform4i(shaderParam, data->x, data->y, data->z, data->w);
+		}
+		break;
+
+	case eShaderParam1iv:
+		glUniform1iv(shaderParam, count, (GLint*)pData);
+		break;
+
+	case eShaderParam2iv:
+		glUniform2iv(shaderParam, count, (GLint*)pData);
+		break;
+
+	case eShaderParam3iv:
+		glUniform3iv(shaderParam, count, (GLint*)pData);
+		break;
+
+	case eShaderParam4iv:
+		glUniform4iv(shaderParam, count, (GLint*)pData);
+		break;
+
+	case eShaderParam1f:
+		glUniform1f(shaderParam, *((GLfloat*)pData));
+		break;
+
+	case eShaderParam2f:
+		{
+			glm::vec2* data = (glm::vec2*)pData;
+			glUniform2f(shaderParam, data->x, data->y);
+		}
+		break;
+
+	case eShaderParam3f:
+		{
+			glm::vec3* data = (glm::vec3*)pData;
+			glUniform3f(shaderParam, data->x, data->y, data->z);
+		}
+		break;
+
+	case eShaderParam4f:
+		{
+			glm::vec4* data = (glm::vec4*)pData;
+			glUniform4f(shaderParam, data->x, data->y, data->z, data->w);
+		}
+		break;
+
+	case eShaderParam1fv:
+		glUniform1fv(shaderParam, count, (GLfloat*)pData);
+		break;
+
+	case eShaderParam2fv:
+		glUniform2fv(shaderParam, count, (GLfloat*)pData);
+		break;
+
+	case eShaderParam3fv:
+		glUniform3fv(shaderParam, count, (GLfloat*)pData);
+		break;
+
+	case eShaderParam4fv:
+		glUniform4fv(shaderParam, count, (GLfloat*)pData);
+		break;
+
+	case eShaderParamMat2fv:
+		glUniformMatrix2fv(shaderParam, count, bTranspose, (GLfloat*)pData);
+		break;
+
+	case eShaderParamMat3fv:
+		glUniformMatrix3fv(shaderParam, count, bTranspose, (GLfloat*)pData);
+		break;
+
+	case eShaderParamMat4fv:
+		glUniformMatrix4fv(shaderParam, count, bTranspose, (GLfloat*)pData);
+		break;
+	}
 }
 
 

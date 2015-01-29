@@ -4,6 +4,9 @@
 //
 //	Class managing OpenGL stuff.....
 //
+//	This class should handle OpenGL specific setup & call related to drawing.
+//	Should not contain model/vertex data.
+//
 //	Author: SeaFooD © 2014
 //
 //--------------------------------------------------------------------------
@@ -22,6 +25,32 @@ class CVertexBuffer;
 class CIndexBuffer;
 class CShader;
 
+enum EShaderParamType {
+	eShaderParam1i,				// Single values
+	eShaderParam2i,
+	eShaderParam3i,
+	eShaderParam4i,
+	eShaderParam1iv,			// Array, need to specify count
+	eShaderParam2iv,
+	eShaderParam3iv,
+	eShaderParam4iv,
+
+	eShaderParam1f,				// Single values
+	eShaderParam2f,
+	eShaderParam3f,
+	eShaderParam4f,
+	eShaderParam1fv,			// Array, need to specify count
+	eShaderParam2fv,
+	eShaderParam3fv,
+	eShaderParam4fv,
+
+	eShaderParamMat2fv,			// Matrices (2x2, 3x3, 4x4)
+	eShaderParamMat3fv,
+	eShaderParamMat4fv,
+
+	eShaderParamTotal			// Dud
+};
+
 class COpenGL
 {
 public:
@@ -38,6 +67,7 @@ public:
 	static void UnregisterOpenGLClass(HINSTANCE hInstance);
 
 	void SetCurrentShader(CShader* pNewShader);
+	void SetShaderParam(EShaderParamType type, char* paramID, void* pData, UINT count = 1, bool bTranspose = false);
 	CShader* GetCurrentShader() { return m_pRefCurrentShader; }
 
 	void BeginDraw();

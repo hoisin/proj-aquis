@@ -108,10 +108,6 @@ bool CGraphics::RenderScene()
 	
 	//for(int i = 0; i < g_numObjs; i++)
 //	{
-		/*pVert->UseBuffer();
-		pIdx->UseBuffer();
-		pTex->UseTexture();
-		pShader->UserShader();*/
 
 	//	((CResourceVertexBuffer*)(m_pResourceMgr->GetResource(pModels[i]->m_vertexID)))->m_pVertBuffer->UseBuffer();
 	//	((CResourceIndexBuffer*)(m_pResourceMgr->GetResource(pModels[i]->m_indexID)))->m_pIdxBuffer->UseBuffer();
