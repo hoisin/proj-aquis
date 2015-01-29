@@ -252,5 +252,8 @@
     <ClInclude Include="CShaderManager.h">
       <Filter>Graphics\OpenGL\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="MeshManager.h">
+      <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
