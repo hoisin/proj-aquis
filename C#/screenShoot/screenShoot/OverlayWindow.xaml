@@ -1,0 +1,10 @@
+﻿<Window x:Class="screenShoot.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="overlayWindow" Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}}" 
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}" 
+        AllowsTransparency="True" Opacity="0.2" ResizeMode="NoResize" WindowStyle="None" Foreground="Lime" Left="1" Top="0" ShowInTaskbar="False" WindowState="Maximized" KeyDown="Window_KeyDown">
+    <Grid Background="Lime">
+        
+    </Grid>
+</Window>
