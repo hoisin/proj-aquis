@@ -167,6 +167,7 @@
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="CMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
@@ -202,7 +203,7 @@
     <ClInclude Include="Mat3x3.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="Mat4x4.h" />
-    <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="CMeshManager.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />

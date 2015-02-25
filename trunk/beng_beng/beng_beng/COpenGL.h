@@ -77,9 +77,10 @@ public:
 
 	void MakeCurrent();
 	void ClearScreen();
-	void SwapBuffersM();
 
 private:
+	void SwapBuffersM();
+
 	bool InitGLEW(HINSTANCE hInstance, WNDPROC funcCallback);
 
 private:

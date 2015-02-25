@@ -337,7 +337,7 @@ void COpenGL::BeginDraw()
 
 void COpenGL::EndDraw()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	SwapBuffersM();
 }
 
 
