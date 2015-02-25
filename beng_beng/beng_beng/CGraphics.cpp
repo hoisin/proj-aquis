@@ -93,7 +93,7 @@ bool CGraphics::RenderScene()
 		return false;
 
 	// Clear screen before drawing
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
+	m_pOpenGL->BeginDraw();
 
 	// Do drawing crap here
 	//glActiveTexture(GL_TEXTURE0);
@@ -162,7 +162,7 @@ bool CGraphics::RenderScene()
 	//}
 	
 	// Swap buffers!!!
-	m_pOpenGL->SwapBuffersM();
+	m_pOpenGL->EndDraw();
 
 	return true;
 }
