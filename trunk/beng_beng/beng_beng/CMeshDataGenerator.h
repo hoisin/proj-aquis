@@ -2,7 +2,9 @@
 //
 //	24/03/2014
 //
-//	Generates mesh data from procedural generation or loaded from file
+//	Generates mesh data from procedural generation or loaded from file.
+//	
+//	geometryID not needed in params since we are using maps for storage.
 //
 //	Author: SeaFooD © 2014
 //

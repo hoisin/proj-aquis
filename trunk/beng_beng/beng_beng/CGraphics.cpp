@@ -12,11 +12,16 @@
 #include "CTexture2D.h"
 #include "CCameraFPS.h"
 #include "CSubMesh.h"
-
 #include "CLight.h"
+
+#include "CMeshDataManager.h"
+#include "CBufferManager.h"
 
 #include <sstream>
 #include <fstream>
+
+
+std::string mySphere = "sphere_01";
 
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
@@ -26,7 +31,8 @@ CLight g_light = CLight(eLightDir, glm::vec3(0, -0.3, -0.5), glm::vec3(1, 1, 1),
 
 CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15);
 
-CGraphics::CGraphics() : m_pOpenGL(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false)
+CGraphics::CGraphics() : m_pOpenGL(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false), m_pMeshDataMgr(NULL),
+	m_pBufferMgr(NULL)
 {
 }
 
@@ -74,6 +80,11 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 	glEnable(GL_DEPTH_TEST);	// Depth testing (stuff behind stuff don't get draw)
 	glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
 	glFrontFace(GL_CCW);
+
+	// Create the mesh data manager
+	m_pMeshDataMgr = new CMeshDataManager;
+
+	m_pBufferMgr = new CBufferManager;
 
 	return true;
 }
@@ -172,16 +183,28 @@ bool CGraphics::RenderScene()
 //
 //	ShutDown(..)
 //
-//	Performs cleaup
+//	Performs cleaup. Reverse order resource clean up
 //
 //------------------------------------------------------------------
 void CGraphics::ShutDown()
 {
+	if(m_pBufferMgr) {
+		delete m_pBufferMgr;
+		m_pBufferMgr = NULL;
+	}
+
+	if(m_pMeshDataMgr) {
+		delete m_pMeshDataMgr;
+		m_pMeshDataMgr = NULL;
+	}
+
 	if(m_pOpenGL) {
 		m_pOpenGL->UnregisterOpenGLClass(m_hInstance);
 		delete m_pOpenGL;
 		m_pOpenGL = NULL;
 	}
+
+
 }
 
 
@@ -194,6 +217,8 @@ void CGraphics::ShutDown()
 //------------------------------------------------------------------
 void CGraphics::LoadScene()
 {
+	//	Old method of general data creation. Making all resources from a common base "resource class" was a bad idea.
+	//
 	//MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPNT, 100, glm::vec4(0,1,0,0));
 	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPNC, glm::vec4(1,0,0,1));
 	////MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 50, eVertexPNC, 20, glm::vec4(1,0,1,1));
@@ -219,6 +244,29 @@ void CGraphics::LoadScene()
 	//	pModels[i]->pos = glm::vec3(0, -10, 0);
 	//	//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
 	//}
+
+
+
+
+	//--------------------------------------------------------
+	//
+	//	New way of loading/creating assets/scene data
+	//
+	//--------------------------------------------------------
+
+
+	// Create the mesh data.
+	m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 10);
+
+	// Now load the mesh data to gfx so we get vertex and index buffers
+	m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+	m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+
+	// Load texture if we gonna use any.
+
+	// Proceed to load any shaders to be used
+
+	// Finally link all created resouces by generating CMesh and CSubMesh objects
 
 	pCam = new CCameraFPS(glm::vec3(0,0,20), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }

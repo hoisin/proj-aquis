@@ -12,6 +12,8 @@
 #include "CMesh.h"
 #include "CSubMesh.h"
 
+#include <string>
+
 
 CMeshManager::CMeshManager(void)
 {
