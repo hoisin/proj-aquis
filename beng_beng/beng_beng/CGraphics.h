@@ -22,6 +22,8 @@ class CShader;
 class CTexture2D;
 class CCameraFPS;
 class CSubMesh;
+class CMeshDataManager;
+class CBufferManager;
 
 class CGraphics
 {
@@ -47,6 +49,9 @@ protected:
 	HINSTANCE m_hInstance;
 	COpenGL *m_pOpenGL;
 	//CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
+	CMeshDataManager* m_pMeshDataMgr;
+	CBufferManager* m_pBufferMgr;
+
 
 	int m_winWidth, m_winHeight;
 
