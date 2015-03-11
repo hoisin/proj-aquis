@@ -31,10 +31,10 @@ CShader* CShaderManager::GetShader(const std::string& shaderID)
 {
 	std::map<std::string, CShader*>::iterator it = m_shaderMap.find(shaderID);
 
-	if(it == m_shaderMap.end())
-		return NULL;
+	if(it != m_shaderMap.end())
+		return it->second;
 
-	return it->second;
+	return NULL;
 }
 
 

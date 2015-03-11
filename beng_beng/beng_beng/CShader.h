@@ -49,6 +49,9 @@ public:
 	void SetShaderParam4i(const std::string& paramID, glm::int32 data1, glm::int32 data2, glm::int32 data3, glm::int32 data4);
 	void SetShaderParam4iv(const std::string& paramID, glm::int32* dataArray, glm::uint sizeCount);
 
+	void SetShaderParamMatrix4fv(const std::string& paramID, const glm::mat4& matrix, glm::uint count,
+		bool bTranspose = FALSE);
+
 	GLuint GetShaderID() { return m_programID; }
 
 protected:

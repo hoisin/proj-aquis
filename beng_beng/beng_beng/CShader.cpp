@@ -240,3 +240,14 @@ void CShader::SetShaderParam4iv(const std::string& paramID, glm::int32* dataArra
 	glUniform4iv(glGetUniformLocation(m_programID, paramID.c_str()), sizeCount, dataArray);
 }
 
+
+void CShader::SetShaderParamMatrix4fv(const std::string& paramID, const glm::mat4& matrix, glm::uint count, bool bTranspose)
+{
+	GLboolean transpose = GL_FALSE;
+
+	if(bTranspose)
+		transpose = GL_TRUE;
+
+	glUniformMatrix4fv(glGetUniformLocation(m_programID, paramID.c_str()), count, transpose,
+		&matrix[0][0]);
+}
