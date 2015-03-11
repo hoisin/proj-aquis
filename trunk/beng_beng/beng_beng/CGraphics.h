@@ -22,8 +22,12 @@ class CShader;
 class CTexture2D;
 class CCameraFPS;
 class CSubMesh;
+
 class CMeshDataManager;
 class CBufferManager;
+class CTextureManager;
+class CShaderManager;
+class CMeshManager;
 
 class CGraphics
 {
@@ -48,25 +52,20 @@ public:
 protected:
 	HINSTANCE m_hInstance;
 	COpenGL *m_pOpenGL;
-	//CResourceManager *m_pResourceMgr;		// Don't delete/clean up this, its done else where
+	
 	CMeshDataManager* m_pMeshDataMgr;
 	CBufferManager* m_pBufferMgr;
-
+	CTextureManager* m_pTextureMgr;
+	CShaderManager* m_pShaderMgr;
+	CMeshManager*	m_pMeshMgr;
 
 	int m_winWidth, m_winHeight;
 
 	bool m_bWireFrame;
 
-
 	// Test vars
-	CVertexBuffer *pVert;
-	CIndexBuffer *pIdx;
-	CShader* pShader;
-	CTexture2D* pTex;
 	CCameraFPS* pCam;
 
-	// Resource manager handles clean up
-	CSubMesh* pModels[1000];
 };
 
 #endif

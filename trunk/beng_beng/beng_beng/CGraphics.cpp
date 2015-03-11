@@ -1,4 +1,14 @@
-﻿#include "CGraphics.h"
+﻿//--------------------------------------------------------------------------
+//
+//	24/03/2014
+//
+//	Main interface class for graphics
+//
+//	Author: SeaFooD © 2014
+//
+//--------------------------------------------------------------------------
+
+#include "CGraphics.h"
 #include "COpenGL.h"
 #include "CResourceManager.h"
 #include "CResourceVertexBuffer.h"
@@ -12,16 +22,22 @@
 #include "CTexture2D.h"
 #include "CCameraFPS.h"
 #include "CSubMesh.h"
+#include "CMesh.h"
 #include "CLight.h"
 
 #include "CMeshDataManager.h"
 #include "CBufferManager.h"
+#include "CTextureManager.h"
+#include "CShaderManager.h"
+#include "CMeshManager.h"
 
 #include <sstream>
 #include <fstream>
 
 
 std::string mySphere = "sphere_01";
+std::string myTex = "tex_01";
+std::string myShader = "simple_01";
 
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
@@ -32,7 +48,7 @@ CLight g_light = CLight(eLightDir, glm::vec3(0, -0.3, -0.5), glm::vec3(1, 1, 1),
 CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15);
 
 CGraphics::CGraphics() : m_pOpenGL(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false), m_pMeshDataMgr(NULL),
-	m_pBufferMgr(NULL)
+	m_pBufferMgr(NULL), m_pTextureMgr(NULL), m_pShaderMgr(NULL), m_pMeshMgr(NULL)
 {
 }
 
@@ -81,10 +97,12 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 	glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
 	glFrontFace(GL_CCW);
 
-	// Create the mesh data manager
+	// Create the managers
 	m_pMeshDataMgr = new CMeshDataManager;
-
 	m_pBufferMgr = new CBufferManager;
+	m_pTextureMgr = new CTextureManager;
+	m_pShaderMgr = new CShaderManager;
+	m_pMeshMgr = new CMeshManager;
 
 	return true;
 }
@@ -106,72 +124,68 @@ bool CGraphics::RenderScene()
 	// Clear screen before drawing
 	m_pOpenGL->BeginDraw();
 
-	// Do drawing crap here
-	//glActiveTexture(GL_TEXTURE0);
-	//GLint texloc(glGetUniformLocation(pShader->GetShaderID(), "myTextureSampler")); //uniform sampler2D tex
-	//glUniform1i(texloc,0); // 0 for GL_TEXTURE0
-	//glBindTexture(GL_TEXTURE_2D, pTex->GetTexture());	// Only need this to set to 'use'
+	// For objects.list size (to do)
 
-	//glBindVertexArray(pVert->GetVertexArray());
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIdx->GetElementBuffer());
+	// for all objects in world ---- loop
+	CMesh* pCurrentMesh = m_pMeshMgr->GetMesh(mySphere);
 
+	if(pCurrentMesh) {
 
-	
-	//for(int i = 0; i < g_numObjs; i++)
-//	{
+		// Draw each sub-mesh in the mesh
+		for(unsigned int subMesh = 0; subMesh < pCurrentMesh->GetSubMeshCount(); subMesh++) {
+			m_pBufferMgr->GetVertexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_vertexID)->UseBuffer();
+			m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->UseBuffer();
+			m_pTextureMgr->GetTexture(myTex)->UseTexture();
 
-	//	((CResourceVertexBuffer*)(m_pResourceMgr->GetResource(pModels[i]->m_vertexID)))->m_pVertBuffer->UseBuffer();
-	//	((CResourceIndexBuffer*)(m_pResourceMgr->GetResource(pModels[i]->m_indexID)))->m_pIdxBuffer->UseBuffer();
-	//	((CResourceTexture2D*)(m_pResourceMgr->GetResource(pModels[i]->m_textureID)))->m_pTexture->UseTexture();
-	//	((CResourceShader*)(m_pResourceMgr->GetResource(pModels[i]->m_shaderID)))->m_pShader->UserShader();
+			CShader* pCurrentShader = m_pShaderMgr->GetShader(myShader);
+			//m_pShaderMgr->GetShader(myShader)->UserShader();
+			pCurrentShader->UserShader();
 
-	//	int projectionMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "projectionMatrix"); // Get the location of our projection matrix in the shader  
-	//	int viewMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "viewMatrix"); // Get the location of our view matrix in the shader  
-	//	int modelMatrixLocation = glGetUniformLocation(pShader->GetShaderID(), "worldMatrix"); // Get the location of our model matrix in the shader 
-	//	int modelInvMatrixLoc = glGetUniformLocation(pShader->GetShaderID(), "worldInvMatrix");
+			// Grab shader handles
+			GLuint shaderID = pCurrentShader->GetShaderID();
+			int projMatLoc = glGetUniformLocation(shaderID, "projectionMatrix");
+			int viewMatLoc = glGetUniformLocation(shaderID, "viewMatrix");
+			int modelMatLoc = glGetUniformLocation(shaderID, "worldMatrix");
+			int modelMatInvLoc = glGetUniformLocation(shaderID, "worldInvMatrix");
 
-	//	int lightDirection = glGetUniformLocation(pShader->GetShaderID(), "lightDirection");
-	//	int lightDiffuseCol = glGetUniformLocation(pShader->GetShaderID(), "diffuseLightCol");
-	//	int ambLightCol = glGetUniformLocation(pShader->GetShaderID(), "ambLightCol");
-	//	int ambIntensity = glGetUniformLocation(pShader->GetShaderID(), "ambIntensity");
+			int lightDir = glGetUniformLocation(shaderID, "lightDirection");
+			int lightDiffuseCol = glGetUniformLocation(shaderID, "diffueLightCol");
+			int ambLightCol = glGetUniformLocation(shaderID, "ambLightCol");
+			int ambIntensity = glGetUniformLocation(shaderID, "ambIntensity");
 
-	//	glm::mat4 world(1);
+			// Setup shader parameters
+			glm::mat4 world;
+			world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
 
-	//	std::string name = "";
-	//	std::stringstream str;
-	//	str << i;
-	//	name = "myModel" + str.str();
+			pCurrentShader->SetShaderParamMatrix4fv("projectionMatrix", pCam->GetProjectionMatrix(), 1);
+			pCurrentShader->SetShaderParamMatrix4fv("viewMatrix", pCam->GetViewMatrix(), 1);
+			pCurrentShader->SetShaderParamMatrix4fv("worldMatrix", world, 1);
 
-	//	//world = glm::translate(glm::mat4(1.0), glm::vec3(rand()%50, rand()%50, -rand()%50));
-	//	world = glm::translate(glm::mat4(1.0), 
-	//		((CResourceSubMesh*)(m_pResourceMgr->GetResource(name)))->m_pSubMesh->pos);
+			glm::mat4 invWorld(1);
+			invWorld = glm::inverse(invWorld);
+			invWorld = glm::transpose(invWorld);
 
-	//	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &pCam->GetProjectionMatrix()[0][0]); // Send our projection matrix to the shader  
-	//	glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &pCam->GetViewMatrix()[0][0]); // Send our view matrix to the shader  
-	//	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &world[0][0]); // Send our model matrix to the shader  
+			pCurrentShader->SetShaderParamMatrix4fv("worldInvMatrix", invWorld, 1);
 
-	//	glm::mat4 invWorld(1);
-	//	invWorld = glm::inverse(invWorld);
-	//	invWorld = glm::transpose(invWorld);
+			glm::vec4 col = glm::vec4(g_light.m_col, 1);
+			pCurrentShader->SetShaderParam3f("lightDirection", g_light.m_pos.x, g_light.m_pos.y, g_light.m_pos.z);
+			pCurrentShader->SetShaderParam4f("diffuseLightCol", col.x, col.y, col.z, col.w);
+			pCurrentShader->SetShaderParam3f("ambLightCol", g_ambLight.m_col.x, g_ambLight.m_col.y, g_ambLight.m_col.z);
+			pCurrentShader->SetShaderParam1f("ambIntensity", g_ambLight.m_intensity);
 
-	//	glUniformMatrix4fv(modelInvMatrixLoc, 1, GL_FALSE, &invWorld[0][0]);
-	//	
-	//	glm::vec4 col = glm::vec4(g_light.m_col, 1);
-	//	glUniform3fv(lightDirection, 1, &g_light.m_pos.x);
-	//	glUniform4fv(lightDiffuseCol, 1, &col.x);
-	//	glUniform3fv(ambLightCol, 1, &g_ambLight.m_col.x);
-	//	glUniform1fv(ambIntensity, 1, &g_ambLight.m_intensity);
+			// Draw the sub-mesh
+			glDrawElements(GL_TRIANGLES, m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->GetIndexCount(), GL_UNSIGNED_INT, 0);
 
-	//	glDrawElements(GL_TRIANGLES, pIdx->GetIndexCount(), GL_UNSIGNED_INT, 0);
-	//	//glDrawArrays(GL_TRIANGLES, 0, 3);
+			// Free stuff for the next draw call
+			glBindVertexArray(0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glUseProgram(0);
+		}
+	}
 
-	//	// Free stuff for the next draw call
-	//	glBindVertexArray(0);
-	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	//	glBindTexture(GL_TEXTURE_2D, 0);
-	//	glUseProgram(0);
-	//}
-	
+	// end of loop
+
 	// Swap buffers!!!
 	m_pOpenGL->EndDraw();
 
@@ -188,6 +202,21 @@ bool CGraphics::RenderScene()
 //------------------------------------------------------------------
 void CGraphics::ShutDown()
 {
+	if(m_pMeshMgr) {
+		delete m_pMeshMgr;
+		m_pMeshMgr = NULL;
+	}
+
+	if(m_pShaderMgr) {
+		delete m_pShaderMgr;
+		m_pShaderMgr = NULL;
+	}
+
+	if(m_pTextureMgr) {
+		delete m_pTextureMgr;
+		m_pTextureMgr = NULL;
+	}
+
 	if(m_pBufferMgr) {
 		delete m_pBufferMgr;
 		m_pBufferMgr = NULL;
@@ -204,6 +233,12 @@ void CGraphics::ShutDown()
 		m_pOpenGL = NULL;
 	}
 
+	// Temporary
+	if(pCam) {
+		delete pCam;
+
+		pCam = NULL;
+	}
 
 }
 
@@ -217,56 +252,28 @@ void CGraphics::ShutDown()
 //------------------------------------------------------------------
 void CGraphics::LoadScene()
 {
-	//	Old method of general data creation. Making all resources from a common base "resource class" was a bad idea.
-	//
-	//MeshData *pMesh = m_pResourceMgr->CreateSphere("sphere_1", 10, eVertexPNT, 100, glm::vec4(0,1,0,0));
-	//MeshData *pMesh = m_pResourceMgr->CreateQuad("quad_1", 6, eVertexPNC, glm::vec4(1,0,0,1));
-	////MeshData *pMesh = m_pResourceMgr->CreatePlane("plane_1", 50, eVertexPNC, 20, glm::vec4(1,0,1,1));
-	////MeshData *pMesh = m_pResourceMgr->CreateTriangle("tri_1", 5, eVertexPC, glm::vec4(1,1,0,0));
-	////MeshData *pMesh = m_pResourceMgr->CreateCube("cube_1", 10, eVertexPNT, 10, glm::vec4(1,1,1,1));
-
-	//pVert = m_pResourceMgr->CreateVertexBuffer("mesh_1", pMesh);
-	//pIdx = m_pResourceMgr->CreateIndexBuffer("idx_1", pMesh);
-
-	//pTex = m_pResourceMgr->CreateTexture2D("tex_1", "..\\Textures\\wtf.bmp");
-
-	//pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureDirLightVertexShader.vsh", "..\\Shaders\\textureDirLightFragmentShader.fsh");
-	////pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleDirLightVertexShader.vsh", "..\\Shaders\\simpleDirLightFragmentShader.fsh");
-	////pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
-	////pShader = m_pResourceMgr->CreateShader("simple_shader_1", "..\\Shaders\\simpleVertexShader.vsh", "..\\Shaders\\simpleFragmentShader.fsh");
-
-	//for(int i = 0; i < g_numObjs; i++) {
-	//	std::string name = "";
-	//	std::stringstream str;
-	//	str << i;
-	//	name = "myModel" + str.str();
-	//	pModels[i] = m_pResourceMgr->CreateSubMesh(name, "quad_1", "mesh_1", "idx_1", "simple_shader_1", "tex_1");
-	//	pModels[i]->pos = glm::vec3(0, -10, 0);
-	//	//pModels[i]->pos = glm::vec3(rand()%50, rand()%50, -rand()%50);
-	//}
-
-
-
-
 	//--------------------------------------------------------
 	//
 	//	New way of loading/creating assets/scene data
 	//
 	//--------------------------------------------------------
 
-
 	// Create the mesh data.
-	m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 10);
+	m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 20);
 
 	// Now load the mesh data to gfx so we get vertex and index buffers
 	m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
 	m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
 
 	// Load texture if we gonna use any.
+	m_pTextureMgr->LoadTexture(myTex, "..\\Textures\\wtf.bmp");
 
 	// Proceed to load any shaders to be used
+	m_pShaderMgr->CreateShader(myShader, "..\\Shaders\\textureDirLightVertexShader.vsh", "..\\Shaders\\textureDirLightFragmentShader.fsh");
 
 	// Finally link all created resouces by generating CMesh and CSubMesh objects
+	CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), mySphere);
+	pNewMesh->AddSubMesh(new CSubMesh(mySphere, mySphere, mySphere, myShader, myTex));
 
 	pCam = new CCameraFPS(glm::vec3(0,0,20), glm::vec3(0,1,0), 1.f, 200.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }

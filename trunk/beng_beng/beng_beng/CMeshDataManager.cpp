@@ -13,10 +13,7 @@ CMeshDataManager::CMeshDataManager(void) : m_pMeshDataGenerator(NULL)
 
 CMeshDataManager::~CMeshDataManager(void)
 {
-	if(m_pMeshDataGenerator) {
-		delete m_pMeshDataGenerator;
-		m_pMeshDataGenerator = NULL;
-	}
+	CleanUp();
 }
 
 
@@ -90,6 +87,12 @@ void CMeshDataManager::CleanUp(void)
 	}
 
 	m_mpMeshData.empty();
+
+
+	if(m_pMeshDataGenerator) {
+		delete m_pMeshDataGenerator;
+		m_pMeshDataGenerator = NULL;
+	}
 }
 
 

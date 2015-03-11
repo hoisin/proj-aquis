@@ -8,6 +8,7 @@ CBufferManager::CBufferManager()
 
 CBufferManager::~CBufferManager()
 {
+	CleanUp();
 }
 
 

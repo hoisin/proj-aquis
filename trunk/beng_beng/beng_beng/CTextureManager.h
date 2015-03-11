@@ -13,7 +13,7 @@
 #define __CTEXTUREMANGER_H__
 
 class CTexture2D;
-class CTextureLoader
+class CTextureLoader;
 
 #include <map>
 
@@ -23,7 +23,9 @@ public:
 	CTextureManager(void);
 	~CTextureManager(void);
 
+	// Loads BMP only at the moment
 	bool LoadTexture(const std::string& textureID, const std::string& texureFile);
+	CTexture2D* GetTexture(const std::string &textureID);
 	
 private:
 	std::map<std::string, CTexture2D*> m_mpTexture;

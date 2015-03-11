@@ -31,9 +31,12 @@ public:
 	void AddSubMesh(CSubMesh* pSubMesh);
 
 	CSubMesh* GetSubMesh(unsigned int index);
+	unsigned int GetSubMeshCount();
 
 	void SetPos(const glm::vec3& newPos);
 	glm::vec3 GetPos(void) const;
+
+	void CleanUp(void);
 
 protected:
 	std::vector<CSubMesh *> m_vpSubMeshes;
