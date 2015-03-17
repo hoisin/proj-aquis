@@ -2,12 +2,7 @@
 //
 //	24/03/2014
 //
-//	Class handling shader
-//
-//	For current development purposes, implement to get simple drawing going.
-//	This class will probably evolve or get replaced.
-//
-//	Author: SeaFooD © 2014
+//	Author: SeaFooD © 2015
 //
 //--------------------------------------------------------------------------
 
