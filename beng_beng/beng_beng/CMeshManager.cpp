@@ -64,6 +64,14 @@ void CMeshManager::RemoveMesh(const std::string& meshID)
 }
 
 
+
+std::map<std::string, CMesh*>* CMeshManager::GetMap(void)
+{
+	return &m_mpMeshes;
+}
+
+
+
 void CMeshManager::CleanUp()
 {
 	std::map<std::string, CMesh*>::iterator it;

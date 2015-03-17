@@ -29,6 +29,8 @@ public:
 	CMesh* GetMesh(const std::string& meshID);
 	void RemoveMesh(const std::string& meshID);
 
+	std::map<std::string, CMesh*>* GetMap(void);
+
 	void CleanUp(void);
 
 private:

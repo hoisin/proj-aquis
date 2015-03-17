@@ -37,6 +37,8 @@ public:
 	MeshData* GetMeshData(const std::string& meshDataID);
 	bool RemoveMeshData(const std::string& meshDataID);
 
+	std::map<std::string, MeshData*>* GetMap(void);
+
 	void CleanUp(void);
 
 protected:

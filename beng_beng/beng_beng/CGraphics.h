@@ -28,6 +28,7 @@ class CBufferManager;
 class CTextureManager;
 class CShaderManager;
 class CMeshManager;
+class CSceneLoader;
 
 class CGraphics
 {
@@ -58,6 +59,7 @@ protected:
 	CTextureManager* m_pTextureMgr;
 	CShaderManager* m_pShaderMgr;
 	CMeshManager*	m_pMeshMgr;
+	CSceneLoader*	m_pSceneLoader;
 
 	int m_winWidth, m_winHeight;
 

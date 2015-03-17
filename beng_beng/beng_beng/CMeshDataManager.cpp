@@ -75,6 +75,12 @@ bool CMeshDataManager::RemoveMeshData(const std::string& meshDataID)
 }
 
 
+std::map<std::string, MeshData*>* CMeshDataManager::GetMap(void)
+{
+	return &m_mpMeshData;
+}
+
+
 void CMeshDataManager::CleanUp(void)
 {
 	std::map<std::string, MeshData*>::iterator it;

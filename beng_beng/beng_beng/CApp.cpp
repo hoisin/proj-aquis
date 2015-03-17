@@ -4,7 +4,7 @@
 // test
 #include "CCameraFPS.h"
 
-float g_movAmt = 0.2f;
+float g_movAmt = 10.f;
 float g_rotAmt = 0.3f;
 
 
