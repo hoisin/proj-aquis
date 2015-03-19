@@ -7,6 +7,8 @@
 //	Note: This has been tested for the BMP loading and is working correctly.
 //		Simply read data retrieved and wrote it back to another file for test.
 //
+//	Using FreeImage library for loading images
+//
 //	Author: SeaFooD © 2014
 //
 //--------------------------------------------------------------------------

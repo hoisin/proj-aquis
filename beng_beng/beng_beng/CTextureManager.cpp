@@ -36,7 +36,7 @@ bool CTextureManager::LoadTexture(const std::string& textureId,
 	unsigned char* pTextureData = 0;
 	CTexture2D* pNewTexture = new CTexture2D;
 
-	if(m_pTextureLoader->LoadBMP(textureFile, width, height, &pTextureData)) {
+	if(m_pTextureLoader->LoadFile(textureFile, width, height, &pTextureData)) {
 		pNewTexture->LoadTexture(width, height, GL_RGB, GL_BGR, GL_UNSIGNED_BYTE, pTextureData);
 
 		m_mpTexture.insert(std::pair<std::string, CTexture2D*>(textureId, pNewTexture));

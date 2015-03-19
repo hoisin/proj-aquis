@@ -28,6 +28,7 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 	for(unsigned int mat = 0; mat < scene->mNumMaterials; mat++) {
 			const struct aiMaterial* material = scene->mMaterials[mat];
 			
+			material->Get(
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
 
 			int test = 0;
