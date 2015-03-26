@@ -23,6 +23,8 @@ CShader* CShaderManager::CreateShader(const std::string& shaderID, const std::st
 		return NULL;
 
 	m_shaderMap.insert(std::pair<std::string, CShader*>(shaderID, pShader));
+
+	return pShader;
 }
 
 

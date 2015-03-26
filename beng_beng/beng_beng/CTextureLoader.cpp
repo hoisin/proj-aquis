@@ -79,7 +79,8 @@ bool CTextureLoader::LoadBMP(const std::string &fileName, unsigned int &outWidth
 	unsigned int imageSize;
 
 	// Open the file
-	FILE *pFile = fopen(fileName.c_str(), "rb");
+	FILE *pFile = NULL;// = fopen(fileName.c_str(), "rb");
+	fopen_s(&pFile, fileName.c_str(), "rb");
 
 	// If cannot open the file
 	if(!pFile) {

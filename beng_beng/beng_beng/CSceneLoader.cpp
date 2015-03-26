@@ -28,7 +28,7 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 	for(unsigned int mat = 0; mat < scene->mNumMaterials; mat++) {
 			const struct aiMaterial* material = scene->mMaterials[mat];
 			
-			material->Get(
+			//material->Get(
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
 
 			int test = 0;
@@ -40,12 +40,12 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 		const struct aiMesh* mesh = scene->mMeshes[meshNum];
 
 		unsigned int totalIndices = 0;
-		for(int face = 0; face < mesh->mNumFaces; face++)
+		for(glm::uint face = 0; face < (glm::uint)mesh->mNumFaces; face++)
 			totalIndices += mesh->mFaces[face].mNumIndices;
 
 		MeshData* pNewMeshData = new MeshData(EVertexType::eVertexPNT, mesh->mNumVertices, totalIndices);
 
-		for(unsigned int vert = 0; vert < pNewMeshData->vertexCount; vert++) {
+		for(glm::uint vert = 0; vert < (glm::uint)pNewMeshData->vertexCount; vert++) {
 			SVertexTypePNT* pVertex = (SVertexTypePNT*)pNewMeshData->pVertices;
 
 			pVertex[vert].position = glm::vec3(mesh->mVertices[vert].x, mesh->mVertices[vert].y, mesh->mVertices[vert].z);
