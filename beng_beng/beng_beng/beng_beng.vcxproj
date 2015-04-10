@@ -153,6 +153,7 @@
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CLightManager.cpp" />
+    <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="CMeshDataManager.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="CIndexBuffer.h" />
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CLightManager.h" />
+    <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshDataGenerator.h" />
     <ClInclude Include="CMeshDataManager.h" />

@@ -59,6 +59,9 @@
     <Filter Include="Graphics\Scene\Scenegraph_Old">
       <UniqueIdentifier>{eb6535b3-757b-4a74-870d-a011f6236454}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Material">
+      <UniqueIdentifier>{6e8ad4be-7388-44de-ac27-ae07270b2a18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -159,6 +162,9 @@
     </ClCompile>
     <ClCompile Include="CSceneLoader.cpp">
       <Filter>Graphics\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
+      <Filter>Graphics\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +290,9 @@
     </ClInclude>
     <ClInclude Include="CSceneLoader.h">
       <Filter>Graphics\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
+      <Filter>Graphics\Material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
