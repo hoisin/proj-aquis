@@ -1,5 +1,8 @@
 #include "CSceneLoader.h"
 #include "CMeshDataManager.h"
+#include "CTextureManager.h"
+#include "CMaterialManager.h"
+#include "CMaterial.h"
 #include "GfxDefs.h"
 
 CSceneLoader::CSceneLoader(void)
@@ -12,12 +15,13 @@ CSceneLoader::~CSceneLoader(void)
 }
 
 
-bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMeshMgr)
+bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMeshMgr,
+	CTextureManager* pTextureMgr, CMaterialManager* pMaterialMgr)
 {
 	Assimp::Importer importer;
 
-	const aiScene* scene = importer.ReadFile(fileName, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices
-		| aiProcess_SortByPType);
+	const aiScene* scene = importer.ReadFile(fileName, aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_Triangulate /*| aiProcess_JoinIdenticalVertices*/
+		| aiProcess_SortByPType | aiProcess_OptimizeMeshes | aiProcess_SplitLargeMeshes | aiProcess_FindDegenerates | aiProcess_FindInvalidData | aiProcess_ImproveCacheLocality);
 
 	if(!scene) 
 		return false;
@@ -31,8 +35,18 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 			//material->Get(
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
 
-			int test = 0;
-			test = 2+2;
+			aiString materialName;
+			material->Get(AI_MATKEY_NAME, materialName);
+			
+
+			if (texturePath.C_Str() != "") {
+				std::string textureFile = "C:\\Users\\Mathew\\Downloads\\crytek-sponza\\" + std::string(texturePath.C_Str());
+				pTextureMgr->LoadTexture(materialName.C_Str(), textureFile);
+
+				CMaterial* pNewMaterial = new CMaterial;
+				pNewMaterial->m_diffuseTexID = materialName.C_Str();
+				pMaterialMgr->AddMaterial(std::to_string(mat), pNewMaterial);
+			}
 		}
 
 
@@ -60,6 +74,8 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 				counter++;
 			}
 		}
+
+		pNewMeshData->material = std::to_string(mesh->mMaterialIndex);
 
 		if(mesh->mName.length == 0) {
 			std::string meshStr = std::to_string((long double)meshNum);

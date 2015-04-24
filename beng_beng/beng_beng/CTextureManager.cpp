@@ -50,6 +50,11 @@ bool CTextureManager::LoadTexture(const std::string& textureId,
 		return true;
 	}
 
+	if (pNewTexture) {
+		delete pNewTexture;
+		pNewTexture = NULL;
+	}
+
 	return false;
 }
 

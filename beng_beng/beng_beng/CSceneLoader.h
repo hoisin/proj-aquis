@@ -4,6 +4,9 @@
 //
 //	Loads model/scene data 
 //	Uses Assimp library for importing model data.
+//
+//	To Do: Extend capabilities to other file formats.
+//		Current working with .obj files only
 //	
 //	Author: SeaFooD © 2015
 //
@@ -17,6 +20,8 @@
 #include <assimp/postprocess.h>
 
 class CMeshDataManager;
+class CTextureManager;
+class CMaterialManager;
 
 class CSceneLoader
 {
@@ -24,7 +29,8 @@ public:
 	CSceneLoader(void);
 	~CSceneLoader(void);
 
-	bool LoadScene(const std::string& fileName, CMeshDataManager* pMeshMgr);
+	bool LoadScene(const std::string& fileName, CMeshDataManager* pMeshMgr,
+		CTextureManager* pTextureMgr, CMaterialManager* pMaterialMgr);
 };
 
 

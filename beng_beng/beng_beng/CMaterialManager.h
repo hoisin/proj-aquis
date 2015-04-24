@@ -23,7 +23,7 @@ public:
 	CMaterialManager(void);
 	~CMaterialManager(void);
 
-	void AddMaterial(const std::string& materialID, const CMaterial& material);
+	void AddMaterial(const std::string& materialID, CMaterial* material);
 
 	CMaterial* GetMaterial(const std::string& materialID);
 

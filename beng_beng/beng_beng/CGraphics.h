@@ -29,6 +29,7 @@ class CTextureManager;
 class CShaderManager;
 class CMeshManager;
 class CSceneLoader;
+class CMaterialManager;
 
 class CGraphics
 {
@@ -60,6 +61,7 @@ protected:
 	CShaderManager* m_pShaderMgr;
 	CMeshManager*	m_pMeshMgr;
 	CSceneLoader*	m_pSceneLoader;
+	CMaterialManager* m_pMaterialMgr;
 
 	int m_winWidth, m_winHeight;
 

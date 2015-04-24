@@ -194,11 +194,12 @@ public:
 
 struct MeshData
 {
-	SVertexType*			pVertices;		// Pointer to vertex data
-	unsigned int*			pIndices;		// Pointer to index data
-	int						vertexCount;	// Vertex count
-	int						indexCount;		// Index count
-	EVertexType				vertexType;		// Format of vertices
+	SVertexType*			pVertices;			// Pointer to vertex data
+	unsigned int*			pIndices;			// Pointer to index data
+	int						vertexCount;		// Vertex count
+	int						indexCount;			// Index count
+	EVertexType				vertexType;			// Format of vertices
+	std::string				material;			// Material ID
 
 	// Allocates memory for buffer for specified vertex type
 	MeshData(EVertexType vertType, int vertCount, int idxCount)

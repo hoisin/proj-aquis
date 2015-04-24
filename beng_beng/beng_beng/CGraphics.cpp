@@ -31,6 +31,8 @@
 #include "CShaderManager.h"
 #include "CMeshManager.h"
 #include "CSceneLoader.h"
+#include "CMaterialManager.h"
+#include "CMaterial.h"
 
 #include <sstream>
 #include <fstream>
@@ -49,7 +51,7 @@ CLight g_light = CLight(eLightDir, glm::vec3(0, -0.3, -0.5), glm::vec3(1, 1, 1),
 CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15f);
 
 CGraphics::CGraphics() : m_pOpenGL(NULL),  m_winWidth(0), m_winHeight(0), m_bWireFrame(false), m_pMeshDataMgr(NULL),
-	m_pBufferMgr(NULL), m_pTextureMgr(NULL), m_pShaderMgr(NULL), m_pMeshMgr(NULL), m_pSceneLoader(NULL)
+	m_pBufferMgr(NULL), m_pTextureMgr(NULL), m_pShaderMgr(NULL), m_pMeshMgr(NULL), m_pSceneLoader(NULL), m_pMaterialMgr(NULL)
 {
 }
 
@@ -105,6 +107,7 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 	m_pShaderMgr = new CShaderManager;
 	m_pMeshMgr = new CMeshManager;
 	m_pSceneLoader = new CSceneLoader;
+	m_pMaterialMgr = new CMaterialManager;
 
 	return true;
 }
@@ -139,7 +142,16 @@ bool CGraphics::RenderScene()
 		for(unsigned int subMesh = 0; subMesh < pCurrentMesh->GetSubMeshCount(); subMesh++) {
 			m_pBufferMgr->GetVertexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_vertexID)->UseBuffer();
 			m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->UseBuffer();
-			m_pTextureMgr->GetTexture(myTex)->UseTexture();
+
+			CMaterial* pMat = m_pMaterialMgr->GetMaterial(pCurrentMesh->GetSubMesh(subMesh)->m_textureID.c_str());
+
+			m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glGenerateMipmap(GL_TEXTURE_2D);
 
 			CShader* pCurrentShader = m_pShaderMgr->GetShader(myShader);
 			//m_pShaderMgr->GetShader(myShader)->UserShader();
@@ -206,6 +218,11 @@ bool CGraphics::RenderScene()
 //------------------------------------------------------------------
 void CGraphics::ShutDown()
 {
+	if (m_pMaterialMgr) {
+		delete m_pMaterialMgr;
+		m_pMaterialMgr = NULL;
+	}
+
 	if(m_pSceneLoader) {
 		delete m_pSceneLoader;
 		m_pSceneLoader = NULL;
@@ -269,38 +286,59 @@ void CGraphics::LoadScene()
 
 	// Create the mesh data.
 	m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 20);
-	m_pSceneLoader->LoadScene("C:\\Users\\Mathew\\Downloads\\crytek-sponza\\sponza.obj", m_pMeshDataMgr);
+	m_pSceneLoader->LoadScene("C:\\Users\\Mathew\\Downloads\\crytek-sponza\\sponza.obj", 
+		m_pMeshDataMgr, m_pTextureMgr, m_pMaterialMgr);
 
 	// Now load the mesh data to gfx so we get vertex and index buffers
-	//m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
-	//m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+	m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+	m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
 
 	std::string vertStr = "Vertex_Buffer_";
 	std::string idxStr = "Index_Buffer_";
 	std::map<std::string, MeshData*>* pMap = m_pMeshDataMgr->GetMap();
 	std::map<std::string, MeshData*>::iterator it;
 
-	unsigned int count = 0;
-	for(it = pMap->begin(); it != pMap->end(); it++) {
-		m_pBufferMgr->CreateVertexBuffer(vertStr + std::to_string((long double) count), it->second);
-		m_pBufferMgr->CreateIndexBuffer(idxStr + std::to_string((long double) count), it->second);
-		count++;
-	}
-
 	// Load texture if we gonna use any.
 	m_pTextureMgr->LoadTexture(myTex, "..\\Textures\\wtf.bmp");
+
+	CMaterial* newMat = new CMaterial;
+	newMat->m_diffuseTexID = myTex;
+	m_pMaterialMgr->AddMaterial(mySphere, newMat);
 
 	// Proceed to load any shaders to be used
 	m_pShaderMgr->CreateShader(myShader, "..\\Shaders\\textureDirLightVertexShader.vsh", "..\\Shaders\\textureDirLightFragmentShader.fsh");
 
+	unsigned int count = 0;
+	for(it = pMap->begin(); it != pMap->end(); it++) {
+		m_pBufferMgr->CreateVertexBuffer(vertStr + std::to_string((long double) count), it->second);
+		m_pBufferMgr->CreateIndexBuffer(idxStr + std::to_string((long double) count), it->second);
+
+		std::string meshStr = "mesh_";
+
+		if (it->second->material == "") {
+			CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
+			pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double)count), vertStr + std::to_string((long double)count), idxStr + std::to_string((long double)count), myShader,
+				mySphere));
+		}
+		else {
+			CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
+			pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double)count), vertStr + std::to_string((long double)count), idxStr + std::to_string((long double)count), myShader,
+				it->second->material));
+		}
+
+		count++;
+	}
+
+	
+
 	// Finally link all created resouces by generating CMesh and CSubMesh objects
 
-	std::string meshStr = "mesh_";
-	for(glm::uint mesh = 0; mesh < pMap->size(); mesh++) {
+	//std::string meshStr = "mesh_";
+	//for(glm::uint mesh = 0; mesh < pMap->size(); mesh++) {
 
-		CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double) mesh));
-		pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double) mesh), vertStr + std::to_string((long double) mesh),  idxStr + std::to_string((long double) mesh), myShader, myTex));
-	}
+	//	CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double) mesh));
+	//	pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double) mesh), vertStr + std::to_string((long double) mesh),  idxStr + std::to_string((long double) mesh), myShader, myTex));
+	//}
 
 	pCam = new CCameraFPS(glm::vec3(0,0,20), glm::vec3(0,1,0), 1.f, 5000.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }
