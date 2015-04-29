@@ -13,20 +13,40 @@ CTextureLoader::~CTextureLoader()
 }
 
 
-bool CTextureLoader::LoadFile(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,
+bool CTextureLoader::LoadFile(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight, ETextureFormat &eTexFormat, unsigned int &bitsPerPixel,
 		unsigned char** pOutData)
 {
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 
 	// Pointer to the image, once loaded
 	FIBITMAP *dib(0);
-
+	
 	// pointer to the image data
 	BYTE* bits(0);
 	
 	unsigned int width(0), height(0);
 
 	fif = FreeImage_GetFileType(fileName.c_str(), 0);
+
+	// Return the file format
+	switch (fif)
+	{
+	case FIF_BMP:
+		eTexFormat = eTextureFormatBMP;
+		break;
+
+	case FIF_TARGA:
+		eTexFormat = eTextureFormatTGA;
+		break;
+
+	case FIF_PNG:
+		eTexFormat = eTextureFormatPNG;
+		break;
+
+	default:
+		eTexFormat = eTextureFormatNone;
+		break;
+	}
 
 	// If still unknown, try to get the file format from the file extension
 	if(fif == FIF_UNKNOWN)
@@ -55,6 +75,9 @@ bool CTextureLoader::LoadFile(const std::string &fileName, unsigned int &outWidt
 		return false;
 
 	unsigned int bpp = FreeImage_GetBPP(dib) / 8;
+	
+	// Output bits per pixel
+	bitsPerPixel = bpp;
 
 	// Create copy of image data
 	*pOutData = new unsigned char[bpp * width * height];

@@ -147,6 +147,46 @@ void CVertexBuffer::LoadData(void* pVertData, glm::uint32 vertexCount, EVertexTy
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		break;
 
+	case eVertexPNTT:
+		m_numVBOs = 4;
+		m_pVBO = new GLuint[m_numVBOs];
+
+		// Generate and setup VBOs
+		glGenBuffers(m_numVBOs, m_pVBO);
+
+		// Position buffer
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[0]);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNTT), pVertData, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNTT), 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Normal buffer
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[1]);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNTT), pVertData, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNTT), (void*)sizeof(glm::vec3));
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Tangent buffer
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[2]);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNTT), pVertData, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)2, 3, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNTT), (void*)(sizeof(glm::vec3) * 2));
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Texture buffer
+		glEnableVertexAttribArray(3);
+		glBindBuffer(GL_ARRAY_BUFFER, m_pVBO[3]);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount*sizeof(SVertexTypePNTT), pVertData, GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)3, 2, GL_FLOAT, GL_FALSE, sizeof(SVertexTypePNTT), (void*)(sizeof(glm::vec3) * 3));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		break;
+
 	default:
 		break;
 	}

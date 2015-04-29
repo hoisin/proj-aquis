@@ -18,13 +18,15 @@
 
 #include <string>
 
+#include "GfxDefs.h"
+
 class CTextureLoader
 {
 public:
 	CTextureLoader();
 	~CTextureLoader();
 
-	bool LoadFile(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,
+	bool LoadFile(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight, ETextureFormat &eTexFormat, unsigned int &bitsPerPixel,
 		unsigned char** pOutData);
 
 	bool LoadBMP(const std::string &fileName, unsigned int &outWidth, unsigned int &outHeight,

@@ -144,30 +144,18 @@ bool CGraphics::RenderScene()
 			m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->UseBuffer();
 
 			CMaterial* pMat = m_pMaterialMgr->GetMaterial(pCurrentMesh->GetSubMesh(subMesh)->m_textureID.c_str());
-
-			m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glGenerateMipmap(GL_TEXTURE_2D);
-
 			CShader* pCurrentShader = m_pShaderMgr->GetShader(myShader);
-			//m_pShaderMgr->GetShader(myShader)->UserShader();
 			pCurrentShader->UserShader();
 
-			// Grab shader handles
-			GLuint shaderID = pCurrentShader->GetShaderID();
-			int projMatLoc = glGetUniformLocation(shaderID, "projectionMatrix");
-			int viewMatLoc = glGetUniformLocation(shaderID, "viewMatrix");
-			int modelMatLoc = glGetUniformLocation(shaderID, "worldMatrix");
-			int modelMatInvLoc = glGetUniformLocation(shaderID, "worldInvMatrix");
+			// Setup textures
+			pCurrentShader->SetShaderParam1i("texture0", 0);
+			pCurrentShader->SetShaderParam1i("texture1", 1);
 
-			int lightDir = glGetUniformLocation(shaderID, "lightDirection");
-			int lightDiffuseCol = glGetUniformLocation(shaderID, "diffueLightCol");
-			int ambLightCol = glGetUniformLocation(shaderID, "ambLightCol");
-			int ambIntensity = glGetUniformLocation(shaderID, "ambIntensity");
+			glActiveTexture(GL_TEXTURE0);
+			m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
+
+			glActiveTexture(GL_TEXTURE1);
+			m_pTextureMgr->GetTexture(pMat->m_bumpTexID)->UseTexture();
 
 			// Setup shader parameters
 			glm::mat4 world;
@@ -285,13 +273,13 @@ void CGraphics::LoadScene()
 	//--------------------------------------------------------
 
 	// Create the mesh data.
-	m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 20);
+	//m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 20);
 	m_pSceneLoader->LoadScene("C:\\Users\\Mathew\\Downloads\\crytek-sponza\\sponza.obj", 
 		m_pMeshDataMgr, m_pTextureMgr, m_pMaterialMgr);
 
 	// Now load the mesh data to gfx so we get vertex and index buffers
-	m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
-	m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+	//m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+	//m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
 
 	std::string vertStr = "Vertex_Buffer_";
 	std::string idxStr = "Index_Buffer_";
@@ -299,11 +287,11 @@ void CGraphics::LoadScene()
 	std::map<std::string, MeshData*>::iterator it;
 
 	// Load texture if we gonna use any.
-	m_pTextureMgr->LoadTexture(myTex, "..\\Textures\\wtf.bmp");
+	//m_pTextureMgr->LoadTexture(myTex, "..\\Textures\\wtf.bmp");
 
-	CMaterial* newMat = new CMaterial;
-	newMat->m_diffuseTexID = myTex;
-	m_pMaterialMgr->AddMaterial(mySphere, newMat);
+	//CMaterial* newMat = new CMaterial;
+	//newMat->m_diffuseTexID = myTex;
+	//m_pMaterialMgr->AddMaterial(mySphere, newMat);
 
 	// Proceed to load any shaders to be used
 	m_pShaderMgr->CreateShader(myShader, "..\\Shaders\\textureDirLightVertexShader.vsh", "..\\Shaders\\textureDirLightFragmentShader.fsh");
@@ -315,16 +303,16 @@ void CGraphics::LoadScene()
 
 		std::string meshStr = "mesh_";
 
-		if (it->second->material == "") {
-			CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
+		//if (it->second->material == "") {
+		/*	CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
 			pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double)count), vertStr + std::to_string((long double)count), idxStr + std::to_string((long double)count), myShader,
-				mySphere));
-		}
-		else {
+				mySphere));*/
+		//}
+		//else {
 			CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
 			pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double)count), vertStr + std::to_string((long double)count), idxStr + std::to_string((long double)count), myShader,
 				it->second->material));
-		}
+		//}
 
 		count++;
 	}

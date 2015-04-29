@@ -285,6 +285,20 @@ enum ELightType
 };
 
 
+/*
+==============================================
+	Texture Formats
+==============================================
+*/
+
+enum ETextureFormat
+{
+	eTextureFormatNone,
+	eTextureFormatBMP,				// Bitmap
+	eTextureFormatTGA,				// Targa
+	eTextureFormatPNG,				// PNG
+	eTextureFormatTotal
+};
 
 
 

@@ -154,6 +154,7 @@
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CLightManager.cpp" />
     <ClCompile Include="CMaterial.cpp" />
+    <ClCompile Include="CMaterialManager.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshDataGenerator.cpp" />
     <ClCompile Include="CMeshDataManager.cpp" />
@@ -190,9 +191,11 @@
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CLightManager.h" />
     <ClInclude Include="CMaterial.h" />
+    <ClInclude Include="CMaterialManager.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshDataGenerator.h" />
     <ClInclude Include="CMeshDataManager.h" />
+    <ClInclude Include="CModel.h" />
     <ClInclude Include="CSceneLoader.h" />
     <ClInclude Include="CShaderManager.h" />
     <ClInclude Include="CSubMesh.h" />

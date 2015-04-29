@@ -44,9 +44,6 @@
     <Filter Include="Graphics\Lights">
       <UniqueIdentifier>{d25fec6b-1e83-44df-96c1-98b737d9eaa5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Mesh">
-      <UniqueIdentifier>{495615af-7da8-4c12-8ab7-2371981ff59f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource_Old">
       <UniqueIdentifier>{becbaed8-2c98-4728-8d48-bd3f71864c16}</UniqueIdentifier>
     </Filter>
@@ -61,6 +58,9 @@
     </Filter>
     <Filter Include="Graphics\Material">
       <UniqueIdentifier>{6e8ad4be-7388-44de-ac27-ae07270b2a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Model/Mesh">
+      <UniqueIdentifier>{495615af-7da8-4c12-8ab7-2371981ff59f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,10 +125,10 @@
       <Filter>Graphics\Lights</Filter>
     </ClCompile>
     <ClCompile Include="CMesh.cpp">
-      <Filter>Graphics\Mesh</Filter>
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClCompile>
     <ClCompile Include="CSubMesh.cpp">
-      <Filter>Graphics\Mesh</Filter>
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClCompile>
     <ClCompile Include="CResourceSubMesh.cpp">
       <Filter>Resource_Old\Resource Types</Filter>
@@ -143,7 +143,7 @@
       <Filter>Graphics\OpenGL\Shader</Filter>
     </ClCompile>
     <ClCompile Include="CMeshManager.cpp">
-      <Filter>Graphics\Mesh</Filter>
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClCompile>
     <ClCompile Include="CMeshDataManager.cpp">
       <Filter>Graphics\Geometry</Filter>
@@ -164,6 +164,9 @@
       <Filter>Graphics\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
+      <Filter>Graphics\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterialManager.cpp">
       <Filter>Graphics\Material</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,10 +253,10 @@
       <Filter>Graphics\Lights</Filter>
     </ClInclude>
     <ClInclude Include="CMesh.h">
-      <Filter>Graphics\Mesh</Filter>
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CSubMesh.h">
-      <Filter>Graphics\Mesh</Filter>
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CResourceSubMesh.h">
       <Filter>Resource_Old\Resource Types</Filter>
@@ -268,7 +271,7 @@
       <Filter>Graphics\OpenGL\Shader</Filter>
     </ClInclude>
     <ClInclude Include="CMeshManager.h">
-      <Filter>Graphics\Mesh</Filter>
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CMeshDataManager.h">
       <Filter>Graphics\Geometry</Filter>
@@ -293,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="CMaterial.h">
       <Filter>Graphics\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterialManager.h">
+      <Filter>Graphics\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Graphics\Model/Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
