@@ -29,7 +29,12 @@ public:
 	CSceneLoader(void);
 	~CSceneLoader(void);
 
+	// This loads a scene from a .obj file
 	bool LoadScene(const std::string& fileName, CMeshDataManager* pMeshMgr,
+		CTextureManager* pTextureMgr, CMaterialManager* pMaterialMgr);
+
+	// This spawns a test scene which we define hardcoded
+	bool TestScene(CMeshDataManager* pMeshMgr,
 		CTextureManager* pTextureMgr, CMaterialManager* pMaterialMgr);
 };
 

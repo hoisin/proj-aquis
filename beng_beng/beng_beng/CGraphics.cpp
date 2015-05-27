@@ -274,7 +274,7 @@ void CGraphics::LoadScene()
 
 	// Create the mesh data.
 	//m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 20);
-	m_pSceneLoader->LoadScene("C:\\Users\\Mathew\\Downloads\\crytek-sponza\\sponza.obj", 
+	m_pSceneLoader->LoadScene("C:\\Users\\Mathew\\Downloads\\hou\\MedievalHouse1.obj", 
 		m_pMeshDataMgr, m_pTextureMgr, m_pMaterialMgr);
 
 	// Now load the mesh data to gfx so we get vertex and index buffers

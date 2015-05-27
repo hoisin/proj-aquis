@@ -45,7 +45,7 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 
 				// Diffuse texture
 				if (texturePath.C_Str() != "") {
-					std::string textureFile = "C:\\Users\\Mathew\\Downloads\\crytek-sponza\\" + std::string(texturePath.C_Str());
+					std::string textureFile = "C:\\Users\\Mathew\\Downloads\\hou\\MedievalHouse1.fbm\\" + std::string(texturePath.C_Str());
 					pTextureMgr->LoadTexture(std::string(materialName.C_Str()) + "_diffuse", textureFile);
 
 					pNewMaterial->m_diffuseTexID = std::string(materialName.C_Str()) + "_diffuse";
@@ -54,7 +54,7 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 
 				// Normal map texture
 				if (bumpTexturePath.C_Str() != "") {
-					std::string bumpTextureFile = "C:\\Users\\Mathew\\Downloads\\crytek-sponza\\" + std::string(bumpTexturePath.C_Str());
+					std::string bumpTextureFile = "C:\\Users\\Mathew\\Downloads\\hou\\MedievalHouse1.fbm\\" + std::string(bumpTexturePath.C_Str());
 					pTextureMgr->LoadTexture(std::string(materialName.C_Str()) + "_normal", bumpTextureFile);
 
 					pNewMaterial->m_bumpTexID = std::string(materialName.C_Str()) + "_normal";
@@ -72,14 +72,14 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 		for(glm::uint face = 0; face < (glm::uint)mesh->mNumFaces; face++)
 			totalIndices += mesh->mFaces[face].mNumIndices;
 
-		MeshData* pNewMeshData = new MeshData(EVertexType::eVertexPNTT, mesh->mNumVertices, totalIndices);
+		MeshData* pNewMeshData = new MeshData(EVertexType::eVertexPT, mesh->mNumVertices, totalIndices);
 
 		for(glm::uint vert = 0; vert < (glm::uint)pNewMeshData->vertexCount; vert++) {
-			SVertexTypePNTT* pVertex = (SVertexTypePNTT*)pNewMeshData->pVertices;
+			SVertexTypePT* pVertex = (SVertexTypePT*)pNewMeshData->pVertices;
 
 			pVertex[vert].position = glm::vec3(mesh->mVertices[vert].x, mesh->mVertices[vert].y, mesh->mVertices[vert].z);
-			pVertex[vert].normal = glm::vec3(mesh->mNormals[vert].x, mesh->mNormals[vert].y, mesh->mNormals[vert].z);
-			pVertex[vert].tangent = glm::vec3(mesh->mTangents[vert].x, mesh->mTangents[vert].y, mesh->mTangents[vert].z);
+			//pVertex[vert].normal = glm::vec3(mesh->mNormals[vert].x, mesh->mNormals[vert].y, mesh->mNormals[vert].z);
+			//pVertex[vert].tangent = glm::vec3(mesh->mTangents[vert].x, mesh->mTangents[vert].y, mesh->mTangents[vert].z);
 			pVertex[vert].textureCoord = glm::vec2(mesh->mTextureCoords[0][vert].x, mesh->mTextureCoords[0][vert].y);
 		}
 
@@ -100,6 +100,23 @@ bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMes
 		else
 			pMeshMgr->AddMeshData(pNewMeshData, mesh->mName.C_Str());
 	}
+
+	return true;
+}
+
+
+// Function to create a test scene.
+//
+// Objects created will vary throughout development
+//
+bool CSceneLoader::TestScene(CMeshDataManager* pMeshMgr,
+	CTextureManager* pTextureMgr, CMaterialManager* pMaterialMgr)
+{
+
+	// Currenty create a flat plane 
+	pMeshMgr->CreatePlane("myPlane", 100, EVertexType::eVertexPNC, 10, glm::vec4(1, 0, 0, 1));
+
+	pMeshMgr->CreateSphere("mySphere", 10, EVertexType::eVertexPNC, 10, glm::vec4(0, 1, 0, 1));
 
 	return true;
 }

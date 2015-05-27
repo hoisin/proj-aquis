@@ -31,6 +31,21 @@ bool CMeshDataManager::AddMeshData(MeshData* pNewMeshData, const std::string& me
 }
 
 
+bool CMeshDataManager::CreatePlane(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions,
+	const glm::vec4& colour)
+{
+	if (m_pMeshDataGenerator) {
+		MeshData* pNewPlaneMesh = m_pMeshDataGenerator->CreatePlane(geometryID, size, type, subDivisions, colour);
+
+		m_mpMeshData.insert(std::pair<std::string, MeshData*>(geometryID, pNewPlaneMesh));
+
+		return true;
+	}
+
+	return false;
+}
+
+
 bool CMeshDataManager::CreateSphere(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions,
 		const glm::vec4& colour)
 {
