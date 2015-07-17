@@ -37,13 +37,13 @@ unsigned int CMesh::GetSubMeshCount(void)
 
 void CMesh::SetPos(const glm::vec3& newPos)
 {
-	pos = newPos;
+	m_pos = newPos;
 }
 
 
 glm::vec3 CMesh::GetPos() const
 {
-	return pos;
+	return m_pos;
 }
 
 

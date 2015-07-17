@@ -11,6 +11,7 @@
 #ifndef __CGRAPHICS_H__
 #define __CGRAPHICS_H__
 
+#include <string>
 #include <Windows.h>
 #include <glm\gtc\matrix_transform.hpp>
 
@@ -44,6 +45,9 @@ public:
 
 	void ShutDown();
 
+	glm::vec3 GetMeshPosition(const std::string& meshID);
+	void SetMeshPosition(const std::string& meshID, const glm::vec3& newPos);
+
 	// Temporary test method for general loading stuff.....
 	void LoadScene();
 	void SetWireFrame(bool bWireFrame);
@@ -69,7 +73,6 @@ protected:
 
 	// Test vars
 	CCameraFPS* pCam;
-
 };
 
 #endif

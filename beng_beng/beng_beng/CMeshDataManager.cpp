@@ -46,6 +46,21 @@ bool CMeshDataManager::CreatePlane(const std::string& geometryID, float size, EV
 }
 
 
+bool CMeshDataManager::CreateCube(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions,
+	const glm::vec4& colour)
+{
+	if (m_pMeshDataGenerator) {
+		MeshData* pNewCubeMesh = m_pMeshDataGenerator->CreateCube(geometryID, size, type, subDivisions, colour);
+
+		m_mpMeshData.insert(std::pair<std::string, MeshData*>(geometryID, pNewCubeMesh));
+
+		return true;
+	}
+
+	return false;
+}
+
+
 bool CMeshDataManager::CreateSphere(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions,
 		const glm::vec4& colour)
 {

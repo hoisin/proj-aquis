@@ -41,7 +41,7 @@ public:
 protected:
 	std::vector<CSubMesh *> m_vpSubMeshes;
 
-	glm::vec3 pos;
+	glm::vec3 m_pos;
 };
 
 

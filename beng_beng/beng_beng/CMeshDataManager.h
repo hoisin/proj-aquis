@@ -31,7 +31,8 @@ public:
 	bool CreateQuad() {}
 	bool CreatePlane(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions = 1,
 		const glm::vec4& colour = glm::vec4(0, 0, 0, 0));
-	bool CreateCube() {}
+	bool CreateCube(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions = 1,
+		const glm::vec4& colour = glm::vec4(0, 0, 0, 0));
 	bool CreateSphere(const std::string& geometryID, float size, EVertexType type, unsigned int subDivisions = 1,
 		const glm::vec4& colour = glm::vec4(0, 0, 0, 0));
 

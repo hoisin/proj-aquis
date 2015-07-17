@@ -218,6 +218,7 @@ void COpenGL::UnregisterOpenGLClass(HINSTANCE hInstance)
 //	pNewShader	-	New shader to be used as current
 //
 //	Simply sets new shader to be stored as current
+//	Every draw will use set shader unless a new shader is passed in
 //
 //------------------------------------------------------------------
 void COpenGL::SetCurrentShader(CShader* pNewShader)

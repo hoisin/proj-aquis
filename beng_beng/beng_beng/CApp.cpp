@@ -10,6 +10,7 @@ float g_rotAmt = 0.3f;
 
 CApp::CApp() : m_pGfx(NULL), m_bAppActive(true), m_bRun(true)
 {
+	myGraphicActorID = "mesh_1";
 }
 
 
@@ -274,6 +275,9 @@ bool CApp::OnInitialise(UINT windowWidth, UINT windowHeight)
 
 	m_pGfx->LoadScene();
 
+	// Grab position of my mesh
+	myActorPos = m_pGfx->GetMeshPosition(myGraphicActorID);
+
 	return true;
 }
 
@@ -408,6 +412,26 @@ bool CApp::OnEvent(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 			case 'M':
 				m_pGfx->SetWireFrame(false);
+				break;
+
+			case VK_LEFT:
+				myActorPos.x -= 2;
+				m_pGfx->SetMeshPosition(myGraphicActorID, myActorPos);
+				break;
+
+			case VK_RIGHT:
+				myActorPos.x += 2;
+				m_pGfx->SetMeshPosition(myGraphicActorID, myActorPos);
+				break;
+
+			case VK_UP:
+				myActorPos.y += 2;
+				m_pGfx->SetMeshPosition(myGraphicActorID, myActorPos);
+				break;
+
+			case VK_DOWN:
+				myActorPos.y -= 2;
+				m_pGfx->SetMeshPosition(myGraphicActorID, myActorPos);
 				break;
 
 			default:

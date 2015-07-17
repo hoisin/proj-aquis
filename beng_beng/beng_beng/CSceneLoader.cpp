@@ -114,7 +114,7 @@ bool CSceneLoader::TestScene(CMeshDataManager* pMeshMgr,
 {
 
 	// Currenty create a flat plane 
-	pMeshMgr->CreatePlane("myPlane", 100, EVertexType::eVertexPNC, 10, glm::vec4(1, 0, 0, 1));
+	pMeshMgr->CreatePlane("myPlane", 100, EVertexType::eVertexPNC, 10, glm::vec4(0, 0, 1, 1));
 
 	pMeshMgr->CreateSphere("mySphere", 10, EVertexType::eVertexPNC, 10, glm::vec4(0, 1, 0, 1));
 

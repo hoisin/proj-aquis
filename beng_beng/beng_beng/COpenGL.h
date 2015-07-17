@@ -5,7 +5,6 @@
 //	Class managing OpenGL stuff.....
 //
 //	This class should handle OpenGL specific setup & call related to drawing.
-//	Should not contain model/vertex data.
 //
 //	Author: SeaFooD © 2014
 //
@@ -25,6 +24,7 @@ class CVertexBuffer;
 class CIndexBuffer;
 class CShader;
 
+// Enumerates for shader parameter types
 enum EShaderParamType {
 	eShaderParam1i,				// Single values
 	eShaderParam2i,

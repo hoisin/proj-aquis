@@ -6,6 +6,8 @@
 //	
 //	geometryID not needed in params since we are using maps for storage.
 //
+//	All shapes currently support upto PNT type vertex
+//
 //	Author: SeaFooD © 2014
 //
 //--------------------------------------------------------------------------

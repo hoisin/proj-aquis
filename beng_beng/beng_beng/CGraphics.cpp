@@ -10,12 +10,6 @@
 
 #include "CGraphics.h"
 #include "COpenGL.h"
-#include "CResourceManager.h"
-#include "CResourceVertexBuffer.h"
-#include "CResourceSubMesh.h"
-#include "CResourceIndexBuffer.h"
-#include "CResourceShader.h"
-#include "CResourceTexture2D.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CShader.h"
@@ -45,7 +39,7 @@ std::string myShader = "simple_01";
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
 
-CLight g_light = CLight(eLightDir, glm::vec3(0, -0.3, -0.5), glm::vec3(1, 1, 1), 1,
+CLight g_light = CLight(eLightDir, glm::vec3(0, -1, 0), glm::vec3(1, 1, 1), 1,
 	1, 0);
 
 CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15f);
@@ -148,14 +142,14 @@ bool CGraphics::RenderScene()
 			pCurrentShader->UserShader();
 
 			// Setup textures
-			pCurrentShader->SetShaderParam1i("texture0", 0);
-			pCurrentShader->SetShaderParam1i("texture1", 1);
+			//pCurrentShader->SetShaderParam1i("texture0", 0);
+			//pCurrentShader->SetShaderParam1i("texture1", 1);
 
-			glActiveTexture(GL_TEXTURE0);
-			m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
+			//glActiveTexture(GL_TEXTURE0);
+			//m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
 
-			glActiveTexture(GL_TEXTURE1);
-			m_pTextureMgr->GetTexture(pMat->m_bumpTexID)->UseTexture();
+			//glActiveTexture(GL_TEXTURE1);
+			//m_pTextureMgr->GetTexture(pMat->m_bumpTexID)->UseTexture();
 
 			// Setup shader parameters
 			glm::mat4 world;
@@ -259,6 +253,39 @@ void CGraphics::ShutDown()
 
 //------------------------------------------------------------------
 //
+//	GetMeshPosition(..)
+//
+//	Params:
+//	meshID	-	ID of the mesh 
+//
+//	Returns the current set position of the mesh in question
+//
+//------------------------------------------------------------------
+glm::vec3 CGraphics::GetMeshPosition(const std::string& meshID)
+{
+	return m_pMeshMgr->GetMesh(meshID)->GetPos();
+}
+
+
+//------------------------------------------------------------------
+//
+//	SetMeshPosition(..)
+//
+//	Params:
+//	meshID	-	ID of the mesh 
+//	newPos	-	The new position to set to
+//
+//	Sets the specified mesh's new position
+//
+//------------------------------------------------------------------
+void CGraphics::SetMeshPosition(const std::string& meshID, const glm::vec3& newPos)
+{
+	m_pMeshMgr->GetMesh(meshID)->SetPos(newPos);
+}
+
+
+//------------------------------------------------------------------
+//
 //	LoadScene(..)
 //
 // Temporary load scene function
@@ -272,63 +299,33 @@ void CGraphics::LoadScene()
 	//
 	//--------------------------------------------------------
 
-	// Create the mesh data.
-	//m_pMeshDataMgr->CreateSphere(mySphere, 5, eVertexPNT, 20);
-	m_pSceneLoader->LoadScene("C:\\Users\\Mathew\\Downloads\\hou\\MedievalHouse1.obj", 
-		m_pMeshDataMgr, m_pTextureMgr, m_pMaterialMgr);
-
-	// Now load the mesh data to gfx so we get vertex and index buffers
-	//m_pBufferMgr->CreateVertexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
-	//m_pBufferMgr->CreateIndexBuffer(mySphere, m_pMeshDataMgr->GetMeshData(mySphere));
+	// Create the scene
+	m_pSceneLoader->TestScene(m_pMeshDataMgr, m_pTextureMgr, m_pMaterialMgr);
 
 	std::string vertStr = "Vertex_Buffer_";
 	std::string idxStr = "Index_Buffer_";
 	std::map<std::string, MeshData*>* pMap = m_pMeshDataMgr->GetMap();
 	std::map<std::string, MeshData*>::iterator it;
 
-	// Load texture if we gonna use any.
-	//m_pTextureMgr->LoadTexture(myTex, "..\\Textures\\wtf.bmp");
-
-	//CMaterial* newMat = new CMaterial;
-	//newMat->m_diffuseTexID = myTex;
-	//m_pMaterialMgr->AddMaterial(mySphere, newMat);
-
 	// Proceed to load any shaders to be used
-	m_pShaderMgr->CreateShader(myShader, "..\\Shaders\\textureDirLightVertexShader.vsh", "..\\Shaders\\textureDirLightFragmentShader.fsh");
+	m_pShaderMgr->CreateShader(myShader, "..\\Shaders\\testVertexShader.vsh", "..\\Shaders\\testFragmentShader.fsh");
 
+	// For each mesh data in map, create vertex/index buffers and attach everything to a Mesh object
 	unsigned int count = 0;
 	for(it = pMap->begin(); it != pMap->end(); it++) {
-		m_pBufferMgr->CreateVertexBuffer(vertStr + std::to_string((long double) count), it->second);
-		m_pBufferMgr->CreateIndexBuffer(idxStr + std::to_string((long double) count), it->second);
+		m_pBufferMgr->CreateVertexBuffer(vertStr + std::to_string(count), it->second);
+		m_pBufferMgr->CreateIndexBuffer(idxStr + std::to_string(count), it->second);
 
 		std::string meshStr = "mesh_";
 
-		//if (it->second->material == "") {
-		/*	CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
-			pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double)count), vertStr + std::to_string((long double)count), idxStr + std::to_string((long double)count), myShader,
-				mySphere));*/
-		//}
-		//else {
-			CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double)count));
-			pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double)count), vertStr + std::to_string((long double)count), idxStr + std::to_string((long double)count), myShader,
-				it->second->material));
-		//}
+		CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string(count));
+		pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string(count), vertStr + std::to_string(count), idxStr + std::to_string(count), myShader,
+			it->second->material));
 
 		count++;
 	}
 
-	
-
-	// Finally link all created resouces by generating CMesh and CSubMesh objects
-
-	//std::string meshStr = "mesh_";
-	//for(glm::uint mesh = 0; mesh < pMap->size(); mesh++) {
-
-	//	CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string((long double) mesh));
-	//	pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string((long double) mesh), vertStr + std::to_string((long double) mesh),  idxStr + std::to_string((long double) mesh), myShader, myTex));
-	//}
-
-	pCam = new CCameraFPS(glm::vec3(0,0,20), glm::vec3(0,1,0), 1.f, 5000.f, (float)(m_winWidth/m_winHeight), 45.0f);
+	pCam = new CCameraFPS(glm::vec3(0,50,200), glm::vec3(0,1,0), 1.f, 5000.f, (float)(m_winWidth/m_winHeight), 45.0f);
 }
 
 

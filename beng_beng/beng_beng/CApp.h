@@ -58,6 +58,10 @@ private:
 
 	CTimer m_timer;	
 	bool m_bAppActive, m_bRun;
+
+	// Testing
+	std::string myGraphicActorID;
+	glm::vec3	myActorPos;
 };
 
 
