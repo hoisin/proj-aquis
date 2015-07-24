@@ -66,33 +66,45 @@ CGraphics::~CGraphics()
 //	majorVer		-	Major version of OpenGL
 //	minorVer		-	Minor version of OpenGL
 //	funcCallback	-	Callback function
+//	b2DMode			-	Flag for 2D mode
 //
 //	Initialises all graphics related components
 //
 //------------------------------------------------------------------
 bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, 
-	UINT windowWidth, UINT windowHeight, WNDPROC funcCallback)
+	UINT windowWidth, UINT windowHeight, WNDPROC funcCallback, bool b2DMode)
 {
-	if(!m_pOpenGL) {
-		m_pOpenGL = new COpenGL;
-	}
-
-	if(!m_pOpenGL->InitOpenGL(hInstance, hwnd, majorVer, minorVer, funcCallback))
-		return false;
-
 	// Keep a reference
 	m_hInstance = hInstance;
-
-	glViewport(0, 0, windowWidth, windowHeight);
 
 	m_winWidth = windowWidth;
 	m_winHeight = windowHeight;
 
-	// Vars/states that need porting 
-	glDepthMask(GL_TRUE);		// Depth buffer enabled for writing
-	glEnable(GL_DEPTH_TEST);	// Depth testing (stuff behind stuff don't get draw)
-	glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
-	glFrontFace(GL_CCW);
+	if (!m_pOpenGL) {
+		m_pOpenGL = new COpenGL;
+	}
+
+	if (!m_pOpenGL->InitOpenGL(hInstance, hwnd, majorVer, minorVer, m_winWidth,
+		m_winHeight, funcCallback))
+		return false;
+
+	glViewport(0, 0, windowWidth, windowHeight);
+
+	if (b2DMode) {
+		// Vars/states that need porting 
+		glDepthMask(GL_FALSE);		// Disabled
+		glDisable(GL_DEPTH_TEST);	// Disabled depth testing
+		glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
+		glFrontFace(GL_CCW);
+	}
+	else {
+		// Vars/states that need porting 
+		glDepthMask(GL_TRUE);		// Depth buffer enabled for writing
+		glEnable(GL_DEPTH_TEST);	// Depth testing (stuff behind stuff don't get draw)
+		glEnable(GL_CULL_FACE);		// Back facing triangles don't get drawn
+		glFrontFace(GL_CCW);
+	}
+	
 
 	// Create the managers
 	m_pMeshDataMgr = new CMeshDataManager;
@@ -322,6 +334,21 @@ void CGraphics::LoadScene()
 		pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string(count), vertStr + std::to_string(count), idxStr + std::to_string(count), myShader,
 			it->second->material));
 
+		if (count == 1) {
+			int xPos = 0;// (rand() % 6000) - 3000;
+			int yPos = 50;// (rand() % 400) + 40;
+			int zPos = 0;// (rand() % 6000) - 3000;
+			pNewMesh->SetPos(glm::vec3(xPos, yPos, zPos));
+		}
+		else {
+			if (count > 1) {
+				int xPos = (rand() % 6000) - 3000;
+				int yPos = (rand() % 400) + 40;
+				int zPos = (rand() % 6000) - 3000;
+				pNewMesh->SetPos(glm::vec3(xPos, yPos, zPos));
+			}
+		}
+
 		count++;
 	}
 
@@ -339,7 +366,6 @@ void CGraphics::LoadScene()
 // Turns wire frame mode on/off
 //
 //------------------------------------------------------------------
-
 void CGraphics::SetWireFrame(bool bWireFrame)
 {
 	m_bWireFrame = bWireFrame;

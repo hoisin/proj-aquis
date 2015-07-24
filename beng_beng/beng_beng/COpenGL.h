@@ -54,10 +54,20 @@ enum EShaderParamType {
 class COpenGL
 {
 public:
+	enum GBUFFER_TEXTURE_TYPE {
+		GBUFFER_TEXTURE_TYPE_POSITION,
+		GBUFFER_TEXTURE_TYPE_DIFFUSE,
+		GBUFFER_TEXTURE_TYPE_NORMAL,
+		GBUFFER_TEXTURE_TYPE_TEXCOORD,
+		GBUFFER_NUM_TEXTURES
+	};
+
+public:
 	COpenGL();
 	~COpenGL();
 
-	bool InitOpenGL(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, WNDPROC funcCallback);
+	bool InitOpenGL(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, int winWidth,
+		int winHeight, WNDPROC funcCallback);
 
 	void ResizeOpenGLViewportFull();
 
@@ -93,6 +103,14 @@ private:
 	int m_iMajorVer, m_iMinorVer;
 
 	CShader* m_pRefCurrentShader;			// A reference, do not handle cleanup here
+
+	int m_winWidth;
+	int m_winHeight;
+
+	// Deferred rendering variables
+	GLuint m_fbo;			// Frame buffer object
+	GLuint m_gTextures[GBUFFER_NUM_TEXTURES];
+	GLuint m_depthTexture;
 };
 
 

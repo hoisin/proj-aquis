@@ -39,11 +39,14 @@ public:
 	~CGraphics();
 
 	bool Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int minorVer, 
-		UINT windowWidth, UINT windowHeight, WNDPROC funcCallback);
+		UINT windowWidth, UINT windowHeight, WNDPROC funcCallback, bool b2DMode = FALSE);
 
 	bool RenderScene();
 
 	void ShutDown();
+
+	// 2D drawing, only available when in 2D mode
+	void Draw2DSprite(glm::vec2 pos);
 
 	glm::vec3 GetMeshPosition(const std::string& meshID);
 	void SetMeshPosition(const std::string& meshID, const glm::vec3& newPos);

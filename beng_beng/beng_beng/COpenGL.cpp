@@ -12,7 +12,7 @@ bool COpenGL::m_bClassRegistered = false;
 bool COpenGL::m_bGlewInitialised = false;
 
 
-COpenGL::COpenGL() : m_pHwnd(NULL), m_iMajorVer(3), m_iMinorVer(3)
+COpenGL::COpenGL() : m_pHwnd(NULL), m_iMajorVer(3), m_iMinorVer(3), m_winWidth(0), m_winHeight(0)
 {
 }
 
@@ -32,18 +32,24 @@ COpenGL::~COpenGL()
 //	hwnd			-	Handle to window
 //	majorVer		-	Major version of OpenGL
 //	minorVer		-	Minor version of OpenGL
+//	winWidth		-	Width of the window
+//	winHeight		-	Height of the window
 //	funcCallback	-	Callback function
 //
 //	Initialises OpenGL
 //
 //------------------------------------------------------------------
-bool COpenGL::InitOpenGL(HINSTANCE hInstance, HWND* pHwnd, int majorVer, int minorVer, WNDPROC funcCallback)
+bool COpenGL::InitOpenGL(HINSTANCE hInstance, HWND* pHwnd, int majorVer, int minorVer, int winWidth,
+	int winHeight, WNDPROC funcCallback)
 {
 	if(!InitGLEW(hInstance, funcCallback))
 		return false;
 
 	m_pHwnd = pHwnd;
 	m_hDC = GetDC(*m_pHwnd);
+
+	m_winWidth = winWidth;
+	m_winHeight = winHeight;
 
 	bool bError = false;
 	PIXELFORMATDESCRIPTOR pfd;
@@ -116,6 +122,41 @@ bool COpenGL::InitOpenGL(HINSTANCE hInstance, HWND* pHwnd, int majorVer, int min
 
 	// Set the clear colour
 	glClearColor(0.5, 0.0, 0.0, 1.0);
+
+	// Deferred rendering initialisation
+
+
+	// Create the FBO
+	glGenFramebuffers(1, &m_fbo);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
+
+	// Create the gbuffer texture
+	glGenTextures(GBUFFER_NUM_TEXTURES, m_gTextures);
+	glGenTextures(1, &m_depthTexture);
+
+	for (unsigned int i = 0; i < GBUFFER_NUM_TEXTURES; i++) {
+		glBindTexture(GL_TEXTURE_2D, m_gTextures[i]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, m_winWidth, m_winHeight, 0, GL_RGB, GL_FLOAT, NULL);
+		glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_gTextures[i], 0);
+	}
+
+	// Depth
+	glBindTexture(GL_TEXTURE_2D, m_depthTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, m_winWidth, m_winHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
+
+	GLenum drawBuffer[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
+	glDrawBuffers(GBUFFER_NUM_TEXTURES, drawBuffer);
+
+	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+
+	if (status != GL_FRAMEBUFFER_COMPLETE) {
+		printf("FB error, status: 0x%x\n", status);
+		return false;
+	}
+
+	// Restore the default FBO
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
 	return true;
 }
