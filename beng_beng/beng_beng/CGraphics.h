@@ -43,6 +43,9 @@ public:
 
 	bool RenderScene();
 
+	void RenderForward();
+	void RenderDeferred();
+
 	void ShutDown();
 
 	// 2D drawing, only available when in 2D mode
@@ -71,6 +74,8 @@ protected:
 	CMaterialManager* m_pMaterialMgr;
 
 	int m_winWidth, m_winHeight;
+
+	bool m_bDeferred;
 
 	bool m_bWireFrame;
 

@@ -370,6 +370,26 @@ void COpenGL::SetShaderParam(EShaderParamType type, char* paramID, void* pData, 
 	}
 }
 
+void COpenGL::BindGBufferWriting(bool bVal)
+{
+	if (bVal)
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
+	else
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+}
+
+
+void COpenGL::BindGBufferReading()
+{
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
+}
+
+
+void COpenGL::SetReadGBuffer(GBUFFER_TEXTURE_TYPE textureType)
+{
+	glReadBuffer(GL_COLOR_ATTACHMENT0 + textureType);
+}
+
 
 void COpenGL::BeginDraw()
 {

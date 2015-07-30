@@ -80,6 +80,10 @@ public:
 	void SetShaderParam(EShaderParamType type, char* paramID, void* pData, UINT count = 1, bool bTranspose = false);
 	CShader* GetCurrentShader() { return m_pRefCurrentShader; }
 
+	void BindGBufferWriting(bool bVal);
+	void BindGBufferReading();
+	void SetReadGBuffer(GBUFFER_TEXTURE_TYPE textureType);
+
 	void BeginDraw();
 	void EndDraw();
 
