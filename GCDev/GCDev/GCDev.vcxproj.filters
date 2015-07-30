@@ -5,18 +5,43 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="CGfx">
+      <UniqueIdentifier>{d6b7b0bb-4e51-4780-aae2-6d2b7818c78e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{084a1230-9c28-431e-aefe-12234dc83dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CGfx\Texture">
+      <UniqueIdentifier>{082e3477-ba0b-485a-9655-b5f9f43167c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CGfx.cpp">
+      <Filter>CGfx</Filter>
+    </ClCompile>
+    <ClCompile Include="CApp.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureManager.cpp">
+      <Filter>CGfx\Texture</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CGfx.h">
+      <Filter>CGfx</Filter>
+    </ClInclude>
+    <ClInclude Include="CApp.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureManager.h">
+      <Filter>CGfx\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
