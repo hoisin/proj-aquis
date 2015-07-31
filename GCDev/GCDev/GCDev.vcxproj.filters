@@ -18,6 +18,9 @@
     <Filter Include="CGfx\Texture">
       <UniqueIdentifier>{082e3477-ba0b-485a-9655-b5f9f43167c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{e748cda5-d432-4a52-b6e7-bd6359bb7d1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +35,15 @@
     <ClCompile Include="CTextureManager.cpp">
       <Filter>CGfx\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="CTextDraw.cpp">
+      <Filter>CGfx</Filter>
+    </ClCompile>
+    <ClCompile Include="CInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyboard.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGfx.h">
@@ -42,6 +54,15 @@
     </ClInclude>
     <ClInclude Include="CTextureManager.h">
       <Filter>CGfx\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextDraw.h">
+      <Filter>CGfx</Filter>
+    </ClInclude>
+    <ClInclude Include="CInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyboard.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

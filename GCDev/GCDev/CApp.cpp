@@ -66,6 +66,8 @@ bool CApp::Intitialise()
 
 	m_pGfx->LoadTexture("..\\Assets\\backgroundTest.bmp");
 
+	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
+
 	return true;
 }
 
@@ -94,5 +96,22 @@ void CApp::Update()
 //---------------------------------------------------------------------------
 void CApp::Draw()
 {
-	m_pGfx->DrawTexture();
+	m_pGfx->BeginDraw();
+
+	SDL_Color col;
+	col.r = 0;
+	col.g = 255;
+	col.b = 0;
+
+	m_pGfx->DrawText("Hello World", 300, 200, col);
+
+	SDL_Rect test;
+	test.x = 64;
+	test.y = 64;
+	test.w = 128;
+	test.h = 128;
+
+	m_pGfx->DrawTexture(0, test, 0, 0);
+
+	m_pGfx->EndDraw();
 }

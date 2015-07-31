@@ -60,6 +60,7 @@ Uint16 CTexture::GetTotalTypesAnimations()
 
 CTextureManager::CTextureManager()
 {
+	m_pTextures = std::vector<CTexture*>();
 }
 
 
