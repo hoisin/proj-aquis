@@ -5,7 +5,7 @@
 #include "CGfx.h"
 
 
-CApp::CApp() : m_bRun(false), m_pGfx(nullptr)
+CApp::CApp() : m_bRun(false), m_pGfx(nullptr), m_lastTick(0), m_tick(0)
 {
 }
 
@@ -25,8 +25,6 @@ CApp::~CApp()
 //---------------------------------------------------------------------------
 void CApp::Run()
 {
-	Intitialise();
-
 	SDL_Event sdlEvent;
 
 	while (m_bRun) {
@@ -34,14 +32,21 @@ void CApp::Run()
 		// Handle events on queue
 		while (SDL_PollEvent(&sdlEvent) != 0) {
 
-			Update();
-
-			Draw();
-
 			// User quits
 			if (sdlEvent.type == SDL_QUIT)
 				m_bRun = false;
 		}
+
+		unsigned int currentTick = SDL_GetTicks();
+		unsigned int deltaT = (m_lastTick - currentTick);
+
+		if (deltaT > m_tick)
+		{
+			m_lastTick = currentTick;
+			Update(deltaT);
+		}
+
+		Draw(deltaT);
 	}
 
 	SDL_Quit();
@@ -52,13 +57,15 @@ void CApp::Run()
 //
 //	Initialise()
 //
-//	Descrition:
+//	Description:
 //	Initialises application
 //
 //---------------------------------------------------------------------------
-bool CApp::Intitialise()
+bool CApp::Intitialise(unsigned int updateTick)
 {
 	m_bRun = true;
+
+	m_tick = updateTick;
 
 	// Create instance of graphics component
 	m_pGfx = new CGfx;
@@ -80,7 +87,7 @@ bool CApp::Intitialise()
 //	Performs updating code
 //
 //---------------------------------------------------------------------------
-void CApp::Update()
+void CApp::Update(unsigned int deltaT)
 {
 
 }
@@ -94,7 +101,7 @@ void CApp::Update()
 //	Performs any drawing required
 //
 //---------------------------------------------------------------------------
-void CApp::Draw()
+void CApp::Draw(unsigned int deltaT)
 {
 	m_pGfx->BeginDraw();
 

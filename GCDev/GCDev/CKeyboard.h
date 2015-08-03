@@ -15,7 +15,9 @@ public:
 	CKeyboard();
 	~CKeyboard();
 
-	void Update(float delta);
+	void SetHeldTime(Uint16 heldTime);
+
+	void Update(unsigned int delta);
 
 	bool IsKeyDown(char key);
 	bool IsKeyUp(char key);
@@ -23,7 +25,9 @@ public:
 
 private:
 	char		m_keys[256];			// State for each ASCII key
-	float		m_keysTime[256];			// Time for each key held down for
+	Uint32		m_keysTime[256];		// Time for each key held down for
+
+	Uint16		m_heldTime;				// Time to wait for key to be held to detect as held
 };
 
 #endif

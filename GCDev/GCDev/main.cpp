@@ -10,7 +10,8 @@ int main(int argc, char* argv[])
 {
 	CApp app;
 
-	app.Run();
+	if(app.Intitialise(50))
+		app.Run();
 
 	return 0;
 }

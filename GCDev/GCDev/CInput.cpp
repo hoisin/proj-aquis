@@ -17,7 +17,7 @@ bool CInput::Initialise()
 }
 
 
-void CInput::Update(float delta)
+void CInput::Update(Uint32 delta)
 {
 
 }

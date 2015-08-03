@@ -1,7 +1,7 @@
 #include "CKeyboard.h"
 
 
-CKeyboard::CKeyboard()
+CKeyboard::CKeyboard() : m_heldTime(0)
 {
 	for (int keys = 0; keys < 256; keys++) {
 		m_keys[keys] = 'd';
@@ -15,7 +15,13 @@ CKeyboard::~CKeyboard()
 }
 
 
-void CKeyboard::Update(float delta)
+void CKeyboard::SetHeldTime(Uint16 heldTime)
+{
+	m_heldTime = heldTime;
+}
+
+
+void CKeyboard::Update(unsigned int delta)
 {
 	auto state = SDL_GetKeyboardState(nullptr);
 
@@ -31,7 +37,7 @@ void CKeyboard::Update(float delta)
 				// If the current key state is down
 				if (m_keys[key] == 'd') {
 					// If the current key has been pressed down over a certain period of time
-					if (m_keysTime[key] > 0.2)
+					if (m_keysTime[key] > m_heldTime)
 						m_keys[key] = 'h';			// Set to held down
 					else
 						m_keysTime[key] += delta;	// Increment the time key has been pushed down.

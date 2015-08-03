@@ -8,7 +8,6 @@
 #ifndef __CINPUT_H__
 #define __CINPUT_H__
 
-
 #include "SDL.h"
 
 class CInput
@@ -19,7 +18,7 @@ public:
 
 	bool Initialise();
 
-	void Update(float delta);
+	void Update(Uint32 delta);
 };
 
 
