@@ -156,20 +156,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
+    <ClCompile Include="CBreakOut.cpp" />
     <ClCompile Include="CGfx.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
+    <ClCompile Include="CMouse.cpp" />
+    <ClCompile Include="CPaddle.cpp" />
     <ClCompile Include="CTextDraw.cpp" />
     <ClCompile Include="CTextureManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="CBaseEntity.h" />
+    <ClInclude Include="CBreakOut.h" />
     <ClInclude Include="CGfx.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CKeyboard.h" />
+    <ClInclude Include="CMouse.h" />
+    <ClInclude Include="CPaddle.h" />
     <ClInclude Include="CTextDraw.h" />
     <ClInclude Include="CTextureManager.h" />
+    <ClInclude Include="Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

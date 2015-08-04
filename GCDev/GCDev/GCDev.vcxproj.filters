@@ -9,17 +9,29 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="CGfx">
+    <Filter Include="Framework">
+      <UniqueIdentifier>{19b9c619-66f9-498f-aeb2-8c9e535534a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{e748cda5-d432-4a52-b6e7-bd6359bb7d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\CGfx">
       <UniqueIdentifier>{d6b7b0bb-4e51-4780-aae2-6d2b7818c78e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="App">
-      <UniqueIdentifier>{084a1230-9c28-431e-aefe-12234dc83dda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CGfx\Texture">
+    <Filter Include="Framework\CGfx\Texture">
       <UniqueIdentifier>{082e3477-ba0b-485a-9655-b5f9f43167c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{e748cda5-d432-4a52-b6e7-bd6359bb7d1a}</UniqueIdentifier>
+    <Filter Include="Framework\App">
+      <UniqueIdentifier>{084a1230-9c28-431e-aefe-12234dc83dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{9df621f2-1213-4e23-a3e4-6915ebfa6a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities">
+      <UniqueIdentifier>{4608ebee-bba9-42c1-a5dd-3cb7a598e37f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{3497b0a1-5af9-4888-ac02-032139ac1406}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,42 +39,66 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CGfx.cpp">
-      <Filter>CGfx</Filter>
+      <Filter>Framework\CGfx</Filter>
     </ClCompile>
     <ClCompile Include="CApp.cpp">
-      <Filter>App</Filter>
+      <Filter>Framework\App</Filter>
     </ClCompile>
     <ClCompile Include="CTextureManager.cpp">
-      <Filter>CGfx\Texture</Filter>
+      <Filter>Framework\CGfx\Texture</Filter>
     </ClCompile>
     <ClCompile Include="CTextDraw.cpp">
-      <Filter>CGfx</Filter>
+      <Filter>Framework\CGfx</Filter>
     </ClCompile>
     <ClCompile Include="CInput.cpp">
-      <Filter>Input</Filter>
+      <Filter>Framework\Input</Filter>
     </ClCompile>
     <ClCompile Include="CKeyboard.cpp">
-      <Filter>Input</Filter>
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouse.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CBreakOut.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CPaddle.cpp">
+      <Filter>Game\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGfx.h">
-      <Filter>CGfx</Filter>
+      <Filter>Framework\CGfx</Filter>
     </ClInclude>
     <ClInclude Include="CApp.h">
-      <Filter>App</Filter>
+      <Filter>Framework\App</Filter>
     </ClInclude>
     <ClInclude Include="CTextureManager.h">
-      <Filter>CGfx\Texture</Filter>
+      <Filter>Framework\CGfx\Texture</Filter>
     </ClInclude>
     <ClInclude Include="CTextDraw.h">
-      <Filter>CGfx</Filter>
+      <Filter>Framework\CGfx</Filter>
     </ClInclude>
     <ClInclude Include="CInput.h">
-      <Filter>Input</Filter>
+      <Filter>Framework\Input</Filter>
     </ClInclude>
     <ClInclude Include="CKeyboard.h">
-      <Filter>Input</Filter>
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouse.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CBreakOut.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CBaseEntity.h">
+      <Filter>Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="CPaddle.h">
+      <Filter>Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

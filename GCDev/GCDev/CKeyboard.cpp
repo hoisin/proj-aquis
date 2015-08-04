@@ -4,7 +4,7 @@
 CKeyboard::CKeyboard() : m_heldTime(0)
 {
 	for (int keys = 0; keys < 256; keys++) {
-		m_keys[keys] = 'd';
+		m_keys[keys] = 'u';
 		m_keysTime[keys] = 0.f;
 	}
 }
@@ -54,7 +54,7 @@ void CKeyboard::Update(unsigned int delta)
 
 bool CKeyboard::IsKeyDown(char key)
 {
-	if (m_keys[key] == 'd')
+	if (m_keys[SDL_GetScancodeFromKey(key)] == 'd')
 		return true;
 
 	return false;
@@ -63,7 +63,7 @@ bool CKeyboard::IsKeyDown(char key)
 
 bool CKeyboard::IsKeyUp(char key)
 {
-	if (m_keys[key] == 'u')
+	if (m_keys[SDL_GetScancodeFromKey(key)] == 'u')
 		return true;
 
 	return false;
@@ -72,7 +72,7 @@ bool CKeyboard::IsKeyUp(char key)
 
 bool CKeyboard::IsKeyHeld(char key)
 {
-	if (m_keys[key] == 'h')
+	if (m_keys[SDL_GetScancodeFromKey(key)] == 'h')
 		return true;
 
 	return false;

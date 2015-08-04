@@ -7,7 +7,10 @@
 #ifndef __CAPP_H__
 #define __CAPP_H__
 
+#include <memory>
+
 class CGfx;
+class CInput;
 
 class CApp
 {
@@ -28,8 +31,10 @@ private:
 	bool m_bRun;
 
 	CGfx* m_pGfx;
+	std::shared_ptr<CInput> m_pInput;
 
-	unsigned int m_lastTick;
+	unsigned int m_lastLoopTick;
+	unsigned int m_lastUpdateTick;
 	unsigned int m_tick;
 };
 
