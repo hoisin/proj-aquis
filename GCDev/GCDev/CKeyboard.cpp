@@ -5,7 +5,7 @@ CKeyboard::CKeyboard() : m_heldTime(0)
 {
 	for (int keys = 0; keys < 256; keys++) {
 		m_keys[keys] = 'u';
-		m_keysTime[keys] = 0.f;
+		m_keysTime[keys] = 0;
 	}
 }
 

@@ -75,6 +75,12 @@ int CGfx::LoadTexture(const std::string& textureFile)
 }
 
 
+int CGfx::LoadTexture(const std::string& textureFile, SDL_Color key)
+{
+    return m_pTextureMgr->LoadTexture(textureFile, key);
+}
+
+
 void CGfx::BeginDraw(bool bClear, unsigned int r, unsigned int g, unsigned int b)
 {
 	if (bClear)
@@ -118,6 +124,26 @@ void CGfx::DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY
 	dst.y = posY;
 
 	SDL_BlitSurface(m_pTextureMgr->GetTexture(texIdx)->pSurface, &drawFrame, m_pSurface, &dst);
+}
+
+
+void CGfx::DrawTexture()
+{
+    //SDL_BlitSurface()
+}
+
+
+void CGfx::GetTextureDimensions(int textureID, int& outWidth, int& outHeight)
+{
+	outWidth = m_pTextureMgr->GetTexture(textureID)->width;
+	outHeight = m_pTextureMgr->GetTexture(textureID)->height;
+}
+
+
+void CGfx::GetTextureAnimFrameDimensions(int textureID, int& outWidth, int& outHeight)
+{
+	outWidth = m_pTextureMgr->GetTexture(textureID)->animFrame.w;
+	outHeight = m_pTextureMgr->GetTexture(textureID)->animFrame.h;
 }
 
 

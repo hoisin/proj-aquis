@@ -33,6 +33,12 @@
     <Filter Include="Math">
       <UniqueIdentifier>{3497b0a1-5af9-4888-ac02-032139ac1406}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\CGfx\Sprite">
+      <UniqueIdentifier>{fcdefd54-7790-46e2-a6c0-072072cd0596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Level">
+      <UniqueIdentifier>{fa86f8a9-d139-4271-a8b8-8e814b84bf7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,6 +70,15 @@
     </ClCompile>
     <ClCompile Include="CPaddle.cpp">
       <Filter>Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CBall.cpp">
+      <Filter>Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CBrick.cpp">
+      <Filter>Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevel.cpp">
+      <Filter>Game\Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,8 +112,17 @@
     <ClInclude Include="CPaddle.h">
       <Filter>Game\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h">
+    <ClInclude Include="CBall.h">
+      <Filter>Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GCMath.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevel.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CBrick.h">
+      <Filter>Game\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

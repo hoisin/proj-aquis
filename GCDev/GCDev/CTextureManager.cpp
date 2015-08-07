@@ -35,7 +35,7 @@ CTexture::~CTexture()
 //---------------------------------------------------------------------------
 Uint16 CTexture::GetTotalRowAnimations(Uint16 row)
 {
-	if ((row - 1) < rowTotalFrames.size())
+	if ((row - 1) < (Uint16)rowTotalFrames.size())
 		return rowTotalFrames[row - 1];
 
 	return 0;
@@ -85,9 +85,41 @@ int CTextureManager::LoadTexture(const std::string& fileName, CTexture* pOutText
 	pNewTexture->width = pNewTexture->pSurface->w;
 	pNewTexture->height = pNewTexture->pSurface->h;
 
+	pNewTexture->animFrame.w = pNewTexture->width;
+	pNewTexture->animFrame.h = pNewTexture->height;
+
 	m_pTextures.push_back(pNewTexture);
 
 	return m_pTextures.size() - 1;
+}
+
+
+int CTextureManager::LoadTexture(const std::string& fileName, SDL_Color key, CTexture* pOutTexture)
+{
+    CTexture* pNewTexture = new CTexture;
+
+    pNewTexture->pSurface = SDL_LoadBMP(fileName.c_str());
+
+    // Clean up if failed load
+    if(pNewTexture->pSurface == nullptr) {
+        delete pNewTexture;
+        pNewTexture = nullptr;
+        return -1;
+    }
+
+    Uint32 colourKey = SDL_MapRGB(pNewTexture->pSurface->format, key.r, key.g, key.b);
+
+    SDL_SetColorKey(pNewTexture->pSurface, 1, colourKey);
+
+    pNewTexture->width = pNewTexture->pSurface->w;
+    pNewTexture->height = pNewTexture->pSurface->h;
+
+    pNewTexture->animFrame.w = pNewTexture->width;
+    pNewTexture->animFrame.h = pNewTexture->height;
+
+    m_pTextures.push_back(pNewTexture);
+
+    return m_pTextures.size() - 1;
 }
 
 
@@ -125,4 +157,6 @@ CTexture* CTextureManager::GetTexture(Uint16 texIdx)
 	if (texIdx < m_pTextures.size()) {
 		return m_pTextures[texIdx];
 	}
+
+    return nullptr;
 }

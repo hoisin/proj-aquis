@@ -1,22 +1,25 @@
 /*
-	04/08/2015
+	05/08/2015
 
-	Class representing the paddle
+	Destructable bricks in break out
 */
 
-#ifndef __CPADDLE_H__
-#define __CPADDLE_H__
+#ifndef __CBRICK_H__
+#define __CBRICK_H__
 
 #include "CBaseEntity.h"
 
-class CPaddle : public CBaseEntity
+class CBrick : public CBaseEntity
 {
 public:
-	CPaddle();
-	~CPaddle();
+	CBrick();
+	~CBrick();
 
 	void VUpdate(unsigned int deltaT, CBreakOut* pGame) override;
 	void VDraw(unsigned int deltaT, CGfx* pGfx) override;
+
+private:
+
 };
 
 #endif

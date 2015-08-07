@@ -11,6 +11,7 @@
 
 class CGfx;
 class CInput;
+class CBreakOut;
 
 class CApp
 {
@@ -32,6 +33,7 @@ private:
 
 	CGfx* m_pGfx;
 	std::shared_ptr<CInput> m_pInput;
+	std::shared_ptr<CBreakOut> m_pGame;
 
 	unsigned int m_lastLoopTick;
 	unsigned int m_lastUpdateTick;

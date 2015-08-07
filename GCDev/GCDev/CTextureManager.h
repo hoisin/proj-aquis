@@ -47,6 +47,7 @@ public:
 	~CTextureManager();
 
 	int LoadTexture(const std::string& textureFile, CTexture* pOutTexture = nullptr);
+    int LoadTexture(const std::string& textureFile, SDL_Color key, CTexture* pOutTexture = nullptr);
 
 	void SetTextureAnimationFrame(Uint16 texIdx, Uint16 width, Uint16 height);
 	void AddTotalFrames(Uint16 texIdx, Uint16 totalFrames);

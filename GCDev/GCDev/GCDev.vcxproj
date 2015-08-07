@@ -156,10 +156,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
+    <ClCompile Include="CBall.cpp" />
     <ClCompile Include="CBreakOut.cpp" />
+    <ClCompile Include="CBrick.cpp" />
     <ClCompile Include="CGfx.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
+    <ClCompile Include="CLevel.cpp" />
     <ClCompile Include="CMouse.cpp" />
     <ClCompile Include="CPaddle.cpp" />
     <ClCompile Include="CTextDraw.cpp" />
@@ -168,16 +171,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="CBall.h" />
     <ClInclude Include="CBaseEntity.h" />
     <ClInclude Include="CBreakOut.h" />
+    <ClInclude Include="CBrick.h" />
     <ClInclude Include="CGfx.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CKeyboard.h" />
+    <ClInclude Include="CLevel.h" />
     <ClInclude Include="CMouse.h" />
     <ClInclude Include="CPaddle.h" />
     <ClInclude Include="CTextDraw.h" />
     <ClInclude Include="CTextureManager.h" />
-    <ClInclude Include="Math.h" />
+    <ClInclude Include="GCMath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

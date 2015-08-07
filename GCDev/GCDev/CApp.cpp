@@ -6,6 +6,8 @@
 #include "CInput.h"
 #include "CKeyboard.h"
 
+#include "CBreakOut.h"
+
 
 int gX = 0;
 int gY = 0;
@@ -34,7 +36,8 @@ void CApp::Run()
 
 	while (m_bRun) {
 
-		// Handle events on queue
+		// Handle events on queue.
+        // Must be called to detect input events
 		while (SDL_PollEvent(&sdlEvent) != 0) {
 
 			// User quits
@@ -99,6 +102,11 @@ bool CApp::Intitialise(unsigned int updateTick)
 	m_pInput.reset(new CInput);
 	m_pInput->Initialise(150);
 
+    m_pGame.reset(new CBreakOut);
+    m_pGame->Initialise(m_pGfx);
+
+    m_pGame->SetLevel(1, 800);
+
 	return true;
 }
 
@@ -113,7 +121,7 @@ bool CApp::Intitialise(unsigned int updateTick)
 //---------------------------------------------------------------------------
 void CApp::Update(unsigned int deltaT)
 {
-
+	m_pGame->Update(deltaT);
 }
 
 
@@ -129,6 +137,8 @@ void CApp::Draw(unsigned int deltaT)
 {
 	m_pGfx->BeginDraw(true);
 
+	m_pGame->Draw(deltaT, m_pGfx);
+
 	SDL_Color col;
 	col.r = 0;
 	col.g = 255;
@@ -142,7 +152,7 @@ void CApp::Draw(unsigned int deltaT)
 	test.w = 128;
 	test.h = 128;
 
-	m_pGfx->DrawTexture(0, test, gX, gY);
+	//m_pGfx->DrawTexture(0, test, gX, gY);
 
 	m_pGfx->EndDraw();
 }
