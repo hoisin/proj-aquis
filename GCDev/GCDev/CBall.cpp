@@ -14,19 +14,24 @@ void CBall::VUpdate(unsigned int deltaT, CBreakOut* pGame)
 {
 	auto tempVec = m_direction * (float)m_speed;
 
-	// Record old position
-	m_prevPosition = m_position;
-
 	// Move the object
 	m_position.x += (int)tempVec.x;
 	m_position.y += (int)tempVec.y;
 
-	// Check for boundary collision
-	auto calRect = m_collisionRect;
-	calRect += m_position;
+	auto rectCollision = m_collisionRect;
+	rectCollision += gcmath::Vec2<int>(m_position.x - (m_collisionRect.GetWidth<int>() / 2),
+		m_position.y - (m_collisionRect.GetHeight<int>() / 2));
 
 	// Check of object to object collision
 	//	- Bricks & paddle
+	if (!pGame->GetWorldSize().IsContained(rectCollision))
+	{
+		m_position = m_prevPosition;
+		m_direction *= -1.f;
+	}
+
+	// Record old position
+	m_prevPosition = m_position;
 }
 
 
@@ -36,10 +41,21 @@ void CBall::VDraw(unsigned int deltaT, CGfx* pGfx)
     // Drawing is based on the top left of the texture.
     int xPos = 0, yPos = 0;
 
-    xPos = m_position.x - (m_drawFrame.GetWidth() / 2);
-    yPos = m_position.y - (m_drawFrame.GetHeight() / 2);
+    xPos = m_position.x - (m_drawFrame.GetWidth<int>() / 2);
+	yPos = m_position.y - (m_drawFrame.GetHeight<int>() / 2);
+
+	auto rectCollision = m_collisionRect;
+	rectCollision += gcmath::Vec2<int>(m_position.x - (m_collisionRect.GetWidth<int>() / 2),
+		m_position.y - (m_collisionRect.GetHeight<int>() / 2));
+
+	SDL_Rect temp;
+	temp.x = rectCollision.left;
+	temp.y = rectCollision.top;
+	temp.w = rectCollision.GetWidth<int>();
+	temp.h = rectCollision.GetHeight<int>();
 
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
+	pGfx->DrawRect(temp, 255, 0, 0);
 }
 
 

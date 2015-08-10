@@ -124,5 +124,8 @@
     <ClInclude Include="CBrick.h">
       <Filter>Game\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

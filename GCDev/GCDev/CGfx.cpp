@@ -1,6 +1,7 @@
 #include "CGfx.h"
 
 #include "SDL.h"
+#include "Utility.h"
 #include "CTextureManager.h"
 #include "CTextDraw.h"
 
@@ -75,13 +76,13 @@ int CGfx::LoadTexture(const std::string& textureFile)
 }
 
 
-int CGfx::LoadTexture(const std::string& textureFile, SDL_Color key)
+int CGfx::LoadTexture(const std::string& textureFile, const SDL_Color& key)
 {
     return m_pTextureMgr->LoadTexture(textureFile, key);
 }
 
 
-void CGfx::BeginDraw(bool bClear, unsigned int r, unsigned int g, unsigned int b)
+void CGfx::BeginDraw(bool bClear, Uint8 r, Uint8 g, Uint8 b)
 {
 	if (bClear)
 		SDL_FillRect(m_pSurface, NULL, SDL_MapRGB(m_pSurface->format, r, g, b));
@@ -91,6 +92,20 @@ void CGfx::BeginDraw(bool bClear, unsigned int r, unsigned int g, unsigned int b
 void CGfx::EndDraw()
 {
 	SDL_UpdateWindowSurface(m_pWindow);
+}
+
+
+void CGfx::DrawRect(int posX, int posY, int width, int height, Uint8 r, Uint8 g, Uint8 b)
+{
+	SDL_Rect tempRect = gcutility::CreateRect(posX, posY, width, height);
+
+	SDL_FillRect(m_pSurface, &tempRect, SDL_MapRGB(m_pSurface->format, r, g, b));
+}
+
+
+void CGfx::DrawRect(const SDL_Rect& drawRect, Uint8 r, Uint8 g, Uint8 b)
+{
+	SDL_FillRect(m_pSurface, &drawRect, SDL_MapRGB(m_pSurface->format, r, g, b));
 }
 
 

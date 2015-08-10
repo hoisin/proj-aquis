@@ -34,6 +34,8 @@ public:
 
 	std::vector<std::shared_ptr<CBaseEntity>>* GetEntities(const std::string& key);
 
+	gcmath::Rect<int> GetWorldSize() { return m_worldSize; }
+
 private:
 	void LoadLevel(CLevel* pLevel);
 
@@ -42,6 +44,8 @@ private:
     
     int m_brickTextureID;
     gcmath::Rect<int> m_brickDrawFrame;
+
+	gcmath::Rect<int> m_worldSize;
 
 
 	// Variables to determine the size of the world and prevent entities from going beyond.

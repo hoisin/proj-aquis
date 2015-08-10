@@ -52,38 +52,30 @@ namespace gcmath
 		}
 
 		template <typename T>
-		inline void operator=(const Vec2<T>& other)
+		inline Vec2<T> operator=(const Vec2<T>& other)
 		{
 			x = other.x;
 			y = other.y;
+			return *this;
 			
 		}
 
 		template <typename T>
 		inline Vec2<T> operator+(const Vec2<T>& rhs)
 		{
-			auto newVec = *this;
-			newVec.x += rhs.x;
-			newVec.y += rhs.y;
-			return newVec;
+			return Vec2<T>(x + rhs.x, y + rhs.y);
 		}
 
 		template <typename T>
 		inline Vec2<T> operator-(const Vec2<T>& rhs)
 		{
-			auto newVec = *this;
-			newVec.x -= rhs.x;
-			newVec.y -= rhs.y;
-			return newVec;
+			return Vec2<T>(x - rhs.x, y - rhs.y);;
 		}
 
 		template <typename T>
 		inline Vec2<T> operator*(const Vec2<T>& rhs)
 		{
-			auto newVec = *this;
-			newVec.x *= rhs.x;
-			newVec.y *= rhs.y;
-			return newVec;
+			return Vec2<T>(x * rhs.x, y * rhs.y);
 		}
 
 		template <typename T>
@@ -98,36 +90,29 @@ namespace gcmath
 		template <typename T>
 		inline Vec2<T> operator+(T val)
 		{
-			auto newVec = *this;
-			newVec.x += val;
-			newVec.y += val;
-			return newVec;
+			return Vec2<T>(x + val, y + val);
 		}
 
 		template <typename T>
 		inline Vec2<T> operator-(T val)
 		{
-			auto newVec = *this;
-			newVec.x -= val;
-			newVec.y -= val;
-			return newVec;
+			return Vec2<T>(x - val, y - val);;
 		}
 
 		template <typename T>
 		inline Vec2<T> operator*(T val)
 		{
-			auto newVec = *this;
-			newVec.x *= val;
-			newVec.y *= val;
-			return newVec;
+			return Vec2<T>(x * val, y * val);;
 		}
 
 		template <typename T>
 		inline Vec2<T> operator/(T val)
 		{
 			auto newVec = *this;
-			newVec.x /= val;
-			newVec.y /= val;
+			if (val != 0)  {
+				newVec.x /= val;
+				newVec.y /= val;
+			}
 			return newVec;
 		}
 
@@ -164,6 +149,14 @@ namespace gcmath
 			if (rhs.x > 0) x /= rhs.x;
 			if (rhs.y > 0) y /= rhs.y;
 
+			return *this;
+		}
+
+		template <typename T>
+		inline Vec2<T>& operator*=(T val)
+		{
+			x *= val;
+			y *= val;
 			return *this;
 		}
 		
@@ -231,12 +224,25 @@ namespace gcmath
 		}
 
 		template <typename T>
-		inline CRect<T>& operator+=(const Vec2<T>& rhs)
+		inline Rect<T>& operator=(const Rect<T>& other)
 		{
-			l += rhs.x;
-			r += rhs.x;
-			t += rhs.y;
-			b += rhs.y;
+			left = other.left;
+			right = other.right;
+			top = other.top;
+			bottom = other.bottom;
+
+			return *this;
+		}
+
+		template <typename T>
+		inline Rect<T>& operator+=(const Vec2<T>& rhs)
+		{
+			left += rhs.x;
+			right += rhs.x;
+			top += rhs.y;
+			bottom += rhs.y;
+
+			return *this;
 		}
 
 		template <typename T>
@@ -249,14 +255,25 @@ namespace gcmath
 			return true;
 		}
 
-       
-        int GetWidth()
+		template <typename T>
+		inline bool IsContained(const Rect<T>& other)
+		{
+			// Determines if other rectangle it completely inside
+			// (no intersects)
+			return (left <= other.left &&
+				right >= other.right &&
+				top <= other.top &&
+				bottom >= other.bottom);
+		}
+
+		template <typename T>
+        T GetWidth()
         {
             return right - left;
         }
 
-     
-        int GetHeight()
+		template <typename T>
+        T GetHeight()
         {
             return bottom - top;
         }

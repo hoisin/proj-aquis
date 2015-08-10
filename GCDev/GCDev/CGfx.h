@@ -24,10 +24,13 @@ public:
 		int winXPos = -1, int winYPos = -1);
 
 	int LoadTexture(const std::string& textureFile);
-    int LoadTexture(const std::string& texturFile, SDL_Color key);
+    int LoadTexture(const std::string& texturFile, const SDL_Color& key);
 
-	void BeginDraw(bool bClear = false, unsigned int r = 0, unsigned int g = 0, unsigned int b = 0);
+	void BeginDraw(bool bClear = false, Uint8 r = 0, Uint8 g = 0, Uint8 b = 0);
 	void EndDraw();
+
+	void DrawRect(int posX, int posY, int width, int height, Uint8 r, Uint8 g, Uint8 b);
+	void DrawRect(const SDL_Rect& drawRect, Uint8 r, Uint8 g, Uint8 b);
 
 	void DrawTexture(int texIdx, int posX, int posY);
 	void DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY);

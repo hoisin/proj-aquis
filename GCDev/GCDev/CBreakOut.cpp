@@ -24,6 +24,11 @@ bool CBreakOut::Initialise(CGfx* pGfx)
 	m_worldWidth = pGfx->GetWindowWidth();
 	m_worldHeight = pGfx->GetWindowHeight();
 
+	m_worldSize.left = 0;
+	m_worldSize.top = 0;
+	m_worldSize.right = m_worldWidth;
+	m_worldSize.bottom = m_worldHeight;
+
 	// a storage instance for each entity type
 	auto paddleStore = std::pair<std::string, std::vector<std::shared_ptr<CBaseEntity>>>("paddles", std::vector<std::shared_ptr<CBaseEntity>>());
 	auto ballStore = std::pair<std::string, std::vector<std::shared_ptr<CBaseEntity>>>("balls", std::vector<std::shared_ptr<CBaseEntity>>());
@@ -60,14 +65,14 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     int ballTexID = pGfx->LoadTexture("..\\Assets\\ball.bmp", transparentKey);
     auto ballObj = std::shared_ptr<CBall>(new CBall);
 
-    pGfx->GetTextureAnimFrameDimensions(paddleTexID, texWidth, texHeight);
+	pGfx->GetTextureAnimFrameDimensions(ballTexID, texWidth, texHeight);
 
     ballObj->SetActive(true);
     ballObj->SetCollisionRect(gcmath::Rect<int>(0, texWidth, 0, texHeight));
     ballObj->SetTextureFrame(gcmath::Rect<int>(0, texWidth, 0, texHeight));
     ballObj->SetSpriteID(ballTexID);
     ballObj->SetPosition(gcmath::Vec2<int>(100, 50));
-	ballObj->SetSpeed(2);
+	ballObj->SetSpeed(4);
 	ballObj->SetDirection(gcmath::Vec2<float>(0.f, 1.f));
     m_entities["balls"].push_back(ballObj);
 

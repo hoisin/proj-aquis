@@ -21,8 +21,8 @@ void CBrick::VDraw(unsigned int deltaT, CGfx* pGfx)
     // Drawing is based on the top left of the texture.
     int xPos = 0, yPos = 0;
 
-    xPos = m_position.x - (m_drawFrame.GetWidth() / 2);
-    yPos = m_position.y - (m_drawFrame.GetHeight() / 2);
+	xPos = m_position.x - (m_drawFrame.GetWidth<int>() / 2);
+	yPos = m_position.y - (m_drawFrame.GetHeight<int>() / 2);
 
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
 }
