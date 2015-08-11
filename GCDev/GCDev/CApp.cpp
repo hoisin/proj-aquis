@@ -5,8 +5,9 @@
 #include "CGfx.h"
 #include "CInput.h"
 #include "CKeyboard.h"
-
 #include "CBreakOut.h"
+
+#include "CPaddle.h"
 
 
 int gX = 0;
@@ -60,10 +61,7 @@ void CApp::Run()
 		// Update if enough time elapsed
 		if (deltaUpdateT > m_tick)
 		{
-			if (m_pInput->GetKeyboard().get()->IsKeyHeld('d'))
-			{
-				gX += 5;
-			}
+			InputProcess(deltaUpdateT);
 
 			m_lastUpdateTick = currentTick;
 			Update(deltaUpdateT);
@@ -105,7 +103,7 @@ bool CApp::Intitialise(unsigned int updateTick)
     m_pGame.reset(new CBreakOut);
     m_pGame->Initialise(m_pGfx);
 
-    m_pGame->SetLevel(1, 800);
+    m_pGame->SetLevel(1, 800, 600);
 
 	return true;
 }
@@ -155,4 +153,16 @@ void CApp::Draw(unsigned int deltaT)
 	//m_pGfx->DrawTexture(0, test, gX, gY);
 
 	m_pGfx->EndDraw();
+}
+
+
+void CApp::InputProcess(unsigned int deltaT)
+{
+	auto paddle = (CPaddle*)m_pGame->GetEntity("paddles", 0);
+
+	if (m_pInput->GetKeyboard()->IsKeyHeld(SDLK_LEFT))
+		paddle->MoveLeft(10);
+
+	if (m_pInput->GetKeyboard()->IsKeyHeld(SDLK_RIGHT))
+		paddle->MoveRight(10);
 }

@@ -23,11 +23,11 @@ public:
 	virtual void VDraw(unsigned int deltaT, CGfx* pGfx) = 0;
 
     void SetActive(bool bFlag) { m_bActive = bFlag; }
-	void SetPosition(const gcmath::Vec2<int>& newPos) { m_position = newPos; }
+	void SetPosition(const gcmath::Vec2<int>& newPos) { m_position = newPos; }			// Top left of graphic
+	void SetPositionCentered(const gcmath::Vec2<int>& newPos);							// Position based on center of graphic
 	void SetSpriteID(int spriteID) { m_spriteID = spriteID; }
 	void SetCollisionRect(const gcmath::Rect<int>& newRect) { m_collisionRect = newRect; }
     void SetTextureFrame(const gcmath::Rect<int>& newRect) { m_drawFrame = newRect; }
-
 
     bool IsActive() { return m_bActive; }
 	int GetSpriteID() { return m_spriteID;  }
@@ -35,6 +35,11 @@ public:
 	gcmath::Vec2<int> GetPrevPosition() { return m_prevPosition; }
 	gcmath::Rect<int> GetCollisionRect() { return m_collisionRect; }
     gcmath::Rect<int> GetDrawFrame() { return m_drawFrame; }
+
+	// Following returns center position vector from a specified position that is top-left
+	gcmath::Vec2<int> CalcPosition(const gcmath::Rect<int>& rect);
+	gcmath::Vec2<int> CalcPosition(const gcmath::Vec2<int>& vec);
+	gcmath::Rect<int> CalcPosRect(const gcmath::Rect<int>& rect);
 
 protected:
     bool m_bActive;

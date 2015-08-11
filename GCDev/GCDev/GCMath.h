@@ -176,6 +176,16 @@ namespace gcmath
 	};
 
 
+
+	enum EdgeType {
+		ELeft,
+		ERight,
+		ETop,
+		EBottom,
+		EInvalid,
+		ETotalEdges
+	};
+
 	template<class T>
 	class Rect
 	{
@@ -267,13 +277,82 @@ namespace gcmath
 		}
 
 		template <typename T>
-        T GetWidth()
+		inline Rect<T> MoveInside(const Rect<T>& other)
+		{
+			auto outRect = other;
+
+			if ((outRect.right - outRect.left) > (right - left) || (outRect.bottom - outRect.top) > (bottom - top))
+				return outRect;
+
+			if (outRect.left < left) {
+				auto diff = left - outRect.left;
+				outRect.left += diff;
+				outRect.right += diff;
+			}
+
+			if (outRect.right > right) {
+				auto diff = outRect.right - right;
+				outRect.left -= diff;
+				outRect.right -= diff;
+			}
+
+			if (outRect.top < top) {
+				auto diff = top - outRect.top;
+				outRect.top += diff;
+				outRect.bottom += diff;
+			}
+
+			if (outRect.bottom > bottom) {
+				auto diff = outRect.bottom - bottom;
+				outRect.top -= diff;
+				outRect.bottom -= diff;
+			}
+
+			return outRect;
+		}
+
+		template <typename T>
+		bool IsIntersectingEdge(const Rect<T>& rect, EdgeType edge)
+		{
+			if (!Intersects(rect))
+				return false;
+
+			switch (edge) {
+			case EdgeType::ELeft:
+				if (rect.left < left)
+					return true;
+				break;
+
+			case EdgeType::ERight:
+				if (rect.right > right)
+					return true;
+				break;
+
+			case EdgeType::ETop:
+				if (rect.top < top)
+					return true;
+				break;
+
+			case EdgeType::EBottom:
+				if (rect.bottom > bottom)
+					return true;
+				break;
+
+			default:
+				break;
+			}
+
+			return false;
+		}
+
+		template <typename T>
+        T GetWidth() const
         {
             return right - left;
         }
 
 		template <typename T>
-        T GetHeight()
+        T GetHeight() const
         {
             return bottom - top;
         }

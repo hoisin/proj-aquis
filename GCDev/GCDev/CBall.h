@@ -25,6 +25,9 @@ public:
 	gcmath::Vec2<float> GetDirection();
 
 private:
+	void WorldBoundsCheck(CBreakOut* pGame);
+
+private:
 	int m_speed;
 	gcmath::Vec2<float> m_direction;
 

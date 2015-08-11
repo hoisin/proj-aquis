@@ -26,3 +26,15 @@ void CPaddle::VDraw(unsigned int deltaT, CGfx* pGfx)
 
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
 }
+
+
+void CPaddle::MoveLeft(int val)
+{
+	m_position.x -= val;
+}
+
+
+void CPaddle::MoveRight(int val)
+{
+	m_position.x += val;
+}

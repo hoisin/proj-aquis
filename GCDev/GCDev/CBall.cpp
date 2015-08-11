@@ -18,17 +18,8 @@ void CBall::VUpdate(unsigned int deltaT, CBreakOut* pGame)
 	m_position.x += (int)tempVec.x;
 	m_position.y += (int)tempVec.y;
 
-	auto rectCollision = m_collisionRect;
-	rectCollision += gcmath::Vec2<int>(m_position.x - (m_collisionRect.GetWidth<int>() / 2),
-		m_position.y - (m_collisionRect.GetHeight<int>() / 2));
-
-	// Check of object to object collision
-	//	- Bricks & paddle
-	if (!pGame->GetWorldSize().IsContained(rectCollision))
-	{
-		m_position = m_prevPosition;
-		m_direction *= -1.f;
-	}
+	// Check world boundary
+	WorldBoundsCheck(pGame);
 
 	// Record old position
 	m_prevPosition = m_position;
@@ -44,18 +35,7 @@ void CBall::VDraw(unsigned int deltaT, CGfx* pGfx)
     xPos = m_position.x - (m_drawFrame.GetWidth<int>() / 2);
 	yPos = m_position.y - (m_drawFrame.GetHeight<int>() / 2);
 
-	auto rectCollision = m_collisionRect;
-	rectCollision += gcmath::Vec2<int>(m_position.x - (m_collisionRect.GetWidth<int>() / 2),
-		m_position.y - (m_collisionRect.GetHeight<int>() / 2));
-
-	SDL_Rect temp;
-	temp.x = rectCollision.left;
-	temp.y = rectCollision.top;
-	temp.w = rectCollision.GetWidth<int>();
-	temp.h = rectCollision.GetHeight<int>();
-
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
-	pGfx->DrawRect(temp, 255, 0, 0);
 }
 
 
@@ -80,4 +60,29 @@ int CBall::GetSpeed()
 gcmath::Vec2<float> CBall::GetDirection()
 {
 	return m_direction;
+}
+
+
+void CBall::WorldBoundsCheck(CBreakOut* pGame)
+{
+	auto rectCollision = CalcPosRect(m_collisionRect);
+	auto worldRect = pGame->GetWorldSize();
+
+	// Check if object has reached the edges of world (screen)
+	if (!worldRect.IsContained(rectCollision))
+	{
+		if (worldRect.IsIntersectingEdge(rectCollision, gcmath::EdgeType::ELeft) ||
+			worldRect.IsIntersectingEdge(rectCollision, gcmath::EdgeType::ERight)) {
+			m_direction.x *= -1.f;
+		}
+
+		if (worldRect.IsIntersectingEdge(rectCollision, gcmath::EdgeType::ETop) ||
+			worldRect.IsIntersectingEdge(rectCollision, gcmath::EdgeType::EBottom)) {
+			m_direction.y *= -1.f;
+		}
+
+		// Set position at exactly the edge
+		auto newRect = pGame->GetWorldSize().MoveInside(rectCollision);
+		m_position = CalcPosition(newRect);
+	}
 }

@@ -80,6 +80,9 @@
     <ClCompile Include="CLevel.cpp">
       <Filter>Game\Level</Filter>
     </ClCompile>
+    <ClCompile Include="CBaseEntity.cpp">
+      <Filter>Game\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGfx.h">

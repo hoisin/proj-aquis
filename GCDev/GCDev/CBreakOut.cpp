@@ -52,7 +52,7 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     paddleObj->SetSpriteID(paddleTexID);
     paddleObj->SetPosition(gcmath::Vec2<int>(texWidth / 2, texHeight / 2));
 
-    m_entities["paddle"].push_back(paddleObj);
+    m_entities["paddles"].push_back(paddleObj);
 
 
     // Setup ball 
@@ -73,7 +73,7 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     ballObj->SetSpriteID(ballTexID);
     ballObj->SetPosition(gcmath::Vec2<int>(100, 50));
 	ballObj->SetSpeed(4);
-	ballObj->SetDirection(gcmath::Vec2<float>(0.f, 1.f));
+	ballObj->SetDirection(gcmath::Vec2<float>(0.5f, 0.5f));
     m_entities["balls"].push_back(ballObj);
 
     // Load the brick texture
@@ -86,7 +86,7 @@ bool CBreakOut::Initialise(CGfx* pGfx)
 }
 
 
-void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth)
+void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsigned int screenHeight)
 {
     // Incoming hard coded stuff.....
 
@@ -109,6 +109,11 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth)
 	}
 
     LoadLevel(&pLevel);
+
+	// Position paddle at 85% of the height of the screen
+	int yVal = 0.85f * screenHeight;
+
+	m_entities["paddles"][0]->SetPositionCentered(gcmath::Vec2<int>((int)screenWidth / 2, yVal));
 }
 
 
@@ -148,6 +153,19 @@ std::vector<std::shared_ptr<CBaseEntity>>* CBreakOut::GetEntities(const std::str
 		return &found->second;
 
 	return nullptr;
+}
+
+
+CBaseEntity* CBreakOut::GetEntity(const std::string& key, unsigned int index)
+{
+	auto found = m_entities.find(key);
+
+	if (found != m_entities.end())
+	{
+		if (found->second.size() > 0 && found->second.size () > index) {
+			return found->second[index].get();
+		}
+	}
 }
 
 

@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="CBall.cpp" />
+    <ClCompile Include="CBaseEntity.cpp" />
     <ClCompile Include="CBreakOut.cpp" />
     <ClCompile Include="CBrick.cpp" />
     <ClCompile Include="CGfx.cpp" />

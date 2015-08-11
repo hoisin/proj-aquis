@@ -28,6 +28,8 @@ private:
 
 	void Draw(unsigned int deltaT);
 
+	void InputProcess(unsigned int deltaT);
+
 private:
 	bool m_bRun;
 

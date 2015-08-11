@@ -26,13 +26,14 @@ public:
 
 	bool Initialise(CGfx* pGfx);
 
-	void SetLevel(unsigned int levelNum, unsigned int screenWidth);
+	void SetLevel(unsigned int levelNum, unsigned int screenWidth, unsigned int screenHeight);
 
 	void Update(unsigned int deltaT);
 
 	void Draw(unsigned int deltaT, CGfx* pGfx);
 
 	std::vector<std::shared_ptr<CBaseEntity>>* GetEntities(const std::string& key);
+	CBaseEntity* GetEntity(const std::string& key, unsigned int index);
 
 	gcmath::Rect<int> GetWorldSize() { return m_worldSize; }
 
