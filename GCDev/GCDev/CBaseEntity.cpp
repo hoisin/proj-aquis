@@ -30,3 +30,15 @@ gcmath::Rect<int> CBaseEntity::CalcPosRect(const gcmath::Rect<int>& rect)
 
 	return newRect;
 }
+
+
+gcmath::Rect<int> CBaseEntity::GetWorldCollisionRect()
+{
+	auto newRect = m_collisionRect;
+	newRect.left += m_position.x - (m_drawFrame.GetWidth<int>() / 2);
+	newRect.right += m_position.x - (m_drawFrame.GetWidth<int>() / 2);
+	newRect.top += m_position.y - (m_drawFrame.GetHeight<int>() / 2);
+	newRect.bottom += m_position.y - (m_drawFrame.GetHeight<int>() / 2);
+
+	return newRect;
+}

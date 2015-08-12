@@ -1,9 +1,9 @@
 #include "CGfx.h"
 
 #include "SDL.h"
-#include "Utility.h"
 #include "CTextureManager.h"
 #include "CTextDraw.h"
+#include "Utility.h"
 
 CGfx::CGfx() : m_pWindow(nullptr), m_pSurface(nullptr), m_pTextureMgr(nullptr), m_pDrawText(nullptr),
 m_winWidth(0), m_winHeight(0)
@@ -97,7 +97,7 @@ void CGfx::EndDraw()
 
 void CGfx::DrawRect(int posX, int posY, int width, int height, Uint8 r, Uint8 g, Uint8 b)
 {
-	SDL_Rect tempRect = gcutility::CreateRect(posX, posY, width, height);
+	SDL_Rect tempRect = gcutility::CreateSDLRect(posX, posY, width, height);
 
 	SDL_FillRect(m_pSurface, &tempRect, SDL_MapRGB(m_pSurface->format, r, g, b));
 }

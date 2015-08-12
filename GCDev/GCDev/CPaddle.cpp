@@ -28,6 +28,12 @@ void CPaddle::VDraw(unsigned int deltaT, CGfx* pGfx)
 }
 
 
+void CPaddle::VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision)
+{
+	// Do something
+}
+
+
 void CPaddle::MoveLeft(int val)
 {
 	m_position.x -= val;

@@ -19,9 +19,9 @@ public:
 
 	void Update(unsigned int delta);
 
-	bool IsKeyDown(char key);
-	bool IsKeyUp(char key);
-	bool IsKeyHeld(char key);
+	bool IsKeyDown(int sdlKey);
+	bool IsKeyUp(int sdlKey);
+	bool IsKeyHeld(int sdlKey);
 
 private:
 	char		m_keys[256];			// State for each ASCII key

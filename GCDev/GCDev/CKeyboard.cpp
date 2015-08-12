@@ -52,27 +52,27 @@ void CKeyboard::Update(unsigned int delta)
 }
 
 
-bool CKeyboard::IsKeyDown(char key)
+bool CKeyboard::IsKeyDown(int sdlKey)
 {
-	if (m_keys[SDL_GetScancodeFromKey(key)] == 'd')
+	if (m_keys[SDL_GetScancodeFromKey(sdlKey)] == 'd')
 		return true;
 
 	return false;
 }
 
 
-bool CKeyboard::IsKeyUp(char key)
+bool CKeyboard::IsKeyUp(int sdlKey)
 {
-	if (m_keys[SDL_GetScancodeFromKey(key)] == 'u')
+	if (m_keys[SDL_GetScancodeFromKey(sdlKey)] == 'u')
 		return true;
 
 	return false;
 }
 
 
-bool CKeyboard::IsKeyHeld(char key)
+bool CKeyboard::IsKeyHeld(int sdlKey)
 {
-	if (m_keys[SDL_GetScancodeFromKey(key)] == 'h')
+	if (m_keys[SDL_GetScancodeFromKey(sdlKey)] == 'h')
 		return true;
 
 	return false;

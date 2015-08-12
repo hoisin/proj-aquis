@@ -3,26 +3,27 @@
 
 	Utility crap
 */
-
 #ifndef __UTILITY_H__
 #define __UTILITY_H__
 
-
 #include "SDL.h"
+#include "GCMath.h"
 
 namespace gcutility
 {
-
-	SDL_Rect CreateRect(int x, int y, int width, int height)
+	template <typename T>
+	SDL_Rect CreateSDLRect(const gcmath::Rect<T>& rect)
 	{
-		SDL_Rect sdlRect;
-		sdlRect.x = x;
-		sdlRect.y = y;
-		sdlRect.w = width;
-		sdlRect.h = height;
+		SDL_Rect newRect;
+		newRect.x = rect.left;
+		newRect.y = rect.top;
+		newRect.w = rect.GetWidth<T>();
+		newRect.h = rect.GetHeight<T>();
 
-		return sdlRect;
+		return newRect;
 	}
+
+	SDL_Rect CreateSDLRect(int x, int y, int width, int height);
 
 }
 

@@ -10,7 +10,9 @@
 
 namespace gcmath
 {
-
+	//-------------------------------------------------------------------------
+	//	Vector 2
+	//-------------------------------------------------------------------------
 	template<class T>
 	class Vec2
 	{
@@ -176,6 +178,9 @@ namespace gcmath
 	};
 
 
+	//-------------------------------------------------------------------------
+	//	Rectangle
+	//-------------------------------------------------------------------------
 
 	enum EdgeType {
 		ELeft,
@@ -258,8 +263,8 @@ namespace gcmath
 		template <typename T>
 		bool Intersects(const Rect<T>& other)
 		{
-			if (left > other.right || top > other.bottom ||
-				bottom < other.top || right < other.left)
+			if (left >= other.right || top >= other.bottom ||
+				bottom <= other.top || right <= other.left)
 				return false;
 
 			return true;
@@ -312,6 +317,42 @@ namespace gcmath
 		}
 
 		template <typename T>
+		inline Rect<T> MoveOutside(const Rect<T>& other, T offset = 0)
+		{
+			auto outRect = other;
+
+			// If left side
+			if (outRect.left < left && outRect.right > left) {
+				int diff = (outRect.right - left) + offset;
+				outRect.left -= diff;
+				outRect.right -= diff;
+			}
+
+			// If right side
+			if (outRect.left < right && outRect.right > right) {
+				int diff = (right - outRect.left) + offset;
+				outRect.left += diff;
+				outRect.right += diff;
+			}
+
+			// If top side
+			if (outRect.top < top && outRect.bottom > top) {
+				int diff = (outRect.bottom - top) + offset;
+				outRect.top -= diff;
+				outRect.bottom -= diff;
+			}
+
+			// If bottom side
+			if (outRect.top < bottom && outRect.bottom > bottom) {
+				int diff = (bottom - outRect.top) + offset;
+				outRect.top += diff;
+				outRect.right += diff;
+			}
+
+			return outRect;
+		}
+
+		template <typename T>
 		bool IsIntersectingEdge(const Rect<T>& rect, EdgeType edge)
 		{
 			if (!Intersects(rect))
@@ -357,12 +398,45 @@ namespace gcmath
             return bottom - top;
         }
 
-
 	public:
 		T left;
 		T right;
 		T top;
 		T bottom;
+	};
+
+
+	//-------------------------------------------------------------------------
+	//	Circle
+	//-------------------------------------------------------------------------
+
+	template <class T>
+	class Circle
+	{
+	public: 
+		template <typename T>
+		Circle(const Circle<T>& other) : x(other.x), y(other.y), radius(other.radius)
+		{
+		}
+
+		template <typename T>
+		Circle(T xPos, T yPos, T rad) : : x(xPos), y(yPos), radius(rad)
+		{
+		}
+
+		template <typename T>
+		Circle() : x(0), y(0), radius(0)
+		{
+		}
+
+		~Circle()
+		{
+		}
+
+	public:
+		T x;
+		T y;
+		T radius;
 	};
 
 }

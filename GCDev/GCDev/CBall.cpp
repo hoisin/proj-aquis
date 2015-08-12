@@ -20,9 +20,6 @@ void CBall::VUpdate(unsigned int deltaT, CBreakOut* pGame)
 
 	// Check world boundary
 	WorldBoundsCheck(pGame);
-
-	// Record old position
-	m_prevPosition = m_position;
 }
 
 
@@ -36,6 +33,21 @@ void CBall::VDraw(unsigned int deltaT, CGfx* pGfx)
 	yPos = m_position.y - (m_drawFrame.GetHeight<int>() / 2);
 
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
+}
+
+
+void CBall::VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision)
+{
+	if (bCollided) {
+		if (otherCollision) {
+			if (m_position.y < otherCollision->top || m_position.y > otherCollision->bottom)
+				m_direction.y *= -1.f;
+			else
+				m_direction.x *= -1.f;
+		}
+	}
+	else 
+		m_prevPosition = m_position;
 }
 
 

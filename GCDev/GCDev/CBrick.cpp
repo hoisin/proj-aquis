@@ -26,3 +26,11 @@ void CBrick::VDraw(unsigned int deltaT, CGfx* pGfx)
 
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
 }
+
+
+void CBrick::VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision)
+{
+	if (bCollided){
+		m_bActive = false;
+	}
+}

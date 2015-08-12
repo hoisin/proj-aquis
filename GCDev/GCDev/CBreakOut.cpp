@@ -7,6 +7,8 @@
 #include "CLevel.h"
 
 #include "GCMath.h"
+#include "Utility.h"
+
 
 CBreakOut::CBreakOut() : m_brickTextureID(-1)
 {
@@ -72,7 +74,7 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     ballObj->SetTextureFrame(gcmath::Rect<int>(0, texWidth, 0, texHeight));
     ballObj->SetSpriteID(ballTexID);
     ballObj->SetPosition(gcmath::Vec2<int>(100, 50));
-	ballObj->SetSpeed(4);
+	ballObj->SetSpeed(8);
 	ballObj->SetDirection(gcmath::Vec2<float>(0.5f, 0.5f));
     m_entities["balls"].push_back(ballObj);
 
@@ -90,12 +92,13 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsign
 {
     // Incoming hard coded stuff.....
 
-	int brickWidth = 64, brickHeight = 16; // Based on the image size
+	int brickWidth = 64, brickHeight = 24; // Based on the image size
 
 	int totalRows = 10, totalColumns = 8; // How many rows and columns to spawn
 
 	// Calculate the offset to indent for the bricks
-	int indent = (screenWidth - (brickWidth * (totalColumns - 1))) / 2;
+	int indentX = (screenWidth - (brickWidth * (totalColumns - 1))) / 2;
+	int indentY = (int)(screenHeight * 0.07f);
 
 	// Simple generation based on the top of the window and center
 	CLevel pLevel;
@@ -103,7 +106,7 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsign
 	for(int row = 0; row < totalRows; row++) {
 		for(int column = 0; column < totalColumns; column++) {
 
-			auto newPos = gcmath::Vec2<int>((brickWidth * column) + indent, (brickHeight * row) + (brickHeight / 2));
+			auto newPos = gcmath::Vec2<int>((brickWidth * column) + indentX, (brickHeight * row) + (brickHeight / 2) + indentY);
 			pLevel.m_brickPositions.push_back(newPos);
 		}
 	}
@@ -111,7 +114,7 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsign
     LoadLevel(&pLevel);
 
 	// Position paddle at 85% of the height of the screen
-	int yVal = 0.85f * screenHeight;
+	int yVal = (int)(0.85f * screenHeight);
 
 	m_entities["paddles"][0]->SetPositionCentered(gcmath::Vec2<int>((int)screenWidth / 2, yVal));
 }
@@ -126,6 +129,26 @@ void CBreakOut::Update(unsigned int deltaT)
                 vecIt->VUpdate(deltaT, this);
 		}
 	}
+
+	// Perform collision detection
+	// Paddle only needs to check against ball.
+	// Ball needs to be checked against all.
+	auto pBall = GetEntity("balls", 0);
+	bool ballCollision = false;
+
+	for (auto pBrick : m_entities["bricks"]) {
+		if (pBrick->IsActive()) {
+			if (pBall->GetWorldCollisionRect().Intersects(pBrick->GetWorldCollisionRect())) {
+				pBall->VOnCollision(true, &pBrick->GetWorldCollisionRect());
+				pBrick->VOnCollision(true, &pBall->GetWorldCollisionRect());
+				ballCollision = true;
+				break;
+			}
+		}
+	}
+
+	if (!ballCollision)
+		pBall->VOnCollision(false);
 }
 
 
@@ -166,6 +189,8 @@ CBaseEntity* CBreakOut::GetEntity(const std::string& key, unsigned int index)
 			return found->second[index].get();
 		}
 	}
+
+	return nullptr;
 }
 
 

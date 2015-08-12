@@ -17,6 +17,7 @@ public:
 
 	void VUpdate(unsigned int deltaT, CBreakOut* pGame) override;
 	void VDraw(unsigned int deltaT, CGfx* pGfx) override;
+	void VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision = nullptr) override;
 
 private:
 

@@ -169,6 +169,7 @@
     <ClCompile Include="CTextDraw.cpp" />
     <ClCompile Include="CTextureManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
