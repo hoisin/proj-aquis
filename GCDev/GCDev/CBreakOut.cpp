@@ -74,7 +74,7 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     ballObj->SetTextureFrame(gcmath::Rect<int>(0, texWidth, 0, texHeight));
     ballObj->SetSpriteID(ballTexID);
     ballObj->SetPosition(gcmath::Vec2<int>(100, 50));
-	ballObj->SetSpeed(8);
+	ballObj->SetSpeed(12);
 	ballObj->SetDirection(gcmath::Vec2<float>(0.5f, 0.5f));
     m_entities["balls"].push_back(ballObj);
 
@@ -145,6 +145,12 @@ void CBreakOut::Update(unsigned int deltaT)
 				break;
 			}
 		}
+	}
+
+	auto paddle = m_entities["paddles"][0];
+	if (pBall->GetWorldCollisionRect().Intersects(paddle->GetWorldCollisionRect())) {
+		pBall->VOnCollision(true, &paddle->GetWorldCollisionRect());
+		ballCollision = true;
 	}
 
 	if (!ballCollision)

@@ -10,10 +10,7 @@
 #include "CPaddle.h"
 
 
-int gX = 0;
-int gY = 0;
-
-CApp::CApp() : m_bRun(false), m_pGfx(nullptr), m_pInput(nullptr), m_lastLoopTick(0), m_lastUpdateTick(0), m_tick(0)
+CApp::CApp() : m_bRun(false), m_pGfx(nullptr), m_pInput(nullptr), m_lastLoopTick(0), m_lastUpdateTick(0), m_tick(0), m_state(ESplashLoad)
 {
 }
 
@@ -37,38 +34,57 @@ void CApp::Run()
 
 	while (m_bRun) {
 
-		// Handle events on queue.
-        // Must be called to detect input events
-		while (SDL_PollEvent(&sdlEvent) != 0) {
-
-			// User quits
-			if (sdlEvent.type == SDL_QUIT)
-				m_bRun = false;
-		}
-
-		unsigned int currentTick = SDL_GetTicks();
-
-		// The amount of elapsed time from last update to current
-		unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
-
-		// The amount of elapsed time from last loop to current
-		unsigned int deltaLoopT = currentTick - m_lastLoopTick;
-		m_lastLoopTick = currentTick;
-
-		// Check input 
-		m_pInput->Update(deltaLoopT);
-
-		// Update if enough time elapsed
-		if (deltaUpdateT > m_tick)
+		switch (m_state)
 		{
-			InputProcess(deltaUpdateT);
+		case ESplashLoad:
+			break;
 
-			m_lastUpdateTick = currentTick;
-			Update(deltaUpdateT);
+		case ELoadLevel:
+			break;
+
+		case EGameRun:
+		{
+			// Handle events on queue.
+			// Must be called to detect input events
+			while (SDL_PollEvent(&sdlEvent) != 0) {
+
+				// User quits
+				if (sdlEvent.type == SDL_QUIT)
+					m_bRun = false;
+			}
+
+			unsigned int currentTick = SDL_GetTicks();
+
+			// The amount of elapsed time from last update to current
+			unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
+
+			// The amount of elapsed time from last loop to current
+			unsigned int deltaLoopT = currentTick - m_lastLoopTick;
+			m_lastLoopTick = currentTick;
+
+			// Check input 
+			m_pInput->Update(deltaLoopT);
+
+			// Update if enough time elapsed
+			if (deltaUpdateT > m_tick) {
+				InputProcess(deltaUpdateT);
+
+				m_lastUpdateTick = currentTick;
+				Update(deltaUpdateT);
+			}
+
+			// Draw
+			Draw(deltaLoopT);
 		}
+			break;
 
-		// Draw
-		Draw(deltaLoopT);
+		case EQuit:
+			m_bRun = false;
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	SDL_Quit();
@@ -98,12 +114,14 @@ bool CApp::Intitialise(unsigned int updateTick)
 	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
 
 	m_pInput.reset(new CInput);
-	m_pInput->Initialise(150);
+	m_pInput->Initialise(100);
 
     m_pGame.reset(new CBreakOut);
     m_pGame->Initialise(m_pGfx);
 
     m_pGame->SetLevel(1, 800, 600);
+
+	m_state = EGameRun;
 
 	return true;
 }
@@ -137,21 +155,6 @@ void CApp::Draw(unsigned int deltaT)
 
 	m_pGame->Draw(deltaT, m_pGfx);
 
-	SDL_Color col;
-	col.r = 0;
-	col.g = 255;
-	col.b = 0;
-
-	m_pGfx->DrawText("Hello World", 300, 200, col);
-
-	SDL_Rect test;
-	test.x = 64;
-	test.y = 64;
-	test.w = 128;
-	test.h = 128;
-
-	//m_pGfx->DrawTexture(0, test, gX, gY);
-
 	m_pGfx->EndDraw();
 }
 
@@ -165,4 +168,7 @@ void CApp::InputProcess(unsigned int deltaT)
 
 	if (m_pInput->GetKeyboard()->IsKeyHeld(SDLK_RIGHT))
 		paddle->MoveRight(10);
+
+	if (m_pInput->GetKeyboard()->IsKeyDown(SDLK_ESCAPE))
+		m_state = EQuit;
 }

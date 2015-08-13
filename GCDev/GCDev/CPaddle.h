@@ -21,6 +21,10 @@ public:
 
 	void MoveLeft(int val);
 	void MoveRight(int val);
+
+private:
+	int m_leftMove;
+	int m_rightMove;
 };
 
 #endif
