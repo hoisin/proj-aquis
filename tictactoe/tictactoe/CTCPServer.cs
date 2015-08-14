@@ -3,38 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using System.Net;
 using System.Net.Sockets;
 
 namespace tictactoe_server
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    class CTCPServer
     {
         // Incoming data from the client
         public static string data = null;
 
-        public MainWindow()
+        public static void StartListening()
         {
-            InitializeComponent();
-            Run();
-        }
-
-        public void Run()
-        {
-             // Data for incoming data
+            // Data for incoming data
             byte[] bytes = new Byte[1024];
 
             // Establish the local endpoint for the socket.
@@ -56,7 +38,7 @@ namespace tictactoe_server
                 // Start listening for conections.
                 while (true)
                 {
-                    consoleTextBox.Text = "Waiting for a connection...";
+                    Console.WriteLine("Waiting for a connection...");
                     
                     // Program is suspended while waiting for an incoming connection.
                     Socket handler = listener.Accept();
@@ -73,10 +55,10 @@ namespace tictactoe_server
                     }
 
                     // Show the data on the console
-                    consoleTextBox.Text = "Text Recieved : " + data;
+                    Console.WriteLine("Text Recieved : {0}", data);
 
                     // Echo the data back to the client.
-                    byte[] msg = Encoding.ASCII.GetBytes("Server says HI");
+                    byte[] msg = Encoding.ASCII.GetBytes(data);
 
                     handler.Send(msg);
                     handler.Shutdown(SocketShutdown.Both);
@@ -86,6 +68,11 @@ namespace tictactoe_server
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }
+
+            Console.WriteLine("\nPress ENTER to continue...");
+            Console.Read();
         }
+
+
     }
 }

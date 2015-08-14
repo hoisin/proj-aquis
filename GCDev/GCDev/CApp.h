@@ -23,7 +23,7 @@ public:
 		EGameOver,
 		EGameRun,
 		ELoadLevel,
-		EQuit,
+		EShutDown,
 		ETotalStates
 	};
 
@@ -56,6 +56,16 @@ private:
 	unsigned int m_tick;
 
 	EAppState m_state;
+
+	int m_currentOption;
+
+	// Main menu texture IDS
+	int m_breakoutTexID;
+	int m_startTexID;
+	int m_quitTexID;
+	int m_arrowTexID;
+
+	int m_menuLastCheck;
 };
 
 
