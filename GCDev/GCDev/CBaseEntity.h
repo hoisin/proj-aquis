@@ -21,7 +21,7 @@ public:
 
 	virtual void VUpdate(unsigned int deltaT, CBreakOut* pGame) = 0;
 	virtual void VDraw(unsigned int deltaT, CGfx* pGfx) = 0;
-	virtual void VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision = nullptr) = 0;
+	virtual void VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision = nullptr) = 0;
 
     void SetActive(bool bFlag) { m_bActive = bFlag; }
 	void SetPosition(const gcmath::Vec2<int>& newPos) { m_position = newPos; }			// Top left of graphic

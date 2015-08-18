@@ -10,7 +10,7 @@
 #include "Utility.h"
 
 
-CBreakOut::CBreakOut() : m_brickTextureID(-1)
+CBreakOut::CBreakOut() : m_brickTextureID(-1), m_currentLevel(1)
 {
 }
 
@@ -83,6 +83,9 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     m_brickDrawFrame.left = 0;
     m_brickDrawFrame.top = 0;
     pGfx->GetTextureAnimFrameDimensions(m_brickTextureID, m_brickDrawFrame.right, m_brickDrawFrame.bottom);
+
+	m_levelMgr.reset(new CLevel);
+	m_levelMgr->LoadLevelData(3);
 	
 	return true;
 }
@@ -90,32 +93,30 @@ bool CBreakOut::Initialise(CGfx* pGfx)
 
 void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsigned int screenHeight)
 {
-    // Incoming hard coded stuff.....
+	// Clear out any existing bricks
+	m_entities["bricks"].clear();
 
-	int brickWidth = 64, brickHeight = 24; // Based on the image size
+	m_currentLevel = levelNum;
 
-	int totalRows = 10, totalColumns = 8; // How many rows and columns to spawn
+	// Grab common properties for the bricks
+	for (const auto& brick : m_levelMgr->m_bricks[m_currentLevel-1]) {
+		const auto& pBrick = std::shared_ptr<CBaseEntity>(new CBrick);
 
-	// Calculate the offset to indent for the bricks
-	int indentX = (screenWidth - (brickWidth * (totalColumns - 1))) / 2;
-	int indentY = (int)(screenHeight * 0.07f);
+		pBrick->SetActive(true);
+		pBrick->SetCollisionRect(m_brickDrawFrame);
+		pBrick->SetSpriteID(m_brickTextureID);
+		pBrick->SetTextureFrame(m_brickDrawFrame);
+		pBrick->SetPosition(brick);
 
-	// Simple generation based on the top of the window and center
-	CLevel pLevel;
-
-	for(int row = 0; row < totalRows; row++) {
-		for(int column = 0; column < totalColumns; column++) {
-
-			auto newPos = gcmath::Vec2<int>((brickWidth * column) + indentX, (brickHeight * row) + (brickHeight / 2) + indentY);
-			pLevel.m_brickPositions.push_back(newPos);
-		}
+		m_entities["bricks"].push_back(pBrick);
 	}
 
-    LoadLevel(&pLevel);
+	m_remainingBricks = m_entities.size();
 
 	// Position paddle at 85% of the height of the screen
 	int yVal = (int)(0.85f * screenHeight);
 
+	m_entities["balls"][0]->SetPosition(gcmath::Vec2<int>((int)screenWidth / 8, (int)(screenHeight * 0.45f)));
 	m_entities["paddles"][0]->SetPositionCentered(gcmath::Vec2<int>((int)screenWidth / 2, yVal));
 }
 
@@ -139,8 +140,8 @@ void CBreakOut::Update(unsigned int deltaT)
 	for (auto pBrick : m_entities["bricks"]) {
 		if (pBrick->IsActive()) {
 			if (pBall->GetWorldCollisionRect().Intersects(pBrick->GetWorldCollisionRect())) {
-				pBall->VOnCollision(true, &pBrick->GetWorldCollisionRect());
-				pBrick->VOnCollision(true, &pBall->GetWorldCollisionRect());
+				pBall->VOnCollision(true, this, &pBrick->GetWorldCollisionRect());
+				pBrick->VOnCollision(true, this, &pBall->GetWorldCollisionRect());
 				ballCollision = true;
 				break;
 			}
@@ -149,12 +150,12 @@ void CBreakOut::Update(unsigned int deltaT)
 
 	auto paddle = m_entities["paddles"][0];
 	if (pBall->GetWorldCollisionRect().Intersects(paddle->GetWorldCollisionRect())) {
-		pBall->VOnCollision(true, &paddle->GetWorldCollisionRect());
+		pBall->VOnCollision(true, this, &paddle->GetWorldCollisionRect());
 		ballCollision = true;
 	}
 
 	if (!ballCollision)
-		pBall->VOnCollision(false);
+		pBall->VOnCollision(false, this);
 }
 
 
@@ -217,4 +218,11 @@ void CBreakOut::LoadLevel(CLevel* pLevel)
 
 		m_entities["bricks"].push_back(pBrick);
 	}
+}
+
+
+
+int CBreakOut::GetMaxLevels()
+{
+	return (int)m_levelMgr->m_bricks.size();
 }

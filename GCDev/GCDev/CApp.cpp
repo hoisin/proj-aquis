@@ -107,6 +107,15 @@ void CApp::Run()
 
 					m_lastUpdateTick = currentTick;
 					Update(deltaUpdateT);
+
+					if (m_pGame->IsClear()) {
+						if (m_pGame->GetCurrentLevel() >= m_pGame->GetMaxLevels())
+							m_bRun = false;
+						else
+						{
+							//m_pGame->
+						}
+					}
 				}
 
 				// Draw

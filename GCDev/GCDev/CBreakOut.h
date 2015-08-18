@@ -37,6 +37,12 @@ public:
 
 	gcmath::Rect<int> GetWorldSize() { return m_worldSize; }
 
+	void ReduceBrickCount() { m_remainingBricks--; }
+
+	bool IsClear() { return (m_remainingBricks <= 0); }
+	int GetCurrentLevel() { return m_currentLevel; }
+	int GetMaxLevels();
+
 private:
 	void LoadLevel(CLevel* pLevel);
 
@@ -47,6 +53,10 @@ private:
     gcmath::Rect<int> m_brickDrawFrame;
 
 	gcmath::Rect<int> m_worldSize;
+
+	std::shared_ptr<CLevel> m_levelMgr;
+	int m_currentLevel;
+	int m_remainingBricks;
 
 
 	// Variables to determine the size of the world and prevent entities from going beyond.

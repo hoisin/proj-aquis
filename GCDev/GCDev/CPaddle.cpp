@@ -50,7 +50,7 @@ void CPaddle::VDraw(unsigned int deltaT, CGfx* pGfx)
 }
 
 
-void CPaddle::VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision)
+void CPaddle::VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision)
 {
 	// Do something
 }

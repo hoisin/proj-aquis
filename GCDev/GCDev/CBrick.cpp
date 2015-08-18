@@ -28,9 +28,10 @@ void CBrick::VDraw(unsigned int deltaT, CGfx* pGfx)
 }
 
 
-void CBrick::VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision)
+void CBrick::VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision)
 {
 	if (bCollided){
+		pGame->ReduceBrickCount();
 		m_bActive = false;
 	}
 }

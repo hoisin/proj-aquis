@@ -17,10 +17,12 @@ public:
 	CLevel();
 	~CLevel();
 
+	bool LoadLevelData(int totalLevels);
 	void AddBrick(const gcmath::Vec2<int>& newBrickPos);
 
 public:
 	std::vector<gcmath::Vec2<int>> m_brickPositions;
+	std::vector <std::vector<gcmath::Vec2<int>>> m_bricks;
 };
 
 #endif

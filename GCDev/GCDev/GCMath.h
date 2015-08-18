@@ -404,41 +404,6 @@ namespace gcmath
 		T top;
 		T bottom;
 	};
-
-
-	//-------------------------------------------------------------------------
-	//	Circle
-	//-------------------------------------------------------------------------
-
-	template <class T>
-	class Circle
-	{
-	public: 
-		template <typename T>
-		Circle(const Circle<T>& other) : x(other.x), y(other.y), radius(other.radius)
-		{
-		}
-
-		template <typename T>
-		Circle(T xPos, T yPos, T rad) : : x(xPos), y(yPos), radius(rad)
-		{
-		}
-
-		template <typename T>
-		Circle() : x(0), y(0), radius(0)
-		{
-		}
-
-		~Circle()
-		{
-		}
-
-	public:
-		T x;
-		T y;
-		T radius;
-	};
-
 }
 
 

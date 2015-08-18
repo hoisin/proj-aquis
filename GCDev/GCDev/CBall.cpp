@@ -36,7 +36,7 @@ void CBall::VDraw(unsigned int deltaT, CGfx* pGfx)
 }
 
 
-void CBall::VOnCollision(bool bCollided, gcmath::Rect<int>* otherCollision)
+void CBall::VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision)
 {
 	if (bCollided) {
 		if (otherCollision) {
