@@ -111,7 +111,7 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsign
 		m_entities["bricks"].push_back(pBrick);
 	}
 
-	m_remainingBricks = m_entities.size();
+	m_remainingBricks = m_entities["bricks"].size();
 
 	// Position paddle at 85% of the height of the screen
 	int yVal = (int)(0.85f * screenHeight);

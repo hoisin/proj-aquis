@@ -64,6 +64,7 @@ private:
 	int m_startTexID;
 	int m_quitTexID;
 	int m_arrowTexID;
+	int m_gameOverTexID;
 
 	int m_menuLastCheck;
 };

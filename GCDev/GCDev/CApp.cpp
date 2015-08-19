@@ -16,6 +16,8 @@ CApp::CApp() : m_bRun(false), m_pGfx(nullptr), m_pInput(nullptr), m_lastLoopTick
 	m_breakoutTexID = -1;
 	m_startTexID = -1;
 	m_quitTexID = -1;
+	m_gameOverTexID = -1;
+	m_menuLastCheck = 0;
 }
 
 
@@ -110,15 +112,29 @@ void CApp::Run()
 
 					if (m_pGame->IsClear()) {
 						if (m_pGame->GetCurrentLevel() >= m_pGame->GetMaxLevels())
-							m_bRun = false;
+							m_state = EGameOver;
 						else
 						{
-							//m_pGame->
+							m_pGame->SetLevel(m_pGame->GetCurrentLevel() + 1, 800, 600);
 						}
 					}
 				}
 
 				// Draw
+				Draw(deltaLoopT);
+			}
+			break;
+
+		case EGameOver:
+			{	
+				unsigned int currentTick = SDL_GetTicks();
+				unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
+				
+				unsigned int deltaLoopT = currentTick - m_lastLoopTick;
+
+				if (deltaUpdateT > 5000)
+					m_state = EMainMenu;
+
 				Draw(deltaLoopT);
 			}
 			break;
@@ -161,6 +177,7 @@ bool CApp::Intitialise(unsigned int updateTick)
 	m_startTexID = m_pGfx->LoadTexture("..\\Assets\\startOption.bmp", col);
 	m_quitTexID = m_pGfx->LoadTexture("..\\Assets\\quitOption.bmp", col);
 	m_arrowTexID = m_pGfx->LoadTexture("..\\Assets\\arrow.bmp", col);
+	m_gameOverTexID = m_pGfx->LoadTexture("..\\Assets\\gameOver.bmp", col);
 
 	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
 
@@ -170,7 +187,7 @@ bool CApp::Intitialise(unsigned int updateTick)
     m_pGame.reset(new CBreakOut);
     m_pGame->Initialise(m_pGfx);
 
-    m_pGame->SetLevel(1, 800, 600);
+    m_pGame->SetLevel(3, 800, 600);
 
 	m_state = EMainMenu;
 
@@ -202,6 +219,8 @@ void CApp::Update(unsigned int deltaT)
 //---------------------------------------------------------------------------
 void CApp::Draw(unsigned int deltaT)
 {
+	int texWidth, texHeight;
+
 	switch (m_state)
 	{
 	case ESplashLoad:
@@ -211,7 +230,6 @@ void CApp::Draw(unsigned int deltaT)
 		m_pGfx->BeginDraw(true, 64, 128, 64);
 
 		// Draw logo @ centered and 10% from top
-		int texWidth, texHeight;
 		m_pGfx->GetTextureDimensions(m_breakoutTexID, texWidth, texHeight);
 		m_pGfx->DrawTexture(m_breakoutTexID, (800 / 2) - (texWidth / 2), (int)(600 * 0.1f));
 
@@ -237,6 +255,15 @@ void CApp::Draw(unsigned int deltaT)
 		m_pGfx->BeginDraw(true);
 
 		m_pGame->Draw(deltaT, m_pGfx);
+
+		m_pGfx->EndDraw();
+		break;
+
+	case EGameOver:
+		m_pGfx->BeginDraw(true, 64, 128, 64);
+
+		m_pGfx->GetTextureDimensions(m_gameOverTexID, texWidth, texHeight);
+		m_pGfx->DrawTexture(m_gameOverTexID, (800 / 2) - (texWidth / 2), (int)(600 * 0.1f));
 
 		m_pGfx->EndDraw();
 		break;
