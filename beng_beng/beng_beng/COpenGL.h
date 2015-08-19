@@ -82,6 +82,7 @@ public:
 
 	void BindGBufferWriting(bool bVal);
 	void BindGBufferReading();
+	void UnbindGBufferingReading();
 	void SetReadGBuffer(GBUFFER_TEXTURE_TYPE textureType);
 
 	void BeginDraw();

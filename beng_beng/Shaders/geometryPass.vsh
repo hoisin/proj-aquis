@@ -15,7 +15,11 @@ out vec3 worldPos0;
 
 void main()
 {
-	gl_Position = gWVP * vec4(position, 1.0);
+	//gl_Position = gWVP * vec4(position, 1.0);
+	//texCoord0 = texCoord;
+	//normal0 = (gWorld * vec4(normal, 0.0)).xyz;
+	//worldPos0 = (gWorld * vec4(position, 1.0)).xyz;
+	gl_Position = vec4(0,0,0,0);
 	//texCoord0 = texCoord;
 	normal0 = (gWorld * vec4(normal, 0.0)).xyz;
 	worldPos0 = (gWorld * vec4(position, 1.0)).xyz;

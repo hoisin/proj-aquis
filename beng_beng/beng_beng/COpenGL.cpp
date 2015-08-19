@@ -130,7 +130,7 @@ bool COpenGL::InitOpenGL(HINSTANCE hInstance, HWND* pHwnd, int majorVer, int min
 	glGenFramebuffers(1, &m_fbo);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
 
-	// Create the gbuffer texture
+	// Create the gbuffer textures
 	glGenTextures(GBUFFER_NUM_TEXTURES, m_gTextures);
 	glGenTextures(1, &m_depthTexture);
 
@@ -382,6 +382,13 @@ void COpenGL::BindGBufferWriting(bool bVal)
 void COpenGL::BindGBufferReading()
 {
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
+}
+
+
+void COpenGL::UnbindGBufferingReading()
+{
+	// Unbind G-Buffer reading
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 }
 
 

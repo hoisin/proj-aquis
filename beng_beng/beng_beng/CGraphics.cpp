@@ -224,10 +224,10 @@ void CGraphics::RenderDeferred()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// Pass proj and view mat
+	//// Pass proj and view mat
 	glm::mat4 projView = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
 
-	// for all objects in world ---- 
+	//// for all objects in world ---- 
 	std::map<std::string, CMesh*>* pMeshes = m_pMeshMgr->GetMap();
 	std::map<std::string, CMesh*>::iterator it;
 
@@ -262,10 +262,9 @@ void CGraphics::RenderDeferred()
 	m_pOpenGL->BindGBufferWriting(false);
 
 	// Begin light pass
+	m_pOpenGL->BindGBufferReading();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	m_pOpenGL->BindGBufferReading();
 
 	GLsizei halfWidth = m_winWidth;
 	GLsizei halfHeight = m_winHeight;
@@ -274,17 +273,19 @@ void CGraphics::RenderDeferred()
 	glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, 0, halfWidth, halfHeight,
 		GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-	m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_DIFFUSE);
-	glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, halfHeight, halfWidth, m_winHeight,
-		GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_DIFFUSE);
+	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, halfHeight, halfWidth, m_winHeight,
+	//	GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-	m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_NORMAL);
-	glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, halfHeight, m_winWidth, m_winHeight,
-		GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_NORMAL);
+	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, halfHeight, m_winWidth, m_winHeight,
+	//	GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-	m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_TEXCOORD);
-	glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, 0, m_winWidth, halfHeight,
-		GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_TEXCOORD);
+	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, 0, m_winWidth, halfHeight,
+	//	GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
+	m_pOpenGL->UnbindGBufferingReading();
 
 }
 
