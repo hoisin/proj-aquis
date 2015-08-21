@@ -261,10 +261,10 @@ void CGraphics::RenderDeferred()
 
 	m_pOpenGL->BindGBufferWriting(false);
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	// Begin light pass
 	m_pOpenGL->BindGBufferReading();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	GLsizei halfWidth = m_winWidth;
 	GLsizei halfHeight = m_winHeight;
