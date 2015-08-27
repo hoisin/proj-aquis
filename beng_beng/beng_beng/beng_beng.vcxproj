@@ -148,6 +148,7 @@
     <ClCompile Include="CBufferManager.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCameraFPS.cpp" />
+    <ClCompile Include="CFwdLighting.cpp" />
     <ClCompile Include="CGBuffer.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="CSceneGraph.cpp" />
     <ClCompile Include="CSceneNode.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CTechnique.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTextureLoader.cpp" />
     <ClCompile Include="CTextureManager.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="CBufferManager.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCameraFPS.h" />
+    <ClInclude Include="CFwdLighting.h" />
     <ClInclude Include="CGBuffer.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CIndexBuffer.h" />
@@ -210,6 +213,7 @@
     <ClInclude Include="CSceneGraph.h" />
     <ClInclude Include="CSceneNode.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CTechnique.h" />
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTextureLoader.h" />
     <ClInclude Include="CTextureManager.h" />

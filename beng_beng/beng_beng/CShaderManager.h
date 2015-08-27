@@ -14,7 +14,7 @@
 
 #include <map>
 #include <string>
-#include "CShader.h"
+#include "CTechnique.h"
 
 class CShaderManager
 {
@@ -22,17 +22,17 @@ public:
 	CShaderManager();
 	~CShaderManager();
 
-	CShader* CreateShader(const std::string& shaderID, const std::string &vertexShaderPath, 
+	CTechnique* CreateFwdLightShader(const std::string& shaderID, const std::string &vertexShaderPath, 
 		const std::string &fragmentShaderPath);
 
-	CShader* GetShader(const std::string& shaderID);
+	CTechnique* GetShader(const std::string& shaderID);
 
 	void RemoveShader(const std::string& shaderID);
 
 	void CleanUp();
 
 private:
-	std::map<std::string, CShader*> m_shaderMap;
+	std::map<std::string, CTechnique*> m_shaderMap;
 };
 
 #endif

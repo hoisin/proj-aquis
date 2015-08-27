@@ -4,11 +4,11 @@ in vec2 UV;
 
 out vec3 color;
 
-uniform sampler2D myTextureSampler;
+uniform sampler2D diffuseTextureSampler;
 
 void main() 
 {
 	// output color as texture
-	color = texture( myTextureSampler, UV ).rgb;
+	color = texture( diffuseTextureSampler, UV ).rgb;
 
 }

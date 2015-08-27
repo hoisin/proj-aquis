@@ -114,13 +114,14 @@ bool CSceneLoader::TestScene(CMeshDataManager* pMeshMgr,
 {
 
 	// Currenty create a flat plane 
-	pMeshMgr->CreatePlane("myPlane", 10000, EVertexType::eVertexPNC, 100, glm::vec4(0, 0, 1, 1));
+	pMeshMgr->CreatePlane("myPlane", 1000, EVertexType::eVertexPT, 50, glm::vec4(0, 0, 1, 1));
 
-	for (int sphereCount = 0; sphereCount < 100; sphereCount++)
+	// Creating 4 spheres
+	for (int sphereCount = 0; sphereCount < 4; sphereCount++)
 	{
 		std::string strID = "mySphere_";
 		strID += std::to_string(sphereCount);
-		pMeshMgr->CreateSphere(strID, 60, EVertexType::eVertexPNC, 50, glm::vec4(0, 1, 0, 1));
+		pMeshMgr->CreateSphere(strID, 30, EVertexType::eVertexPT, 25, glm::vec4(0, 1, 0, 1));
 	}
 
 	return true;

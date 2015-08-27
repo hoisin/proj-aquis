@@ -12,7 +12,7 @@
 #include "COpenGL.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
-#include "CShader.h"
+#include "CFwdLighting.h"
 #include "CTexture2D.h"
 #include "CCameraFPS.h"
 #include "CSubMesh.h"
@@ -32,9 +32,16 @@
 #include <fstream>
 
 
-std::string mySphere = "sphere_01";
-std::string myTex = "tex_01";
-std::string myShader = "simple_01";
+const std::string g_mySphere = "sphere_01";
+
+// Textures
+const std::string g_sphereTexture = "sphereTex_01";			// All spheres
+const std::string g_planeTexture = "planeTex_01";
+
+const std::string g_matSphere = "matSphere_01";
+const std::string g_matPlane = "matPlane_01";
+
+const std::string g_myShader = "simple_01";
 const std::string g_sDeferred = "deferred_01";
 
 // Testingzzzz remove pls when not needed
@@ -45,7 +52,7 @@ CLight g_light = CLight(eLightDir, glm::vec3(0, -1, 0), glm::vec3(1, 1, 1), 1,
 
 CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15f);
 
-CGraphics::CGraphics() : m_pOpenGL(NULL), m_winWidth(0), m_winHeight(0), m_bDeferred(true), m_bWireFrame(false), m_pMeshDataMgr(NULL),
+CGraphics::CGraphics() : m_pOpenGL(NULL), m_winWidth(0), m_winHeight(0), m_bDeferred(false), m_bWireFrame(false), m_pMeshDataMgr(NULL),
 	m_pBufferMgr(NULL), m_pTextureMgr(NULL), m_pShaderMgr(NULL), m_pMeshMgr(NULL), m_pSceneLoader(NULL), m_pMaterialMgr(NULL)
 {
 }
@@ -165,38 +172,22 @@ void CGraphics::RenderForward()
 			m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->UseBuffer();
 
 			CMaterial* pMat = m_pMaterialMgr->GetMaterial(pCurrentMesh->GetSubMesh(subMesh)->m_textureID.c_str());
-			CShader* pCurrentShader = m_pShaderMgr->GetShader(myShader);
-			pCurrentShader->UserShader();
+			CFwdLighting* pCurrentShader = (CFwdLighting*)m_pShaderMgr->GetShader(g_myShader);
+			pCurrentShader->Enable();
 
 			// Setup textures
-			//pCurrentShader->SetShaderParam1i("texture0", 0);
-			//pCurrentShader->SetShaderParam1i("texture1", 1);
-
-			//glActiveTexture(GL_TEXTURE0);
-			//m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
-
-			//glActiveTexture(GL_TEXTURE1);
-			//m_pTextureMgr->GetTexture(pMat->m_bumpTexID)->UseTexture();
+			
+			pCurrentShader->SetDiffuseTexture(m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->GetTexture());
+			glActiveTexture(GL_TEXTURE0 + m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->GetTexture());
+			m_pTextureMgr->GetTexture(pMat->m_diffuseTexID)->UseTexture();
 
 			// Setup shader parameters
 			glm::mat4 world;
 			world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
 
-			pCurrentShader->SetShaderParamMatrix4fv("projectionMatrix", pCam->GetProjectionMatrix(), 1);
-			pCurrentShader->SetShaderParamMatrix4fv("viewMatrix", pCam->GetViewMatrix(), 1);
-			pCurrentShader->SetShaderParamMatrix4fv("worldMatrix", world, 1);
-
-			glm::mat4 invWorld(1);
-			invWorld = glm::inverse(invWorld);
-			invWorld = glm::transpose(invWorld);
-
-			pCurrentShader->SetShaderParamMatrix4fv("worldInvMatrix", invWorld, 1);
-
-			glm::vec4 col = glm::vec4(g_light.m_col, 1);
-			pCurrentShader->SetShaderParam3f("lightDirection", g_light.m_pos.x, g_light.m_pos.y, g_light.m_pos.z);
-			pCurrentShader->SetShaderParam4f("diffuseLightCol", col.x, col.y, col.z, col.w);
-			pCurrentShader->SetShaderParam3f("ambLightCol", g_ambLight.m_col.x, g_ambLight.m_col.y, g_ambLight.m_col.z);
-			pCurrentShader->SetShaderParam1f("ambIntensity", g_ambLight.m_intensity);
+			glm::mat4 vpMat = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
+			pCurrentShader->SetProjViewMatrix(vpMat);
+			pCurrentShader->SetWorldMatrix(world);
 
 			// Draw the sub-mesh
 			glDrawElements(GL_TRIANGLES, m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->GetIndexCount(), GL_UNSIGNED_INT, 0);
@@ -217,75 +208,75 @@ void CGraphics::RenderDeferred()
 {
 	// Begin Geometry pass
 
-	m_pOpenGL->BindGBufferWriting(true);
+	//m_pOpenGL->BindGBufferWriting(true);
 
-	CShader* pCurrentShader = m_pShaderMgr->GetShader(g_sDeferred);
-	pCurrentShader->UserShader();
+	//CShader* pCurrentShader = m_pShaderMgr->GetShader(g_sDeferred);
+	//pCurrentShader->UserShader();
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//// Pass proj and view mat
-	glm::mat4 projView = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
+	////// Pass proj and view mat
+	//glm::mat4 projView = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
 
-	//// for all objects in world ---- 
-	std::map<std::string, CMesh*>* pMeshes = m_pMeshMgr->GetMap();
-	std::map<std::string, CMesh*>::iterator it;
+	////// for all objects in world ---- 
+	//std::map<std::string, CMesh*>* pMeshes = m_pMeshMgr->GetMap();
+	//std::map<std::string, CMesh*>::iterator it;
 
-	for (it = pMeshes->begin(); it != pMeshes->end(); it++) {
-		CMesh* pCurrentMesh = it->second;
+	//for (it = pMeshes->begin(); it != pMeshes->end(); it++) {
+	//	CMesh* pCurrentMesh = it->second;
 
-		// Draw each sub-mesh in the mesh
-		for (unsigned int subMesh = 0; subMesh < pCurrentMesh->GetSubMeshCount(); subMesh++) {
-			m_pBufferMgr->GetVertexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_vertexID)->UseBuffer();
-			m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->UseBuffer();
+	//	// Draw each sub-mesh in the mesh
+	//	for (unsigned int subMesh = 0; subMesh < pCurrentMesh->GetSubMeshCount(); subMesh++) {
+	//		m_pBufferMgr->GetVertexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_vertexID)->UseBuffer();
+	//		m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->UseBuffer();
 
-			// Setup shader parameters
-			glm::mat4 world;
-			world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
+	//		// Setup shader parameters
+	//		glm::mat4 world;
+	//		world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
 
-			pCurrentShader->SetShaderParamMatrix4fv("gWVP", pCam->GetProjectionMatrix(), 1);
-			pCurrentShader->SetShaderParamMatrix4fv("gWorld", world, 1);
-
-
-			// Draw the sub-mesh
-			glDrawElements(GL_TRIANGLES, m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->GetIndexCount(), GL_UNSIGNED_INT, 0);
-
-			// Free stuff for the next draw call
-			//glBindVertexArray(0);
-			//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-			//glBindTexture(GL_TEXTURE_2D, 0);
-			//glUseProgram(0);
-		}
-	}
+	//		pCurrentShader->SetShaderParamMatrix4fv("gWVP", pCam->GetProjectionMatrix(), 1);
+	//		pCurrentShader->SetShaderParamMatrix4fv("gWorld", world, 1);
 
 
-	m_pOpenGL->BindGBufferWriting(false);
+	//		// Draw the sub-mesh
+	//		glDrawElements(GL_TRIANGLES, m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->GetIndexCount(), GL_UNSIGNED_INT, 0);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//		// Free stuff for the next draw call
+	//		//glBindVertexArray(0);
+	//		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//		//glBindTexture(GL_TEXTURE_2D, 0);
+	//		//glUseProgram(0);
+	//	}
+	//}
 
-	// Begin light pass
-	m_pOpenGL->BindGBufferReading();
 
-	GLsizei halfWidth = m_winWidth;
-	GLsizei halfHeight = m_winHeight;
+	//m_pOpenGL->BindGBufferWriting(false);
 
-	m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_POSITION);
-	glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, 0, halfWidth, halfHeight,
-		GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_DIFFUSE);
-	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, halfHeight, halfWidth, m_winHeight,
+	//// Begin light pass
+	//m_pOpenGL->BindGBufferReading();
+
+	//GLsizei halfWidth = m_winWidth;
+	//GLsizei halfHeight = m_winHeight;
+
+	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_POSITION);
+	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, 0, halfWidth, halfHeight,
 	//	GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_NORMAL);
-	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, halfHeight, m_winWidth, m_winHeight,
-	//	GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	////m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_DIFFUSE);
+	////glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, 0, halfHeight, halfWidth, m_winHeight,
+	////	GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-	//m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_TEXCOORD);
-	//glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, 0, m_winWidth, halfHeight,
-	//	GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	////m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_NORMAL);
+	////glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, halfHeight, m_winWidth, m_winHeight,
+	////	GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-	m_pOpenGL->UnbindGBufferingReading();
+	////m_pOpenGL->SetReadGBuffer(COpenGL::GBUFFER_TEXTURE_TYPE::GBUFFER_TEXTURE_TYPE_TEXCOORD);
+	////glBlitFramebuffer(0, 0, m_winWidth, m_winHeight, halfWidth, 0, m_winWidth, halfHeight,
+	////	GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
+	//m_pOpenGL->UnbindGBufferingReading();
 
 }
 
@@ -407,9 +398,24 @@ void CGraphics::LoadScene()
 	std::map<std::string, MeshData*>::iterator it;
 
 	// Proceed to load any shaders to be used
-	m_pShaderMgr->CreateShader(myShader, "..\\Shaders\\testVertexShader.vsh", "..\\Shaders\\testFragmentShader.fsh");
+	m_pShaderMgr->CreateFwdLightShader(g_myShader, "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
 
-	m_pShaderMgr->CreateShader(g_sDeferred, "..\\Shaders\\geometryPass.vsh", "..\\Shaders\\geometryPass.fsh");
+	//m_pShaderMgr->CreateShader(g_sDeferred, "..\\Shaders\\geometryPass.vsh", "..\\Shaders\\geometryPass.fsh");
+
+
+	// Create two textures, one for the plane the other for all the spheres
+	m_pTextureMgr->LoadTexture(g_sphereTexture, "..\\Textures\\wtfFace.bmp");
+	m_pTextureMgr->LoadTexture(g_planeTexture, "..\\Textures\\wtf.bmp");
+
+	CMaterial* matPlane = new CMaterial;
+	matPlane->m_bDiffuseTexture = true;
+	matPlane->m_diffuseTexID = g_planeTexture;
+	m_pMaterialMgr->AddMaterial(g_matPlane, matPlane);
+
+	CMaterial* matSphere = new CMaterial;
+	matSphere->m_bDiffuseTexture = true;
+	matSphere->m_diffuseTexID = g_sphereTexture;
+	m_pMaterialMgr->AddMaterial(g_matSphere, matSphere);
 
 	// For each mesh data in map, create vertex/index buffers and attach everything to a Mesh object
 	unsigned int count = 0;
@@ -420,22 +426,29 @@ void CGraphics::LoadScene()
 		std::string meshStr = "mesh_";
 
 		CMesh* pNewMesh = m_pMeshMgr->CreateMesh(glm::vec3(0, 0, 0), meshStr + std::to_string(count));
-		pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string(count), vertStr + std::to_string(count), idxStr + std::to_string(count), myShader,
+		pNewMesh->AddSubMesh(new CSubMesh("Submesh_" + std::to_string(count), vertStr + std::to_string(count), idxStr + std::to_string(count), g_myShader,
 			it->second->material));
 
+		// Manually specified texture ID (temporary only!!!)
+		// Doing this at the moment as we know we only have 1 sub mesh in each mesh only
 		if (count == 1) {
 			int xPos = 0;// (rand() % 6000) - 3000;
 			int yPos = 50;// (rand() % 400) + 40;
 			int zPos = 0;// (rand() % 6000) - 3000;
 			pNewMesh->SetPos(glm::vec3(xPos, yPos, zPos));
+			pNewMesh->GetSubMesh(0)->m_textureID = g_matSphere;
 		}
 		else {
 			if (count > 1) {
-				int xPos = (rand() % 6000) - 3000;
-				int yPos = (rand() % 400) + 40;
-				int zPos = (rand() % 6000) - 3000;
+				int xPos = (rand() % 250) - 125;
+				int yPos = 50;
+				int zPos = (rand() % 250) - 125;
 				pNewMesh->SetPos(glm::vec3(xPos, yPos, zPos));
+				pNewMesh->GetSubMesh(0)->m_textureID = g_matSphere;
 			}
+			else 
+				pNewMesh->GetSubMesh(0)->m_textureID = g_matPlane;
+			
 		}
 
 		count++;

@@ -1,5 +1,5 @@
 #include "CShaderManager.h"
-
+#include "CFwdLighting.h"
 
 CShaderManager::CShaderManager()
 {
@@ -12,26 +12,24 @@ CShaderManager::~CShaderManager()
 }
 
 
-CShader* CShaderManager::CreateShader(const std::string& shaderID, const std::string &vertexShaderPath, 
+CTechnique* CShaderManager::CreateFwdLightShader(const std::string& shaderID, const std::string &vertexShaderPath,
 		const std::string &fragmentShaderPath)
 {
-	CShader* pShader = new CShader;
+	CFwdLighting* pShader = new CFwdLighting(vertexShaderPath, fragmentShaderPath);
 
-	GLuint out = 0;
+	if (!pShader->VInit())
+		return nullptr;
 
-	if(!pShader->LoadShader(vertexShaderPath, fragmentShaderPath, out))
-		return NULL;
-
-	m_shaderMap.insert(std::pair<std::string, CShader*>(shaderID, pShader));
+	m_shaderMap.insert(std::pair<std::string, CTechnique*>(shaderID, pShader));
 
 	return pShader;
 }
 
 
 
-CShader* CShaderManager::GetShader(const std::string& shaderID)
+CTechnique* CShaderManager::GetShader(const std::string& shaderID)
 {
-	std::map<std::string, CShader*>::iterator it = m_shaderMap.find(shaderID);
+	auto it = m_shaderMap.find(shaderID);
 
 	if(it != m_shaderMap.end())
 		return it->second;
@@ -42,7 +40,7 @@ CShader* CShaderManager::GetShader(const std::string& shaderID)
 
 void CShaderManager::RemoveShader(const std::string& shaderID)
 {
-	std::map<std::string, CShader*>::iterator it = m_shaderMap.find(shaderID);
+	auto it = m_shaderMap.find(shaderID);
 
 	if(it != m_shaderMap.end())
 	{
@@ -55,7 +53,7 @@ void CShaderManager::RemoveShader(const std::string& shaderID)
 
 void CShaderManager::CleanUp()
 {
-	std::map<std::string, CShader*>::iterator it = m_shaderMap.begin();
+	auto it = m_shaderMap.begin();
 
 	for(; it != m_shaderMap.end(); ++it)
 	{

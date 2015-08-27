@@ -1,7 +1,6 @@
 #version 330 core
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 projViewMatrix;
 uniform mat4 worldMatrix;
 
 layout(location = 0) in vec3 vertexPosition_modelspace;
@@ -12,7 +11,7 @@ out vec2 UV;
 // main routine
 void main()
 {
-	gl_Position = projectionMatrix * viewMatrix * worldMatrix * vec4(vertexPosition_modelspace, 1.0);
+	gl_Position = projViewMatrix * worldMatrix * vec4(vertexPosition_modelspace, 1.0);
 	
 	UV = vertexUV;
 }

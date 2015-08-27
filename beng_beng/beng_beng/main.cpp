@@ -14,7 +14,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR sCmdLine,
 {
 	//memory leak detection
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-	//_CrtSetBreakAlloc(202);
+	//_CrtSetBreakAlloc(242);
 
 	CApp app;
 

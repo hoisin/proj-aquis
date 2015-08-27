@@ -62,6 +62,9 @@
     <Filter Include="Graphics\Model/Mesh">
       <UniqueIdentifier>{495615af-7da8-4c12-8ab7-2371981ff59f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\OpenGL\Shader\Old">
+      <UniqueIdentifier>{da40eded-8202-4915-aa42-8a50ffbf3261}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -115,9 +118,6 @@
     <ClCompile Include="CResourceTexture2D.cpp">
       <Filter>Resource_Old\Resource Types</Filter>
     </ClCompile>
-    <ClCompile Include="CShader.cpp">
-      <Filter>Graphics\OpenGL\Shader</Filter>
-    </ClCompile>
     <ClCompile Include="CCameraFPS.cpp">
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
@@ -168,6 +168,15 @@
     </ClCompile>
     <ClCompile Include="CMaterialManager.cpp">
       <Filter>Graphics\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>Graphics\OpenGL\Shader\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="CTechnique.cpp">
+      <Filter>Graphics\OpenGL\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CFwdLighting.cpp">
+      <Filter>Graphics\OpenGL\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,9 +252,6 @@
     <ClInclude Include="CResourceTexture2D.h">
       <Filter>Resource_Old\Resource Types</Filter>
     </ClInclude>
-    <ClInclude Include="CShader.h">
-      <Filter>Graphics\OpenGL\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="CCameraFPS.h">
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
@@ -302,6 +308,15 @@
     </ClInclude>
     <ClInclude Include="CModel.h">
       <Filter>Graphics\Model/Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Graphics\OpenGL\Shader\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="CTechnique.h">
+      <Filter>Graphics\OpenGL\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CFwdLighting.h">
+      <Filter>Graphics\OpenGL\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

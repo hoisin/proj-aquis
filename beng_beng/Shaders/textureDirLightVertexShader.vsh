@@ -7,11 +7,11 @@ uniform mat4 worldInvMatrix;
 
 layout(location = 0) in vec3 vertexPosition_modelspace;
 layout(location = 1) in vec3 vertexNormal;
-layout(location = 2) in vec3 vertexTangent;
-layout(location = 3) in vec2 vertexUV;
+//layout(location = 2) in vec3 vertexTangent;
+//layout(location = 3) in vec2 vertexUV;
 
 // For PNT, remove the tangent vector and comment out the above "vertexUV" and uncomment the one below
-//layout(location = 2) in vec2 vertexUV;
+layout(location = 2) in vec2 vertexUV;
 
 
 out vec3 normalVert;
