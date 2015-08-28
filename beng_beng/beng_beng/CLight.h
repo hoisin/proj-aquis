@@ -16,22 +16,65 @@
 class CLight
 {
 public:
-	CLight(ELightType type, const glm::vec3 &pos = glm::vec3(0, 0, 0), const glm::vec3 &col = glm::vec3(1, 1, 1), 
-		float intensity = 0, float attenuation = 0, float coneAngle = 0);
 	CLight(void);
-	~CLight(void);
+	virtual ~CLight(void);
 
 	ELightType GetType(void) { m_type; }
 
 public:
-	glm::vec3 m_pos;
 	glm::vec3 m_col;
-	float m_intensity;
-
-	float m_attenuation;	// Distance light will reach
-	float m_coneAngle;		// For spot light type
-	
 	ELightType m_type;
+};
+
+
+class CAmbientLight : public CLight
+{
+public:
+	CAmbientLight();
+	~CAmbientLight();
+
+public:
+	float m_intensity;
+};
+
+
+class CDirectionalLight : CLight
+{
+public:
+	CDirectionalLight();
+	~CDirectionalLight();
+
+public:
+	float m_intensity;
+	glm::vec3 m_direction;
+};
+
+
+class CPointLight : public CLight
+{
+public:
+	CPointLight();
+	~CPointLight();
+
+public:
+	glm::vec3 m_position;
+	float m_intensity;
+	float m_attenuation;
+};
+
+
+class CSpotLight : CLight
+{
+public:
+	CSpotLight();
+	~CSpotLight();
+
+public:
+	glm::vec3 m_position;
+	glm::vec3 m_direction;
+	float m_coneAngle;
+	float m_intensity;
+	float m_attenuation;
 };
 
 #endif
