@@ -1,0 +1,6 @@
+GCDev
+------------
+A breakout game clone with 3 levels.
+
+Basic implementation using SDL library.
+
