@@ -1,9 +1,14 @@
 #include <iostream>
 
+#include "CApp.h"
+
 int main(int argc, char* argv[])
 {
-	std::cout << "POPOP" << std::endl;
+	
+	CApp newApp;
 
-	system("PAUSE");
+	if (newApp.Intitialise(50))
+		newApp.Run();
+	
 	return 0;
 }
