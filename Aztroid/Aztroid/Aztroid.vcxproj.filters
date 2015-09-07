@@ -98,7 +98,7 @@
       <Filter>Aztroid\Objects</Filter>
     </ClInclude>
     <ClInclude Include="CShip.h">
-      <Filter>Aztroid</Filter>
+      <Filter>Aztroid\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
