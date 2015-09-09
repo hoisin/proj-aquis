@@ -15,8 +15,8 @@ class CGfx;
 class CObject
 {
 public:
-	CObject();
-	virtual ~CObject();
+	CObject() {}
+	virtual ~CObject() {}
 
 	virtual void VUpdate(float deltaT) = 0;
 	virtual void VDraw(float deltaT, CGfx* pGfx) = 0;
@@ -27,6 +27,8 @@ protected:
 	gcmath::Rect<int> m_cBox;		// Collision box
 
 	int m_spriteID;
+
+	bool m_bActive;
 };
 
 #endif

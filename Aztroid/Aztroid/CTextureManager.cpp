@@ -1,23 +1,23 @@
 #include "CTextureManager.h"
 
 
-CTexture::CTexture(SDL_Surface* pTexSurface, Uint16 texWidth, Uint16 texHeight) :
-pSurface(pTexSurface), width(texWidth), height(texHeight)
+CTexture::CTexture(SDL_Texture* pTexSurface, Uint16 texWidth, Uint16 texHeight) :
+pSDLTexture(pTexSurface), width(texWidth), height(texHeight)
 {
 
 }
 
 
-CTexture::CTexture() : pSurface(nullptr), width(0), height(0)
+CTexture::CTexture() : pSDLTexture(nullptr), width(0), height(0)
 {
 }
 
 
 CTexture::~CTexture()
 {
-	if (pSurface) {
-		SDL_FreeSurface(pSurface);
-		pSurface = nullptr;
+	if (pSDLTexture) {
+		SDL_DestroyTexture(pSDLTexture);
+		pSDLTexture = nullptr;
 	}
 }
 
@@ -69,24 +69,32 @@ CTextureManager::~CTextureManager()
 }
 
 
-int CTextureManager::LoadTexture(const std::string& fileName, CTexture* pOutTexture)
+int CTextureManager::LoadTexture(const std::string& fileName, SDL_Renderer* pRenderer, 
+	CTexture* pOutTexture)
 {
 	CTexture* pNewTexture = new CTexture;
+	SDL_Surface* pLoadingSurface = nullptr;
 
-	pNewTexture->pSurface = SDL_LoadBMP(fileName.c_str());
+	// Load texture
+	pLoadingSurface = SDL_LoadBMP(fileName.c_str());
 
 	// Clean up if failed load
-	if (pNewTexture->pSurface == nullptr) {
+	if (pLoadingSurface == nullptr) {
 		delete pNewTexture;
 		pNewTexture = nullptr;
 		return -1;
 	}
 
-	pNewTexture->width = pNewTexture->pSurface->w;
-	pNewTexture->height = pNewTexture->pSurface->h;
+	// Fill details
+	pNewTexture->width = pLoadingSurface->w;
+	pNewTexture->height = pLoadingSurface->h;
 
 	pNewTexture->animFrame.w = pNewTexture->width;
 	pNewTexture->animFrame.h = pNewTexture->height;
+
+	// Now create the SDL_Texture
+	pNewTexture->pSDLTexture = SDL_CreateTextureFromSurface(pRenderer, pLoadingSurface);
+	SDL_FreeSurface(pLoadingSurface);
 
 	m_pTextures.push_back(pNewTexture);
 
@@ -94,28 +102,33 @@ int CTextureManager::LoadTexture(const std::string& fileName, CTexture* pOutText
 }
 
 
-int CTextureManager::LoadTexture(const std::string& fileName, SDL_Color key, CTexture* pOutTexture)
+int CTextureManager::LoadTexture(const std::string& fileName, SDL_Renderer* pRenderer,
+	SDL_Color key, CTexture* pOutTexture)
 {
     CTexture* pNewTexture = new CTexture;
+	SDL_Surface* pLoadingSurface = nullptr;
 
-    pNewTexture->pSurface = SDL_LoadBMP(fileName.c_str());
+	pLoadingSurface = SDL_LoadBMP(fileName.c_str());
 
     // Clean up if failed load
-    if(pNewTexture->pSurface == nullptr) {
+	if (pLoadingSurface == nullptr) {
         delete pNewTexture;
         pNewTexture = nullptr;
         return -1;
     }
 
-    Uint32 colourKey = SDL_MapRGB(pNewTexture->pSurface->format, key.r, key.g, key.b);
+	Uint32 colourKey = SDL_MapRGB(pLoadingSurface->format, key.r, key.g, key.b);
 
-    SDL_SetColorKey(pNewTexture->pSurface, 1, colourKey);
+	SDL_SetColorKey(pLoadingSurface, 1, colourKey);
 
-    pNewTexture->width = pNewTexture->pSurface->w;
-    pNewTexture->height = pNewTexture->pSurface->h;
+	pNewTexture->width = pLoadingSurface->w;
+	pNewTexture->height = pLoadingSurface->h;
 
     pNewTexture->animFrame.w = pNewTexture->width;
     pNewTexture->animFrame.h = pNewTexture->height;
+
+	pNewTexture->pSDLTexture = SDL_CreateTextureFromSurface(pRenderer, pLoadingSurface);
+	SDL_FreeSurface(pLoadingSurface);
 
     m_pTextures.push_back(pNewTexture);
 

@@ -12,4 +12,16 @@ namespace gcutility
 
 		return sdlRect;
 	}
+
+
+	SDL_Color CreateSDLColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+	{
+		SDL_Color sdlCol;
+		sdlCol.r = r;
+		sdlCol.g = g;
+		sdlCol.b = b;
+		sdlCol.a = 0;
+
+		return sdlCol;
+	}
 }

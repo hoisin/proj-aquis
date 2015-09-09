@@ -12,7 +12,7 @@
 
 class CGfx;
 class CInput;
-class CBreakOut;
+class CAztroid;
 
 class CApp
 {
@@ -47,8 +47,9 @@ private:
 private:
 	bool m_bRun;
 
-	CGfx* m_pGfx;
+	std::shared_ptr<CGfx> m_pGfx;
 	std::shared_ptr<CInput> m_pInput;
+	std::shared_ptr<CAztroid> m_pGame;
 
 	unsigned int m_lastLoopTick;
 	unsigned int m_lastUpdateTick;
@@ -56,7 +57,8 @@ private:
 
 	EAppState m_state;
 
-	int m_currentOption;
+	int myTexture;
+	double myRot;
 };
 
 

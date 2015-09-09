@@ -6,10 +6,15 @@
 #include "CInput.h"
 #include "CKeyboard.h"
 
+#include "CAztroid.h"
 
-CApp::CApp() : m_bRun(false), m_pGfx(nullptr), m_pInput(nullptr), m_lastLoopTick(0), m_lastUpdateTick(0), m_tick(0), m_state(ESplashLoad)
+#include "Utility.h"
+
+
+CApp::CApp() : m_bRun(false), m_pGfx(nullptr), m_pInput(nullptr), m_pGame(nullptr), m_lastLoopTick(0), m_lastUpdateTick(0), m_tick(0), m_state(ESplashLoad)
 {
-	m_currentOption = 0;
+	myTexture = -1;
+	myRot = 0;
 }
 
 
@@ -153,10 +158,13 @@ bool CApp::Intitialise(unsigned int updateTick)
 	m_tick = updateTick;
 
 	// Create instance of graphics component
-	m_pGfx = new CGfx;
+	m_pGfx.reset(new CGfx);
 	m_pGfx->Initialise(800, 600, "SDL Window");
 
-	//m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
+	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
+	
+	// TESTING TESTING TESTING TESTING
+	myTexture = m_pGfx->LoadTexture("..\\Assets\\ship.bmp", gcutility::CreateSDLColor(0, 255, 0));
 
 	m_pInput.reset(new CInput);
 	m_pInput->Initialise(100);
@@ -177,6 +185,7 @@ bool CApp::Intitialise(unsigned int updateTick)
 //---------------------------------------------------------------------------
 void CApp::Update(unsigned int deltaT)
 {
+	myRot+=5;
 }
 
 
@@ -190,7 +199,7 @@ void CApp::Update(unsigned int deltaT)
 //---------------------------------------------------------------------------
 void CApp::Draw(unsigned int deltaT)
 {
-	int texWidth, texHeight;
+	int texWidth = 0, texHeight = 0;
 
 	switch (m_state)
 	{
@@ -205,7 +214,7 @@ void CApp::Draw(unsigned int deltaT)
 
 	case EGameRun:
 		m_pGfx->BeginDraw(true);
-
+		m_pGfx->DrawTexture(myTexture, 0, 0, myRot);
 		m_pGfx->EndDraw();
 		break;
 

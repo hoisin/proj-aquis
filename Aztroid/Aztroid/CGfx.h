@@ -1,5 +1,6 @@
 /*
-	30/07/2015
+	09/09/2015 - Redev'ed to enable blitting of textures with rotation (saves having to do it via textures)
+	30/07/2015 - Initial creation (GCDev proj)
 
 	Implementation for graphics component
 
@@ -32,9 +33,10 @@ public:
 	void DrawRect(int posX, int posY, int width, int height, Uint8 r, Uint8 g, Uint8 b);
 	void DrawRect(const SDL_Rect& drawRect, Uint8 r, Uint8 g, Uint8 b);
 
-	void DrawTexture(int texIdx, int posX, int posY);
-	void DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY);
-    void DrawTexture();
+	void DrawTexture(int texIdx, int posX, int posY, double angleDegree = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE,
+		int centerRotX = 0, int centerRotY = 0);
+	void DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY, double angleDegree = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE,
+		int centerRotX = 0, int centerRotY = 0);
 
 	void GetTextureDimensions(int textureID, int& outWidth, int& outHeight);
 	void GetTextureAnimFrameDimensions(int textureID, int& outWidth, int& outHeight);
@@ -54,6 +56,7 @@ private:
 private:
 	SDL_Window*				m_pWindow;
 	SDL_Surface*			m_pSurface;
+	SDL_Renderer*			m_pMainRenderer;
 
 	CTextureManager*		m_pTextureMgr;
 	CTextDraw*				m_pDrawText;

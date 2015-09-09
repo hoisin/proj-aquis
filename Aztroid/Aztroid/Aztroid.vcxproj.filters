@@ -62,6 +62,9 @@
     <ClCompile Include="CShip.cpp">
       <Filter>Aztroid\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="CObjectFactory.cpp">
+      <Filter>Aztroid\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGfx.h">
@@ -98,6 +101,9 @@
       <Filter>Aztroid\Objects</Filter>
     </ClInclude>
     <ClInclude Include="CShip.h">
+      <Filter>Aztroid\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectFactory.h">
       <Filter>Aztroid\Objects</Filter>
     </ClInclude>
   </ItemGroup>

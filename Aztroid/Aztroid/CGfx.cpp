@@ -48,7 +48,8 @@ bool CGfx::Initialise(unsigned int winWidth, unsigned int winHeight, const std::
 		if (m_pWindow == nullptr)
 			return false;
 		else
-			m_pSurface = SDL_GetWindowSurface(m_pWindow);
+			m_pMainRenderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_ACCELERATED);
+			//m_pSurface = SDL_GetWindowSurface(m_pWindow);
 	}
 
 	// Init SDL_TTF
@@ -72,26 +73,28 @@ bool CGfx::Initialise(unsigned int winWidth, unsigned int winHeight, const std::
 //---------------------------------------------------------------------------
 int CGfx::LoadTexture(const std::string& textureFile)
 {
-	return m_pTextureMgr->LoadTexture(textureFile);
+	return m_pTextureMgr->LoadTexture(textureFile, m_pMainRenderer);
 }
 
 
 int CGfx::LoadTexture(const std::string& textureFile, const SDL_Color& key)
 {
-    return m_pTextureMgr->LoadTexture(textureFile, key);
+    return m_pTextureMgr->LoadTexture(textureFile, m_pMainRenderer, key);
 }
 
 
 void CGfx::BeginDraw(bool bClear, Uint8 r, Uint8 g, Uint8 b)
 {
-	if (bClear)
-		SDL_FillRect(m_pSurface, NULL, SDL_MapRGB(m_pSurface->format, r, g, b));
+	if (bClear) {
+		SDL_SetRenderDrawColor(m_pMainRenderer, r, g, b, 0);
+		SDL_RenderClear(m_pMainRenderer);
+	}
 }
 
 
 void CGfx::EndDraw()
 {
-	SDL_UpdateWindowSurface(m_pWindow);
+	SDL_RenderPresent(m_pMainRenderer);
 }
 
 
@@ -99,52 +102,49 @@ void CGfx::DrawRect(int posX, int posY, int width, int height, Uint8 r, Uint8 g,
 {
 	SDL_Rect tempRect = gcutility::CreateSDLRect(posX, posY, width, height);
 
-	SDL_FillRect(m_pSurface, &tempRect, SDL_MapRGB(m_pSurface->format, r, g, b));
+	SDL_SetRenderDrawColor(m_pMainRenderer, r, g, b, 255);
+	SDL_RenderFillRect(m_pMainRenderer, &tempRect);
 }
 
 
 void CGfx::DrawRect(const SDL_Rect& drawRect, Uint8 r, Uint8 g, Uint8 b)
 {
-	SDL_FillRect(m_pSurface, &drawRect, SDL_MapRGB(m_pSurface->format, r, g, b));
+	SDL_SetRenderDrawColor(m_pMainRenderer, r, g, b, 255);
+	SDL_RenderFillRect(m_pMainRenderer, &drawRect);
 }
 
 
-//---------------------------------------------------------------------------
-//
-//	DrawTexture()
-//
-//	Params:
-//	texIdx		- The texture index
-//	posX		- X position to draw the texture
-//	posY		- Y position to draw the texture
-//
-//	Descrition:
-//	Draws the entire specified textures
-//
-//---------------------------------------------------------------------------
-void CGfx::DrawTexture(int texIdx, int posX, int posY)
+void CGfx::DrawTexture(int texIdx, int posX, int posY, double angleDegree, SDL_RendererFlip flip,
+	int centerRotX, int centerRotY)
+{
+	SDL_Rect dst; 
+	dst.x = posX;
+	dst.y = posY;
+	dst.w = m_pTextureMgr->GetTexture(texIdx)->width;
+	dst.h = m_pTextureMgr->GetTexture(texIdx)->height;
+
+	SDL_Point point;
+	point.x = (dst.w / 2) + centerRotX;
+	point.y = (dst.h / 2) + centerRotY;
+
+	SDL_RenderCopyEx(m_pMainRenderer, m_pTextureMgr->GetTexture(texIdx)->pSDLTexture, NULL, &dst, angleDegree, &point, flip);
+}
+
+
+void CGfx::DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY, double angleDegree, SDL_RendererFlip flip,
+	int centerRotX, int centerRotY)
 {
 	SDL_Rect dst;
 	dst.x = posX;
 	dst.y = posY;
+	dst.w = drawFrame.w;
+	dst.h = drawFrame.h;
 
-	SDL_BlitSurface(m_pTextureMgr->GetTexture(texIdx)->pSurface, NULL, m_pSurface, &dst);
-}
+	SDL_Point point;
+	point.x = (dst.w / 2) + centerRotX;
+	point.y = (dst.h / 2) + centerRotY;
 
-
-void CGfx::DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY)
-{
-	SDL_Rect dst;
-	dst.x = posX;
-	dst.y = posY;
-
-	SDL_BlitSurface(m_pTextureMgr->GetTexture(texIdx)->pSurface, &drawFrame, m_pSurface, &dst);
-}
-
-
-void CGfx::DrawTexture()
-{
-    //SDL_BlitSurface()
+	SDL_RenderCopyEx(m_pMainRenderer, m_pTextureMgr->GetTexture(texIdx)->pSDLTexture, &drawFrame, &dst, angleDegree, &point, flip);
 }
 
 
@@ -177,11 +177,17 @@ void CGfx::DrawText(const std::string& text, int posX, int posY, const SDL_Color
 {
 	if (m_pDrawText) {
 		auto pTextSurface = m_pDrawText->RenderTextSolid(text, textCol);
+		SDL_Texture* pTexture = SDL_CreateTextureFromSurface(m_pMainRenderer, pTextSurface);
+		
 		SDL_Rect dst;
 		dst.x = posX;
 		dst.y = posY;
 
-		SDL_BlitSurface(pTextSurface, NULL, m_pSurface, &dst);
+		SDL_RenderCopy(m_pMainRenderer, pTexture, NULL, &dst);
+
+		SDL_FreeSurface(pTextSurface);
+		SDL_DestroyTexture(pTexture);
+		//SDL_BlitSurface(pTextSurface, NULL, m_pSurface, &dst);
 	}
 }
 
@@ -225,6 +231,11 @@ void CGfx::Close()
 	if (m_pSurface) {
 		SDL_FreeSurface(m_pSurface);
 		m_pSurface = nullptr;
+	}
+
+	if (m_pMainRenderer) {
+		SDL_DestroyRenderer(m_pMainRenderer);
+		m_pMainRenderer = nullptr;
 	}
 
 	if (m_pWindow) {

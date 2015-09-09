@@ -25,6 +25,7 @@ namespace gcutility
 
 	SDL_Rect CreateSDLRect(int x, int y, int width, int height);
 
+	SDL_Color CreateSDLColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
 }
 
 #endif

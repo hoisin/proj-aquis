@@ -7,7 +7,7 @@ CShip::CShip()
 
 
 
-CShip::CShip()
+CShip::~CShip()
 {
 }
 

@@ -15,7 +15,7 @@
 class CTexture 
 {
 public:
-	CTexture(SDL_Surface* pTexSurface, Uint16 texWidth, Uint16 texHeight);
+	CTexture(SDL_Texture* pTexSurface, Uint16 texWidth, Uint16 texHeight);
 	CTexture();
 	~CTexture();
 
@@ -23,7 +23,7 @@ public:
 	Uint16 GetTotalTypesAnimations();
 
 public:
-	SDL_Surface*			pSurface;		// Handle to loaded texture
+	SDL_Texture*			pSDLTexture;	// Handle to loaded texture
 	Uint16					width;			// Width of whole texture
 	Uint16					height;			// Height of whole texture
 
@@ -46,8 +46,8 @@ public:
 	CTextureManager();
 	~CTextureManager();
 
-	int LoadTexture(const std::string& textureFile, CTexture* pOutTexture = nullptr);
-    int LoadTexture(const std::string& textureFile, SDL_Color key, CTexture* pOutTexture = nullptr);
+	int LoadTexture(const std::string& textureFile, SDL_Renderer* pRenderer, CTexture* pOutTexture = nullptr);
+	int LoadTexture(const std::string& textureFile, SDL_Renderer* pRenderer, SDL_Color key, CTexture* pOutTexture = nullptr);
 
 	void SetTextureAnimationFrame(Uint16 texIdx, Uint16 width, Uint16 height);
 	void AddTotalFrames(Uint16 texIdx, Uint16 totalFrames);
