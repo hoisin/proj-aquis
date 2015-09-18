@@ -21,6 +21,8 @@ public:
 	virtual void VUpdate(float deltaT) = 0;
 	virtual void VDraw(float deltaT, CGfx* pGfx) = 0;
 
+	bool IsActive() { return m_bActive; }
+
 protected:
 	gcmath::Vec2<int> m_pos;
 	gcmath::Vec2<int> m_prevPos;

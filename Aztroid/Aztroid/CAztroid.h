@@ -10,9 +10,12 @@ Main game class
 
 #include <map>
 #include <memory>
+#include <vector>
 #include <string>
 
 #include "CObject.h"
+
+class CGfx;
 
 class CAztroid
 {
@@ -20,11 +23,13 @@ public:
 	CAztroid();
 	~CAztroid();
 
+	void LoadLevel(int level);
+
 	void Update(float deltaT);
-	void Draw(float deltaT);
+	void Draw(float deltaT, CGfx* pGfx);
 
 private:
-	std::map<std::string, std::shared_ptr<CObject>> m_mEntities;
+	std::map<std::string, std::vector<std::shared_ptr<CObject>>> m_mEntities;
 };
 
 
