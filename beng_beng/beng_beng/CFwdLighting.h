@@ -28,12 +28,14 @@ public:
 
 	void SetProjViewMatrix(const glm::mat4& projViewMat);
 	void SetWorldMatrix(const glm::mat4& worldMat);
+	void SetInvWorldMatrx(const glm::mat4& invWorldMat);
 
 	void SetDiffuseTexture(GLuint textureID);
 
 private:
 	GLuint m_projViewMatLoc;
 	GLuint m_worldMatLoc;
+	GLuint m_invWorldMatLoc;
 	GLuint m_diffuseTexSamplerLoc;
 
 	std::string m_vertexShaderPath;

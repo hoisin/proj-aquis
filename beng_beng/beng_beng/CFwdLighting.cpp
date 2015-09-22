@@ -50,6 +50,12 @@ void CFwdLighting::SetWorldMatrix(const glm::mat4& worldMat)
 }
 
 
+void CFwdLighting::SetInvWorldMatrx(const glm::mat4& invWorldMat)
+{
+	glUniformMatrix4fv(m_invWorldMatLoc, 1, GL_FALSE, (const GLfloat*)&invWorldMat);
+}
+
+
 void CFwdLighting::SetDiffuseTexture(GLuint textureID)
 {
 	glUniform1i(m_diffuseTexSamplerLoc, textureID);

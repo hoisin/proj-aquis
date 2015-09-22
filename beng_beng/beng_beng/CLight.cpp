@@ -37,7 +37,7 @@ CPointLight::CPointLight() : m_position(glm::vec3(0, 0, 0)), m_intensity(0), m_a
 }
 
 
-CPointLight::CPointLight()
+CPointLight::~CPointLight()
 {
 }
 

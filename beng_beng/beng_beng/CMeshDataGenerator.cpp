@@ -505,7 +505,7 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 				pVertPT[vertexCounter].position.y = yStart;
 				pVertPT[vertexCounter].position.z = zStart - (y * incrementDist);
 				pVertPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-				pVertPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+				pVertPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 				vertexCounter++;
 			}
@@ -562,7 +562,7 @@ MeshData* CMeshDataGenerator::CreatePlane(const std::string &geometryID, float s
 				pVertPNT[vertexCounter].normal.y = 1;
 				pVertPNT[vertexCounter].normal.z = 0;
 				pVertPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-				pVertPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+				pVertPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 				vertexCounter++;
 			}
@@ -795,7 +795,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPT[vertexCounter].position.y = yStart - (y * incrementDist);
 					pVertexPT[vertexCounter].position.z = zStart;
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -814,7 +814,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPT[vertexCounter].position.y = yStart;
 					pVertexPT[vertexCounter].position.z = zStart - (y * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -833,7 +833,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPT[vertexCounter].position.y = yStart - (y * incrementDist);
 					pVertexPT[vertexCounter].position.z = zStart + (x * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -852,7 +852,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPT[vertexCounter].position.y = yStart - (y * incrementDist);
 					pVertexPT[vertexCounter].position.z = zStart;
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -871,7 +871,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPT[vertexCounter].position.y = yStart - (y * incrementDist);
 					pVertexPT[vertexCounter].position.z = zStart - (x * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -890,7 +890,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPT[vertexCounter].position.y = yStart;
 					pVertexPT[vertexCounter].position.z = zStart + (y * incrementDist);
 					pVertexPT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 					vertexCounter++;
 				}
 			}
@@ -1061,7 +1061,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPNT[vertexCounter].normal.y = 0;
 					pVertexPNT[vertexCounter].normal.z = 1;
 					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -1083,7 +1083,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPNT[vertexCounter].normal.y = -1;
 					pVertexPNT[vertexCounter].normal.z = 0;
 					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -1105,7 +1105,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPNT[vertexCounter].normal.y = 0;
 					pVertexPNT[vertexCounter].normal.z = 0;
 					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -1127,7 +1127,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPNT[vertexCounter].normal.y = 0;
 					pVertexPNT[vertexCounter].normal.z = -1;
 					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -1149,7 +1149,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPNT[vertexCounter].normal.y = 0;
 					pVertexPNT[vertexCounter].normal.z = 0;
 					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 
 					vertexCounter++;
 				}
@@ -1171,7 +1171,7 @@ MeshData* CMeshDataGenerator::CreateCube(const std::string &geometryID, float si
 					pVertexPNT[vertexCounter].normal.y = 1;
 					pVertexPNT[vertexCounter].normal.z = 0;
 					pVertexPNT[vertexCounter].textureCoord.x = (float)x / (float)numFaces;
-					pVertexPNT[vertexCounter].textureCoord.y = (float)y / (float)numFaces;
+					pVertexPNT[vertexCounter].textureCoord.y = ((float)(numFaces + 1) - (float)y) / (float)numFaces;
 					vertexCounter++;
 				}
 			}

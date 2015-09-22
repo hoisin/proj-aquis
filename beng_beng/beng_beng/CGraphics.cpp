@@ -47,10 +47,10 @@ const std::string g_sDeferred = "deferred_01";
 // Testingzzzz remove pls when not needed
 int g_numObjs = 1;
 
-CLight g_light = CLight(eLightDir, glm::vec3(0, -1, 0), glm::vec3(1, 1, 1), 1,
-	1, 0);
+//CLight g_light = CLight(eLightDir, glm::vec3(0, -1, 0), glm::vec3(1, 1, 1), 1,
+//	1, 0);
 
-CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15f);
+//CLight g_ambLight = CLight(eLightAmb, glm::vec3(0,0,0), glm::vec3(1, 1, 1), 0.15f);
 
 CGraphics::CGraphics() : m_pOpenGL(NULL), m_winWidth(0), m_winHeight(0), m_bDeferred(false), m_bWireFrame(false), m_pMeshDataMgr(NULL),
 	m_pBufferMgr(NULL), m_pTextureMgr(NULL), m_pShaderMgr(NULL), m_pMeshMgr(NULL), m_pSceneLoader(NULL), m_pMaterialMgr(NULL)
@@ -185,9 +185,13 @@ void CGraphics::RenderForward()
 			glm::mat4 world;
 			world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
 
+			glm::mat4 invWorld;
+			invWorld = glm::inverse(world);
+
 			glm::mat4 vpMat = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
 			pCurrentShader->SetProjViewMatrix(vpMat);
 			pCurrentShader->SetWorldMatrix(world);
+			pCurrentShader->SetInvWorldMatrx(invWorld);
 
 			// Draw the sub-mesh
 			glDrawElements(GL_TRIANGLES, m_pBufferMgr->GetIndexBuffer(pCurrentMesh->GetSubMesh(subMesh)->m_indexID)->GetIndexCount(), GL_UNSIGNED_INT, 0);
@@ -398,7 +402,7 @@ void CGraphics::LoadScene()
 	std::map<std::string, MeshData*>::iterator it;
 
 	// Proceed to load any shaders to be used
-	m_pShaderMgr->CreateFwdLightShader(g_myShader, "..\\Shaders\\textureVertexShader.vsh", "..\\Shaders\\textureFragmentShader.fsh");
+	m_pShaderMgr->CreateFwdLightShader(g_myShader, "..\\Shaders\\texturePointVertexShader.vsh", "..\\Shaders\\texturePointFragmentShader.fsh");
 
 	//m_pShaderMgr->CreateShader(g_sDeferred, "..\\Shaders\\geometryPass.vsh", "..\\Shaders\\geometryPass.fsh");
 
@@ -431,25 +435,16 @@ void CGraphics::LoadScene()
 
 		// Manually specified texture ID (temporary only!!!)
 		// Doing this at the moment as we know we only have 1 sub mesh in each mesh only
-		if (count == 1) {
-			int xPos = 0;// (rand() % 6000) - 3000;
-			int yPos = 50;// (rand() % 400) + 40;
-			int zPos = 0;// (rand() % 6000) - 3000;
+		//if (it->first.find("mySphere") != std::string::npos) {
+		if (it->first.find("myPlane") == std::string::npos) {
+			int xPos = (rand() % 250) - 125;
+			int yPos = 50;
+			int zPos = (rand() % 250) - 125;
 			pNewMesh->SetPos(glm::vec3(xPos, yPos, zPos));
 			pNewMesh->GetSubMesh(0)->m_textureID = g_matSphere;
 		}
-		else {
-			if (count > 1) {
-				int xPos = (rand() % 250) - 125;
-				int yPos = 50;
-				int zPos = (rand() % 250) - 125;
-				pNewMesh->SetPos(glm::vec3(xPos, yPos, zPos));
-				pNewMesh->GetSubMesh(0)->m_textureID = g_matSphere;
-			}
-			else 
-				pNewMesh->GetSubMesh(0)->m_textureID = g_matPlane;
-			
-		}
+		else 
+			pNewMesh->GetSubMesh(0)->m_textureID = g_matPlane;	
 
 		count++;
 	}
