@@ -51,9 +51,7 @@ namespace cbmath
 		template <typename T>
 		inline void operator =(const Vec3<T>& rhs)
 		{
-			x = rhs.x;
-			y = rhs.y;
-			z = rhs.z;
+			x = rhs.x; y = rhs.y; z = rhs.z;
 		}
 
 		template <typename T>
@@ -100,6 +98,77 @@ namespace cbmath
 				newVec.z /= val;
 			}
 			return newVec;
+		}
+
+		template <typename T>
+		inline void operator +=(const Vec3<T>& rhs)
+		{
+			x += rhs.x; y += rhs.y; z += rhs.z;
+		}
+
+		template <typename T>
+		inline void operator +=(T val)
+		{
+			x += val; y += val; z += val;
+		}
+
+		template <typename T>
+		inline void operator -=(const Vec3<T>& rhs)
+		{
+			x -= rhs.x; y -= rhs.y; z = rhs.z;
+		}
+
+		template <typename T>
+		inline void operator -=(T val)
+		{
+			x -= val; y -= val; z -= val;
+		}
+
+		template <typename T>
+		inline void operator *=(const Vec3<T>& rhs)
+		{
+			x *= rhs.x, y *= rhs.y; z *= rhs.z;
+		}
+
+		template <typename T>
+		inline void opeartor *= (T val)
+		{
+			x *= val; y *= val; z *= val;
+		}
+
+		template <typename T>
+		inline void operator /=(const Vec3<T>& rhs)
+		{
+			if (rhs.x > 0) x /= rhs.x;
+			if (rhs.y > 0) y /= rhs.y;
+			if (rhs.z > 0) z /= rhs.z;
+		}
+	
+		template <typename T>
+		inline void oeprator /= (T val)
+		{
+			if (T > 0) {
+				x /= val;
+				y /= val;
+				z /= val;
+			}
+		}
+
+		// ================== Extra methods ==================
+		template <typename T>
+		T Length()
+		{
+			return sqrt(x * x + y * y + z * z);
+		}
+
+		void Normalised()
+		{
+			T mag = sqrt(Length());
+			if (mag > 0) {
+				x /= mag;
+				y /= mag;
+				z /= mag;
+			}
 		}
 
 	public:

@@ -15,6 +15,9 @@
     <Filter Include="Math\Vectors">
       <UniqueIdentifier>{59e49ece-0cb6-438c-a801-4041428c6a13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data structures">
+      <UniqueIdentifier>{f2c76e2f-b247-4790-b7e8-3001c98ea409}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

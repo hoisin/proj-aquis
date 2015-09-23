@@ -51,8 +51,7 @@ namespace cbmath
 		template <typename T>
 		inline void operator =(const Vec2<T> rhs)
 		{
-			x = rhs.x;
-			y = rhs.y;
+			x = rhs.x; y = rhs.y;
 		}
 
 		template <typename T>
@@ -114,43 +113,37 @@ namespace cbmath
 		template <typename T>
 		inline void operator +=(const Vec2<T>& rhs)
 		{
-			x += rhs.x;
-			y += rhs.y;
+			x += rhs.x; y += rhs.y;
 		}
 
 		template <typename T>
 		inline void operator +=(T val)
 		{
-			x += val;
-			y += val;
+			x += val; y += val;
 		}
 
 		template <typename T>
 		inline void operator-=(const Vec2<T>& rhs)
 		{
-			x -= rhs.x;
-			y -= rhs.y;
+			x -= rhs.x; y -= rhs.y;
 		}
 
 		template <typename T>
 		inline void operator -=(T val)
 		{
-			x -= val;
-			y -= val;
+			x -= val; y -= val;
 		}
 
 		template <typename T>
 		inline void operator*=(const Vec2<T>& rhs)
 		{
-			x *= rhs.x;
-			y *= rhs.y;
+			x *= rhs.x; y *= rhs.y;
 		}
 
 		template <typename T>
 		inline void operator *=(T val)
 		{
-			x *= val;
-			y *= val;
+			x *= val; y *= val;
 		}
 
 
