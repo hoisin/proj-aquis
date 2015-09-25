@@ -10,6 +10,8 @@ Template vector 3 class
 #ifndef __CBVEC3_H__
 #define __CBVEC3_H__
 
+#include "CBVec2.h"
+
 namespace cbmath
 {
 	template <class T>
@@ -127,11 +129,11 @@ namespace cbmath
 		template <typename T>
 		inline void operator *=(const Vec3<T>& rhs)
 		{
-			x *= rhs.x, y *= rhs.y; z *= rhs.z;
+			x *= rhs.x; y *= rhs.y; z *= rhs.z;
 		}
 
 		template <typename T>
-		inline void opeartor *= (T val)
+		inline void operator *= (T val)
 		{
 			x *= val; y *= val; z *= val;
 		}
@@ -145,7 +147,7 @@ namespace cbmath
 		}
 	
 		template <typename T>
-		inline void oeprator /= (T val)
+		inline void operator /= (T val)
 		{
 			if (T > 0) {
 				x /= val;
@@ -169,6 +171,12 @@ namespace cbmath
 				y /= mag;
 				z /= mag;
 			}
+		}
+
+		template <typename T>
+		inline Vec2<T> XY()
+		{
+			return Vec2<T>(x, y);
 		}
 
 	public:

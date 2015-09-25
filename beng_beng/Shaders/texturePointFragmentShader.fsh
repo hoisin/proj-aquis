@@ -13,9 +13,15 @@ uniform sampler2D diffuseTextureSampler;
 void main() 
 {
 	vec3 normal = normalize(norm);
-	vec3 lightDir = normalize(vec3(0,100,0) - pos.xyz);
+	vec3 lightDir = vec3(0,100,0) - pos.xyz;
+	float length = length(lightDir);
 	
-	float lamb = max(dot(lightDir, normal), 0.0);
+	lightDir = normalize(lightDir);
+	
+	// Hard coded number is the attenuation value you would pass into the shader
+	float atten = clamp((300 - length) / 300, 0, 1);
+	
+	float lamb = max(dot(lightDir, normal), 0.0) * atten;
 	
 	vec3 colour = vec3(0.1,0,0) + lamb * texture( diffuseTextureSampler, UV ).rgb;
 	

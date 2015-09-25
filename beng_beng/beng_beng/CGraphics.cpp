@@ -186,7 +186,7 @@ void CGraphics::RenderForward()
 			world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
 
 			glm::mat4 invWorld;
-			invWorld = glm::inverse(world);
+			invWorld = glm::inverse(pCam->GetViewMatrix() * world);
 
 			glm::mat4 vpMat = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
 			pCurrentShader->SetProjViewMatrix(vpMat);

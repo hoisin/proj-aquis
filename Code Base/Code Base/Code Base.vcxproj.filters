@@ -34,5 +34,8 @@
     <ClInclude Include="CBVec3.h">
       <Filter>Math\Vectors</Filter>
     </ClInclude>
+    <ClInclude Include="CBLinkedList.h">
+      <Filter>Data structures</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
