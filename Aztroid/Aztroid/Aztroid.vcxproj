@@ -53,12 +53,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2_ttf-2.0.12\include;C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd Party\SDL2_ttf-2.0.12\include;..\3rd Party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2-2.0.3\lib\x86;C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2_ttf-2.0.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\3rd Party\SDL2-2.0.3\lib\x86;..\3rd Party\SDL2_ttf-2.0.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -72,14 +72,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2_ttf-2.0.12\include;C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd Party\SDL2_ttf-2.0.12\include;..\3rd Party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2-2.0.3\lib\x86;C:\Users\Mathew\Desktop\Developers Toolkit\CA21\winNT\proj-aquis\Aztroid\3rd Party\SDL2_ttf-2.0.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\3rd Party\SDL2-2.0.3\lib\x86;..\3rd Party\SDL2_ttf-2.0.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

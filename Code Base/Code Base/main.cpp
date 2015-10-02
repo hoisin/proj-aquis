@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
 
 	test2 += cbmath::Vec2<int>(100,100);
 	test2 = test / cbmath::Vec2<int>(2,2);
-	copy -= cbmath::Vec2<float>(20, 5);
-	my = cbmath::Vec3<int>(50, 50, 50).XY<int>();
+	copy -= cbmath::Vec2<float>(20.f, 5.f);
+	my = cbmath::Vec3<float>(50.f, 50.f, 50.f).XY<float>();
 
 	std::cout << "Test 1: " << test.x << " " << test.y << std::endl;
 	std::cout << "Test 2: " << test2.x << " " << test2.y << std::endl;

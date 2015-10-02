@@ -18,6 +18,9 @@
     <Filter Include="Data structures">
       <UniqueIdentifier>{f2c76e2f-b247-4790-b7e8-3001c98ea409}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math\Shapes">
+      <UniqueIdentifier>{b3b8232a-dbe6-457a-ba8a-c4b708ef1910}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,12 @@
     </ClInclude>
     <ClInclude Include="CBLinkedList.h">
       <Filter>Data structures</Filter>
+    </ClInclude>
+    <ClInclude Include="CBRect.h">
+      <Filter>Math\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CBCircle.h">
+      <Filter>Math\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
