@@ -28,6 +28,8 @@ public:
 	void Update(float deltaT);
 	void Draw(float deltaT, CGfx* pGfx);
 
+	CObject* GetObject(const std::string& objGroup, int objIndex);
+
 private:
 	std::map<std::string, std::vector<std::shared_ptr<CObject>>> m_mEntities;
 };

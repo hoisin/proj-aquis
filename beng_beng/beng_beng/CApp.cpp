@@ -130,7 +130,7 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 
 	// Store a pointer to this object in the window, otherwise we can't grab it using
 	// GetWindowLongPtr(..) in the callback for messages
-	SetWindowLongPtr( m_hWnd, GWLP_USERDATA, (long)this );
+	SetWindowLongPtr( m_hWnd, GWLP_USERDATA, (INT_PTR)this );
 
 	ShowWindow(m_hWnd, SW_SHOW);
 	UpdateWindow(m_hWnd);

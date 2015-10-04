@@ -37,3 +37,16 @@ void CAztroid::Draw(float deltaT, CGfx* pGfx)
 		}
 	}
 }
+
+
+CObject* CAztroid::GetObject(const std::string& objGrp, int objIndex)
+{
+	if (objIndex > 0) {
+		auto it = m_mEntities.find(objGrp);
+
+		if (it != m_mEntities.end()) {
+			if (objIndex < it->second.size())
+				return it->second[objIndex].get();
+		}
+	}
+}

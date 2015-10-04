@@ -18,6 +18,8 @@ public:
 	void VUpdate(float deltaT) override;
 	void VDraw(float deltaT, CGfx* pGfx) override;
 
+	void VMove(EMoveDir dir);
+
 private:
 
 };

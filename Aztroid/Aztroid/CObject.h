@@ -12,6 +12,16 @@
 
 class CGfx;
 
+enum EMoveDir
+{
+	eLeft,
+	eRight,
+	eUp,
+	eDown,
+	eTotalDir
+};
+
+
 class CObject
 {
 public:
@@ -23,10 +33,14 @@ public:
 
 	bool IsActive() { return m_bActive; }
 
+	virtual void VMove(EMoveDir dir);
+
 protected:
 	gcmath::Vec2<int> m_pos;
 	gcmath::Vec2<int> m_prevPos;
 	gcmath::Rect<int> m_cBox;		// Collision box
+
+	int m_speed;
 
 	int m_spriteID;
 
