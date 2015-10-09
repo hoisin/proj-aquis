@@ -26,6 +26,13 @@ namespace gcutility
 	SDL_Rect CreateSDLRect(int x, int y, int width, int height);
 
 	SDL_Color CreateSDLColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
+	
+	double GetRadians(float degrees);
+	double GetDegrees(float radians);
+
+	float LinearInterpolate(float startVal, float endVal, float interpVal);
+
+	int ClampValue(int inVal, int minClamp, int maxClamp);
 }
 
 #endif

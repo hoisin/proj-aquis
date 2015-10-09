@@ -62,7 +62,16 @@
     <ClCompile Include="CShip.cpp">
       <Filter>Aztroid\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="CBullet.cpp">
+      <Filter>Aztroid\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CAsteroid.cpp">
+      <Filter>Aztroid\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="CObjectFactory.cpp">
+      <Filter>Aztroid</Filter>
+    </ClCompile>
+    <ClCompile Include="CObject.cpp">
       <Filter>Aztroid\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,8 +112,14 @@
     <ClInclude Include="CShip.h">
       <Filter>Aztroid\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CObjectFactory.h">
+    <ClInclude Include="CBullet.h">
       <Filter>Aztroid\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CAsteroid.h">
+      <Filter>Aztroid\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectFactory.h">
+      <Filter>Aztroid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

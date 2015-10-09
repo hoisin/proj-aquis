@@ -15,13 +15,23 @@ public:
 	CShip();
 	~CShip();
 
-	void VUpdate(float deltaT) override;
-	void VDraw(float deltaT, CGfx* pGfx) override;
+	void VUpdate(float deltaT, CAztroid* pGame) override;
+	void VDraw(float deltaT, CGfx* pGfx, int updateTick) override;
 
-	void VMove(EMoveDir dir);
+	void VMove(EMoveDir dir) override;
+
+	void VFire() override;
+
+	void SetRotationSpeed(int rotSpeed);
+	void SetCurrentRotation(int rotVal);
 
 private:
+	bool m_updateDir[eTotalDir];
+	bool m_bFire;
 
+	int m_rotSpeed;			// Rotation in degrees
+	int m_prevRotation;
+	int m_currentRotation;	
 };
 
 

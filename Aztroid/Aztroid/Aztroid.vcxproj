@@ -85,11 +85,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
+    <ClCompile Include="CAsteroid.cpp" />
     <ClCompile Include="CAztroid.cpp" />
+    <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CGfx.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
     <ClCompile Include="CMouse.cpp" />
+    <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CObjectFactory.cpp" />
     <ClCompile Include="CShip.cpp" />
     <ClCompile Include="CTextDraw.cpp" />
@@ -99,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="CAsteroid.h" />
+    <ClInclude Include="CBullet.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CAztroid.h" />
     <ClInclude Include="CGfx.h" />

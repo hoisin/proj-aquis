@@ -7,7 +7,7 @@ CObjectFactory::CObjectFactory()
 }
 
 
-CObjectFactory::CObjectFactory()
+CObjectFactory::~CObjectFactory()
 {
 }
 
