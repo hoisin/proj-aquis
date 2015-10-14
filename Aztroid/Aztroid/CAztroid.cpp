@@ -55,6 +55,7 @@ bool CAztroid::Initialise(CGfx* pGfx, int worldWidth, int worldHeight, int updat
 
 	m_mEntities["ships"].push_back(pObjShip);
 
+	// Create cache of bullets
 	for (int i = 0; i < 200; i++) {
 		std::shared_ptr<CBullet> pBullet(new CBullet());
 		pBullet->SetCollisionBox(gcmath::Rect<int>(0, 16, 0, 16));
@@ -83,6 +84,7 @@ void CAztroid::LoadLevel(int level)
 
 void CAztroid::Update(float deltaT)
 {
+	// Update everything thats active
 	for (auto const &entityVec : m_mEntities) {
 		for (auto const &entityIt : entityVec.second) {
 			if (entityIt->IsActive())
@@ -90,17 +92,20 @@ void CAztroid::Update(float deltaT)
 		}
 	}
 
+	// Reset the update loop tick for interpolation of graphic
 	m_loopTick = 0;
 }
 
 
 void CAztroid::Draw(float deltaT, CGfx* pGfx)
 {
+	// Calculate time passed from last update tick
 	if (m_loopTick < m_updateTick)
 		m_loopTick += deltaT;
 	else
 		m_loopTick = m_updateTick;
 
+	// Draw everything thats active
 	for (auto const &entityVec : m_mEntities) {
 		for (auto const &entityIt : entityVec.second) {
 			if (entityIt->IsActive())
@@ -112,11 +117,13 @@ void CAztroid::Draw(float deltaT, CGfx* pGfx)
 
 CObject* CAztroid::GetObject(const std::string& objGrp, int objIndex)
 {
+	// Sanity check
 	if (objIndex >= 0) {
 		auto it = m_mEntities.find(objGrp);
 
+		// If valid map find
 		if (it != m_mEntities.end()) {
-			if (objIndex < (int)it->second.size())
+			if (objIndex < (int)it->second.size())	// Check vector size
 				return it->second[objIndex].get();
 		}
 	}
@@ -130,10 +137,13 @@ CObject* CAztroid::SpawnBullet(gcmath::Rect<int> spawnerObjCollisionRect,
 {
 	auto bulletVec = m_mEntities.find("bullets");
 
+	// If bullets created
 	if (bulletVec != m_mEntities.end()) {
 		int counter = 0;
 
+		// Loop through all available bullets
 		while (counter < bulletVec->second.size()) {
+			// If found one thats not active
 			if (!bulletVec->second[m_freeBulletIdx]->IsActive()) {
 
 				// Calculate exact spawn position

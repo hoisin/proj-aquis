@@ -1,9 +1,0 @@
-﻿<Window x:Class="tictactoe_client.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <TextBox x:Name="consoleText" HorizontalAlignment="Left" Height="23" Margin="10,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305"/>
-
-    </Grid>
-</Window>

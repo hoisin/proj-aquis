@@ -163,10 +163,8 @@ bool CApp::Intitialise(unsigned int updateTick)
 	m_pGfx.reset(new CGfx);
 	m_pGfx->Initialise(800, 600, "Aztroid");
 
+	// Load font 
 	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
-	
-	// TESTING TESTING TESTING TESTING
-	myTexture = m_pGfx->LoadTexture("..\\Assets\\ship.bmp", gcutility::CreateSDLColor(0, 255, 0));
 
 	m_pInput.reset(new CInput);
 	m_pInput->Initialise(100);
@@ -254,6 +252,14 @@ void CApp::Draw(unsigned int deltaT)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	InputProcess()
+//
+//	Descrition:
+//	Input process handler
+//
+//---------------------------------------------------------------------------
 void CApp::InputProcess(unsigned int deltaT)
 {
 	switch (m_state)
