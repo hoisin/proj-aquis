@@ -13,4 +13,5 @@ CMouse::~CMouse()
 
 void CMouse::Update(Uint32 delta)
 {
+	// Do nothing...
 }

@@ -12,6 +12,7 @@
 #include "SDL.h"
 
 
+// Texture class storing loaded texture handle, texture dimesions and animation data
 class CTexture 
 {
 public:

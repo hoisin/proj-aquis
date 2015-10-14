@@ -20,6 +20,18 @@ CTextDraw::~CTextDraw()
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	LoadFontTTF()
+//
+//	Params:
+//	fontFile	-	directory to font file
+//	fontSize	-	Size of the font
+//
+//	Descrition:
+//	Loads font to use for drawing text
+//
+//---------------------------------------------------------------------------
 bool CTextDraw::LoadFontTTF(const std::string& fontFile, int fontSize)
 {
 	m_pFont = TTF_OpenFont(fontFile.c_str(), fontSize);
@@ -31,6 +43,18 @@ bool CTextDraw::LoadFontTTF(const std::string& fontFile, int fontSize)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	RenderTextSolid()
+//
+//	Params:
+//	text	-	text to draw
+//	textCol	-	colour of the text
+//
+//	Descrition:
+//	Renders text as solid
+//
+//---------------------------------------------------------------------------
 SDL_Surface* CTextDraw::RenderTextSolid(const std::string& text, const SDL_Color textCol)
 {
 	if (m_pFont) {
@@ -48,6 +72,20 @@ SDL_Surface* CTextDraw::RenderTextSolid(const std::string& text, const SDL_Color
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	RenderTextShaded()
+//
+//	Params:
+//	text	-	text to draw
+//	textCol	-	colour of the text
+//	fcCol	-	colour of foreground
+//	bgCol	-	colour of background
+//
+//	Descrition:
+//	Renders text with a foreground and background colour
+//
+//---------------------------------------------------------------------------
 SDL_Surface* CTextDraw::RenderTextShaded(const std::string& text, const SDL_Color textCol,
 	const SDL_Color fgCol, const SDL_Color bgCol)
 {
@@ -66,6 +104,19 @@ SDL_Surface* CTextDraw::RenderTextShaded(const std::string& text, const SDL_Colo
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	RenderTextBlended()
+//
+//	Params:
+//	text	-	text to draw
+//	textCol	-	colour of the text
+//	fcCol	-	colour of foreground
+//
+//	Descrition:
+//	Renders text with a foreground colour
+//
+//---------------------------------------------------------------------------
 SDL_Surface* CTextDraw::RenderTextBlended(const std::string& text, SDL_Color fgCol)
 {
 	if (m_pFont) {
@@ -83,6 +134,14 @@ SDL_Surface* CTextDraw::RenderTextBlended(const std::string& text, SDL_Color fgC
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetTextHeight()
+//
+//	Descrition:
+//	Returns the height of a single line of text
+//
+//---------------------------------------------------------------------------
 Uint16 CTextDraw::GetTextHeight()
 {
 	if (m_pFont)
@@ -92,6 +151,19 @@ Uint16 CTextDraw::GetTextHeight()
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetTextSize()
+//
+//	Params:
+//	text		-	text to measure
+//	outWidth	-	output of width of passed text
+//	outHeight	-	output of the height of passed text
+//
+//	Descrition:
+//	Returns the total dimensions of the passed in string of text
+//
+//---------------------------------------------------------------------------
 void CTextDraw::GetTextSize(const std::string& text, int& outWidth, int& outHeight)
 {
 	if (m_pFont)

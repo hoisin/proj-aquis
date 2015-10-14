@@ -10,7 +10,7 @@
 #include "Utility.h"
 
 
-CBreakOut::CBreakOut() : m_brickTextureID(-1), m_currentLevel(1)
+CBreakOut::CBreakOut() : m_brickTextureID(-1), m_currentLevel(1), m_updateTick(0)
 {
 }
 
@@ -20,6 +20,17 @@ CBreakOut::~CBreakOut()
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Initialise()
+//
+//	Params:
+//	pGfx	-	Handle to graphics component
+//
+//	Description:
+//	Initialises breakout game
+//
+//---------------------------------------------------------------------------
 bool CBreakOut::Initialise(CGfx* pGfx)
 {
 	// Grab world size
@@ -83,6 +94,8 @@ bool CBreakOut::Initialise(CGfx* pGfx)
     m_brickDrawFrame.left = 0;
     m_brickDrawFrame.top = 0;
     pGfx->GetTextureAnimFrameDimensions(m_brickTextureID, m_brickDrawFrame.right, m_brickDrawFrame.bottom);
+
+	m_updateTick = 50;
 
 	m_levelMgr.reset(new CLevel);
 	m_levelMgr->LoadLevelData(3);
@@ -169,7 +182,7 @@ void CBreakOut::Draw(unsigned int deltaT, CGfx* pGfx)
 	for (auto const &mapIt : m_entities) {
 		for (auto const &vecIt : mapIt.second) {
             if(vecIt->IsActive())
-                vecIt->VDraw(deltaT, pGfx);
+                vecIt->VDraw(deltaT, m_updateTick, pGfx);
 		}
 	}
 }
@@ -225,4 +238,10 @@ void CBreakOut::LoadLevel(CLevel* pLevel)
 int CBreakOut::GetMaxLevels()
 {
 	return (int)m_levelMgr->m_bricks.size();
+}
+
+
+void CBreakOut::SetUpdateTick(int updateTick)
+{
+	m_updateTick = updateTick;
 }

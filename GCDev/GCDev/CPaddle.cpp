@@ -12,6 +12,8 @@ CPaddle::~CPaddle()
 
 void CPaddle::VUpdate(unsigned int deltaT, CBreakOut* pGame)
 {
+	m_prevPosition = m_position;
+
 	if (m_leftMove != 0) {
 		m_position.x += m_leftMove;
 		m_leftMove = 0;
@@ -32,19 +34,29 @@ void CPaddle::VUpdate(unsigned int deltaT, CBreakOut* pGame)
 		auto newRect = pGame->GetWorldSize().MoveInside(rectCollision);
 		m_position = CalcPosition(newRect);
 	}
-
-	m_prevPosition = m_position;
 }
 
 
-void CPaddle::VDraw(unsigned int deltaT, CGfx* pGfx)
+void CPaddle::VDraw(unsigned int deltaT, unsigned int updateTickRate,  CGfx* pGfx)
 {
+	// Update loop tick value
+	m_loopTick += deltaT;
+
+	// Reset if greater than updateTickRate
+	if (m_loopTick > updateTickRate)
+		m_loopTick = 0;
+
+	gcmath::Vec2<float> m_interpPos;
+	float interpVal = m_loopTick / updateTickRate;
+	m_interpPos.x = gcutility::LinearInterpolate((float)m_prevPosition.x, (float)m_position.x, interpVal);
+	m_interpPos.y = gcutility::LinearInterpolate((float)m_prevPosition.y, (float)m_position.y, interpVal);
+
 	// Position is to be the center of the entity.
 	// Drawing is based on the top left of the texture.
     int xPos = 0, yPos = 0;
 
-    xPos = m_position.x - (m_drawFrame.GetWidth<int>() / 2);
-    yPos = m_position.y - (m_drawFrame.GetHeight<int>() / 2);
+	xPos = m_interpPos.x - (m_drawFrame.GetWidth<int>() / 2);
+	yPos = m_interpPos.y - (m_drawFrame.GetHeight<int>() / 2);
 
     pGfx->DrawTexture(m_spriteID, xPos, yPos);
 }

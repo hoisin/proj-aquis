@@ -43,6 +43,9 @@ public:
 	int GetCurrentLevel() { return m_currentLevel; }
 	int GetMaxLevels();
 
+	void SetUpdateTick(int updateTick);
+	int GetUpdateTick() { return m_updateTick; }
+
 private:
 	void LoadLevel(CLevel* pLevel);
 
@@ -57,6 +60,8 @@ private:
 	std::shared_ptr<CLevel> m_levelMgr;
 	int m_currentLevel;
 	int m_remainingBricks;
+
+	int m_updateTick;		// Frequency of the update method call in ms
 
 
 	// Variables to determine the size of the world and prevent entities from going beyond.

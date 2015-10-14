@@ -15,12 +15,34 @@ CKeyboard::~CKeyboard()
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	SetHeldTime()
+//
+//	Params:
+//	heldTime	-	Time(ms) to pass to flag key as held when pressed
+//
+//	Descrition:
+//	Sets the held time to change key state from pressed to held
+//
+//---------------------------------------------------------------------------
 void CKeyboard::SetHeldTime(Uint16 heldTime)
 {
 	m_heldTime = heldTime;
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Update()
+//
+//	Params:
+//	delta		-	Time passed since last main loop (not update tick)
+//
+//	Descrition:
+//	Update keyboard state
+//
+//---------------------------------------------------------------------------
 void CKeyboard::Update(unsigned int delta)
 {
 	auto state = SDL_GetKeyboardState(nullptr);
@@ -52,6 +74,17 @@ void CKeyboard::Update(unsigned int delta)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	IsKeyDown()
+//
+//	Params:
+//	sdlKey		-	which key to check
+//
+//	Descrition:
+//	Checks specified key if it is pressed
+//
+//---------------------------------------------------------------------------
 bool CKeyboard::IsKeyDown(int sdlKey)
 {
 	if (m_keys[SDL_GetScancodeFromKey(sdlKey)] == 'd')
@@ -61,6 +94,17 @@ bool CKeyboard::IsKeyDown(int sdlKey)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Update()
+//
+//	Params:
+//	sdlKey		-	which key to check
+//
+//	Descrition:
+//	Checks specified key if it is not pressed
+//
+//---------------------------------------------------------------------------
 bool CKeyboard::IsKeyUp(int sdlKey)
 {
 	if (m_keys[SDL_GetScancodeFromKey(sdlKey)] == 'u')
@@ -70,6 +114,17 @@ bool CKeyboard::IsKeyUp(int sdlKey)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Update()
+//
+//	Params:
+//	sdlKey		-	which key to check
+//
+//	Descrition:
+//	Checks specified key if it is held down
+//
+//---------------------------------------------------------------------------
 bool CKeyboard::IsKeyHeld(int sdlKey)
 {
 	if (m_keys[SDL_GetScancodeFromKey(sdlKey)] == 'h')

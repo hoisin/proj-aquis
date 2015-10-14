@@ -11,6 +11,17 @@ CInput::~CInput()
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Initialise()
+//
+//	Params:
+//	keyHeldTime		-	Time(ms) to pass to indicate a key is flagged as held
+//
+//	Descrition:
+//	Initialises the input module
+//
+//---------------------------------------------------------------------------
 bool CInput::Initialise(Uint16 keyHeldTime)
 {
 	m_pKeyboard.reset(new CKeyboard);
@@ -21,6 +32,17 @@ bool CInput::Initialise(Uint16 keyHeldTime)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Initialise()
+//
+//	Params:
+//	delta		-	Time passed since last main loop (not update tick)
+//
+//	Descrition:
+//	Updates keys
+//
+//---------------------------------------------------------------------------
 void CInput::Update(Uint32 delta)
 {
 	if (m_pKeyboard)
@@ -28,6 +50,14 @@ void CInput::Update(Uint32 delta)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetKeyboard()
+//
+//	Descrition:
+//	Returns handle to keyboard 
+//
+//---------------------------------------------------------------------------
 std::shared_ptr<CKeyboard> CInput::GetKeyboard()
 {
 	return m_pKeyboard;

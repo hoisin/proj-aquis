@@ -25,6 +25,7 @@ namespace gcutility
 
 	SDL_Rect CreateSDLRect(int x, int y, int width, int height);
 
+	float LinearInterpolate(float startVal, float endVal, float interpVal);
 }
 
 #endif

@@ -58,6 +58,9 @@ Uint16 CTexture::GetTotalTypesAnimations()
 
 
 
+// ================================ CTextureManager ===================================
+
+
 CTextureManager::CTextureManager()
 {
 	m_pTextures = std::vector<CTexture*>();
@@ -69,6 +72,18 @@ CTextureManager::~CTextureManager()
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	LoadTexture()
+//
+//	Params:
+//	fileName	-	texture file location
+//	pOutTexture -	return handle of loaded texture
+//
+//	Descrition:
+//	Loads specified texture, returns the stored index position in vector
+//
+//---------------------------------------------------------------------------
 int CTextureManager::LoadTexture(const std::string& fileName, CTexture* pOutTexture)
 {
 	CTexture* pNewTexture = new CTexture;
@@ -94,6 +109,20 @@ int CTextureManager::LoadTexture(const std::string& fileName, CTexture* pOutText
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	LoadTexture()
+//
+//	Params:
+//	fileName	-	texture file location
+//	key			-	colour key used to ID alpha (transparency)
+//	pOutTexture -	return handle of loaded texture
+//
+//	Descrition:
+//	Loads specified texture with alpha key,
+//	returns the stored index position in vector
+//
+//---------------------------------------------------------------------------
 int CTextureManager::LoadTexture(const std::string& fileName, SDL_Color key, CTexture* pOutTexture)
 {
     CTexture* pNewTexture = new CTexture;
@@ -123,6 +152,19 @@ int CTextureManager::LoadTexture(const std::string& fileName, SDL_Color key, CTe
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	SetTextureAnimationFrame()
+//
+//	Params:
+//	texIdx	-	texture index
+//	width	-	width of the animation rectangle
+//	height	-	height of the animation rectangle
+//
+//	Descrition:
+//	Sets the animation rectangle size
+//
+//---------------------------------------------------------------------------
 void CTextureManager::SetTextureAnimationFrame(Uint16 texIdx, Uint16 width, Uint16 height)
 {
 	if (texIdx < m_pTextures.size()) {
@@ -134,6 +176,18 @@ void CTextureManager::SetTextureAnimationFrame(Uint16 texIdx, Uint16 width, Uint
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	AddTotalFrames()
+//
+//	Params:
+//	texIdx		-	texture index
+//	totalFrames	-	total of frames for new animation sequence
+//
+//	Descrition:
+//	Adds data for new animation sequence
+//
+//---------------------------------------------------------------------------
 void CTextureManager::AddTotalFrames(Uint16 texIdx, Uint16 totalFrames)
 {
 	if (texIdx < m_pTextures.size()) {
@@ -142,6 +196,18 @@ void CTextureManager::AddTotalFrames(Uint16 texIdx, Uint16 totalFrames)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetTotalFramesRow()
+//
+//	Params:
+//	texIdx		-	texture index
+//	animRow		-	which animation sequence to query
+//
+//	Descrition:
+//	Returns the total frame of animation for specified animation sequence
+//
+//---------------------------------------------------------------------------
 Uint16 CTextureManager::GetTotalFramesRow(Uint16 texIdx, Uint16 animRow)
 {
 	if (texIdx < m_pTextures.size()) {
@@ -152,6 +218,17 @@ Uint16 CTextureManager::GetTotalFramesRow(Uint16 texIdx, Uint16 animRow)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetTexture()
+//
+//	Params:
+//	texIdx		-	texture index
+//
+//	Descrition:
+//	Returns specified texture
+//
+//---------------------------------------------------------------------------
 CTexture* CTextureManager::GetTexture(Uint16 texIdx)
 {
 	if (texIdx < m_pTextures.size()) {

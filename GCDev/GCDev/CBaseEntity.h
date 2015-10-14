@@ -11,16 +11,17 @@
 #include "GCMath.h"
 
 #include "CGfx.h"
+#include "Utility.h"
 #include "CBreakOut.h"
 
 class CBaseEntity
 {
 public:
-    CBaseEntity() : m_bActive(false), m_spriteID(-1) {}
+	CBaseEntity() : m_bActive(false), m_spriteID(-1), m_loopTick(0) {}
 	~CBaseEntity() {}
 
 	virtual void VUpdate(unsigned int deltaT, CBreakOut* pGame) = 0;
-	virtual void VDraw(unsigned int deltaT, CGfx* pGfx) = 0;
+	virtual void VDraw(unsigned int deltaT, unsigned int updateTickRate,  CGfx* pGfx) = 0;
 	virtual void VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision = nullptr) = 0;
 
     void SetActive(bool bFlag) { m_bActive = bFlag; }
@@ -51,6 +52,8 @@ protected:
 	gcmath::Vec2<int> m_prevPosition;
 	gcmath::Rect<int> m_collisionRect;
     gcmath::Rect<int> m_drawFrame;
+
+	float m_loopTick;	// Used for interpolating drawing
 };
 
 #endif

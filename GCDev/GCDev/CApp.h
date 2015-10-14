@@ -1,7 +1,7 @@
 /*
 	30/07/2015
 
-	Application code
+	Application framework code
 */
 
 #ifndef __CAPP_H__
@@ -14,9 +14,11 @@ class CGfx;
 class CInput;
 class CBreakOut;
 
+
 class CApp
 {
 public:
+	// Game states
 	enum EAppState {
 		ESplashLoad,
 		EMainMenu,
@@ -55,18 +57,19 @@ private:
 	unsigned int m_lastUpdateTick;
 	unsigned int m_tick;
 
+	// Game state
 	EAppState m_state;
 
+	// Menu handling
 	int m_currentOption;
+	int m_menuLastCheck;
 
-	// Main menu texture IDS
+	// Main menu texture IDs
 	int m_breakoutTexID;
 	int m_startTexID;
 	int m_quitTexID;
 	int m_arrowTexID;
 	int m_gameOverTexID;
-
-	int m_menuLastCheck;
 };
 
 

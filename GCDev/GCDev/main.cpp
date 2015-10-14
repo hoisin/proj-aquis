@@ -1,12 +1,9 @@
+/*
+	Main entry
+*/
+
 #include <iostream>
-
-#include "SDL.h"
-#include <stdio.h>
-
 #include "CApp.h"
-#include "GCMath.h"
-
-using namespace gcmath;
 
 int main(int argc, char* argv[])
 {

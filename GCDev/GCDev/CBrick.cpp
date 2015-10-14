@@ -15,7 +15,7 @@ void CBrick::VUpdate(unsigned int deltaT, CBreakOut* pGame)
 }
 
 
-void CBrick::VDraw(unsigned int deltaT, CGfx* pGfx)
+void CBrick::VDraw(unsigned int deltaT, unsigned int updateTickRate,  CGfx* pGfx)
 {
     // Position is to be the center of the entity.
     // Drawing is based on the top left of the texture.

@@ -12,4 +12,10 @@ namespace gcutility
 
 		return sdlRect;
 	}
+
+	// Returns interpolated value between two values
+	float LinearInterpolate(float startVal, float endVal, float interpVal)
+	{
+		return (startVal + ((endVal - startVal) * interpVal));
+	}
 }

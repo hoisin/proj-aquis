@@ -16,7 +16,7 @@ public:
 	~CBrick();
 
 	void VUpdate(unsigned int deltaT, CBreakOut* pGame) override;
-	void VDraw(unsigned int deltaT, CGfx* pGfx) override;
+	void VDraw(unsigned int deltaT, unsigned int updateTickRate,  CGfx* pGfx) override;
 	void VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision = nullptr) override;
 
 private:

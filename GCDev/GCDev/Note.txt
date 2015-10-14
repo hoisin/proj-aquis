@@ -1,0 +1,5 @@
+No sprite classes.
+
+Currently not using any form of animation.
+
+If animation is to be used then creation of a sprite class is necessary.

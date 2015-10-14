@@ -5,8 +5,8 @@
 #include "CGfx.h"
 #include "CInput.h"
 #include "CKeyboard.h"
-#include "CBreakOut.h"
 
+#include "CBreakOut.h"
 #include "CPaddle.h"
 
 
@@ -40,103 +40,85 @@ void CApp::Run()
 
 	while (m_bRun) {
 
+		unsigned int currentTick = SDL_GetTicks();
+
+		// The amount of elapsed time from last update to current
+		unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
+
+		// The amount of elapsed time from last (main)loop to current
+		unsigned int deltaLoopT = currentTick - m_lastLoopTick;
+
 		switch (m_state)
 		{
 		case ESplashLoad:
 			break;
 
 		case EMainMenu:
-			{
-				// Handle events on queue.
-				// Must be called to detect input events
-				while (SDL_PollEvent(&sdlEvent) != 0) {
+			// Handle events on queue.
+			// Must be called to detect input events
+			while (SDL_PollEvent(&sdlEvent) != 0) {
 
-					// User quits
-					if (sdlEvent.type == SDL_QUIT)
-						m_bRun = false;
-				}
-
-				unsigned int currentTick = SDL_GetTicks();
-
-				// The amount of elapsed time from last update to current
-				unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
-
-				// The amount of elapsed time from last loop to current
-				unsigned int deltaLoopT = currentTick - m_lastLoopTick;
-				m_lastLoopTick = currentTick;
-
-				// Check input 
-				m_pInput->Update(deltaLoopT);
-
-				// Update if enough time elapsed
-				if (deltaUpdateT > m_tick) {
-					InputProcess(deltaUpdateT);
-
-					m_lastUpdateTick = currentTick;
-				}
-
-				// Draw
-				Draw(deltaLoopT);
+				// User quits
+				if (sdlEvent.type == SDL_QUIT)
+					m_bRun = false;
 			}
+
+			// Update last loop tick
+			m_lastLoopTick = currentTick;
+
+			// Check input 
+			m_pInput->Update(deltaLoopT);
+
+			// Update if enough time elapsed
+			if (deltaUpdateT > m_tick) {
+				InputProcess(deltaUpdateT);
+
+				// Update last update tick
+				m_lastUpdateTick = currentTick;
+			}
+
+			// Draw
+			Draw(deltaLoopT);
 			break;
 
 		case EGameRun:
-			{
-				// Handle events on queue.
-				// Must be called to detect input events
-				while (SDL_PollEvent(&sdlEvent) != 0) {
+			// Handle events on queue.
+			// Must be called to detect input events
+			while (SDL_PollEvent(&sdlEvent) != 0) {
 
-					// User quits
-					if (sdlEvent.type == SDL_QUIT)
-						m_bRun = false;
-				}
-
-				unsigned int currentTick = SDL_GetTicks();
-
-				// The amount of elapsed time from last update to current
-				unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
-
-				// The amount of elapsed time from last loop to current
-				unsigned int deltaLoopT = currentTick - m_lastLoopTick;
-				m_lastLoopTick = currentTick;
-
-				// Check input 
-				m_pInput->Update(deltaLoopT);
-
-				// Update if enough time elapsed
-				if (deltaUpdateT > m_tick) {
-					InputProcess(deltaUpdateT);
-
-					m_lastUpdateTick = currentTick;
-					Update(deltaUpdateT);
-
-					if (m_pGame->IsClear()) {
-						if (m_pGame->GetCurrentLevel() >= m_pGame->GetMaxLevels())
-							m_state = EGameOver;
-						else
-						{
-							m_pGame->SetLevel(m_pGame->GetCurrentLevel() + 1, 800, 600);
-						}
-					}
-				}
-
-				// Draw
-				Draw(deltaLoopT);
+				// User quits
+				if (sdlEvent.type == SDL_QUIT)
+					m_bRun = false;
 			}
+
+			// Update last loop tick
+			m_lastLoopTick = currentTick;
+
+			// Check input 
+			m_pInput->Update(deltaLoopT);
+
+			// Update if enough time elapsed
+			if (deltaUpdateT > m_tick) {
+				InputProcess(deltaUpdateT);
+
+				// Update last update tick
+				m_lastUpdateTick = currentTick;
+
+				Update(deltaUpdateT);
+			}
+
+			// Draw
+			Draw(deltaLoopT);
 			break;
 
 		case EGameOver:
-			{	
-				unsigned int currentTick = SDL_GetTicks();
-				unsigned int deltaUpdateT = currentTick - m_lastUpdateTick;
-				
-				unsigned int deltaLoopT = currentTick - m_lastLoopTick;
+			// Should change. Currently does nothing (we don't have game over).
+			// Once 5 seconds has passed, change state to main menu
+			if (deltaUpdateT > 5000)
+				m_state = EMainMenu;
 
-				if (deltaUpdateT > 5000)
-					m_state = EMainMenu;
+			Draw(deltaLoopT);
 
-				Draw(deltaLoopT);
-			}
 			break;
 
 		case EShutDown:
@@ -199,6 +181,9 @@ bool CApp::Intitialise(unsigned int updateTick)
 //
 //	Update()
 //
+//	Params:
+//	deltaT - Time since last update tick
+//
 //	Descrition:
 //	Performs updating code
 //
@@ -206,12 +191,25 @@ bool CApp::Intitialise(unsigned int updateTick)
 void CApp::Update(unsigned int deltaT)
 {
 	m_pGame->Update(deltaT);
+
+	// Check for level clear condition or game over
+	if (m_pGame->IsClear()) {
+		if (m_pGame->GetCurrentLevel() >= m_pGame->GetMaxLevels())
+			m_state = EGameOver;
+		else
+		{
+			m_pGame->SetLevel(m_pGame->GetCurrentLevel() + 1, 800, 600);
+		}
+	}
 }
 
 
 //---------------------------------------------------------------------------
 //
 //	Draw()
+//
+//	Params:
+//	deltaT - Time since last main loop (not update tick!)
 //
 //	Descrition:
 //	Performs any drawing required
@@ -275,8 +273,20 @@ void CApp::Draw(unsigned int deltaT)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	InputProcess()
+//
+//	Params:
+//	deltaT - Time since last update tick
+//
+//	Descrition:
+//	Input handler method
+//
+//---------------------------------------------------------------------------
 void CApp::InputProcess(unsigned int deltaT)
 {
+	// Handle input dependant on the game state
 	switch (m_state)
 	{
 	case EMainMenu:

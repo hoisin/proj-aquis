@@ -34,7 +34,6 @@ public:
 
 	void DrawTexture(int texIdx, int posX, int posY);
 	void DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY);
-    void DrawTexture();
 
 	void GetTextureDimensions(int textureID, int& outWidth, int& outHeight);
 	void GetTextureAnimFrameDimensions(int textureID, int& outWidth, int& outHeight);
@@ -55,8 +54,8 @@ private:
 	SDL_Window*				m_pWindow;
 	SDL_Surface*			m_pSurface;
 
-	CTextureManager*		m_pTextureMgr;
-	CTextDraw*				m_pDrawText;
+	CTextureManager*		m_pTextureMgr;		// Texture manager
+	CTextDraw*				m_pDrawText;		// Text drawing handler
 
 	unsigned int			m_winWidth;
 	unsigned int			m_winHeight;
