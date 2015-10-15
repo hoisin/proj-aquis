@@ -47,9 +47,6 @@ public:
 	int GetUpdateTick() { return m_updateTick; }
 
 private:
-	void LoadLevel(CLevel* pLevel);
-
-private:
 	std::map<std::string, std::vector<std::shared_ptr<CBaseEntity>>> m_entities;
     
     int m_brickTextureID;

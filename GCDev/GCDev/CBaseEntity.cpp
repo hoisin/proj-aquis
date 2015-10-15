@@ -8,6 +8,13 @@ void CBaseEntity::SetPositionCentered(const gcmath::Vec2<int>& pos)
 }
 
 
+void CBaseEntity::SetPrevPositionCentered(const gcmath::Vec2<int>& pos)
+{
+	m_prevPosition.x = pos.x - (m_drawFrame.GetWidth<int>() / 2);
+	m_prevPosition.y = pos.y - (m_drawFrame.GetHeight<int>() / 2);
+}
+
+
 gcmath::Vec2<int> CBaseEntity::CalcPosition(const gcmath::Rect<int>& rect)
 {
 	return gcmath::Vec2<int>(rect.left + (rect.GetWidth<int>() / 2),

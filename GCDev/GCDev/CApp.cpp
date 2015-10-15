@@ -152,24 +152,31 @@ bool CApp::Intitialise(unsigned int updateTick)
 	m_pGfx = new CGfx;
 	m_pGfx->Initialise(800, 600, "SDL Window");
 
+	// Load font
+	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
+
+	// Green - 255 is used as transparency for loaded textures
 	SDL_Color col;
 	col.r = 0, col.g = 255, col.b = 0;
 
+	// Load GUI assets
 	m_breakoutTexID = m_pGfx->LoadTexture("..\\Assets\\breakout.bmp", col);
 	m_startTexID = m_pGfx->LoadTexture("..\\Assets\\startOption.bmp", col);
 	m_quitTexID = m_pGfx->LoadTexture("..\\Assets\\quitOption.bmp", col);
 	m_arrowTexID = m_pGfx->LoadTexture("..\\Assets\\arrow.bmp", col);
 	m_gameOverTexID = m_pGfx->LoadTexture("..\\Assets\\gameOver.bmp", col);
 
-	m_pGfx->LoadFont("..\\Assets\\cambria.ttf", 24);
-
+	// Initialise input component
 	m_pInput.reset(new CInput);
 	m_pInput->Initialise(100);
 
+	// Initialise game component
     m_pGame.reset(new CBreakOut);
-    m_pGame->Initialise(m_pGfx);
 
-    m_pGame->SetLevel(3, 800, 600);
+	if (!m_pGame->Initialise(m_pGfx)) {
+		m_state = EShutDown;
+		return false;
+	}
 
 	m_state = EMainMenu;
 
@@ -198,7 +205,11 @@ void CApp::Update(unsigned int deltaT)
 			m_state = EGameOver;
 		else
 		{
+			// Transistion level
 			m_pGame->SetLevel(m_pGame->GetCurrentLevel() + 1, 800, 600);
+
+			// Wait a bit for game to register an update
+			SDL_Delay(200);
 		}
 	}
 }
@@ -236,6 +247,7 @@ void CApp::Draw(unsigned int deltaT)
 		m_pGfx->DrawTexture(m_startTexID, (800 / 2) - (texWidth / 2), (int)(600 * 0.6f));
 		m_pGfx->DrawTexture(m_quitTexID, (800 / 2) - (texWidth / 2), (int)(600 * 0.6f + texHeight));	// Position just below the start option
 
+		// Draw selection arrow on left side of menu options
 		int arrowWidth, arrowHeight;
 		m_pGfx->GetTextureDimensions(m_arrowTexID, arrowWidth, arrowHeight);
 
@@ -260,6 +272,7 @@ void CApp::Draw(unsigned int deltaT)
 	case EGameOver:
 		m_pGfx->BeginDraw(true, 64, 128, 64);
 
+		// Draw game over texture
 		m_pGfx->GetTextureDimensions(m_gameOverTexID, texWidth, texHeight);
 		m_pGfx->DrawTexture(m_gameOverTexID, (800 / 2) - (texWidth / 2), (int)(600 * 0.1f));
 
@@ -305,12 +318,18 @@ void CApp::InputProcess(unsigned int deltaT)
 			}
 
 			if(m_pInput->GetKeyboard()->IsKeyDown(SDLK_RETURN)) {
-				if (m_currentOption == 0)
+				if (m_currentOption == 0) {
+					m_pGame->SetLevel(1, 800, 600);
 					m_state = EGameRun;
+
+					// Wait a bit so update tick occurs on first loop run
+					SDL_Delay(200);
+				}
 				else
 					m_state = EShutDown;
 			}
 
+			// Cap selection value
 			if (m_currentOption < 0)
 				m_currentOption = 1;
 
@@ -322,6 +341,8 @@ void CApp::InputProcess(unsigned int deltaT)
 
 	case EGameRun:
 		{
+			// Could do this a better way...
+			// Prefer not to expose game logic specific code in the application framework
 			auto paddle = (CPaddle*)m_pGame->GetEntity("paddles", 0);
 
 			if (m_pInput->GetKeyboard()->IsKeyHeld(SDLK_LEFT))

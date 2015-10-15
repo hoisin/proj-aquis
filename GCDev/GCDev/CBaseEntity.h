@@ -21,12 +21,14 @@ public:
 	~CBaseEntity() {}
 
 	virtual void VUpdate(unsigned int deltaT, CBreakOut* pGame) = 0;
-	virtual void VDraw(unsigned int deltaT, unsigned int updateTickRate,  CGfx* pGfx) = 0;
+	virtual void VDraw(unsigned int deltaT, unsigned int updateTickRate, CGfx* pGfx) = 0;
 	virtual void VOnCollision(bool bCollided, CBreakOut* pGame, gcmath::Rect<int>* otherCollision = nullptr) = 0;
 
     void SetActive(bool bFlag) { m_bActive = bFlag; }
-	void SetPosition(const gcmath::Vec2<int>& newPos) { m_position = newPos; }			// Top left of graphic
-	void SetPositionCentered(const gcmath::Vec2<int>& newPos);							// Position based on center of graphic
+	void SetPosition(const gcmath::Vec2<int>& newPos) { m_position = newPos; }				// Top left of graphic
+	void SetPrevPosition(const gcmath::Vec2<int>& newPos) { m_prevPosition = newPos; }
+	void SetPositionCentered(const gcmath::Vec2<int>& newPos);								// Position based on center of graphic
+	void SetPrevPositionCentered(const gcmath::Vec2<int>& newPos);							// Position based on center of graphic
 	void SetSpriteID(int spriteID) { m_spriteID = spriteID; }
 	void SetCollisionRect(const gcmath::Rect<int>& newRect) { m_collisionRect = newRect; }
     void SetTextureFrame(const gcmath::Rect<int>& newRect) { m_drawFrame = newRect; }

@@ -67,7 +67,6 @@ bool CBreakOut::Initialise(CGfx* pGfx)
 
     m_entities["paddles"].push_back(paddleObj);
 
-
     // Setup ball 
     // Reusing variables
     SDL_Color transparentKey;
@@ -98,12 +97,33 @@ bool CBreakOut::Initialise(CGfx* pGfx)
 	m_updateTick = 50;
 
 	m_levelMgr.reset(new CLevel);
-	m_levelMgr->LoadLevelData(3);
+	
+	if (!m_levelMgr->LoadLevelData("..\\Assets\\level.dat")) {
+		// Error log please.....
+		return false;
+	}
+
 	
 	return true;
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	SetLevel()
+//
+//	Params:
+//	levelNum		-	Which level to load
+//	screenWidth		-	Width of the screen
+//	screenHeight	-	Height of the screen
+//
+//	Description:
+//	Prepares specified level for play
+//
+//	Don't need pre-caching of objects for this type of game.
+//	Just create each time on every new level
+//
+//---------------------------------------------------------------------------
 void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsigned int screenHeight)
 {
 	// Clear out any existing bricks
@@ -116,11 +136,10 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsign
 		const auto& pBrick = std::shared_ptr<CBaseEntity>(new CBrick);
 
 		pBrick->SetActive(true);
-		pBrick->SetCollisionRect(m_brickDrawFrame);
 		pBrick->SetSpriteID(m_brickTextureID);
+		pBrick->SetCollisionRect(m_brickDrawFrame);
 		pBrick->SetTextureFrame(m_brickDrawFrame);
 		pBrick->SetPosition(brick);
-
 		m_entities["bricks"].push_back(pBrick);
 	}
 
@@ -130,10 +149,23 @@ void CBreakOut::SetLevel(unsigned int levelNum, unsigned int screenWidth, unsign
 	int yVal = (int)(0.85f * screenHeight);
 
 	m_entities["balls"][0]->SetPosition(gcmath::Vec2<int>((int)screenWidth / 8, (int)(screenHeight * 0.45f)));
+	m_entities["balls"][0]->SetPrevPosition(gcmath::Vec2<int>((int)screenWidth / 8, (int)(screenHeight * 0.45f)));
+	m_entities["paddles"][0]->SetPositionCentered(gcmath::Vec2<int>((int)screenWidth / 2, yVal));
 	m_entities["paddles"][0]->SetPositionCentered(gcmath::Vec2<int>((int)screenWidth / 2, yVal));
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Update()
+//
+//	Params:
+//	deltaT		-	Time passed since last update
+//
+//	Description:
+//	Performs game logic update
+//
+//---------------------------------------------------------------------------
 void CBreakOut::Update(unsigned int deltaT)
 {
 	// Update all entities
@@ -145,33 +177,49 @@ void CBreakOut::Update(unsigned int deltaT)
 	}
 
 	// Perform collision detection
-	// Paddle only needs to check against ball.
-	// Ball needs to be checked against all.
+	// Only need to check ball to other entity collisions
 	auto pBall = GetEntity("balls", 0);
 	bool ballCollision = false;
 
-	for (auto pBrick : m_entities["bricks"]) {
-		if (pBrick->IsActive()) {
-			if (pBall->GetWorldCollisionRect().Intersects(pBrick->GetWorldCollisionRect())) {
-				pBall->VOnCollision(true, this, &pBrick->GetWorldCollisionRect());
-				pBrick->VOnCollision(true, this, &pBall->GetWorldCollisionRect());
-				ballCollision = true;
-				break;
-			}
-		}
-	}
-
+	// Check against paddle first
 	auto paddle = m_entities["paddles"][0];
 	if (pBall->GetWorldCollisionRect().Intersects(paddle->GetWorldCollisionRect())) {
 		pBall->VOnCollision(true, this, &paddle->GetWorldCollisionRect());
 		ballCollision = true;
 	}
 
+	// If ball has collided with paddle, don't need to check against bricks (can't collide against both brick and paddle simultaneously)
+	if (!ballCollision) {
+		for (auto pBrick : m_entities["bricks"]) {
+			if (pBrick->IsActive()) {
+				if (pBall->GetWorldCollisionRect().Intersects(pBrick->GetWorldCollisionRect())) {
+					pBall->VOnCollision(true, this, &pBrick->GetWorldCollisionRect());
+					pBrick->VOnCollision(true, this, &pBall->GetWorldCollisionRect());
+					ballCollision = true;
+					break;
+				}
+			}
+		}
+	}
+
+	// If ball not collided with anything, update as normal
 	if (!ballCollision)
 		pBall->VOnCollision(false, this);
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	Draw()
+//
+//	Params:
+//	deltaT	-	Time passed since last update
+//	pGfx	-	Handle to the graphics module
+//
+//	Description:
+//	Draws the game
+//
+//---------------------------------------------------------------------------
 void CBreakOut::Draw(unsigned int deltaT, CGfx* pGfx)
 {
 	// Draw background if required
@@ -188,6 +236,17 @@ void CBreakOut::Draw(unsigned int deltaT, CGfx* pGfx)
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetEntities()
+//
+//	Params:
+//	key	-	key to map
+//
+//	Description:
+//	Returns all entities contained within the specified key in the entity map
+//
+//---------------------------------------------------------------------------
 std::vector<std::shared_ptr<CBaseEntity>>* CBreakOut::GetEntities(const std::string& key)
 {
 	auto found = m_entities.find(key);
@@ -199,6 +258,18 @@ std::vector<std::shared_ptr<CBaseEntity>>* CBreakOut::GetEntities(const std::str
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	GetEntity()
+//
+//	Params:
+//	key		-	key to map
+//	index	-	index in the entity vector
+//
+//	Description:
+//	Returns specific entity
+//
+//---------------------------------------------------------------------------
 CBaseEntity* CBreakOut::GetEntity(const std::string& key, unsigned int index)
 {
 	auto found = m_entities.find(key);
@@ -214,33 +285,31 @@ CBaseEntity* CBreakOut::GetEntity(const std::string& key, unsigned int index)
 }
 
 
-void CBreakOut::LoadLevel(CLevel* pLevel)
-{
-	// Clear out any existing bricks
-	m_entities["bricks"].clear();
-
-    // Grab common properties for the bricks
-	for (const auto& brick : pLevel->m_brickPositions) {
-		const auto& pBrick = std::shared_ptr<CBaseEntity>(new CBrick);
-
-        pBrick->SetActive(true);
-        pBrick->SetCollisionRect(m_brickDrawFrame);
-        pBrick->SetSpriteID(m_brickTextureID);
-        pBrick->SetTextureFrame(m_brickDrawFrame);
-		pBrick->SetPosition(brick);
-
-		m_entities["bricks"].push_back(pBrick);
-	}
-}
-
-
-
+//---------------------------------------------------------------------------
+//
+//	GetMaxLevels()
+//
+//	Description:
+//	Returns the maximum number of levels
+//
+//---------------------------------------------------------------------------
 int CBreakOut::GetMaxLevels()
 {
 	return (int)m_levelMgr->m_bricks.size();
 }
 
 
+//---------------------------------------------------------------------------
+//
+//	SetUpdateTick()
+//
+//	Params:
+//	updateTick	-	time in ms
+//
+//	Description:
+//	Stores the game update frequency. Used for interpolation.
+//
+//---------------------------------------------------------------------------
 void CBreakOut::SetUpdateTick(int updateTick)
 {
 	m_updateTick = updateTick;
