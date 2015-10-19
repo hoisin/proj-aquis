@@ -4,7 +4,7 @@
 //
 //	Class which holds all information on a material
 //
-//	Author: SeaFooD © 2015
+//	Author: Matt © 2015
 //
 //--------------------------------------------------------------------------
 

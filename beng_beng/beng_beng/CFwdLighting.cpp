@@ -29,6 +29,7 @@ bool CFwdLighting::VInit()
 
 	m_projViewMatLoc = GetUniformLocation("projViewMatrix");
 	m_worldMatLoc = GetUniformLocation("worldMatrix");
+	m_invWorldMatLoc = GetUniformLocation("invWorldMat");
 	m_diffuseTexSamplerLoc = GetUniformLocation("diffuseTextureSampler");
 
 	if (m_projViewMatLoc < 0 || m_worldMatLoc < 0 || m_diffuseTexSamplerLoc < 0)

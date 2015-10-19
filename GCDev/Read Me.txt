@@ -4,3 +4,4 @@ A breakout game clone with 3 levels.
 
 Basic implementation using SDL library.
 
+Still expanding and refining, core protoype in place

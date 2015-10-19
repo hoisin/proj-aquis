@@ -4,7 +4,7 @@
 //
 //	Main interface class for graphics
 //
-//	Author: SeaFooD © 2014
+//	Author: Matt © 2014
 //
 //--------------------------------------------------------------------------
 
@@ -73,7 +73,8 @@ protected:
 	CSceneLoader*	m_pSceneLoader;
 	CMaterialManager* m_pMaterialMgr;
 
-	int m_winWidth, m_winHeight;
+	int m_winWidth;
+	int m_winHeight;
 
 	bool m_bDeferred;
 

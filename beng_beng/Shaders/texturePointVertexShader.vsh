@@ -19,6 +19,6 @@ void main()
 {
 	gl_Position = projViewMatrix * worldMatrix * vec4(vertexPosition_modelspace, 1.0);
 	pos = worldMatrix * vec4(vertexPosition_modelspace, 1.0);
-	norm = normalize(worldMatrix * vec4(vertexNormal, 0.0)).xyz;
+	norm = normalize(invWorldMat * vec4(vertexNormal, 0.0)).xyz;
 	UV = vertexUV;
 }

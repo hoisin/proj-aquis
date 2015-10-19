@@ -14,7 +14,7 @@ CSceneLoader::~CSceneLoader(void)
 {
 }
 
-
+// Currently not used
 bool CSceneLoader::LoadScene(const std::string& fileName, CMeshDataManager* pMeshMgr,
 	CTextureManager* pTextureMgr, CMaterialManager* pMaterialMgr)
 {

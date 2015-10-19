@@ -440,7 +440,6 @@ void COpenGL::RenderBuffer(CVertexBuffer* pVertBuffer, CIndexBuffer* pIndexBuffe
 //	associated with OpenGL control
 //
 //------------------------------------------------------------------
-
 void COpenGL::MakeCurrent()
 {
 	wglMakeCurrent(m_hDC, m_hRC);

@@ -20,9 +20,6 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{76bb596d-1812-4727-8535-e8cdb6f3e200}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{531e27c5-890a-4c51-bf93-c7bd9ce251cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphics\Geometry">
       <UniqueIdentifier>{8b607665-26aa-4de7-ba29-6586857d4591}</UniqueIdentifier>
     </Filter>

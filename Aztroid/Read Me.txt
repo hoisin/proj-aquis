@@ -2,5 +2,7 @@ Aztroid
 ------------
 A to be sort of Asteroid clone game.
 
+In early development...
+
 Implementation using SDL library.
 

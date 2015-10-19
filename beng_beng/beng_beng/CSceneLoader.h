@@ -8,7 +8,7 @@
 //	To Do: Extend capabilities to other file formats.
 //		Current working with .obj files only
 //	
-//	Author: SeaFooD © 2015
+//	Author: Matt © 2015
 //
 //--------------------------------------------------------------------------
 

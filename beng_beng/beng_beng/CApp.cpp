@@ -1,9 +1,10 @@
 #include <sstream>
 #include "CApp.h"
 
-// test
+// Test camera
 #include "CCameraFPS.h"
 
+// Test variables
 float g_movAmt = 10.f;
 float g_rotAmt = 0.3f;
 

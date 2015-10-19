@@ -3,4 +3,4 @@ Code Dump
 
 D3D renderer (old).
 
-To remove and replace with new project
+To remove and replace with new project DirectX 12 simple renderer

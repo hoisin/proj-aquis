@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "beng_beng", "beng_beng\beng_beng.vcxproj", "{C9E6950E-1955-4AB7-ABC9-CB480BE3614B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stuff", "stuff\stuff.vcxproj", "{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +21,6 @@ Global
 		{C9E6950E-1955-4AB7-ABC9-CB480BE3614B}.Release|Win32.Build.0 = Release|Win32
 		{C9E6950E-1955-4AB7-ABC9-CB480BE3614B}.Release|x64.ActiveCfg = Release|x64
 		{C9E6950E-1955-4AB7-ABC9-CB480BE3614B}.Release|x64.Build.0 = Release|x64
-		{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}.Debug|Win32.Build.0 = Debug|Win32
-		{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}.Debug|x64.ActiveCfg = Debug|Win32
-		{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}.Release|Win32.ActiveCfg = Release|Win32
-		{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}.Release|Win32.Build.0 = Release|Win32
-		{73B6942F-1D7D-4D6B-B1CE-12F855BBE74A}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
