@@ -6,7 +6,7 @@
 //
 //	This class should handle OpenGL specific setup & call related to drawing.
 //
-//	Author: SeaFooD © 2014
+//	Author: Matt © 2014
 //
 //--------------------------------------------------------------------------
 
@@ -76,10 +76,12 @@ public:
 	static void RegisterOpenGLClass(HINSTANCE hInstance, WNDPROC funcCallback);
 	static void UnregisterOpenGLClass(HINSTANCE hInstance);
 
+	// Shader operations
 	void SetCurrentShader(CShader* pNewShader);
 	void SetShaderParam(EShaderParamType type, char* paramID, void* pData, UINT count = 1, bool bTranspose = false);
 	CShader* GetCurrentShader() { return m_pRefCurrentShader; }
 
+	// Deferred rendering operations
 	void BindGBufferWriting(bool bVal);
 	void BindGBufferReading();
 	void UnbindGBufferingReading();
@@ -105,12 +107,13 @@ private:
 	HGLRC m_hRC;
 	static bool m_bClassRegistered;
 	static bool m_bGlewInitialised;
-	int m_iMajorVer, m_iMinorVer;
-
-	CShader* m_pRefCurrentShader;			// A reference, do not handle cleanup here
+	int m_iMajorVer;
+	int m_iMinorVer;
 
 	int m_winWidth;
 	int m_winHeight;
+
+	CShader* m_pRefCurrentShader;			// A reference, do not handle cleanup here
 
 	// Deferred rendering variables
 	GLuint m_fbo;			// Frame buffer object

@@ -10,7 +10,7 @@
 //	These will be positioned correctly in local space so when transformed,
 //		they will be properly placed in world space.
 //
-//	Author: SeaFooD © 2014
+//	Author: Matt © 2014
 //
 //--------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
 #include <vector>
 #include <glm\glm.hpp>
 
-class CSubMesh;		// to be changed to CSubMesh
+class CSubMesh;	
 
 class CMesh
 {

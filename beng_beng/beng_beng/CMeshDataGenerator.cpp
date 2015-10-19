@@ -40,7 +40,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 	{
 	case eVertexPC:
 		/*
-		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
+		Used a simple approach for creating a triangle.
 		Think of placing the triangle in a square. Thats how the points are positioned.
 		     1
 		     * 
@@ -79,7 +79,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 
 	case eVertexPT:
 		/*
-		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
+		Used a simple approach for creating a triangle.
 		Think of placing the triangle in a square. Thats how the points are positioned.
 		     1
 		     * 
@@ -115,7 +115,7 @@ MeshData* CMeshDataGenerator::CreateTriangle(const std::string &geometryID, floa
 
 	case eVertexPNC:
 		/*
-		Used a simple approach for creating a triangle, therefore will probably not be equilateral.
+		Used a simple approach for creating a triangle.
 		Think of placing the triangle in a square. Thats how the points are positioned.
 		     1
 	     	 * 

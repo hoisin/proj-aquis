@@ -1,0 +1,6 @@
+Code Dump
+===============
+
+D3D renderer (old).
+
+To remove and replace with new project

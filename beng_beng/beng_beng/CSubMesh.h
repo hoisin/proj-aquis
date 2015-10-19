@@ -9,7 +9,7 @@
 //	- Shader
 //	- Texture (Possibly)
 //
-//	Author: SeaFooD © 2014
+//	Author: Matt © 2014
 //
 //	Note: this class to be modified to be CSubsetMesh.
 //
@@ -29,14 +29,11 @@ public:
 	~CSubMesh();
 
 public:
-	std::string m_meshID;
-	std::string m_vertexID;
-	std::string m_indexID;
-	std::string m_shaderID;
-	std::string m_textureID;
-	
-	// Temporary only, for testing
-	glm::vec3 pos;
+	std::string m_meshID;		// Mesh geometry data (MeshData)
+	std::string m_vertexID;		// Loaded vertex data
+	std::string m_indexID;		// Loaded index data
+	std::string m_shaderID;		// Shader ID (may be included in material)
+	std::string m_textureID;	// Texture to use (swap to material ID)
 };
 
 #endif

@@ -5,7 +5,7 @@
 //	Numerous graphics definitions.
 //	Using 3rd party math library GLM
 //
-//	Author: SeaFooD © 2014
+//	Author: Matt © 2014
 //
 //--------------------------------------------------------------------------
 
@@ -17,18 +17,22 @@
 #include <vector>
 
 /*
-==============================================
+======================================================================
 	Vertex Structs
-==============================================
+======================================================================
 */
+
 enum EVertexType
 {
 	eVertexPC,		// Position & colour
 	eVertexPT,		// Position & texture coordinate
 	eVertexPNC,		// Position, normal & colour
 	eVertexPNT,		// Position, normal & texture coordinate 
+	eVertexPNBC,	// Position, normal, bi-tangent, colour
 	eVertexPNBT,	// Position, normal, bi-tangent, texture coordinate
+	eVertexPNTC,	// Position, normal, tangent, colour
 	eVertexPNTT,	// Position, normal, tangent, texture coordinate
+	eVertexPNBTC,	// Position, normal, tangent, bi-tangent, colour
 	eVertexPNBTT,	// Position, normal, tangent, bi-tangent, texture coordinate
 	eVertTypeCount
 };
@@ -72,12 +76,12 @@ struct SVertexTypePNT : public SVertexType
 };
 
 
-struct SVertexTypePNBT : public SVertexType
+struct SVertexTypePNTC : public SVertexType
 {
 	glm::vec3 position;
 	glm::vec3 normal;
-	glm::vec3 biTangent;
-	glm::vec2 textureCoord;
+	glm::vec3 tangent;
+	glm::vec3 colour;
 };
 
 
@@ -87,6 +91,16 @@ struct SVertexTypePNTT : public SVertexType
 	glm::vec3 normal;
 	glm::vec3 tangent;
 	glm::vec2 textureCoord;
+};
+
+
+struct SVertexTypePNBTC : public SVertexType
+{
+	glm::vec3 position;
+	glm::vec3 normal;
+	glm::vec3 biTangent;
+	glm::vec3 tangent;
+	glm::vec3 colour;
 };
 
 
@@ -121,12 +135,16 @@ inline int GetSizeOfVertexType(EVertexType type)
 		return sizeof(SVertexTypePNT);
 		break;
 
-	case eVertexPNBT:
-		return sizeof(SVertexTypePNBT);
+	case eVertexPNTC:
+		return sizeof(SVertexTypePNTC);
 		break;
 
 	case eVertexPNTT:
 		return sizeof(SVertexTypePNTT);
+		break;
+
+	case eVertexPNBTC:
+		return sizeof(SVertexTypePNBTC);
 		break;
 
 	case eVertexPNBTT:
@@ -143,9 +161,9 @@ inline int GetSizeOfVertexType(EVertexType type)
 
 
 /*
-==============================================
+======================================================================
 	Matrix stack
-==============================================
+======================================================================
 */
 
 class CMatrixStack
@@ -187,9 +205,9 @@ public:
 
 
 /*
-==============================================
+======================================================================
 	Mesh Data
-==============================================
+======================================================================
 */
 
 struct MeshData
@@ -209,7 +227,7 @@ struct MeshData
 		vertexType = vertType;
 
 		// Create vertex array depending on type
-		switch(vertType)
+		switch (vertType)
 		{
 		case eVertexPC:
 			pVertices = new SVertexTypePC[vertCount];
@@ -227,12 +245,16 @@ struct MeshData
 			pVertices = new SVertexTypePNT[vertCount];
 			break;
 
-		case eVertexPNBT:
-			pVertices = new SVertexTypePNBT[vertCount];
+		case eVertexPNTC:
+			pVertices = new SVertexTypePNTC[vertCount];
 			break;
 
 		case eVertexPNTT:
 			pVertices = new SVertexTypePNTT[vertCount];
+			break;
+
+		case eVertexPNBTC:
+			pVertices = new SVertexTypePNBTC[vertCount];
 			break;
 
 		case eVertexPNBTT:
@@ -269,9 +291,9 @@ struct MeshData
 
 
 /*
-==============================================
+======================================================================
 	Light types
-==============================================
+======================================================================
 */
 
 enum ELightType
@@ -286,9 +308,9 @@ enum ELightType
 
 
 /*
-==============================================
+======================================================================
 	Texture Formats
-==============================================
+======================================================================
 */
 
 enum ETextureFormat

@@ -1,0 +1,6 @@
+Aztroid
+------------
+A to be sort of Asteroid clone game.
+
+Implementation using SDL library.
+

@@ -44,7 +44,7 @@ public:
 	bool RenderScene();
 
 	void RenderForward();
-	void RenderDeferred();
+	void RenderDeferred();	// Not used yet...
 
 	void ShutDown();
 

@@ -4,7 +4,7 @@
 //
 //	Class managing application framework code (no console window)
 //
-//	Author: SeaFooD © 2014
+//	Author: Matt © 2014
 //
 //--------------------------------------------------------------------------
 

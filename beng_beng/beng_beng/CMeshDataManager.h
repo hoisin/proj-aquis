@@ -5,7 +5,7 @@
 //	Just manages the created mesh data (RAM/CPU data).
 //	Include the geometry generator here for now. May make it seperate later.
 //
-//	Author: SeaFooD © 2015
+//	Author: Matt © 2015
 //
 //--------------------------------------------------------------------------
 
