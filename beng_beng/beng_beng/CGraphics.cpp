@@ -17,8 +17,6 @@
 #include "CCameraFPS.h"
 #include "CSubMesh.h"
 #include "CMesh.h"
-#include "CLight.h"
-
 #include "CMeshDataManager.h"
 #include "CBufferManager.h"
 #include "CTextureManager.h"
@@ -27,6 +25,8 @@
 #include "CSceneLoader.h"
 #include "CMaterialManager.h"
 #include "CMaterial.h"
+
+#include "CDebugLog.h"
 
 #include <sstream>
 #include <fstream>
@@ -88,8 +88,10 @@ bool CGraphics::Initialise(HINSTANCE hInstance, HWND* hwnd, int majorVer, int mi
 		m_pOpenGL = new COpenGL;
 	
 	if (!m_pOpenGL->InitOpenGL(hInstance, hwnd, majorVer, minorVer, m_winWidth,
-		m_winHeight, funcCallback))
+		m_winHeight, funcCallback)) {
+		CDEBUGLOG->WriteError("Failed to initialise COpenGL object");
 		return false;
+	}
 
 	glViewport(0, 0, windowWidth, windowHeight);
 
@@ -183,9 +185,8 @@ void CGraphics::RenderForward()
 			world = glm::translate(glm::mat4(1.0), pCurrentMesh->GetPos());
 
 			glm::mat4 invWorld;
-			invWorld = glm::transpose(glm::inverse(pCam->GetViewMatrix() * world));
+			invWorld = glm::transpose(glm::inverse(world));
 			
-
 			glm::mat4 vpMat = pCam->GetProjectionMatrix() * pCam->GetViewMatrix();
 			pCurrentShader->SetProjViewMatrix(vpMat);
 			pCurrentShader->SetWorldMatrix(world);
@@ -359,7 +360,6 @@ void CGraphics::LoadScene()
 
 		// Manually specified texture ID (temporary only!!!)
 		// Doing this at the moment as we know we only have 1 sub mesh in each mesh only
-		//if (it->first.find("mySphere") != std::string::npos) {
 		if (it->first.find("myPlane") == std::string::npos) {
 			int xPos = (rand() % 250) - 125;
 			int yPos = 50;

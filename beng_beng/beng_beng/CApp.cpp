@@ -1,5 +1,7 @@
-#include <sstream>
 #include "CApp.h"
+
+#include <sstream>
+#include "CDebugLog.h"
 
 // Test camera
 #include "CCameraFPS.h"
@@ -33,11 +35,15 @@ CApp::~CApp()
 //------------------------------------------------------------------
 bool CApp::InitialiseApp(const std::string &appName)
 {
+	// Instance of debug logger
+	CDEBUGLOG->Initialise("debug_log.txt");
+
 	m_sAppName = appName;
 	m_hMutex = CreateMutex(NULL, 1, m_sAppName.c_str());
 
 	// Don't allow to run multiple instances
 	if(GetLastError() == ERROR_ALREADY_EXISTS) {
+		CDEBUGLOG->WriteError("Multiple instances detected");
 		MessageBox(NULL, "Application already running!", "Multiple Instances Found", MB_ICONINFORMATION | MB_OK);
 		return false;
 	}
@@ -80,6 +86,7 @@ void CApp::RegisterAppClass(HINSTANCE hAppInstance)
 
 	// Register Class
 	if(!RegisterClassEx(&wcex)) {
+		CDEBUGLOG->WriteError("Failed to register window");
 		throw std::runtime_error("Failed to register window");
 	}
 }
@@ -125,6 +132,7 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 	MoveWindow(m_hWnd,rWindow.left, rWindow.top, windowWidth + ptDiff.x, windowHeight + ptDiff.y, TRUE);
 
 	if(m_hWnd == 0) {
+		CDEBUGLOG->WriteError("Failed to create window");
 		throw std::runtime_error("Failed to create window");
 		return FALSE;
 	}
@@ -137,8 +145,10 @@ bool CApp::CreateAppWindow(const std::string &windowTitle, UINT windowWidth, UIN
 	UpdateWindow(m_hWnd);
 
 	// Run initialisation, if fail quit the application
-	if(!OnInitialise(windowWidth, windowHeight))
+	if (!OnInitialise(windowWidth, windowHeight)) {
+		CDEBUGLOG->WriteError("Failed to initialise" + windowTitle);
 		m_bRun = false;
+	}
 
 	return true;
 }
@@ -185,7 +195,6 @@ void CApp::AppRun()
 				Sleep(200); // Do not consume processor power if application isn't active
 			}
 		}
-
 	}
 }
 
@@ -199,6 +208,9 @@ void CApp::AppRun()
 //------------------------------------------------------------------
 void CApp::ShutDown()
 {
+	// Free debug logger
+	CDEBUGLOG->Release();
+
 	if(m_pGfx) {
 		delete m_pGfx;
 		m_pGfx = NULL;
@@ -233,8 +245,10 @@ HINSTANCE CApp::GetInstance()
 //------------------------------------------------------------------
 LRESULT CALLBACK CApp::MsgHandlerMain(HWND hWnd, UINT uiMsg, WPARAM wParam, LPARAM lParam)
 {
-	if(hWnd == NULL)
+	if (hWnd == NULL) {
+		CDEBUGLOG->WriteError("Invalid window handle in message callback");
 		throw std::runtime_error("Invalid window handle");
+	}
 
 	// Retrieve a pointer to the D3D9Application object
 	CApp* app = (CApp*)GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -271,8 +285,10 @@ bool CApp::OnInitialise(UINT windowWidth, UINT windowHeight)
 		m_pGfx = new CGraphics;
 	}
 
-	if(!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, windowWidth, windowHeight, MsgHandlerMain))
+	if (!m_pGfx->Initialise(m_hInstance, &m_hWnd, 3, 1, windowWidth, windowHeight, MsgHandlerMain)) {
+		CDEBUGLOG->WriteError("Failed to initialise graphics component");
 		return false;
+	}
 
 	m_pGfx->LoadScene();
 

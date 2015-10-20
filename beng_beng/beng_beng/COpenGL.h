@@ -81,7 +81,7 @@ public:
 	void SetShaderParam(EShaderParamType type, char* paramID, void* pData, UINT count = 1, bool bTranspose = false);
 	CShader* GetCurrentShader() { return m_pRefCurrentShader; }
 
-	// Deferred rendering operations
+	// Deferred rendering operations (not yet available...)
 	void BindGBufferWriting(bool bVal);
 	void BindGBufferReading();
 	void UnbindGBufferingReading();

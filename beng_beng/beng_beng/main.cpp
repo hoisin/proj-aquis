@@ -9,7 +9,6 @@
 #include <Windows.h>
 #include "CApp.h"
 
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR sCmdLine, int iShow)
 {
 	//memory leak detection

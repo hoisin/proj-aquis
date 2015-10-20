@@ -4,7 +4,7 @@
 //
 //	Light manager
 //
-//	Author: SeaFooD © 2015
+//	Author: Matt © 2015
 //
 //--------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@
 
 #include "GfxDefs.h"
 
-#include <map>
+#include <vector>
 
 class CLight;
 
@@ -23,14 +23,27 @@ public:
 	CLightManager(void);
 	~CLightManager(void);
 
-	bool CreateDirectionalLight(const glm::vec3 &pos, float intensity,
-		float attenuation, const glm::vec3& col = glm::vec3(1, 1, 1));
+	bool CreateLight(ELightType type, const glm::vec3& colour, float intensity,
+		const glm::vec3& direction = glm::vec3(0, 0, 0), const glm::vec3& position = glm::vec3(0, 0, 0),
+		float attenuation = 0.f, float coneAngle = 0.f);
 
-	bool CreatePointLight();
-	bool CreateSpotLigh();
+	bool CreateAmbientLight(const glm::vec3& colour, float intensity);
+	bool CreateDirectionalLight(const glm::vec3& colour, float intensity, const glm::vec3& direction);
+	bool CreatePointLight(const glm::vec3& colour, float intensity, const glm::vec3& position, float attenuation);
+	bool CreateSpotLight(const glm::vec3& colour, float intensity, const glm::vec3& position,
+		float attenuation, float coneAngle, float coneAttenuation);
 
 private:
-	std::map<std::string, CLight*> m_mpLights;
+	std::vector<SLight*> m_vLights;
+	
+	bool m_bAmbLight;			// Checks if we already have an ambient light created
+	int m_maxDirLights;			// Supported capacity of each light type
+	int m_maxPointLights;
+	int m_maxSpotLights;
+
+	int m_dirLightCount;		// Keep track of lights
+	int m_pointLightCount;
+	int m_spotLightCount;
 };
 
 #endif

@@ -148,11 +148,11 @@
     <ClCompile Include="CBufferManager.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCameraFPS.cpp" />
+    <ClCompile Include="CDebugLog.cpp" />
     <ClCompile Include="CFwdLighting.cpp" />
     <ClCompile Include="CGBuffer.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
-    <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CLightManager.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMaterialManager.cpp" />
@@ -187,11 +187,11 @@
     <ClInclude Include="CBufferManager.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCameraFPS.h" />
+    <ClInclude Include="CDebugLog.h" />
     <ClInclude Include="CFwdLighting.h" />
     <ClInclude Include="CGBuffer.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CIndexBuffer.h" />
-    <ClInclude Include="CLight.h" />
     <ClInclude Include="CLightManager.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMaterialManager.h" />

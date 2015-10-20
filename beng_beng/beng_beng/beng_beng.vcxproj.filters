@@ -118,9 +118,6 @@
     <ClCompile Include="CCameraFPS.cpp">
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CLight.cpp">
-      <Filter>Graphics\Lights</Filter>
-    </ClCompile>
     <ClCompile Include="CMesh.cpp">
       <Filter>Graphics\Model/Mesh</Filter>
     </ClCompile>
@@ -174,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="CFwdLighting.cpp">
       <Filter>Graphics\OpenGL\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CDebugLog.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +252,6 @@
     <ClInclude Include="CCameraFPS.h">
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CLight.h">
-      <Filter>Graphics\Lights</Filter>
-    </ClInclude>
     <ClInclude Include="CMesh.h">
       <Filter>Graphics\Model/Mesh</Filter>
     </ClInclude>
@@ -314,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="CFwdLighting.h">
       <Filter>Graphics\OpenGL\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CDebugLog.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

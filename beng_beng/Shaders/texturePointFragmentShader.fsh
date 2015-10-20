@@ -21,7 +21,7 @@ void main()
 	// Hard coded number is the attenuation value you would pass into the shader
 	float atten = clamp((300 - length) / 300, 0, 1);
 	
-	float lamb = max(dot(lightDir, normal), 0.0) * atten;
+	float lamb = max(dot(normal, lightDir), 0.0) * atten;
 	
 	vec3 colour = vec3(0.1,0,0) + lamb * texture( diffuseTextureSampler, UV ).rgb;
 	

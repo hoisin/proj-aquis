@@ -51,13 +51,16 @@ public:
 
 private:
 	HINSTANCE m_hInstance;
-	std::string m_sAppName, m_windowName;
 	HANDLE m_hMutex;
+
+	std::string m_sAppName;
+	std::string m_windowName;
 
 	CGraphics *m_pGfx;
 
 	CTimer m_timer;	
-	bool m_bAppActive, m_bRun;
+	bool m_bAppActive;
+	bool m_bRun;
 
 	// Testing
 	std::string myGraphicActorID;

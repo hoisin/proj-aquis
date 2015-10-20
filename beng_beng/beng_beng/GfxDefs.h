@@ -28,8 +28,6 @@ enum EVertexType
 	eVertexPT,		// Position & texture coordinate
 	eVertexPNC,		// Position, normal & colour
 	eVertexPNT,		// Position, normal & texture coordinate 
-	eVertexPNBC,	// Position, normal, bi-tangent, colour
-	eVertexPNBT,	// Position, normal, bi-tangent, texture coordinate
 	eVertexPNTC,	// Position, normal, tangent, colour
 	eVertexPNTT,	// Position, normal, tangent, texture coordinate
 	eVertexPNBTC,	// Position, normal, tangent, bi-tangent, colour
@@ -283,8 +281,8 @@ struct MeshData
 		if(pVertices)
 			delete [] pVertices;
 
-		pIndices = NULL;
-		pVertices = NULL;
+		pIndices = nullptr;
+		pVertices = nullptr;
 	}
 };
 
@@ -304,6 +302,31 @@ enum ELightType
 	eLightPoint,
 	eLightSpot,
 	eTotalLights
+};
+
+
+struct SLight
+{
+	ELightType		type;
+	glm::vec3		colour;
+	glm::vec3		direction;
+	glm::vec3		position;
+	float			intensity;
+	float			attenuation;
+	float			coneAngle;
+	float			coneAttenuation;
+
+	SLight()
+	{
+		type = ELightType::eLightNone;
+		colour = glm::vec3(0, 0, 0);
+		direction = glm::vec3(0, 0, 0);
+		position = glm::vec3(0, 0, 0);
+		intensity = 0;
+		attenuation = 0;
+		coneAngle = 0;
+		coneAttenuation = 0;
+	}
 };
 
 
