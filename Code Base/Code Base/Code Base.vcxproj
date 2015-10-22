@@ -82,11 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBCircle.h" />
-    <ClInclude Include="CBLinkedList.h" />
     <ClInclude Include="CBMath.h" />
     <ClInclude Include="CBVec2.h" />
     <ClInclude Include="CBVec3.h" />
     <ClInclude Include="CBRect.h" />
+    <ClInclude Include="CMemAllocator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

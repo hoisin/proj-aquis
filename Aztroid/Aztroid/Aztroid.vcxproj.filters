@@ -68,11 +68,11 @@
     <ClCompile Include="CAsteroid.cpp">
       <Filter>Aztroid\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="CObjectFactory.cpp">
-      <Filter>Aztroid</Filter>
-    </ClCompile>
     <ClCompile Include="CObject.cpp">
       <Filter>Aztroid\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjectManager.cpp">
+      <Filter>Aztroid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +118,7 @@
     <ClInclude Include="CAsteroid.h">
       <Filter>Aztroid\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CObjectFactory.h">
+    <ClInclude Include="CObjectManager.h">
       <Filter>Aztroid</Filter>
     </ClInclude>
   </ItemGroup>

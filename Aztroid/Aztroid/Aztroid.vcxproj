@@ -93,7 +93,7 @@
     <ClCompile Include="CKeyboard.cpp" />
     <ClCompile Include="CMouse.cpp" />
     <ClCompile Include="CObject.cpp" />
-    <ClCompile Include="CObjectFactory.cpp" />
+    <ClCompile Include="CObjectManager.cpp" />
     <ClCompile Include="CShip.cpp" />
     <ClCompile Include="CTextDraw.cpp" />
     <ClCompile Include="CTextureManager.cpp" />
@@ -110,7 +110,7 @@
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CKeyboard.h" />
     <ClInclude Include="CMouse.h" />
-    <ClInclude Include="CObjectFactory.h" />
+    <ClInclude Include="CObjectManager.h" />
     <ClInclude Include="CShip.h" />
     <ClInclude Include="CTextDraw.h" />
     <ClInclude Include="CTextureManager.h" />

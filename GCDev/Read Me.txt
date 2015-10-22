@@ -2,6 +2,8 @@ GCDev
 ------------
 A breakout game clone with 3 levels.
 
+Object Oriented Design
+
 Basic implementation using SDL library.
 
 Still expanding and refining, core protoype in place
