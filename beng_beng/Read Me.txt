@@ -1,6 +1,0 @@
-beng_beng
--------------
-
-A OpenGL renderer.
-
-Uses GLM math library
