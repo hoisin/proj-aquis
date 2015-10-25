@@ -86,7 +86,8 @@ void CShip::VDraw(float deltaT, CGfx* pGfx, int updateTick)
 	interp.y = gcutility::LinearInterpolate(m_prevPos.y, m_pos.y, lerp);
 	interpRot = gcutility::LinearInterpolate(m_prevRotation, m_currentRotation, lerp);
 
-	pGfx->DrawTexture(m_spriteID, (int)interp.x, (int)interp.y, interpRot);
+	pGfx->DrawTexture(m_spriteID, (int)interp.x, (int)interp.y,
+		gcutility::CreateSDLRect(m_cBox), interpRot);
 }
 
 

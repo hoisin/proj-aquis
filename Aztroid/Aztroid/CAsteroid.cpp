@@ -26,7 +26,7 @@ void CAsteroid::VDraw(float deltaT, CGfx* pGfx, int updateTick)
 	interp.x = gcutility::LinearInterpolate(m_prevPos.x, m_pos.x, lerp);
 	interp.y = gcutility::LinearInterpolate(m_prevPos.y, m_pos.y, lerp);
 
-	pGfx->DrawTexture(m_spriteID, (int)interp.x, (int)interp.y);
+	pGfx->DrawTexture(m_spriteID, (int)interp.x, (int)interp.y, gcutility::CreateSDLRect(m_cBox));
 }
 
 

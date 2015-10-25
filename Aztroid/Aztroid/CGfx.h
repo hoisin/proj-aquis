@@ -11,9 +11,21 @@
 
 #include <string>
 #include <SDL.h>
+#include "Utility.h"
 
 class CTextureManager;
 class CTextDraw;
+
+struct SDrawData {
+	int texID;
+	int posX;
+	int posY;
+	int cX;
+	int cY;
+	float rotation;
+	SDL_RendererFlip flip;
+	SDL_Rect frame;
+};
 
 class CGfx
 {
@@ -33,10 +45,11 @@ public:
 	void DrawRect(int posX, int posY, int width, int height, Uint8 r, Uint8 g, Uint8 b);
 	void DrawRect(const SDL_Rect& drawRect, Uint8 r, Uint8 g, Uint8 b);
 
-	void DrawTexture(int texIdx, int posX, int posY, double angleDegree = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE,
+	void DrawTexture(int texIdx, int posX, int posY, const SDL_Rect& drawFrame, 
+		double angleDegree = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE,
 		int centerRotX = 0, int centerRotY = 0);
-	void DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY, double angleDegree = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE,
-		int centerRotX = 0, int centerRotY = 0);
+
+	void BatchDrawTexture(SDrawData* pArrayData, int count);
 
 	void GetTextureDimensions(int textureID, int& outWidth, int& outHeight);
 	void GetTextureAnimFrameDimensions(int textureID, int& outWidth, int& outHeight);

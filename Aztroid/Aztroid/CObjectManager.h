@@ -7,18 +7,15 @@
 #ifndef __COBJECTMANAGER_H__
 #define __COBJECTMANAGER_H__
 
+#include <vector>
 #include "GCMath.h"
+#include "CGfx.h"
 
-
-struct STransform {
-	gcmath::Vec2<float> m_pos;
-	gcmath::Vec2<float> m_prevPos;
-	gcmath::Vec2<float> m_dir;
-	int m_speed;
-};
-
-struct SPhysics {
-	gcmath::Rect<int> m_cBox;		// Collision box
+struct SObjDataTransform {
+	gcmath::Rect<int> m_cBox;		// Stores the collision box and world position of obj
+	gcmath::Vec2<float> m_dir;		// Direction the obj is facing
+	gcmath::Vec2<int> m_prevPos;	// For collision event and graphic interpolation
+	int m_speed;					// Scalar to apply to direction for movement
 };
 
 enum EObjectType
@@ -38,6 +35,11 @@ public:
 	~CObjectManager();
 
 	CObject* CreateObject(EObjectType type);
+
+	int CreateObject(EObjectType type, const SObjDataTransform& pData);
+
+private:
+	std::vector<SDrawData*> m_objGfxData;
 };
 
 

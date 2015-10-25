@@ -114,38 +114,70 @@ void CGfx::DrawRect(const SDL_Rect& drawRect, Uint8 r, Uint8 g, Uint8 b)
 }
 
 
-void CGfx::DrawTexture(int texIdx, int posX, int posY, double angleDegree, SDL_RendererFlip flip,
-	int centerRotX, int centerRotY)
-{
-	SDL_Rect dst; 
-	dst.x = posX;
-	dst.y = posY;
-	dst.w = m_pTextureMgr->GetTexture(texIdx)->width;
-	dst.h = m_pTextureMgr->GetTexture(texIdx)->height;
-
-	SDL_Point point;
-	point.x = (dst.w / 2) + centerRotX;
-	point.y = (dst.h / 2) + centerRotY;
-
-	SDL_RenderCopyEx(m_pMainRenderer, m_pTextureMgr->GetTexture(texIdx)->pSDLTexture, NULL, &dst, angleDegree, &point, flip);
-}
-
-
-void CGfx::DrawTexture(int texIdx, const SDL_Rect& drawFrame, int posX, int posY, double angleDegree, SDL_RendererFlip flip,
+//---------------------------------------------------------------------------
+//
+//	DrawTexture()
+//
+//	Params:
+//	texIdx		-	Texture ID
+//	posX		-	Screen position (x component)
+//	posY		-	Screen position (y component)
+//	drawFrame	-	The area of the texture to draw (default is whole texture)
+//	angleDegree	-	Amount of rotation to rotate rendered texture by
+//	flip		-	Flip horizontally/verticall
+//	centerRotX	-	origin(center) of where we rotate from (x component)
+//	centerRotY	-	origin(center) of where we rotate from (y component)
+//
+//	Descrition:
+//	Draws a texture
+//
+//---------------------------------------------------------------------------
+void CGfx::DrawTexture(int texIdx, int posX, int posY, const SDL_Rect& drawFrame, double angleDegree, SDL_RendererFlip flip,
 	int centerRotX, int centerRotY)
 {
 	SDL_Rect dst;
+	SDL_Point point;
 	dst.x = posX;
 	dst.y = posY;
 	dst.w = drawFrame.w;
 	dst.h = drawFrame.h;
-
-	SDL_Point point;
 	point.x = (dst.w / 2) + centerRotX;
 	point.y = (dst.h / 2) + centerRotY;
 
 	SDL_RenderCopyEx(m_pMainRenderer, m_pTextureMgr->GetTexture(texIdx)->pSDLTexture, &drawFrame, &dst, angleDegree, &point, flip);
 }
+
+
+//---------------------------------------------------------------------------
+//
+//	DrawTexture()
+//
+//	Params:
+//	pArrayData	-	An array of textures to draw
+//	count		-	Number of elements in the array
+//
+//	Descrition:
+//	Batch draws textures
+//
+//---------------------------------------------------------------------------
+void CGfx::BatchDrawTexture(SDrawData *pArrayData, int count)
+{
+	SDL_Rect dst;
+	SDL_Point point;
+
+	for (int ctr = 0; ctr < count; ctr++) {
+		dst.x = pArrayData[ctr].posX;
+		dst.y = pArrayData[ctr].posY;
+		dst.w = pArrayData[ctr].frame.w;
+		dst.h = pArrayData[ctr].frame.h;
+		point.x = (dst.w / 2) + pArrayData[ctr].cX;
+		point.y = (dst.h / 2) + pArrayData[ctr].cY;
+
+		SDL_RenderCopyEx(m_pMainRenderer, m_pTextureMgr->GetTexture(pArrayData[ctr].texID)->pSDLTexture, 
+			&pArrayData[ctr].frame, &dst, pArrayData[ctr].rotation, &point, pArrayData[ctr].flip);
+	}
+}
+
 
 
 void CGfx::GetTextureDimensions(int textureID, int& outWidth, int& outHeight)
@@ -187,7 +219,6 @@ void CGfx::DrawText(const std::string& text, int posX, int posY, const SDL_Color
 
 		SDL_FreeSurface(pTextSurface);
 		SDL_DestroyTexture(pTexture);
-		//SDL_BlitSurface(pTextSurface, NULL, m_pSurface, &dst);
 	}
 }
 

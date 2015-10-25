@@ -42,8 +42,6 @@ private:
 
 	void InputProcess(unsigned int deltaT);
 
-	void GameRun(SDL_Event sdlEvent);
-
 private:
 	bool m_bRun;
 
