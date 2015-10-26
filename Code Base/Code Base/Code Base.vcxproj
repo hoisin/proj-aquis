@@ -78,15 +78,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algorithms.cpp" />
+    <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithms.h" />
     <ClInclude Include="CBCircle.h" />
     <ClInclude Include="CBMath.h" />
     <ClInclude Include="CBVec2.h" />
     <ClInclude Include="CBVec3.h" />
     <ClInclude Include="CBRect.h" />
     <ClInclude Include="CMemAllocator.h" />
+    <ClInclude Include="CTimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

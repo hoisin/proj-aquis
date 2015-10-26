@@ -21,9 +21,18 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{d71625af-efc8-4876-8236-5577a986d8e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Base">
+      <UniqueIdentifier>{f21c8972-e50b-4a44-98cb-27f1c46615a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="algorithms.cpp">
+      <Filter>Code Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +54,12 @@
     </ClInclude>
     <ClInclude Include="CMemAllocator.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="algorithms.h">
+      <Filter>Code Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimer.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
