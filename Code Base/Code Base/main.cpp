@@ -28,12 +28,12 @@ int main(int argc, char* argv[])
 
 	CTimer t2;
 	t2.Start();
-	codebase::Sort_1(data2, arraySize);
+	codebase::Sort_3(data2, arraySize);
 	t2.Stop();
 
 	if (bPrint) {
 		for (int k = 0; k < arraySize; k++)
-			printf("Sorted Element %d contains: %d\n", k, data[k]);
+			printf("Sorted Element %d contains: %d\n", k, data2[k]);
 	}
 
 	printf("Time to run bubble sort: %f\n", t1.Time());

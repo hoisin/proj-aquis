@@ -14,6 +14,7 @@ namespace codebase
 	void BubbleSort(int* pArray, int arraySize);
 	void Sort_1(int* pArray, int arraySize);
 	void Sort_2(int* pArray, int arraySize);
+	void Sort_3(int* pArray, int arraySize);
 }
 
 #endif
