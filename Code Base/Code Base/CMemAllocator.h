@@ -8,8 +8,8 @@ Custom Memory Allocator
 
 */
 
-#ifndef __CMEMALLOCATOR_H__
-#define __CMEMALLOCATOR_H__
+#ifndef CMEMALLOCATOR_H_
+#define CMEMALLOCATOR_H_
 
 
 class CMemAllocator

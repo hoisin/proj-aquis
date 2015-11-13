@@ -6,8 +6,8 @@
 	Template vector 2 class
 */
 
-#ifndef __CBVEC2_H__
-#define __CBVEC2_H__
+#ifndef CBVEC2_H_
+#define CBVEC2_H_
 
 namespace cbmath
 {

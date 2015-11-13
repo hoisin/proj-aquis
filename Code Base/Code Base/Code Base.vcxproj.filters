@@ -18,11 +18,14 @@
     <Filter Include="Math\Shapes">
       <UniqueIdentifier>{b3b8232a-dbe6-457a-ba8a-c4b708ef1910}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Memory">
-      <UniqueIdentifier>{d71625af-efc8-4876-8236-5577a986d8e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code Base">
       <UniqueIdentifier>{f21c8972-e50b-4a44-98cb-27f1c46615a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Struct">
+      <UniqueIdentifier>{0648907b-17c9-4606-b8d3-8a69ecf4a1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Memory">
+      <UniqueIdentifier>{d71625af-efc8-4876-8236-5577a986d8e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +37,12 @@
     </ClCompile>
     <ClCompile Include="CTimer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CStackInt.cpp">
+      <Filter>Data Struct</Filter>
+    </ClCompile>
+    <ClCompile Include="CVectorInt.cpp">
+      <Filter>Data Struct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,13 +62,19 @@
       <Filter>Math\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="CMemAllocator.h">
-      <Filter>Memory</Filter>
+      <Filter>Resource Files\Memory</Filter>
     </ClInclude>
     <ClInclude Include="algorithms.h">
       <Filter>Code Base</Filter>
     </ClInclude>
     <ClInclude Include="CTimer.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CStackInt.h">
+      <Filter>Data Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="CVectorInt.h">
+      <Filter>Data Struct</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,8 +11,8 @@
 */
 
 #pragma once
-#ifndef __CTIMER_H__
-#define __CTIMER_H__
+#ifndef CTIMER_H_
+#define CTIMER_H_
 
 #include <Windows.h>
 

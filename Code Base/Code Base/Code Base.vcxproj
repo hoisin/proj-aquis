@@ -79,7 +79,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algorithms.cpp" />
+    <ClCompile Include="CStackInt.cpp" />
     <ClCompile Include="CTimer.cpp" />
+    <ClCompile Include="CVectorInt.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +92,9 @@
     <ClInclude Include="CBVec3.h" />
     <ClInclude Include="CBRect.h" />
     <ClInclude Include="CMemAllocator.h" />
+    <ClInclude Include="CStackInt.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CVectorInt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

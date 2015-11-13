@@ -7,8 +7,8 @@ Template vector 3 class
 */
 
 
-#ifndef __CBVEC3_H__
-#define __CBVEC3_H__
+#ifndef CBVEC3_H_
+#define CBVEC3_H_
 
 #include "CBVec2.h"
 

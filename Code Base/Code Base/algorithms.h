@@ -2,11 +2,11 @@
 	26/10/2015
 
 	Algorithms
-	*/
+*/
 
 
-#ifndef __ALGORITHMS_H__
-#define __ALGORITHMS_H__
+#ifndef ALGORITHMS_H_
+#define ALGORITHMS_H_
 
 namespace codebase
 {
